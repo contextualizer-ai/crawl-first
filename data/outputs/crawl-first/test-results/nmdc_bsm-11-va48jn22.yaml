@@ -1,0 +1,252 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  collection_date:
+    has_raw_value: "2018-07-02T19:50Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_maximum_numeric_value: 0.3
+    has_minimum_numeric_value: 0
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 1623.8
+  env_broad_scale:
+    term:
+      id: "ENVO:00000446"
+      name: terrestrial biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:01000888"
+      name: area of gramanoid or herbaceous vegetation
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:00001998"
+      name: soil
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  id: "nmdc:bsm-11-va48jn22"
+  name: CPER_003-M-14.5-9.5-20180702
+  ph: 7.05
+  samp_collec_device: auger
+  soil_horizon: M horizon
+  temp:
+    has_numeric_value: 28.2
+    has_unit: Celsius
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  water_content:
+  - 0.036 g of water/g of dry soil
+  geo_loc_name:
+    has_raw_value: "USA: Colorado, Central Plains Experimental Range"
+    type: "nmdc:TextValue"
+  biosample_categories:
+  - NEON
+  lat_lon:
+    latitude: 40.818451
+    longitude: -104.707164
+    type: "nmdc:GeolocationValue"
+  gold_biosample_identifiers: []
+  associated_studies:
+  - "nmdc:sty-11-34xj1150"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Kastanozems
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002240"
+      short_form: ENVO_00002240
+      obo_id: "ENVO:00002240"
+      label: kastanozem
+      description:
+      - "Kastanozems are dry grassland soils, among them the zonal soils of the short-grass\
+        \ steppe belt, south of the Eurasian tall-grass steppe belt with Chernozems.\
+        \ Kastanozems have a similar profile to that of Chernozems but the humus-rich\
+        \ surface horizon is thinner and not as dark as that of the Chernozems and\
+        \ they show more prominent accumulation of secondary carbonates."
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002249"
+      short_form: ENVO_00002249
+      obo_id: "ENVO:00002249"
+      label: phaeozem
+      description:
+      - "Phaeozems accommodate soils of relatively wet grassland and forest regions\
+        \ in moderately continental climates. Phaeozems are much like Chernozems and\
+        \ Kastanozems but are leached more intensively. Consequently, they have dark,\
+        \ humus rich surface horizons that, in comparison with Chernozems and Kastanozems,\
+        \ are less rich in bases. Phaeozems may or may not have secondary carbonates\
+        \ but have a high base saturation in the upper metre of the soil."
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m).
+        system_term: Grasslands
+      UMD:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m).
+        system_term: Grasslands
+      LAI:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Grasslands
+      BGC:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Annual Grass Vegetation
+      PFT:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) that are not cultivated.
+        system_term: Grass
+      LCCS1:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
+        system_term: Dense Herbaceous
+      LCCS2:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m). At least 10% cover.
+        system_term: Natural Herbaceous
+      LCCS3:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
+        system_term: Grasslands
+      QA:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      grassland area:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000106"
+        short_form: ENVO_00000106
+        obo_id: "ENVO:00000106"
+        label: grassland area
+        description:
+        - An area in which grasses (Graminae) are a significant component of the vegetation.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01001206"
+        short_form: ENVO_01001206
+        obo_id: "ENVO:01001206"
+        label: grassland ecosystem
+        description:
+        - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
+          \ and determine the system's structure and dynamics."
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2018-07-02'
+    closest_available_date: '2018-01-01'
+    neighboring_dates:
+    - '2017-01-01'
+    - '2018-01-01'
+    - '2019-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2018-07-02'
+    station:
+      name: Cheyenne F E Warren / Warren Air Force Base
+      country: US
+      region: WY
+      wmo: null
+      icao: KFEW
+      latitude: 41.1333
+      longitude: -104.8672
+      elevation: 1878.0
+      timezone: America/Denver
+      distance: 37498.98263376282
+    measurements:
+      tavg: 20.4
+      tmin: 8.1
+      tmax: 30.4
+      wspd: 2.7
+      pres: 1011.9
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 40.818451
+      longitude: -104.707164
+    elevation:
+      meters: 1623.0
+      feet: 5324.8
+    place_info:
+      coordinates:
+        latitude: 40.818451
+        longitude: -104.707164
+      display_name: "Weld County, Colorado, United States"
+      place_type: administrative
+      address:
+        county: Weld County
+        state: Colorado
+        country: United States
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 0
+        query_coordinates:
+        - 40.818451
+        - -104.707164
+        feature_counts: {}
+      environmental_features: {}
+      nearest_features: []
+    environmental_summary:
+      total_environmental_features: 0
+      water_features_nearby: 0
+      natural_areas_nearby: 0
+      protected_areas_nearby: 0
+      dominant_land_types: []
+      ecological_context: No major environmental features found within 1000m radius
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 40.818451
+        longitude: -104.707164
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/40.818451,-104.707164/@40.818451,-104.707164,15z"
+    elevation_comparison:
+      asserted_elevation_m: 1623.8
+      geospatial_elevation_m: 1623.0
+      difference_m: 0.8
+      description: "Elevation difference: 0.8m between asserted (1623.8m) and geospatial\
+        \ lookup (1623.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-34xj1150"
+    study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_title: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's soil microbial shotgun metagenomics\
+      \ sequencing. Typically, measurements are done on plot-level composite samples\
+      \ and represent up to three randomly selected sampling locations within a plot."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.10107.001"
+    - "https://data.neonscience.org/api/v0/documents/NEON.DOC.014048vO"
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-va48jn22"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

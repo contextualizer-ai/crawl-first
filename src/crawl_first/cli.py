@@ -91,15 +91,21 @@ NoRefsDumper.add_representer(str, str_presenter)
 # Global cache directory
 CACHE_DIR = Path(".cache")
 FULL_TEXT_DIR = Path(".cache/full_text_files")
-LOG_DIR = Path(".logs")
+LOG_DIR = Path(os.getenv("LOG_DIR", ".logs"))
 
 
 class LogCapture:
     """Capture stdout/stderr and redirect to logger."""
 
-    def __init__(self, logger: logging.Logger, level: int = logging.INFO):
+    def __init__(
+        self,
+        logger: logging.Logger,
+        level: int = logging.INFO,
+        prefix: str = "[STDOUT]",
+    ):
         self.logger = logger
         self.level = level
+        self.prefix = prefix
         self._buffer = ""
 
     def write(self, data: Any) -> int:
@@ -115,7 +121,7 @@ class LogCapture:
             lines = data.rstrip("\n\r").split("\n")
             for line in lines:
                 if line.strip():  # Only log non-empty lines
-                    self.logger.log(self.level, f"[STDOUT] {line.strip()}")
+                    self.logger.log(self.level, f"{self.prefix} {line.strip()}")
 
         return len(data)
 
@@ -152,6 +158,11 @@ class OutputManager:
             sys.stderr = self.original_stderr
 
 
+def is_pytest_environment() -> bool:
+    """Check if running in pytest environment."""
+    return "pytest" in sys.modules or "PYTEST_CURRENT_TEST" in os.environ
+
+
 # Global output manager instance
 _output_manager = OutputManager()
 
@@ -184,7 +195,7 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
     simple_formatter = logging.Formatter("%(levelname)s: %(message)s")
 
     # File handler - captures EVERYTHING (our logs + library logs + stdout)
-    log_file = LOG_DIR / f"crawl_first_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+    log_file = LOG_DIR / f"crawl_first_{datetime.now().strftime('%Y%m%d_%H%M')}.log"
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(detailed_formatter)
@@ -220,15 +231,13 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
         lib_logger.setLevel(logging.INFO if verbose else logging.WARNING)
 
     # Capture stdout/stderr if requested and not in testing
-    if capture_output and not (
-        "pytest" in sys.modules or "PYTEST_CURRENT_TEST" in os.environ
-    ):
+    if capture_output and not is_pytest_environment():
         # Store original stdout/stderr using OutputManager
         _output_manager.store_originals()
 
         # Create log capture objects
-        stdout_capture = LogCapture(logger, logging.INFO)
-        stderr_capture = LogCapture(logger, logging.WARNING)
+        stdout_capture = LogCapture(logger, logging.INFO, "[STDOUT]")
+        stderr_capture = LogCapture(logger, logging.WARNING, "[STDERR]")
 
         # Replace stdout/stderr
         sys.stdout = stdout_capture
