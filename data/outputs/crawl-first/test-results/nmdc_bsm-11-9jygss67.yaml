@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-1b246v67"
+  id: "nmdc:bsm-11-9jygss67"
   type: "nmdc:Biosample"
-  name: H14
+  name: MMPRNT11
   associated_studies:
   - "nmdc:sty-11-wbc14h22"
   env_broad_scale:
@@ -27,13 +27,13 @@ asserted:
       name: farm soil
   biosample_categories:
   - BRC
-  samp_name: H14
+  samp_name: MMPRNT11
   agrochem_addition:
   - type: "nmdc:TextValue"
     has_raw_value: Fertilized
   collection_date:
     type: "nmdc:TimestampValue"
-    has_raw_value: '2016-06-27'
+    has_raw_value: '2017-03-27'
   cur_vegetation:
     type: "nmdc:TextValue"
     has_raw_value: Switchgrass
@@ -71,7 +71,7 @@ asserted:
     has_raw_value: 2 mm sieved
   source_mat_id:
     type: "nmdc:TextValue"
-    has_raw_value: "NCBI:19366244"
+    has_raw_value: "NCBI:19406648"
   specific_ecosystem: Bulk soil
   store_cond:
     type: "nmdc:TextValue"
@@ -95,49 +95,49 @@ inferred:
   land_cover_from_asserted_coords:
     land_cover:
       IGBP:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Woody Savannas
       UMD:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Woody Savannas
       LAI:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: savanna
         system_description: "Between 10-60% tree cover (>2m)."
         system_term: Savannas
       BGC:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
           \ Woody vegetation cover >10%."
         system_term: Deciduous Broadleaf Vegetation
       PFT:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
           \ >10%."
         system_term: Deciduous Broadleaf Trees
       LCCS1:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Open Forests
       LCCS2:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 10-60% (canopy >2m)."
         system_term: Open Forests
       LCCS3:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 10-60% (canopy >2m)."
         system_term: Open Forests
       QA:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: Has a classification label and island according to the
           water mask.
@@ -164,19 +164,19 @@ inferred:
         description:
         - A portion of soil which is found in a savanna.
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2016-06-27'
-    closest_available_date: '2016-01-01'
+    target_collection_date: '2017-03-27'
+    closest_available_date: '2017-01-01'
     neighboring_dates:
-    - '2015-01-01'
     - '2016-01-01'
     - '2017-01-01'
+    - '2018-01-01'
   weather_from_asserted_coords:
     coverage: 1.0
     strategy_used: 1
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2016-06-27'
+      date_used: '2017-03-27'
     station:
       name: Battle Creek / Avenue A Mobile Home Estates
       country: US
@@ -189,12 +189,11 @@ inferred:
       timezone: America/Detroit
       distance: 24984.427915304404
     measurements:
-      tavg: 23.8
-      tmin: 17.8
-      tmax: 30.7
-      prcp: 0.0
-      wspd: 5.0
-      pres: 1015.5
+      tavg: 10.7
+      tmin: 8.2
+      tmax: 12.2
+      wspd: 3.5
+      pres: 1012.9
   geospatial_from_asserted_coords:
     coordinates:
       latitude: 42.476365
@@ -335,7 +334,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-1b246v67"
+    biosample_id: "nmdc:bsm-11-9jygss67"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0

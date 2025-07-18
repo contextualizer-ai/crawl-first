@@ -1,40 +1,40 @@
-Based on the available functions in this environment, I have access to these MCP servers and their tools:
+Based on the available tools, I have access to the following MCP servers and their tools:
 
-**OLS (Ontology Lookup Service) MCP:**
+**Ontology Lookup Service (OLS) MCP Server:**
 - `search_all_ontologies` - Search across all ontologies
 - `get_ontology_info` - Get detailed ontology information
-- `get_terms_from_ontology` - Get classes/terms from specific ontology
+- `get_terms_from_ontology` - Get terms from specific ontologies
 
-**Landuse MCP:**
-- `get_land_cover` - Get land use data for lat/lon coordinates
-- `get_soil_type` - Get FAO soil type for coordinates
+**Land Use MCP Server:**
+- `get_land_cover` - Get land use data for coordinates
+- `get_soil_type` - Get FAO soil type for coordinates  
 - `get_landuse_dates` - Get available dates for land use data
 
-**NMDC (National Microbiome Data Collaborative) MCP:**
+**NMDC (National Microbiome Data Collaborative) MCP Server:**
 - `get_collection_names` - List available NMDC collections
 - `get_collection_stats` - Get collection statistics
 - `get_all_collection_ids` - Get document IDs from collections
 - `get_random_collection_ids` - Get random sample of IDs
 - `get_samples_in_elevation_range` - Filter samples by elevation
-- `get_samples_within_lat_lon_bounding_box` - Geographic filtering
-- `get_samples_by_ecosystem` - Filter by ecosystem type
+- `get_samples_within_lat_lon_bounding_box` - Filter samples by coordinates
+- `get_samples_by_ecosystem` - Filter samples by ecosystem
 - `get_entity_by_id` - Retrieve entities by ID
-- `get_entity_by_id_with_projection` - Retrieve with field projection
-- `get_entities_by_ids_with_projection` - Bulk retrieval with projection
-- `get_study_for_biosample` - Get study associated with biosample
+- `get_entity_by_id_with_projection` - Retrieve entities with field projection
+- `get_entities_by_ids_with_projection` - Retrieve multiple entities
+- `get_study_for_biosample` - Get study for a biosample
 - `get_biosamples_for_study` - Get biosamples for a study
 - `get_study_doi_details` - Get DOI details for studies
 - `search_studies_by_doi_criteria` - Search studies by DOI criteria
 
-**ARTL (Article) MCP:**
+**Article Tools (ARTL) MCP Server:**
 - `get_doi_metadata` - Get article metadata from DOI
-- `get_abstract_from_pubmed_id` - Get abstract from PubMed ID
+- `get_abstract_from_pubmed_id` - Get abstracts from PubMed
 - `get_doi_fetcher_metadata` - Get metadata using DOIFetcher
 - `get_unpaywall_info` - Find open access versions
 - `get_full_text_from_doi` - Get full text from DOI
-- Plus many other text extraction and conversion tools
+- Various text extraction and conversion tools
 
-**Weather Context MCP:**
-- `get_weather` - Get hourly/daily weather data for coordinates
+**Weather Context MCP Server:**
+- `get_weather` - Get weather data for coordinates and dates
 
-All MCP servers are loaded and functional with their respective tools available for use.
+No resources are currently listed in the MCP resource registry, but all the above tools are available for use.

@@ -1,3 +1,1 @@
-The coordinates (40.7128, -74.0060) show water body classification across all land cover systems for 2020. This makes sense as these are NYC coordinates likely over water.
-
-I used the MCP tool: `mcp__landuse-mcp__get_land_cover`
+The coordinates (40.7128, -74.0060) show as "Water Bodies" across all land cover classification systems for 2020. I used the `mcp__landuse-mcp__get_land_cover` MCP tool.
