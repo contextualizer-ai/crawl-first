@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-0vqkxy43"
+  id: "nmdc:bsm-11-y72nc847"
   type: "nmdc:Biosample"
-  name: MMPRNT696
+  name: MMPRNT1805
   associated_studies:
   - "nmdc:sty-11-wbc14h22"
   env_broad_scale:
@@ -27,16 +27,16 @@ asserted:
       name: farm soil
   biosample_categories:
   - BRC
-  samp_name: MMPRNT696
+  samp_name: MMPRNT1805
   agrochem_addition:
   - type: "nmdc:TextValue"
     has_raw_value: Fertilized
   collection_date:
     type: "nmdc:TimestampValue"
-    has_raw_value: '2017-07-25'
+    has_raw_value: '2018-07-24'
   cur_vegetation:
     type: "nmdc:TextValue"
-    has_raw_value: Restored Prairie
+    has_raw_value: Undisturbed Control
   depth:
     type: "nmdc:QuantityValue"
     has_raw_value: 0 - 0.1
@@ -46,7 +46,7 @@ asserted:
   ecosystem_category: Terrestrial
   ecosystem_subtype: Agricultural land
   ecosystem_type: Soil
-  elev: 217.0
+  elev: 500.0
   env_package:
     type: "nmdc:TextValue"
     has_raw_value: soil
@@ -71,12 +71,12 @@ asserted:
     has_raw_value: 2 mm sieved
   source_mat_id:
     type: "nmdc:TextValue"
-    has_raw_value: "NCBI:19407114"
+    has_raw_value: "NCBI:19459126"
   specific_ecosystem: Bulk soil
   store_cond:
     type: "nmdc:TextValue"
     has_raw_value: frozen
-  experimental_factor_other: Restored Prairie
+  experimental_factor_other: Undisturbed Control
   analysis_type:
   - metagenomics
 inferred:
@@ -96,49 +96,49 @@ inferred:
   land_cover_from_asserted_coords:
     land_cover:
       IGBP:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m).
         system_term: Grasslands
       UMD:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m).
         system_term: Grasslands
       LAI:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m) including cereal
           croplands.
         system_term: Grasslands
       BGC:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) including cereal
           croplands.
         system_term: Annual Grass Vegetation
       PFT:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) that are not cultivated.
         system_term: Grass
       LCCS1:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
         system_term: Dense Herbaceous
       LCCS2:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m). At least 10% cover.
         system_term: Natural Herbaceous
       LCCS3:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
         system_term: Grasslands
       QA:
-      - date: '2018-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Has a classification label and island according to the
           water mask.
@@ -159,19 +159,19 @@ inferred:
         - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
           \ and determine the system's structure and dynamics."
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2017-07-25'
-    closest_available_date: '2018-01-01'
+    target_collection_date: '2018-07-24'
+    closest_available_date: '2019-01-01'
     neighboring_dates:
-    - '2017-01-01'
     - '2018-01-01'
     - '2019-01-01'
+    - '2020-01-01'
   weather_from_asserted_coords:
     coverage: 1.0
     strategy_used: 1
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2017-07-25'
+      date_used: '2018-07-24'
     station:
       name: Escanaba
       country: US
@@ -184,13 +184,13 @@ inferred:
       timezone: America/Detroit
       distance: 12067.717475466769
     measurements:
-      tavg: 18.0
-      tmin: 10.0
-      tmax: 24.4
+      tavg: 20.1
+      tmin: 12.8
+      tmax: 25.7
       prcp: 0.0
       snow: 0.0
-      wspd: 3.4
-      pres: 1022.5
+      wspd: 2.4
+      pres: 1016.0
   geospatial_from_asserted_coords:
     coordinates:
       latitude: 45.763274
@@ -279,10 +279,10 @@ inferred:
       kilometers: 9.74
       description: "Distance between asserted and geocoded coordinates: 9.74 km"
     elevation_comparison:
-      asserted_elevation_m: 217.0
+      asserted_elevation_m: 500.0
       geospatial_elevation_m: 215.0
-      difference_m: 2.0
-      description: "Elevation difference: 2.0m between asserted (217.0m) and geospatial\
+      difference_m: 285.0
+      description: "Elevation difference: 285.0m between asserted (500.0m) and geospatial\
         \ lookup (215.0m)"
   study_info:
     study_id: "nmdc:sty-11-wbc14h22"
@@ -313,7 +313,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-0vqkxy43"
+    biosample_id: "nmdc:bsm-11-y72nc847"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0

@@ -4,7 +4,7 @@
 
 ## Overview
 
-`crawl-first` systematically follows all discoverable links from NMDC biosample records to gather comprehensive environmental, geospatial, weather, publication, and ontological data. This deterministic approach ensures complete data enrichment before downstream LLM analysis.
+`crawl-first` systematically follows discoverable links from NMDC biosample records to gather comprehensive environmental, geospatial, weather, publication, and ontological data. This deterministic approach ensures complete data enrichment before downstream LLM analysis.
 
 ## Philosophy
 

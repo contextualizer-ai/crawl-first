@@ -1,53 +1,48 @@
-Based on the available tools in my environment, I have access to the following MCP servers and their tools:
+Based on the available tools, I have access to the following MCP servers and their tools:
 
 **MCP Servers:**
-1. **ols-mcp** - Ontology Lookup Service
-2. **landuse-mcp** - Land use and geospatial data
-3. **nmdc-mcp** - National Microbiome Data Collaborative
-4. **artl-mcp** - Academic Research Text Library
-5. **weather-context-mcp** - Weather data service
+- **ols-mcp**: Ontology Lookup Service tools
+- **landuse-mcp**: Land use and geographic data tools  
+- **nmdc-mcp**: National Microbiome Data Collaborative tools
+- **artl-mcp**: Article and publication tools
+- **weather-context-mcp**: Weather data tools
 
-**Available MCP Tools:**
+**Available Tools by Server:**
 
-**Ontology Lookup Service (ols-mcp):**
+**ols-mcp:**
 - `search_all_ontologies` - Search across all ontologies
-- `get_ontology_info` - Get detailed info about specific ontology
-- `get_terms_from_ontology` - Get classes/terms from specific ontology
+- `get_ontology_info` - Get detailed ontology information
+- `get_terms_from_ontology` - Get classes/terms from specific ontologies
 
-**Land Use (landuse-mcp):**
+**landuse-mcp:**
 - `get_land_cover` - Get land use data for lat/lon coordinates
 - `get_soil_type` - Get FAO soil type for coordinates
 - `get_landuse_dates` - Get available dates for land use data
 
-**NMDC (nmdc-mcp):**
+**nmdc-mcp:**
 - `get_collection_names` - List available NMDC collections
-- `get_collection_stats` - Get collection statistics
+- `get_collection_stats` - Get collection statistics and counts
 - `get_all_collection_ids` - Get document IDs from collections
-- `get_random_collection_ids` - Get random sample of IDs
+- `get_random_collection_ids` - Random sample of collection IDs
 - `get_samples_in_elevation_range` - Filter samples by elevation
-- `get_samples_within_lat_lon_bounding_box` - Filter samples by coordinates
-- `get_samples_by_ecosystem` - Filter samples by ecosystem type
-- `get_entity_by_id` - Retrieve entity by ID
-- `get_entity_by_id_with_projection` - Retrieve entity with specific fields
-- `get_entities_by_ids_with_projection` - Retrieve multiple entities
+- `get_samples_within_lat_lon_bounding_box` - Geographic filtering
+- `get_samples_by_ecosystem` - Filter by ecosystem type
+- `get_entity_by_id` - Retrieve entities by ID
+- `get_entity_by_id_with_projection` - Get specific fields from entities
+- `get_entities_by_ids_with_projection` - Bulk entity retrieval
 - `get_study_for_biosample` - Get study associated with biosample
-- `get_biosamples_for_study` - Get biosamples for study
-- `get_study_doi_details` - Get DOI details for study
+- `get_biosamples_for_study` - Get biosamples for a study
+- `get_study_doi_details` - Get DOI information for studies
 - `search_studies_by_doi_criteria` - Search studies by DOI criteria
 
-**Academic Research (artl-mcp):**
+**artl-mcp:**
 - `get_doi_metadata` - Get article metadata from DOI
-- `get_abstract_from_pubmed_id` - Get abstract from PubMed ID
-- `get_doi_fetcher_metadata` - Get metadata using DOIFetcher
-- `get_unpaywall_info` - Find open access versions
-- `get_full_text_from_doi` - Get full text from DOI
-- `extract_pdf_text` - Extract text from PDF URLs
-- `doi_to_pmid` / `pmid_to_doi` - Convert between identifiers
+- `get_abstract_from_pubmed_id` - Get abstracts from PubMed
+- `get_full_text_from_doi` - Extract full text from DOI
 - `search_pubmed_for_pmids` - Search PubMed for articles
 - `search_papers_by_keyword` - Search scientific papers
-- `search_recent_papers` - Search recent publications
+- `extract_pdf_text` - Extract text from PDF URLs
+- DOI/PMID conversion tools
 
-**Weather (weather-context-mcp):**
-- `get_weather` - Get weather data for coordinates and date
-
-The MCP resource listing shows no specific resources are currently loaded, but all the above tools are available for use.
+**weather-context-mcp:**
+- `get_weather` - Get weather data for coordinates and dates

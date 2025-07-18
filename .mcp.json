@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "weather-context-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["weather-context-mcp"]
+    },
+    "landuse-mcp": {
+      "type": "stdio", 
+      "command": "uvx",
+      "args": ["landuse-mcp"]
+    },
+    "nmdc-mcp": {
+      "type": "stdio",
+      "command": "uvx", 
+      "args": ["nmdc-mcp"]
+    },
+    "ols-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["ols-mcp"]
+    },
+    "artl-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["artl-mcp"]
+    }
+  }
+}

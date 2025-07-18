@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-44r35671"
+  id: "nmdc:bsm-11-gpc9jc37"
   type: "nmdc:Biosample"
-  name: 1078_M_2015_P28_N0_20180425_CABBI
+  name: 1158_M_2016_P58_N400_20180425_CABBI
   associated_studies:
   - "nmdc:sty-11-vh2hty57"
   env_broad_scale:
@@ -27,7 +27,7 @@ asserted:
       name: bulk soil
   biosample_categories:
   - BRC
-  samp_name: 1078_M_2015_P28_N0_20180425_CABBI
+  samp_name: 1158_M_2016_P58_N400_20180425_CABBI
   collection_date:
     type: "nmdc:TimestampValue"
     has_raw_value: '2018-04-25'
@@ -57,7 +57,7 @@ asserted:
     longitude: -93.743
   misc_param:
   - type: "nmdc:TextValue"
-    has_raw_value: biomass_yield;20.6654 Mg/ha
+    has_raw_value: biomass_yield;24.882 Mg/ha
   samp_store_temp:
     type: "nmdc:QuantityValue"
     has_raw_value: -80 Celsius
@@ -67,7 +67,7 @@ asserted:
   store_cond:
     type: "nmdc:TextValue"
     has_raw_value: frozen
-  experimental_factor_other: "N_fertilization_rate: 0 kg/ha"
+  experimental_factor_other: "N_fertilization_rate: 400 kg/ha"
   other_treatment: Miscanthus
   analysis_type:
   - amplicon sequencing assay
@@ -340,7 +340,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-44r35671"
+    biosample_id: "nmdc:bsm-11-gpc9jc37"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0
