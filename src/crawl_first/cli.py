@@ -202,8 +202,8 @@ class OutputCapture:
             self.active = False
 
 
-def is_pytest_environment() -> bool:
-    """Check if running in pytest environment.
+def should_disable_output_capture() -> bool:
+    """Check if output capture should be disabled.
 
     Can be overridden by setting CRAWL_FIRST_FORCE_OUTPUT_CAPTURE=true to enable
     output capture even in pytest environment, or CRAWL_FIRST_DISABLE_OUTPUT_CAPTURE=true
@@ -297,7 +297,7 @@ def setup_logging(
 
     # Capture stdout/stderr if requested and not in testing
     output_capture = None
-    if capture_output and not is_pytest_environment():
+    if capture_output and not should_disable_output_capture():
         output_capture = OutputCapture(logger)
         output_capture.start()
 
@@ -2379,6 +2379,11 @@ def load_biosample_ids(file_path: str, sample_size: Optional[int] = None) -> Lis
     help="Search radius in meters for geospatial features (default: 1000)",
 )
 @click.option("--verbose", is_flag=True, help="Verbose output")
+@click.option(
+    "--capture-output/--no-capture-output",
+    default=True,
+    help="Capture stdout/stderr to log file (default: True)",
+)
 def main(
     biosample_id: str,
     input_file: str,
@@ -2388,11 +2393,12 @@ def main(
     email: str,
     search_radius: int,
     verbose: bool,
+    capture_output: bool,
 ) -> None:
     """crawl-first: Deterministic biosample enrichment for LLM-ready data preparation."""
 
     # Setup logging
-    logger, output_capture = setup_logging(verbose)
+    logger, output_capture = setup_logging(verbose, capture_output)
 
     # Validate input options
     if input_file and biosample_id:
