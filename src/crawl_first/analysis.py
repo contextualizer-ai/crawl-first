@@ -487,7 +487,9 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
     return None
 
 
-def _try_retrieve_text(retrieve_func: Callable[..., Any], *args: Any, **kwargs: Any) -> Optional[Dict[str, Any]]:
+def _try_retrieve_text(
+    retrieve_func: Callable[..., Any], *args: Any, **kwargs: Any
+) -> Optional[Dict[str, Any]]:
     """Generic function to retrieve and validate text.
 
     Args:

@@ -24,6 +24,7 @@ from .osm import query_osm_features, summarize_osm_features
 
 class BiosampleCoordinatesAndDate(NamedTuple):
     """Structured return type for biosample coordinate and date extraction."""
+
     asserted_lat: Optional[float]
     asserted_lon: Optional[float]
     location_name: Optional[str]
