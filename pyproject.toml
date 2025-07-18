@@ -13,11 +13,10 @@ dependencies = [
     "click>=8.2.1",
     "geopy>=2.4.1",
     "landuse-mcp>=0.1.9",
-    "meteostat>=1.7.4",
     "nmdc-mcp>=0.3.1",
     "ols-mcp>=0.1.5",
-    "pandas>=2.3.1",
     "pyyaml>=6.0.2",
+    "requests>=2.32.0",
     "weather-context-mcp>=0.2.14",
 ]
 
@@ -26,6 +25,8 @@ dev = [
     "pytest>=7.0.0",
     "black>=23.0.0",
     "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "deptry>=0.12.0",
 ]
 
 [project.scripts]
@@ -42,6 +43,8 @@ target-version = ['py311']
 [tool.ruff]
 target-version = "py311"
 line-length = 88
+
+[tool.ruff.lint]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -52,5 +55,26 @@ ignore = [
     "E501",  # line too long, handled by black
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["crawl_first"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.deptry]
+pep621_dev_dependency_groups = ["dev"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+    "deptry>=0.12.0",
+    "types-requests>=2.32.4.20250611",
+    "types-pyyaml>=6.0.12.20250516",
+]

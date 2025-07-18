@@ -23,6 +23,12 @@ Instead of letting LLMs make API calls or guess at missing data, `crawl-first` e
 
 ## Installation
 
+### Using uv (recommended)
+```bash
+uv add crawl-first
+```
+
+### Using pip
 ```bash
 pip install crawl-first
 ```
@@ -31,17 +37,17 @@ pip install crawl-first
 
 ### Single biosample
 ```bash
-crawl-first --biosample-id nmdc:bsm-11-abc123 --email your-email@domain.com --output-file result.yaml
+uv run crawl-first --biosample-id nmdc:bsm-11-abc123 --email your-email@domain.com --output-file result.yaml
 ```
 
 ### Multiple biosamples
 ```bash
-crawl-first --input-file biosample_ids.txt --email your-email@domain.com --output-dir results/
+uv run crawl-first --input-file biosample_ids.txt --email your-email@domain.com --output-dir results/
 ```
 
 ### Sample from large dataset
 ```bash
-crawl-first --input-file all_biosamples.txt --sample-size 50 --email your-email@domain.com --output-dir sample_results/
+uv run crawl-first --input-file all_biosamples.txt --sample-size 50 --email your-email@domain.com --output-dir sample_results/
 ```
 
 ## Output Structure
@@ -71,8 +77,63 @@ Each enriched biosample contains:
 ```bash
 git clone https://github.com/contextualizer-ai/crawl-first.git
 cd crawl-first
-pip install -e ".[dev]"
+
+# Install with uv
+uv sync
+uv pip install -e ".[dev]"
+
+# Or create a virtual environment and install
+uv venv
+source .venv/bin/activate  # or `.venv\Scripts\activate` on Windows
+uv pip install -e ".[dev]"
+
+# Run tests
+uv run pytest
+
+# Code formatting and linting
+uv run black .
+uv run ruff check .
+uv run mypy .
+uv run deptry .
 ```
+
+### MCP Configuration for Claude Integration
+
+The repository includes Makefile targets that integrate with Claude Code for testing and automation. These targets require a properly configured `.mcp.json` file in your Claude configuration directory:
+
+```json
+{
+  "mcpServers": {
+    "weather-context-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["weather-context-mcp"]
+    },
+    "landuse-mcp": {
+      "type": "stdio", 
+      "command": "uvx",
+      "args": ["landuse-mcp"]
+    },
+    "nmdc-mcp": {
+      "type": "stdio",
+      "command": "uvx", 
+      "args": ["nmdc-mcp"]
+    },
+    "ols-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["ols-mcp"]
+    },
+    "artl-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["artl-mcp"]
+    }
+  }
+}
+```
+
+**Note**: Makefile targets like `claude-weather-test.txt` and `random-ids-test.txt` will not work without proper MCP server configuration in Claude.
 
 ## License
 
