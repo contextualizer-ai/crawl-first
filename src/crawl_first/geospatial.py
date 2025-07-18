@@ -4,6 +4,7 @@ Geospatial utilities for crawl-first.
 Handles coordinate processing, geocoding, reverse geocoding, and distance calculations.
 """
 
+import time
 from math import asin, cos, radians, sin, sqrt
 from time import sleep
 from typing import Any, Dict, Optional
@@ -15,16 +16,36 @@ from .cache import cache_key, get_cache, save_cache
 
 # Nominatim API rate limiting configuration
 # 1.1 seconds ensures we stay under the 1 request/second limit
+# This is PREVENTIVE rate limiting - enforced by Nominatim's usage policy
 NOMINATIM_RATE_LIMIT_SECONDS = 1.1
+
+# Global variable to track last Nominatim request time
+_last_nominatim_request_time: Optional[float] = None
 
 
 def nominatim_rate_limit() -> None:
     """Apply rate limiting for Nominatim API (1 req/sec).
 
-    Uses NOMINATIM_RATE_LIMIT_SECONDS constant to ensure compliance
-    with Nominatim's usage policy of maximum 1 request per second.
+    This is PREVENTIVE rate limiting - we sleep to avoid violating
+    Nominatim's usage policy, not because we got an error.
+
+    Only sleeps if less than NOMINATIM_RATE_LIMIT_SECONDS have passed
+    since the last Nominatim request. Updates the last request timestamp.
     """
-    sleep(NOMINATIM_RATE_LIMIT_SECONDS)
+    global _last_nominatim_request_time
+
+    current_time = time.time()
+
+    if _last_nominatim_request_time is not None:
+        time_since_last_request = current_time - _last_nominatim_request_time
+        if time_since_last_request < NOMINATIM_RATE_LIMIT_SECONDS:
+            sleep_time = NOMINATIM_RATE_LIMIT_SECONDS - time_since_last_request
+            sleep(sleep_time)
+            # Recalculate current time after sleep for accuracy
+            current_time = time.time()
+
+    # Update the timestamp with consistent timing
+    _last_nominatim_request_time = current_time
 
 
 def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
