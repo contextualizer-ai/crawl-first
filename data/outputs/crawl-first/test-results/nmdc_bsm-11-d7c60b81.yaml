@@ -1,0 +1,304 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  collection_date:
+    has_raw_value: "2019-06-12T18:00Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_maximum_numeric_value: 0.32
+    has_minimum_numeric_value: 0
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 322.2
+  env_broad_scale:
+    term:
+      id: "ENVO:00000446"
+      name: terrestrial biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:01000816"
+      name: area of deciduous forest
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:00001998"
+      name: soil
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  id: "nmdc:bsm-11-d7c60b81"
+  name: ORNL_043-M-39-9-20190612
+  ph: 4.85
+  samp_collec_device: auger
+  soil_horizon: M horizon
+  temp:
+    has_numeric_value: 19.1
+    has_unit: Celsius
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  water_content:
+  - 0.252 g of water/g of dry soil
+  geo_loc_name:
+    has_raw_value: "USA: Tennessee, Oak Ridge"
+    type: "nmdc:TextValue"
+  biosample_categories:
+  - NEON
+  lat_lon:
+    latitude: 35.963926
+    longitude: -84.287233
+    type: "nmdc:GeolocationValue"
+  gold_biosample_identifiers: []
+  associated_studies:
+  - "nmdc:sty-11-34xj1150"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Acriosols
+    ontology_matches: []
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 30-60% (canopy >2m)."
+        system_term: Woody Savannas
+      UMD:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 30-60% (canopy >2m)."
+        system_term: Woody Savannas
+      LAI:
+      - date: '2019-01-01'
+        envo_term: savanna
+        system_description: "Between 10-60% tree cover (>2m)."
+        system_term: Savannas
+      BGC:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
+          \ Woody vegetation cover >10%."
+        system_term: Deciduous Broadleaf Vegetation
+      PFT:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
+          \ >10%."
+        system_term: Deciduous Broadleaf Trees
+      LCCS1:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 30-60% (canopy >2m)."
+        system_term: Open Forests
+      LCCS2:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-60% (canopy >2m)."
+        system_term: Open Forests
+      LCCS3:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-60% (canopy >2m)."
+        system_term: Open Forests
+      QA:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      savanna:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000261"
+        short_form: ENVO_00000261
+        obo_id: "ENVO:00000261"
+        label: savanna
+        description:
+        - "A terrestrial ecosystem which has its composition and function determined\
+          \ by an unbroken herbaceous layer - primarily composed of grasses, sedges,\
+          \ or rushes - interspersed with trees or shrubs."
+        - "Savannas are intermediate grassland-woodland ecosystems, with some instances\
+          \ having almost no trees and others having trees at densities higher than\
+          \ some forests. Savannas are typically subject to tropical or subtropical\
+          \ climatic conditions. Savannas typically have seasonal water availability\
+          \ and grass, sedge (Cyperaceae) or  rush (Juncaceae) communities."
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00005746"
+        short_form: ENVO_00005746
+        obo_id: "ENVO:00005746"
+        label: savanna soil
+        description:
+        - A portion of soil which is found in a savanna.
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2019-06-12'
+    closest_available_date: '2019-01-01'
+    neighboring_dates:
+    - '2018-01-01'
+    - '2019-01-01'
+    - '2020-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2019-06-12'
+    station:
+      name: Jackson Square
+      country: US
+      region: TN
+      wmo: '72427'
+      icao: null
+      latitude: 36.0231
+      longitude: -84.2331
+      elevation: 263.0
+      timezone: America/New_York
+      distance: 8186.1196205952565
+    measurements:
+      tmin: 10.0
+      tmax: 25.0
+      prcp: 0.0
+      wspd: 1.9
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 35.963926
+      longitude: -84.287233
+    elevation:
+      meters: 336.0
+      feet: 1102.4
+    place_info:
+      coordinates:
+        latitude: 35.963926
+        longitude: -84.287233
+      display_name: "Bear Creek Road, Oak Ridge, Anderson County, East Tennessee,\
+        \ Tennessee, United States"
+      place_type: tertiary
+      address:
+        road: Bear Creek Road
+        city: Oak Ridge
+        county: Anderson County
+        state: Tennessee
+        country: United States
+        country_code: us
+      administrative:
+        region: East Tennessee
+      error: null
+    osm_features:
+      metadata:
+        total_features: 12
+        query_coordinates:
+        - 35.963926
+        - -84.287233
+        feature_counts:
+          natural:
+            wood: 1
+            tree_row: 1
+          landuse:
+            industrial: 3
+            landfill: 1
+          waterway:
+            stream: 5
+          barrier:
+            fence: 1
+      environmental_features:
+        waterway:
+        - type: stream
+          distance_m: 417.3
+          name: Bear Creek
+        - type: stream
+          distance_m: 814.6
+          name: Walker Branch
+        landuse:
+        - type: landfill
+          distance_m: 865.5
+          name: Environmental Management Waste Management Facility
+      nearest_features:
+      - type: "natural:tree_row"
+        distance_m: 249.2
+      - type: "natural:wood"
+        distance_m: 276.3
+      - type: "barrier:fence"
+        distance_m: 345.1
+      - type: "waterway:stream"
+        distance_m: 417.3
+        name: Bear Creek
+      - type: "landuse:industrial"
+        distance_m: 520.9
+    environmental_summary:
+      total_environmental_features: 12
+      water_features_nearby: 5
+      natural_areas_nearby: 2
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "waterway:stream"
+        count: 5
+      - type: "landuse:industrial"
+        count: 3
+      - type: "natural:wood"
+        count: 1
+      ecological_context: "Location has 5 water feature(s), 2 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 35.963926
+        longitude: -84.287233
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/35.963926,-84.287233/@35.963926,-84.287233,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 36.0103562
+        longitude: -84.2696449
+      source: "geocoded from geo_loc_name: USA: Tennessee, Oak Ridge"
+      geocode_result:
+        location_name: "USA: Tennessee, Oak Ridge"
+        coordinates:
+          latitude: 36.0103562
+          longitude: -84.2696449
+        display_name: "Oak Ridge, Anderson County, East Tennessee, Tennessee, United\
+          \ States"
+        place_type: administrative
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/36.0103562,-84.2696449/@36.0103562,-84.2696449,15z"
+      elevation_meters: 260.0
+    combined_map_url: "https://www.google.com/maps/dir/35.963926,-84.287233/36.0103562,-84.2696449/@35.963926,-84.287233,10z"
+    combined_map_description: "Asserted coords (35.963926, -84.287233) vs Geocoded\
+      \ coords (36.0103562, -84.2696449)"
+    coordinate_distance:
+      meters: 5399.9
+      kilometers: 5.4
+      description: "Distance between asserted and geocoded coordinates: 5.4 km"
+    elevation_comparison:
+      asserted_elevation_m: 322.2
+      geospatial_elevation_m: 336.0
+      difference_m: 13.8
+      description: "Elevation difference: 13.8m between asserted (322.2m) and geospatial\
+        \ lookup (336.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-34xj1150"
+    study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_title: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's soil microbial shotgun metagenomics\
+      \ sequencing. Typically, measurements are done on plot-level composite samples\
+      \ and represent up to three randomly selected sampling locations within a plot."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.10107.001"
+    - "https://data.neonscience.org/api/v0/documents/NEON.DOC.014048vO"
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-d7c60b81"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

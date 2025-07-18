@@ -1,3 +1,3 @@
-The coordinates (40.7128, -74.0060) show water body classification across all land cover systems for 2020. This makes sense as these are NYC coordinates likely over water.
+The land cover data shows that coordinates 40.7128, -74.0060 (Manhattan, NYC) are classified as "Water Bodies" across all classification systems (IGBP, UMD, BGC, PFT, LCCS1-3) for 2020-01-01.
 
-I used the MCP tool: `mcp__landuse-mcp__get_land_cover`
+I used the `mcp__landuse-mcp__get_land_cover` tool from the landuse MCP server.

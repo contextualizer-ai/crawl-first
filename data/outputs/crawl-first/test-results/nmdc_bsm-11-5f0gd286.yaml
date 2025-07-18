@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-1b246v67"
+  id: "nmdc:bsm-11-5f0gd286"
   type: "nmdc:Biosample"
-  name: H14
+  name: N4
   associated_studies:
   - "nmdc:sty-11-wbc14h22"
   env_broad_scale:
@@ -27,16 +27,16 @@ asserted:
       name: farm soil
   biosample_categories:
   - BRC
-  samp_name: H14
+  samp_name: N4
   agrochem_addition:
   - type: "nmdc:TextValue"
     has_raw_value: Fertilized
   collection_date:
     type: "nmdc:TimestampValue"
-    has_raw_value: '2016-06-27'
+    has_raw_value: '2016-07-12'
   cur_vegetation:
     type: "nmdc:TextValue"
-    has_raw_value: Switchgrass
+    has_raw_value: Restored Prairie
   depth:
     type: "nmdc:QuantityValue"
     has_raw_value: 0 - 0.1
@@ -46,21 +46,21 @@ asserted:
   ecosystem_category: Terrestrial
   ecosystem_subtype: Agricultural land
   ecosystem_type: Soil
-  elev: 298.0
+  elev: 372.0
   env_package:
     type: "nmdc:TextValue"
     has_raw_value: soil
   geo_loc_name:
     type: "nmdc:TextValue"
-    has_raw_value: "USA: Michigan, Delton"
+    has_raw_value: "USA: Michigan, Lake City"
   growth_facil:
     type: "nmdc:ControlledTermValue"
     has_raw_value: field
   lat_lon:
     type: "nmdc:GeolocationValue"
-    has_raw_value: 42.476365 -85.451887
-    latitude: 42.476365
-    longitude: -85.451887
+    has_raw_value: 44.296098 -85.199612
+    latitude: 44.296098
+    longitude: -85.199612
   samp_store_temp:
     type: "nmdc:QuantityValue"
     has_raw_value: -80 Celsius
@@ -71,73 +71,76 @@ asserted:
     has_raw_value: 2 mm sieved
   source_mat_id:
     type: "nmdc:TextValue"
-    has_raw_value: "NCBI:19366244"
+    has_raw_value: "NCBI:19365776"
   specific_ecosystem: Bulk soil
   store_cond:
     type: "nmdc:TextValue"
     has_raw_value: frozen
-  experimental_factor_other: Switchgrass
+  experimental_factor_other: Restored Prairie
   analysis_type:
   - metagenomics
 inferred:
   soil_from_asserted_coords:
-    soil_type: Luvisols
+    soil_type: Podzols
     ontology_matches:
-    - iri: "http://purl.obolibrary.org/obo/ENVO_00002248"
-      short_form: ENVO_00002248
-      obo_id: "ENVO:00002248"
-      label: luvisol
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002257"
+      short_form: ENVO_00002257
+      obo_id: "ENVO:00002257"
+      label: podzol
       description:
-      - Luvisols are soils that have a higher clay content in the subsoil than in
-        the topsoil as a result of pedogenetic processes (especially clay migration)
-        leading to an argic subsoil horizon. Luvisols have high-activity clays throughout
-        the argic horizon and a high base saturation at certain depths.
+      - "Podzols are soils with a typically ash-grey upper subsurface horizon, bleached\
+        \ by loss of organic matter and iron oxides, on top of a dark accumulation\
+        \ horizon with brown, reddish or black illuviated humus and/or reddish Fe\
+        \ compounds. Podzols occur in humid areas in the boreal and temperate zones\
+        \ and locally also in the tropics."
   land_cover_from_asserted_coords:
     land_cover:
       IGBP:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
-        system_description: "Tree cover 30-60% (canopy >2m)."
-        system_term: Woody Savannas
+        system_description: "Mosaics of small-scale cultivation 40-60% with natural\
+          \ tree, shrub, or herbaceous vegetation."
+        system_term: Cropland/Natural Vegetation Mosaics
       UMD:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Woody Savannas
       LAI:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: savanna
         system_description: "Between 10-60% tree cover (>2m)."
         system_term: Savannas
       BGC:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
           \ Woody vegetation cover >10%."
         system_term: Deciduous Broadleaf Vegetation
       PFT:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
           \ >10%."
         system_term: Deciduous Broadleaf Trees
       LCCS1:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Open Forests
       LCCS2:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
-        system_description: "Tree cover 10-60% (canopy >2m)."
-        system_term: Open Forests
+        system_description: "Mosaics of small-scale cultivation 40-60% with >10% natural\
+          \ tree cover."
+        system_term: Forest/Cropland Mosaics
       LCCS3:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 10-60% (canopy >2m)."
         system_term: Open Forests
       QA:
-      - date: '2016-01-01'
+      - date: '2017-01-01'
         envo_term: ENVO Term unavailable
         system_description: Has a classification label and island according to the
           water mask.
@@ -164,148 +167,147 @@ inferred:
         description:
         - A portion of soil which is found in a savanna.
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2016-06-27'
-    closest_available_date: '2016-01-01'
+    target_collection_date: '2016-07-12'
+    closest_available_date: '2017-01-01'
     neighboring_dates:
-    - '2015-01-01'
     - '2016-01-01'
     - '2017-01-01'
+    - '2018-01-01'
   weather_from_asserted_coords:
     coverage: 1.0
     strategy_used: 1
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2016-06-27'
+      date_used: '2016-07-12'
     station:
-      name: Battle Creek / Avenue A Mobile Home Estates
+      name: Roscommon County Airport
       country: US
       region: MI
-      wmo: null
-      icao: KBTL
-      latitude: 42.3073
-      longitude: -85.2515
-      elevation: 290.0
+      wmo: '72638'
+      icao: KHTL
+      latitude: 44.35
+      longitude: -84.6667
+      elevation: 351.0
       timezone: America/Detroit
-      distance: 24984.427915304404
+      distance: 42814.74994655568
     measurements:
-      tavg: 23.8
-      tmin: 17.8
-      tmax: 30.7
-      prcp: 0.0
-      wspd: 5.0
-      pres: 1015.5
+      tavg: 24.4
+      tmin: 20.7
+      tmax: 31.1
+      prcp: 5.8
+      snow: 0.0
+      wspd: 4.4
+      pres: 1010.8
   geospatial_from_asserted_coords:
     coordinates:
-      latitude: 42.476365
-      longitude: -85.451887
+      latitude: 44.296098
+      longitude: -85.199612
     elevation:
-      meters: 294.0
-      feet: 964.6
+      meters: 371.0
+      feet: 1217.2
     place_info:
       coordinates:
-        latitude: 42.476365
-        longitude: -85.451887
-      display_name: "Prairieville, Prairieville Township, Barry County, Michigan,\
-        \ United States"
-      place_type: village
+        latitude: 44.296098
+        longitude: -85.199612
+      display_name: "5224, West Kelly Road, Reeder Township, Missaukee County, Michigan,\
+        \ 49651, United States"
+      place_type: house
       address:
-        village: Prairieville
-        city: Prairieville Township
-        county: Barry County
+        house_number: '5224'
+        road: West Kelly Road
+        city: Reeder Township
+        county: Missaukee County
         state: Michigan
         country: United States
+        postcode: '49651'
         country_code: us
       administrative: {}
       error: null
     osm_features:
       metadata:
-        total_features: 11
+        total_features: 12
         query_coordinates:
-        - 42.476365
-        - -85.451887
+        - 44.296098
+        - -85.199612
         feature_counts:
-          highway:
-            track: 8
           natural:
-            water: 2
-          leisure:
-            nature_reserve: 1
+            wetland: 3
+          waterway:
+            stream: 8
+          highway:
+            track: 1
       environmental_features:
-        natural:
-        - type: water
-          distance_m: 826.8
-          name: Crooked Lake
-        leisure:
-        - type: nature_reserve
-          distance_m: 628.1
-          name: Lux Arbor Reserve
-          tags:
-            description: donated in 1991 to Michigan State University
+        waterway:
+        - type: stream
+          distance_m: 688.6
+          name: Mosquito Creek
+        highway:
+        - type: track
+          distance_m: 909.4
+          name: South Call Road
       nearest_features:
-      - type: "highway:track"
-        distance_m: 199.7
-      - type: "highway:track"
-        distance_m: 338.1
-      - type: "highway:track"
-        distance_m: 520.0
-      - type: "leisure:nature_reserve"
-        distance_m: 628.1
-        name: Lux Arbor Reserve
-      - type: "natural:water"
-        distance_m: 660.5
+      - type: "waterway:stream"
+        distance_m: 171.1
+      - type: "waterway:stream"
+        distance_m: 174.5
+      - type: "waterway:stream"
+        distance_m: 247.7
+      - type: "natural:wetland"
+        distance_m: 275.5
+      - type: "waterway:stream"
+        distance_m: 348.5
     environmental_summary:
-      total_environmental_features: 11
-      water_features_nearby: 2
-      natural_areas_nearby: 2
-      protected_areas_nearby: 1
+      total_environmental_features: 12
+      water_features_nearby: 8
+      natural_areas_nearby: 3
+      protected_areas_nearby: 0
       dominant_land_types:
-      - type: "highway:track"
+      - type: "waterway:stream"
         count: 8
-      - type: "natural:water"
-        count: 2
-      - type: "leisure:nature_reserve"
+      - type: "natural:wetland"
+        count: 3
+      - type: "highway:track"
         count: 1
-      ecological_context: "Location has 2 water feature(s), 2 natural area(s), 1 protected\
-        \ area(s) within 1000m radius"
+      ecological_context: "Location has 8 water feature(s), 3 natural area(s) within\
+        \ 1000m radius"
   coordinate_sources:
     from_asserted_coords:
       coordinates:
-        latitude: 42.476365
-        longitude: -85.451887
+        latitude: 44.296098
+        longitude: -85.199612
       source: lat_lon field
-      map_url: "https://www.google.com/maps/place/42.476365,-85.451887/@42.476365,-85.451887,15z"
+      map_url: "https://www.google.com/maps/place/44.296098,-85.199612/@44.296098,-85.199612,15z"
     from_geo_loc_name:
       coordinates:
-        latitude: 42.4997581
-        longitude: -85.4080641
-      source: "geocoded from geo_loc_name: USA: Michigan, Delton"
+        latitude: 44.335287
+        longitude: -85.215046
+      source: "geocoded from geo_loc_name: USA: Michigan, Lake City"
       geocode_result:
-        location_name: "USA: Michigan, Delton"
+        location_name: "USA: Michigan, Lake City"
         coordinates:
-          latitude: 42.4997581
-          longitude: -85.4080641
-        display_name: "Delton, Barry Township, Barry County, Michigan, 49046, United\
-          \ States"
-        place_type: village
+          latitude: 44.335287
+          longitude: -85.215046
+        display_name: "Lake City, Missaukee County, Michigan, United States"
+        place_type: administrative
         address: {}
         administrative: {}
         error: null
-      map_url: "https://www.google.com/maps/place/42.4997581,-85.4080641/@42.4997581,-85.4080641,15z"
-      elevation_meters: 289.0
-    combined_map_url: "https://www.google.com/maps/dir/42.476365,-85.451887/42.4997581,-85.4080641/@42.476365,-85.451887,10z"
-    combined_map_description: "Asserted coords (42.476365, -85.451887) vs Geocoded\
-      \ coords (42.4997581, -85.4080641)"
+      map_url: "https://www.google.com/maps/place/44.335287,-85.215046/@44.335287,-85.215046,15z"
+      elevation_meters: 381.0
+    combined_map_url: "https://www.google.com/maps/dir/44.296098,-85.199612/44.335287,-85.215046/@44.296098,-85.199612,10z"
+    combined_map_description: "Asserted coords (44.296098, -85.199612) vs Geocoded\
+      \ coords (44.335287, -85.215046)"
     coordinate_distance:
-      meters: 4436.0
-      kilometers: 4.44
-      description: "Distance between asserted and geocoded coordinates: 4.44 km"
+      meters: 4527.3
+      kilometers: 4.53
+      description: "Distance between asserted and geocoded coordinates: 4.53 km"
     elevation_comparison:
-      asserted_elevation_m: 298.0
-      geospatial_elevation_m: 294.0
-      difference_m: 4.0
-      description: "Elevation difference: 4.0m between asserted (298.0m) and geospatial\
-        \ lookup (294.0m)"
+      asserted_elevation_m: 372.0
+      geospatial_elevation_m: 371.0
+      difference_m: 1.0
+      description: "Elevation difference: 1.0m between asserted (372.0m) and geospatial\
+        \ lookup (371.0m)"
   study_info:
     study_id: "nmdc:sty-11-wbc14h22"
     study_name: Switchgrass cropping systems affect soil carbon and nitrogen and microbial
@@ -335,7 +337,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-1b246v67"
+    biosample_id: "nmdc:bsm-11-5f0gd286"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0
