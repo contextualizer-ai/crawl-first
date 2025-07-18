@@ -109,10 +109,13 @@ class LogCapture:
 
     def write(self, data: Union[str, bytes]) -> int:
         """Write data to logger."""
-        # Handle both str and bytes input
+        # Handle str, bytes, and other types that might be passed to write()
         if isinstance(data, bytes):
             data = data.decode("utf-8", errors="replace")
-        elif not isinstance(data, str):
+        elif isinstance(data, str):
+            pass  # Already a string, no conversion needed
+        else:
+            # Convert other types (int, float, etc.) to string
             data = str(data)
 
         stripped = data.strip() if data else ""
@@ -209,8 +212,14 @@ def is_pytest_environment() -> bool:
 _output_manager = OutputManager()
 
 
-def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging.Logger:
-    """Setup logging configuration with file and console output."""
+def setup_logging(
+    verbose: bool = False, capture_output: bool = True
+) -> tuple[logging.Logger, Optional[OutputCapture]]:
+    """Setup logging configuration with file and console output.
+
+    Returns:
+        Tuple of (logger, output_capture) where output_capture is None if not enabled
+    """
     # Create logs directory
     LOG_DIR.mkdir(exist_ok=True)
 
@@ -237,10 +246,8 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
     simple_formatter = logging.Formatter("%(levelname)s: %(message)s")
 
     # File handler - captures EVERYTHING (our logs + library logs + stdout)
-    log_file = (
-        LOG_DIR
-        / f"crawl_first_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.log"
-    )
+    current_time = datetime.now(timezone.utc)
+    log_file = LOG_DIR / f"crawl_first_{current_time.strftime('%Y%m%d_%H%M%S')}.log"
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(detailed_formatter)
@@ -276,8 +283,8 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
         lib_logger.setLevel(logging.INFO if verbose else logging.WARNING)
 
     # Capture stdout/stderr if requested and not in testing
+    output_capture = None
     if capture_output and not is_pytest_environment():
-        # Use OutputCapture context manager for automatic cleanup
         output_capture = OutputCapture(logger)
         output_capture.start()
 
@@ -286,7 +293,7 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
     if capture_output:
         logger.info("Output capture enabled - all stdout/stderr will be logged")
 
-    return logger
+    return logger, output_capture
 
 
 def restore_output() -> None:
@@ -2377,7 +2384,7 @@ def main(
     """crawl-first: Deterministic biosample enrichment for LLM-ready data preparation."""
 
     # Setup logging
-    logger = setup_logging(verbose)
+    logger, output_capture = setup_logging(verbose)
 
     # Validate input options
     if input_file and biosample_id:
@@ -2552,6 +2559,10 @@ def main(
 
     if not results:
         logger.error("No data processed successfully")
+
+    # Cleanup output capture
+    if output_capture:
+        output_capture.stop()
 
 
 if __name__ == "__main__":

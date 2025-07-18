@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-7sv6x205"
+  id: "nmdc:bsm-11-9mgabr42"
   type: "nmdc:Biosample"
-  name: J1
+  name: MMPRNT2004
   associated_studies:
   - "nmdc:sty-11-wbc14h22"
   env_broad_scale:
@@ -27,13 +27,13 @@ asserted:
       name: farm soil
   biosample_categories:
   - BRC
-  samp_name: J1
+  samp_name: MMPRNT2004
   agrochem_addition:
   - type: "nmdc:TextValue"
     has_raw_value: Fertilized
   collection_date:
     type: "nmdc:TimestampValue"
-    has_raw_value: '2016-07-11'
+    has_raw_value: '2018-10-03'
   cur_vegetation:
     type: "nmdc:TextValue"
     has_raw_value: Switchgrass
@@ -46,7 +46,7 @@ asserted:
   ecosystem_category: Terrestrial
   ecosystem_subtype: Agricultural land
   ecosystem_type: Soil
-  elev: 298.0
+  elev: 500.0
   env_package:
     type: "nmdc:TextValue"
     has_raw_value: soil
@@ -71,7 +71,7 @@ asserted:
     has_raw_value: 2 mm sieved
   source_mat_id:
     type: "nmdc:TextValue"
-    has_raw_value: "NCBI:19366263"
+    has_raw_value: "NCBI:19458758"
   specific_ecosystem: Bulk soil
   store_cond:
     type: "nmdc:TextValue"
@@ -95,49 +95,49 @@ inferred:
   land_cover_from_asserted_coords:
     land_cover:
       IGBP:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Woody Savannas
       UMD:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Woody Savannas
       LAI:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: savanna
         system_description: "Between 10-60% tree cover (>2m)."
         system_term: Savannas
       BGC:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
           \ Woody vegetation cover >10%."
         system_term: Deciduous Broadleaf Vegetation
       PFT:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
           \ >10%."
         system_term: Deciduous Broadleaf Trees
       LCCS1:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 30-60% (canopy >2m)."
         system_term: Open Forests
       LCCS2:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 10-60% (canopy >2m)."
         system_term: Open Forests
       LCCS3:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: "Tree cover 10-60% (canopy >2m)."
         system_term: Open Forests
       QA:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Has a classification label and island according to the
           water mask.
@@ -164,19 +164,19 @@ inferred:
         description:
         - A portion of soil which is found in a savanna.
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2016-07-11'
-    closest_available_date: '2017-01-01'
+    target_collection_date: '2018-10-03'
+    closest_available_date: '2019-01-01'
     neighboring_dates:
-    - '2016-01-01'
-    - '2017-01-01'
     - '2018-01-01'
+    - '2019-01-01'
+    - '2020-01-01'
   weather_from_asserted_coords:
     coverage: 1.0
     strategy_used: 1
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2016-07-11'
+      date_used: '2018-10-03'
     station:
       name: Battle Creek / Avenue A Mobile Home Estates
       country: US
@@ -189,11 +189,12 @@ inferred:
       timezone: America/Detroit
       distance: 24984.427915304404
     measurements:
-      tavg: 23.2
-      tmin: 17.8
-      tmax: 29.4
-      wspd: 3.2
-      pres: 1016.2
+      tavg: 21.0
+      tmin: 13.2
+      tmax: 28.9
+      prcp: 0.0
+      wspd: 5.2
+      pres: 1014.0
   geospatial_from_asserted_coords:
     coordinates:
       latitude: 42.476365
@@ -300,10 +301,10 @@ inferred:
       kilometers: 4.44
       description: "Distance between asserted and geocoded coordinates: 4.44 km"
     elevation_comparison:
-      asserted_elevation_m: 298.0
+      asserted_elevation_m: 500.0
       geospatial_elevation_m: 294.0
-      difference_m: 4.0
-      description: "Elevation difference: 4.0m between asserted (298.0m) and geospatial\
+      difference_m: 206.0
+      description: "Elevation difference: 206.0m between asserted (500.0m) and geospatial\
         \ lookup (294.0m)"
   study_info:
     study_id: "nmdc:sty-11-wbc14h22"
@@ -334,7 +335,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-7sv6x205"
+    biosample_id: "nmdc:bsm-11-9mgabr42"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0

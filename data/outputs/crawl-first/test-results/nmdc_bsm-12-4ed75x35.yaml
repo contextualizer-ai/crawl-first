@@ -1,0 +1,297 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  biosample_categories:
+  - NEON
+  collection_date:
+    has_raw_value: "2019-08-05T15:29Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_maximum_numeric_value: 1
+    has_minimum_numeric_value: 0
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 2053
+  env_broad_scale:
+    term:
+      id: "ENVO:01000253"
+      name: freshwater river biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:00000148"
+      name: riffle
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:03605001"
+      name: epilithon
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  geo_loc_name:
+    has_raw_value: "USA: Wyoming, Blacktail Deer Creek"
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-12-4ed75x35"
+  lat_lon:
+    latitude: 44.95011
+    longitude: -110.58715
+    type: "nmdc:GeolocationValue"
+  name: BLDE.20190805.EPILITHON.4
+  samp_size:
+    has_numeric_value: 125
+    has_unit: mL
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  associated_studies:
+  - "nmdc:sty-11-pzmd0x14"
+  env_package:
+    type: "nmdc:TextValue"
+    has_raw_value: water
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Luvisols
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002248"
+      short_form: ENVO_00002248
+      obo_id: "ENVO:00002248"
+      label: luvisol
+      description:
+      - Luvisols are soils that have a higher clay content in the subsoil than in
+        the topsoil as a result of pedogenetic processes (especially clay migration)
+        leading to an argic subsoil horizon. Luvisols have high-activity clays throughout
+        the argic horizon and a high base saturation at certain depths.
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2020-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m).
+        system_term: Grasslands
+      UMD:
+      - date: '2020-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m).
+        system_term: Grasslands
+      LAI:
+      - date: '2020-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Grasslands
+      BGC:
+      - date: '2020-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Annual Grass Vegetation
+      PFT:
+      - date: '2020-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) that are not cultivated.
+        system_term: Grass
+      LCCS1:
+      - date: '2020-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
+        system_term: Dense Herbaceous
+      LCCS2:
+      - date: '2020-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m). At least 10% cover.
+        system_term: Natural Herbaceous
+      LCCS3:
+      - date: '2020-01-01'
+        envo_term: grassland area
+        system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
+        system_term: Grasslands
+      QA:
+      - date: '2020-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      grassland area:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000106"
+        short_form: ENVO_00000106
+        obo_id: "ENVO:00000106"
+        label: grassland area
+        description:
+        - An area in which grasses (Graminae) are a significant component of the vegetation.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01001206"
+        short_form: ENVO_01001206
+        obo_id: "ENVO:01001206"
+        label: grassland ecosystem
+        description:
+        - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
+          \ and determine the system's structure and dynamics."
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2019-08-05'
+    closest_available_date: '2020-01-01'
+    neighboring_dates:
+    - '2019-01-01'
+    - '2020-01-01'
+    - '2021-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2019-08-05'
+    station:
+      name: Yellowstone / Lake
+      country: US
+      region: WY
+      wmo: null
+      icao: KP60
+      latitude: 44.55
+      longitude: -110.4167
+      elevation: 2368.0
+      timezone: America/Denver
+      distance: 46481.75530666992
+    measurements:
+      tavg: 14.2
+      tmin: 5.0
+      tmax: 23.2
+      prcp: 0.0
+      wspd: 1.0
+      pres: 1022.1
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 44.95011
+      longitude: -110.58715
+    elevation:
+      meters: 2034.0
+      feet: 6673.2
+    place_info:
+      coordinates:
+        latitude: 44.95011
+        longitude: -110.58715
+      display_name: "Blacktail Cabin service road, Park County, Wyoming, United States"
+      place_type: track
+      address:
+        road: Blacktail Cabin service road
+        county: Park County
+        state: Wyoming
+        country: United States
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 62
+        query_coordinates:
+        - 44.95011
+        - -110.58715
+        feature_counts:
+          waterway:
+            stream: 3
+          highway:
+            track: 1
+            path: 1
+          natural:
+            wood: 51
+            scrub: 5
+          amenity:
+            toilets: 1
+      environmental_features:
+        waterway:
+        - type: stream
+          distance_m: 540.2
+          name: Blacktail Deer Creek
+        highway:
+        - type: track
+          distance_m: 125.7
+          name: Blacktail Cabin service road
+      nearest_features:
+      - type: "natural:wood"
+        distance_m: 111.8
+      - type: "highway:track"
+        distance_m: 125.7
+        name: Blacktail Cabin service road
+      - type: "natural:wood"
+        distance_m: 184.5
+      - type: "natural:wood"
+        distance_m: 197.8
+      - type: "natural:wood"
+        distance_m: 254.6
+    environmental_summary:
+      total_environmental_features: 62
+      water_features_nearby: 3
+      natural_areas_nearby: 56
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "natural:wood"
+        count: 51
+      - type: "natural:scrub"
+        count: 5
+      - type: "waterway:stream"
+        count: 3
+      ecological_context: "Location has 3 water feature(s), 56 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 44.95011
+        longitude: -110.58715
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/44.95011,-110.58715/@44.95011,-110.58715,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 44.9249342
+        longitude: -110.5821362
+      source: "geocoded from geo_loc_name: USA: Wyoming, Blacktail Deer Creek"
+      geocode_result:
+        location_name: "USA: Wyoming, Blacktail Deer Creek"
+        coordinates:
+          latitude: 44.9249342
+          longitude: -110.5821362
+        display_name: "Blacktail Deer Creek, Park County, Wyoming, United States"
+        place_type: stream
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/44.9249342,-110.5821362/@44.9249342,-110.5821362,15z"
+      elevation_meters: 2196.0
+    combined_map_url: "https://www.google.com/maps/dir/44.95011,-110.58715/44.9249342,-110.5821362/@44.95011,-110.58715,10z"
+    combined_map_description: "Asserted coords (44.95011, -110.58715) vs Geocoded\
+      \ coords (44.9249342, -110.5821362)"
+    coordinate_distance:
+      meters: 2827.1
+      kilometers: 2.83
+      description: "Distance between asserted and geocoded coordinates: 2.83 km"
+    elevation_comparison:
+      asserted_elevation_m: 2053
+      geospatial_elevation_m: 2034.0
+      difference_m: 19.0
+      description: "Elevation difference: 19.0m between asserted (2053m) and geospatial\
+        \ lookup (2034.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-pzmd0x14"
+    study_name: "National Ecological Observatory Network: benthic metagenomes (DP1.20279.001)"
+    study_title: "National Ecological Observatory Network: benthic metagenomes (DP1.20279.001)"
+    study_description: "This study contains the primary field and quality-controlled\
+      \ laboratory metadata and minimally processed sequence data from NEON's benthic\
+      \ microbial shotgun metagenomics sequencing."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.20279.001"
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-12-4ed75x35"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

@@ -1,56 +1,30 @@
-Based on the function definitions available to me, I have access to the following MCP servers and their tools:
+Based on my available tools, I have access to the following MCP servers:
 
-**MCP Servers Available:**
+**NMDC MCP** - National Microbiome Data Collaborative server
+- Collection management: `get_collection_names`, `get_collection_stats`
+- Sample retrieval: `get_samples_in_elevation_range`, `get_samples_within_lat_lon_bounding_box`, `get_samples_by_ecosystem`
+- Entity operations: `get_entity_by_id`, `get_entity_by_id_with_projection`, `get_entities_by_ids_with_projection`
+- Study/biosample relationships: `get_study_for_biosample`, `get_biosamples_for_study`
+- DOI management: `get_study_doi_details`, `search_studies_by_doi_criteria`
+- ID operations: `get_all_collection_ids`, `get_random_collection_ids`
 
-1. **ols-mcp** (Ontology Lookup Service)
-   - search_all_ontologies
-   - get_ontology_info
-   - get_terms_from_ontology
+**OLS MCP** - Ontology Lookup Service
+- `search_all_ontologies` - Search across all ontologies
+- `get_ontology_info` - Get ontology details
+- `get_terms_from_ontology` - Get terms from specific ontologies
 
-2. **landuse-mcp** (Land Use Data)
-   - get_land_cover
-   - get_soil_type
-   - get_landuse_dates
+**Landuse MCP** - Geospatial land use data
+- `get_land_cover` - Land use classification data
+- `get_soil_type` - FAO soil classifications
+- `get_landuse_dates` - Available data dates
 
-3. **nmdc-mcp** (National Microbiome Data Collaborative)
-   - get_collection_names
-   - get_collection_stats
-   - get_all_collection_ids
-   - get_random_collection_ids
-   - get_samples_in_elevation_range
-   - get_samples_within_lat_lon_bounding_box
-   - get_samples_by_ecosystem
-   - get_entity_by_id
-   - get_entity_by_id_with_projection
-   - get_entities_by_ids_with_projection
-   - get_study_for_biosample
-   - get_biosamples_for_study
-   - get_study_doi_details
-   - search_studies_by_doi_criteria
+**ARTL MCP** - Academic Research Text Library
+- DOI/PMID operations: `get_doi_metadata`, `doi_to_pmid`, `pmid_to_doi`
+- Full text retrieval: `get_full_text_from_doi`, `get_pmid_text`, `get_pmcid_text`
+- Paper search: `search_papers_by_keyword`, `search_recent_papers`, `search_pubmed_for_pmids`
+- PDF processing: `extract_pdf_text`, `get_text_from_pdf_url`
 
-4. **artl-mcp** (Article/Literature Tools)
-   - get_doi_metadata
-   - get_abstract_from_pubmed_id
-   - get_doi_fetcher_metadata
-   - get_unpaywall_info
-   - get_full_text_from_doi
-   - get_full_text_info
-   - get_text_from_pdf_url
-   - clean_text
-   - extract_pdf_text
-   - extract_doi_from_url
-   - doi_to_pmid
-   - pmid_to_doi
-   - get_doi_text
-   - get_pmid_from_pmcid
-   - get_pmcid_text
-   - get_pmid_text
-   - get_full_text_from_bioc
-   - search_pubmed_for_pmids
-   - search_papers_by_keyword
-   - search_recent_papers
+**Weather Context MCP**
+- `get_weather` - Historical weather data via meteostat
 
-5. **weather-context-mcp** (Weather Data)
-   - get_weather
-
-No specific resources are currently loaded from these servers.
+All servers are currently loaded and accessible.
