@@ -1,0 +1,1 @@
+I used the **mcp__weather-context-mcp__get_weather** MCP tool to get weather data for NYC on 2024-01-15. The data shows hourly temperature (25-32°F), no precipitation, westerly winds (7-11 mph), and overcast conditions from the New York / Wall Street weather station.

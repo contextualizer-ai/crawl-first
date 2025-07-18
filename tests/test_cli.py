@@ -1,12 +1,11 @@
 """Basic tests for crawl-first CLI."""
 
-import pytest
 from click.testing import CliRunner
 
 from crawl_first.cli import main
 
 
-def test_cli_help():
+def test_cli_help() -> None:
     """Test that CLI help works."""
     runner = CliRunner()
     result = runner.invoke(main, ["--help"])
@@ -14,7 +13,7 @@ def test_cli_help():
     assert "crawl-first" in result.output.lower()
 
 
-def test_cli_requires_input():
+def test_cli_requires_input() -> None:
     """Test that CLI requires either biosample-id or input-file."""
     runner = CliRunner()
     result = runner.invoke(main, ["--email", "test@example.com"])
@@ -22,12 +21,11 @@ def test_cli_requires_input():
     assert "Error" in result.output
 
 
-def test_cli_requires_output():
+def test_cli_requires_output() -> None:
     """Test that CLI requires either output-file or output-dir."""
     runner = CliRunner()
-    result = runner.invoke(main, [
-        "--biosample-id", "nmdc:bsm-11-test", 
-        "--email", "test@example.com"
-    ])
+    result = runner.invoke(
+        main, ["--biosample-id", "nmdc:bsm-11-test", "--email", "test@example.com"]
+    )
     assert result.exit_code != 0
     assert "Error" in result.output
