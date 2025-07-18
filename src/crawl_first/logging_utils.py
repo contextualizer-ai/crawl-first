@@ -29,16 +29,20 @@ class LogCapture:
         self.level = level
         self.prefix = prefix
 
-    def write(self, data: Union[str, bytes]) -> int:
-        """Write data to logger."""
-        # Handle str, bytes, and other types that might be passed to write()
+    def _convert_data_to_str(self, data: Union[str, bytes, Any]) -> str:
+        """Convert input data to a string."""
         if isinstance(data, bytes):
-            data = data.decode("utf-8", errors="replace")
+            return data.decode("utf-8", errors="replace")
         elif isinstance(data, str):
-            pass  # Already a string, no conversion needed
+            return data  # Already a string, no conversion needed
         else:
             # Convert other types (int, float, etc.) to string
-            data = str(data)
+            return str(data)
+
+    def write(self, data: Union[str, bytes]) -> int:
+        """Write data to logger."""
+        # Convert data to string using the private method
+        data = self._convert_data_to_str(data)
 
         stripped = data.strip() if data else ""
         if stripped:

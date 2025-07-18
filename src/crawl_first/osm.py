@@ -323,18 +323,39 @@ class OSMFeature:
     This class encapsulates the properties of an OSM feature, including its
     unique identifier, type, tags, geometry, and spatial information.
 
+    Coordinate System:
+        All coordinates use the WGS84 coordinate system (EPSG:4326), which is
+        the standard used by OpenStreetMap and GPS systems. Coordinates are
+        expressed in decimal degrees.
+
+    Distance Calculations:
+        Distances are calculated using the great circle distance formula
+        (haversine formula) on the WGS84 ellipsoid.
+
     Attributes:
-        feature_id (str): The unique identifier of the OSM feature.
-        feature_type (str): The type of the feature (e.g., "natural:water").
+        feature_id (str): The unique identifier of the OSM feature. This is
+            typically a numeric ID assigned by OpenStreetMap.
+        feature_type (str): The type of the feature in "category:value" format
+            (e.g., "natural:water", "landuse:forest"). This represents the
+            primary classification of the feature.
         tags (Dict[str, str]): Key-value pairs representing OSM tags that
-            describe the feature's properties.
-        geometry_type (str): The type of geometry (e.g., "Point", "Polygon").
+            describe the feature's properties. These include all OSM tags
+            such as name, description, and specific attributes.
+        geometry_type (str): The type of geometry from OSM data model
+            (e.g., "node" for points, "way" for lines/polygons, "relation"
+            for complex geometries).
         coordinates (Tuple[float, float]): The latitude and longitude of the
-            feature's location.
-        distance_from_center (float): The distance of the feature from a
-            reference center point, in meters.
-        area (Optional[float]): The area of the feature, if applicable, in
-            square meters. Defaults to None if not available.
+            feature's location in decimal degrees (WGS84). For non-point
+            geometries, this represents the centroid or representative point.
+            Format: (latitude, longitude) where latitude ranges from -90 to 90
+            and longitude ranges from -180 to 180.
+        distance_from_center (float): The great circle distance of the feature
+            from a reference center point, measured in meters. Calculated using
+            the haversine formula for accurate distance on Earth's surface.
+        area (Optional[float]): The area of the feature in square meters, if
+            applicable and available from OSM data. Only present for polygon
+            features (ways and relations). Defaults to None for point features
+            or when area data is not available.
     """
 
     feature_id: str

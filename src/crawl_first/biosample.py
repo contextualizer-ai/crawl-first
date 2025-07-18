@@ -4,7 +4,7 @@ Biosample analysis orchestration for crawl-first.
 Coordinates comprehensive analysis of NMDC biosample records.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, NamedTuple, Optional
 
 from landuse_mcp.main import get_landuse_dates
 
@@ -20,6 +20,15 @@ from .analysis import (
 from .cache import cache_key, get_cache, save_cache
 from .geospatial import calculate_distance, geocode_location_name, get_elevation
 from .osm import query_osm_features, summarize_osm_features
+
+
+class BiosampleCoordinatesAndDate(NamedTuple):
+    """Structured return type for biosample coordinate and date extraction."""
+    asserted_lat: Optional[float]
+    asserted_lon: Optional[float]
+    location_name: Optional[str]
+    date: Optional[str]
+    parsed_date: Optional[str]
 
 
 def get_geospatial_analysis(
@@ -132,9 +141,7 @@ def get_geospatial_analysis(
 
 def _extract_biosample_coordinates_and_date(
     full_biosample: Dict[str, Any],
-) -> tuple[
-    Optional[float], Optional[float], Optional[str], Optional[str], Optional[str]
-]:
+) -> BiosampleCoordinatesAndDate:
     """Extract coordinates, location name, and date from biosample data."""
     # Extract coordinates
     lat_lon = full_biosample.get("lat_lon", {})
@@ -156,7 +163,13 @@ def _extract_biosample_coordinates_and_date(
     )
     parsed_date = parse_collection_date(date) if date else None
 
-    return asserted_lat, asserted_lon, location_name, date, parsed_date
+    return BiosampleCoordinatesAndDate(
+        asserted_lat=asserted_lat,
+        asserted_lon=asserted_lon,
+        location_name=location_name,
+        date=date,
+        parsed_date=parsed_date,
+    )
 
 
 def _analyze_asserted_coordinates(
@@ -386,9 +399,12 @@ def analyze_biosample(
             return None
 
         # Extract coordinates and date information
-        asserted_lat, asserted_lon, location_name, date, parsed_date = (
-            _extract_biosample_coordinates_and_date(full_biosample)
-        )
+        coords_and_date = _extract_biosample_coordinates_and_date(full_biosample)
+        asserted_lat = coords_and_date.asserted_lat
+        asserted_lon = coords_and_date.asserted_lon
+        location_name = coords_and_date.location_name
+        date = coords_and_date.date
+        parsed_date = coords_and_date.parsed_date
 
         inferred = {}
 

@@ -13,10 +13,18 @@ from geopy.geocoders import Nominatim
 
 from .cache import cache_key, get_cache, save_cache
 
+# Nominatim API rate limiting configuration
+# 1.1 seconds ensures we stay under the 1 request/second limit
+NOMINATIM_RATE_LIMIT_SECONDS = 1.1
+
 
 def nominatim_rate_limit() -> None:
-    """Apply rate limiting for Nominatim API (1 req/sec)."""
-    sleep(1.1)
+    """Apply rate limiting for Nominatim API (1 req/sec).
+
+    Uses NOMINATIM_RATE_LIMIT_SECONDS constant to ensure compliance
+    with Nominatim's usage policy of maximum 1 request per second.
+    """
+    sleep(NOMINATIM_RATE_LIMIT_SECONDS)
 
 
 def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:

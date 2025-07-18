@@ -7,7 +7,7 @@ Handles various types of data analysis: soil, land cover, weather, publications,
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 from artl_mcp.tools import (
     doi_to_pmid,
@@ -487,48 +487,44 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
     return None
 
 
-def _try_pmcid_text(pmcid: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve full text using PMCID."""
+def _try_retrieve_text(retrieve_func: Callable[..., Any], *args: Any, **kwargs: Any) -> Optional[Dict[str, Any]]:
+    """Generic function to retrieve and validate text.
+
+    Args:
+        retrieve_func: The function to call for text retrieval
+        *args: Positional arguments to pass to retrieve_func
+        **kwargs: Keyword arguments to pass to retrieve_func
+
+    Returns:
+        Dictionary with text and length if successful, None otherwise
+    """
     try:
-        text = get_pmcid_text(pmcid)
+        text = retrieve_func(*args, **kwargs)
         if text and len(text.strip()) > 100:
             return {"text": text, "length": len(text.strip())}
     except Exception:
         pass
     return None
+
+
+def _try_pmcid_text(pmcid: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve full text using PMCID."""
+    return _try_retrieve_text(get_pmcid_text, pmcid)
 
 
 def _try_pmid_text(pmid: str) -> Optional[Dict[str, Any]]:
     """Try to retrieve full text using PMID."""
-    try:
-        text = get_pmid_text(pmid)
-        if text and len(text.strip()) > 100:
-            return {"text": text, "length": len(text.strip())}
-    except Exception:
-        pass
-    return None
+    return _try_retrieve_text(get_pmid_text, pmid)
 
 
 def _try_doi_simple_text(doi: str) -> Optional[Dict[str, Any]]:
     """Try to retrieve full text using simple DOI method."""
-    try:
-        text = get_doi_text(doi)
-        if text and len(text.strip()) > 100:
-            return {"text": text, "length": len(text.strip())}
-    except Exception:
-        pass
-    return None
+    return _try_retrieve_text(get_doi_text, doi)
 
 
 def _try_doi_advanced_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
     """Try to retrieve full text using advanced DOI method."""
-    try:
-        text = get_full_text_from_doi(doi, email)
-        if text and len(text.strip()) > 100:
-            return {"text": text, "length": len(text.strip())}
-    except Exception:
-        pass
-    return None
+    return _try_retrieve_text(get_full_text_from_doi, doi, email)
 
 
 def _try_unpaywall_pdf_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
