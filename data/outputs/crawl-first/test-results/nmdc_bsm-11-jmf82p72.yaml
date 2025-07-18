@@ -1,0 +1,280 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  collection_date:
+    has_raw_value: "2017-07-25T18:43Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_maximum_numeric_value: 0.2
+    has_minimum_numeric_value: 0
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 38.6
+  env_broad_scale:
+    term:
+      id: "ENVO:00000446"
+      name: terrestrial biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:01000816"
+      name: area of deciduous forest
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:00001998"
+      name: soil
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  id: "nmdc:bsm-11-jmf82p72"
+  name: JERC_001-M-1-36-20170725
+  ph: 5.54
+  samp_collec_device: auger
+  soil_horizon: M horizon
+  temp:
+    has_numeric_value: 28
+    has_unit: Celsius
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  water_content:
+  - 0.115 g of water/g of dry soil
+  geo_loc_name:
+    has_raw_value: "USA: Georgia, The Jones Center At Ichauway"
+    type: "nmdc:TextValue"
+  biosample_categories:
+  - NEON
+  lat_lon:
+    latitude: 31.194314
+    longitude: -84.477077
+    type: "nmdc:GeolocationValue"
+  gold_biosample_identifiers:
+  - "gold:Gb0255756"
+  ecosystem: Environmental
+  ecosystem_category: Terrestrial
+  ecosystem_type: Soil
+  ecosystem_subtype: Unclassified
+  associated_studies:
+  - "nmdc:sty-11-34xj1150"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Acriosols
+    ontology_matches: []
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2018-01-01'
+        envo_term: savanna
+        system_description: "Tree cover 10-30% (canopy >2m)."
+        system_term: Savannas
+      UMD:
+      - date: '2018-01-01'
+        envo_term: savanna
+        system_description: "Tree cover 10-30% (canopy >2m)."
+        system_term: Savannas
+      LAI:
+      - date: '2018-01-01'
+        envo_term: savanna
+        system_description: "Between 10-60% tree cover (>2m)."
+        system_term: Savannas
+      BGC:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
+          \ Woody vegetation cover >10%."
+        system_term: Deciduous Broadleaf Vegetation
+      PFT:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
+          \ >10%."
+        system_term: Deciduous Broadleaf Trees
+      LCCS1:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-30% (canopy >2m)."
+        system_term: Sparse Forests
+      LCCS2:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-60% (canopy >2m)."
+        system_term: Open Forests
+      LCCS3:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-60% (canopy >2m)."
+        system_term: Open Forests
+      QA:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      savanna:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000261"
+        short_form: ENVO_00000261
+        obo_id: "ENVO:00000261"
+        label: savanna
+        description:
+        - "A terrestrial ecosystem which has its composition and function determined\
+          \ by an unbroken herbaceous layer - primarily composed of grasses, sedges,\
+          \ or rushes - interspersed with trees or shrubs."
+        - "Savannas are intermediate grassland-woodland ecosystems, with some instances\
+          \ having almost no trees and others having trees at densities higher than\
+          \ some forests. Savannas are typically subject to tropical or subtropical\
+          \ climatic conditions. Savannas typically have seasonal water availability\
+          \ and grass, sedge (Cyperaceae) or  rush (Juncaceae) communities."
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00005746"
+        short_form: ENVO_00005746
+        obo_id: "ENVO:00005746"
+        label: savanna soil
+        description:
+        - A portion of soil which is found in a savanna.
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2017-07-25'
+    closest_available_date: '2018-01-01'
+    neighboring_dates:
+    - '2017-01-01'
+    - '2018-01-01'
+    - '2019-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2017-07-25'
+    station:
+      name: Decatur / Lynn
+      country: US
+      region: GA
+      wmo: null
+      icao: KBGE
+      latitude: 30.9716
+      longitude: -84.6369
+      elevation: 43.0
+      timezone: America/New_York
+      distance: 29067.73143113488
+    measurements:
+      tavg: 27.0
+      tmin: 24.0
+      tmax: 33.0
+      wspd: 2.2
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 31.194314
+      longitude: -84.477077
+    elevation:
+      meters: 52.0
+      feet: 170.6
+    place_info:
+      coordinates:
+        latitude: 31.194314
+        longitude: -84.477077
+      display_name: "Baker County, Georgia, United States"
+      place_type: administrative
+      address:
+        county: Baker County
+        state: Georgia
+        country: United States
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 5
+        query_coordinates:
+        - 31.194314
+        - -84.477077
+        feature_counts:
+          highway:
+            track: 5
+      environmental_features: {}
+      nearest_features:
+      - type: "highway:track"
+        distance_m: 228.0
+      - type: "highway:track"
+        distance_m: 490.8
+      - type: "highway:track"
+        distance_m: 677.5
+      - type: "highway:track"
+        distance_m: 697.5
+      - type: "highway:track"
+        distance_m: 815.6
+    environmental_summary:
+      total_environmental_features: 5
+      water_features_nearby: 0
+      natural_areas_nearby: 0
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "highway:track"
+        count: 5
+      ecological_context: No major environmental features found within 1000m radius
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 31.194314
+        longitude: -84.477077
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/31.194314,-84.477077/@31.194314,-84.477077,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 31.2408992
+        longitude: -84.4775134
+      source: "geocoded from geo_loc_name: USA: Georgia, The Jones Center At Ichauway"
+      geocode_result:
+        location_name: "USA: Georgia, The Jones Center At Ichauway"
+        coordinates:
+          latitude: 31.2408992
+          longitude: -84.4775134
+        display_name: "The Jones Center at Ichauway, Baker County, Georgia, United\
+          \ States"
+        place_type: forest
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/31.2408992,-84.4775134/@31.2408992,-84.4775134,15z"
+      elevation_meters: 61.0
+    combined_map_url: "https://www.google.com/maps/dir/31.194314,-84.477077/31.2408992,-84.4775134/@31.194314,-84.477077,10z"
+    combined_map_description: "Asserted coords (31.194314, -84.477077) vs Geocoded\
+      \ coords (31.2408992, -84.4775134)"
+    coordinate_distance:
+      meters: 5180.2
+      kilometers: 5.18
+      description: "Distance between asserted and geocoded coordinates: 5.18 km"
+    elevation_comparison:
+      asserted_elevation_m: 38.6
+      geospatial_elevation_m: 52.0
+      difference_m: 13.4
+      description: "Elevation difference: 13.4m between asserted (38.6m) and geospatial\
+        \ lookup (52.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-34xj1150"
+    study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_title: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's soil microbial shotgun metagenomics\
+      \ sequencing. Typically, measurements are done on plot-level composite samples\
+      \ and represent up to three randomly selected sampling locations within a plot."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.10107.001"
+    - "https://data.neonscience.org/api/v0/documents/NEON.DOC.014048vO"
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-jmf82p72"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

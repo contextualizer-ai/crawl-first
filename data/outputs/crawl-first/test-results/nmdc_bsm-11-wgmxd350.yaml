@@ -1,15 +1,19 @@
 asserted:
+  ammonium_nitrogen:
+    has_numeric_value: 0.093
+    has_unit: mg/L
+    type: "nmdc:QuantityValue"
   analysis_type:
   - metagenomics
   collection_date:
-    has_raw_value: "2018-07-02T19:50Z"
+    has_raw_value: "2018-05-29T21:59Z"
     type: "nmdc:TimestampValue"
   depth:
-    has_maximum_numeric_value: 0.3
+    has_maximum_numeric_value: 0.25
     has_minimum_numeric_value: 0
     has_unit: m
     type: "nmdc:QuantityValue"
-  elev: 1623.8
+  elev: 519.8
   env_broad_scale:
     term:
       id: "ENVO:00000446"
@@ -18,8 +22,8 @@ asserted:
     type: "nmdc:ControlledIdentifiedTermValue"
   env_local_scale:
     term:
-      id: "ENVO:01000888"
-      name: area of gramanoid or herbaceous vegetation
+      id: "ENVO:01000869"
+      name: area of scrub
       type: "nmdc:OntologyClass"
     type: "nmdc:ControlledIdentifiedTermValue"
   env_medium:
@@ -28,26 +32,37 @@ asserted:
       name: soil
       type: "nmdc:OntologyClass"
     type: "nmdc:ControlledIdentifiedTermValue"
-  id: "nmdc:bsm-11-va48jn22"
-  name: CPER_003-M-14.5-9.5-20180702
-  ph: 7.05
+  env_package:
+    has_raw_value: soil
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-11-wgmxd350"
+  name: OAES_042-M-31-32.5-20180529
+  org_carb:
+    has_numeric_value: 1.32
+    has_unit: percent
+    type: "nmdc:QuantityValue"
+  ph: 7.83
   samp_collec_device: auger
   soil_horizon: M horizon
   temp:
-    has_numeric_value: 28.2
+    has_numeric_value: 33.6
     has_unit: Celsius
+    type: "nmdc:QuantityValue"
+  tot_nitro_content:
+    has_numeric_value: 0.138
+    has_unit: mg/L
     type: "nmdc:QuantityValue"
   type: "nmdc:Biosample"
   water_content:
-  - 0.036 g of water/g of dry soil
+  - 0.074 g of water/g of dry soil
   geo_loc_name:
-    has_raw_value: "USA: Colorado, Central Plains Experimental Range"
+    has_raw_value: "USA: Oklahoma, Marvin Klemme Range Research Station"
     type: "nmdc:TextValue"
   biosample_categories:
   - NEON
   lat_lon:
-    latitude: 40.818451
-    longitude: -104.707164
+    latitude: 35.408887
+    longitude: -99.056266
     type: "nmdc:GeolocationValue"
   gold_biosample_identifiers: []
   associated_studies:
@@ -143,7 +158,7 @@ inferred:
         - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
           \ and determine the system's structure and dynamics."
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2018-07-02'
+    target_collection_date: '2018-05-29'
     closest_available_date: '2018-01-01'
     neighboring_dates:
     - '2017-01-01'
@@ -155,40 +170,40 @@ inferred:
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2018-07-02'
+      date_used: '2018-05-29'
     station:
-      name: Cheyenne F E Warren / Warren Air Force Base
+      name: Clinton / Burns Flat
       country: US
-      region: WY
+      region: OK
       wmo: null
-      icao: KFEW
-      latitude: 41.1333
-      longitude: -104.8672
-      elevation: 1878.0
-      timezone: America/Denver
-      distance: 37498.98263376282
+      icao: KCSM
+      latitude: 35.3398
+      longitude: -99.2005
+      elevation: 586.0
+      timezone: America/Chicago
+      distance: 15166.721507590048
     measurements:
-      tavg: 20.4
-      tmin: 8.1
-      tmax: 30.4
-      wspd: 2.7
-      pres: 1011.9
+      tavg: 26.9
+      tmin: 18.9
+      tmax: 33.9
+      wspd: 8.2
+      pres: 1006.0
   geospatial_from_asserted_coords:
     coordinates:
-      latitude: 40.818451
-      longitude: -104.707164
+      latitude: 35.408887
+      longitude: -99.056266
     elevation:
-      meters: 1623.0
-      feet: 5324.8
+      meters: 524.0
+      feet: 1719.2
     place_info:
       coordinates:
-        latitude: 40.818451
-        longitude: -104.707164
-      display_name: "Weld County, Colorado, United States"
+        latitude: 35.408887
+        longitude: -99.056266
+      display_name: "Washita County, Oklahoma, United States"
       place_type: administrative
       address:
-        county: Weld County
-        state: Colorado
+        county: Washita County
+        state: Oklahoma
         country: United States
         country_code: us
       administrative: {}
@@ -197,8 +212,8 @@ inferred:
       metadata:
         total_features: 0
         query_coordinates:
-        - 40.818451
-        - -104.707164
+        - 35.408887
+        - -99.056266
         feature_counts: {}
       environmental_features: {}
       nearest_features: []
@@ -212,16 +227,16 @@ inferred:
   coordinate_sources:
     from_asserted_coords:
       coordinates:
-        latitude: 40.818451
-        longitude: -104.707164
+        latitude: 35.408887
+        longitude: -99.056266
       source: lat_lon field
-      map_url: "https://www.google.com/maps/place/40.818451,-104.707164/@40.818451,-104.707164,15z"
+      map_url: "https://www.google.com/maps/place/35.408887,-99.056266/@35.408887,-99.056266,15z"
     elevation_comparison:
-      asserted_elevation_m: 1623.8
-      geospatial_elevation_m: 1623.0
-      difference_m: 0.8
-      description: "Elevation difference: 0.8m between asserted (1623.8m) and geospatial\
-        \ lookup (1623.0m)"
+      asserted_elevation_m: 519.8
+      geospatial_elevation_m: 524.0
+      difference_m: 4.2
+      description: "Elevation difference: 4.2m between asserted (519.8m) and geospatial\
+        \ lookup (524.0m)"
   study_info:
     study_id: "nmdc:sty-11-34xj1150"
     study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
@@ -245,7 +260,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-va48jn22"
+    biosample_id: "nmdc:bsm-11-wgmxd350"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0

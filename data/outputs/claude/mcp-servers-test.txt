@@ -1,56 +1,33 @@
-Based on the available tools in my environment, I have access to these MCP servers and their tools:
+Based on the MCP tools available in my function list, I have access to the following MCP servers and their tools:
 
-**MCP Servers Available:**
+**OLS-MCP** (Ontology Lookup Service):
+- `search_all_ontologies` - Search across all ontologies
+- `get_ontology_info` - Get detailed ontology information
+- `get_terms_from_ontology` - Get classes/terms from specific ontologies
 
-1. **ols-mcp** (Ontology Lookup Service)
-   - `search_all_ontologies` - Search across all ontologies
-   - `get_ontology_info` - Get detailed ontology information
-   - `get_terms_from_ontology` - Get classes/terms from specific ontology
+**Landuse-MCP**:
+- `get_land_cover` - Get land use data for coordinates
+- `get_soil_type` - Get FAO soil type for coordinates  
+- `get_landuse_dates` - Get available dates for land use data
 
-2. **nmdc-mcp** (National Microbiome Data Collaborative)
-   - `get_collection_names` - List available NMDC collections
-   - `get_collection_stats` - Get collection statistics
-   - `get_all_collection_ids` - Get document IDs in batches
-   - `get_random_collection_ids` - Get random sample of IDs
-   - `get_samples_in_elevation_range` - Filter by elevation
-   - `get_samples_within_lat_lon_bounding_box` - Geographic filtering
-   - `get_samples_by_ecosystem` - Filter by ecosystem type
-   - `get_entity_by_id` - Retrieve entity by ID
-   - `get_entity_by_id_with_projection` - Retrieve with field projection
-   - `get_entities_by_ids_with_projection` - Bulk retrieve with projection
-   - `get_study_for_biosample` - Get study from biosample
-   - `get_biosamples_for_study` - Get biosamples from study
-   - `get_study_doi_details` - Get DOI details for study
-   - `search_studies_by_doi_criteria` - Search studies by DOI
+**NMDC-MCP** (National Microbiome Data Collaborative):
+- Collection management (get_collection_names, get_collection_stats)
+- ID retrieval (get_all_collection_ids, get_random_collection_ids)
+- Spatial queries (get_samples_in_elevation_range, get_samples_within_lat_lon_bounding_box)
+- Ecosystem queries (get_samples_by_ecosystem)
+- Entity retrieval (get_entity_by_id, get_entity_by_id_with_projection, get_entities_by_ids_with_projection)
+- Study/biosample relationships (get_study_for_biosample, get_biosamples_for_study)
+- DOI management (get_study_doi_details, search_studies_by_doi_criteria)
 
-3. **landuse-mcp** (Land Use Data)
-   - `get_land_cover` - Get land use data for coordinates
-   - `get_soil_type` - Get FAO soil type for coordinates
-   - `get_landuse_dates` - Get available dates for location
+**ARTL-MCP** (Article/Literature tools):
+- DOI metadata (get_doi_metadata, get_doi_fetcher_metadata)
+- PubMed integration (get_abstract_from_pubmed_id, doi_to_pmid, pmid_to_doi)
+- Full text retrieval (get_full_text_from_doi, get_pmid_text, get_pmcid_text)
+- PDF processing (get_text_from_pdf_url, extract_pdf_text)
+- Literature search (search_pubmed_for_pmids, search_papers_by_keyword, search_recent_papers)
+- Unpaywall integration (get_unpaywall_info)
 
-4. **artl-mcp** (Article/Literature Access)
-   - `get_doi_metadata` - Get article metadata from DOI
-   - `get_abstract_from_pubmed_id` - Get abstract from PubMed ID
-   - `get_doi_fetcher_metadata` - Get metadata using DOIFetcher
-   - `get_unpaywall_info` - Find open access versions
-   - `get_full_text_from_doi` - Get full text from DOI
-   - `get_full_text_info` - Get full text availability info
-   - `get_text_from_pdf_url` - Extract text from PDF URL
-   - `clean_text` - Clean text using DOIFetcher
-   - `extract_pdf_text` - Extract text from PDF
-   - `extract_doi_from_url` - Extract DOI from URL
-   - `doi_to_pmid` - Convert DOI to PubMed ID
-   - `pmid_to_doi` - Convert PubMed ID to DOI
-   - `get_doi_text` - Get full text from DOI
-   - `get_pmid_from_pmcid` - Convert PMC ID to PubMed ID
-   - `get_pmcid_text` - Get full text from PMC ID
-   - `get_pmid_text` - Get full text from PubMed ID
-   - `get_full_text_from_bioc` - Get full text from BioC
-   - `search_pubmed_for_pmids` - Search PubMed for PMIDs
-   - `search_papers_by_keyword` - Search papers by keywords
-   - `search_recent_papers` - Search recent papers
+**Weather-Context-MCP**:
+- `get_weather` - Get hourly/daily weather data for coordinates
 
-5. **weather-context-mcp** (Weather Data)
-   - `get_weather` - Get hourly/daily weather data for coordinates
-
-The MCP resource list is empty, indicating these servers don't expose resources directly but provide their functionality through the tools listed above.
+The MCP resource listing shows no specific resources are currently loaded, but all the above tools are available for use.

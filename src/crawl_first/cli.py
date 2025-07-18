@@ -14,11 +14,11 @@ import random
 import re
 import sys
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from math import asin, cos, radians, sin, sqrt
 from pathlib import Path
 from time import sleep
-from typing import Any, Dict, List, Optional, TextIO, Tuple, TypeVar
+from typing import Any, Dict, List, Optional, TextIO, Tuple, TypeVar, Union
 
 import click
 import requests
@@ -91,7 +91,7 @@ NoRefsDumper.add_representer(str, str_presenter)
 # Global cache directory
 CACHE_DIR = Path(".cache")
 FULL_TEXT_DIR = Path(".cache/full_text_files")
-LOG_DIR = Path(os.getenv("LOG_DIR", ".logs"))
+LOG_DIR = Path(os.getenv("LOG_DIR", "logs"))
 
 
 class LogCapture:
@@ -106,9 +106,8 @@ class LogCapture:
         self.logger = logger
         self.level = level
         self.prefix = prefix
-        self._buffer = ""
 
-    def write(self, data: Any) -> int:
+    def write(self, data: Union[str, bytes]) -> int:
         """Write data to logger."""
         # Handle both str and bytes input
         if isinstance(data, bytes):
@@ -158,6 +157,45 @@ class OutputManager:
             sys.stderr = self.original_stderr
 
 
+class OutputCapture:
+    """Context manager for capturing stdout/stderr output to logger."""
+
+    def __init__(self, logger: logging.Logger):
+        self.logger = logger
+        self.output_manager = OutputManager()
+        self.active = False
+
+    def __enter__(self) -> "OutputCapture":
+        """Enter context - start capturing output."""
+        self.start()
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """Exit context - restore original output."""
+        self.stop()
+
+    def start(self) -> None:
+        """Start capturing output."""
+        if not self.active:
+            self.output_manager.store_originals()
+
+            # Create log capture objects
+            stdout_capture = LogCapture(self.logger, logging.INFO, "[STDOUT]")
+            stderr_capture = LogCapture(self.logger, logging.WARNING, "[STDERR]")
+
+            # Replace stdout/stderr
+            sys.stdout = stdout_capture
+            sys.stderr = stderr_capture
+
+            self.active = True
+
+    def stop(self) -> None:
+        """Stop capturing output and restore originals."""
+        if self.active:
+            self.output_manager.restore_originals()
+            self.active = False
+
+
 def is_pytest_environment() -> bool:
     """Check if running in pytest environment."""
     return "pytest" in sys.modules or "PYTEST_CURRENT_TEST" in os.environ
@@ -195,7 +233,10 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
     simple_formatter = logging.Formatter("%(levelname)s: %(message)s")
 
     # File handler - captures EVERYTHING (our logs + library logs + stdout)
-    log_file = LOG_DIR / f"crawl_first_{datetime.now().strftime('%Y%m%d_%H%M')}.log"
+    log_file = (
+        LOG_DIR
+        / f"crawl_first_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M')}.log"
+    )
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(detailed_formatter)
@@ -232,16 +273,9 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
 
     # Capture stdout/stderr if requested and not in testing
     if capture_output and not is_pytest_environment():
-        # Store original stdout/stderr using OutputManager
-        _output_manager.store_originals()
-
-        # Create log capture objects
-        stdout_capture = LogCapture(logger, logging.INFO, "[STDOUT]")
-        stderr_capture = LogCapture(logger, logging.WARNING, "[STDERR]")
-
-        # Replace stdout/stderr
-        sys.stdout = stdout_capture
-        sys.stderr = stderr_capture
+        # Use OutputCapture context manager for automatic cleanup
+        output_capture = OutputCapture(logger)
+        output_capture.start()
 
     # Log the setup
     logger.info(f"Logging initialized. Log file: {log_file}")
