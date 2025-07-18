@@ -91,7 +91,7 @@ NoRefsDumper.add_representer(str, str_presenter)
 # Global cache directory
 CACHE_DIR = Path(".cache")
 FULL_TEXT_DIR = Path(".cache/full_text_files")
-LOG_DIR = Path(os.getenv("LOG_DIR", "logs"))
+LOG_DIR = Path(os.getenv("LOG_DIR", "crawl_first_logs"))
 
 
 class LogCapture:
@@ -115,12 +115,14 @@ class LogCapture:
         elif not isinstance(data, str):
             data = str(data)
 
-        if data and data.strip():
+        stripped = data.strip() if data else ""
+        if stripped:
             # Remove any trailing newlines and log each line separately
             lines = data.rstrip("\n\r").split("\n")
             for line in lines:
-                if line.strip():  # Only log non-empty lines
-                    self.logger.log(self.level, f"{self.prefix} {line.strip()}")
+                line_stripped = line.strip()
+                if line_stripped:  # Only log non-empty lines
+                    self.logger.log(self.level, f"{self.prefix} {line_stripped}")
 
         return len(data)
 
@@ -202,6 +204,8 @@ def is_pytest_environment() -> bool:
 
 
 # Global output manager instance
+# NOTE: This global instance is not thread-safe. If multi-threading is added,
+# consider using thread-local storage or explicit OutputManager instances
 _output_manager = OutputManager()
 
 
@@ -235,7 +239,7 @@ def setup_logging(verbose: bool = False, capture_output: bool = True) -> logging
     # File handler - captures EVERYTHING (our logs + library logs + stdout)
     log_file = (
         LOG_DIR
-        / f"crawl_first_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M')}.log"
+        / f"crawl_first_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.log"
     )
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.DEBUG)

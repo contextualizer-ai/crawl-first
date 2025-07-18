@@ -1,19 +1,19 @@
 asserted:
   ammonium_nitrogen:
-    has_numeric_value: 0.093
+    has_numeric_value: 0.268
     has_unit: mg/L
     type: "nmdc:QuantityValue"
   analysis_type:
   - metagenomics
   collection_date:
-    has_raw_value: "2018-05-29T21:59Z"
+    has_raw_value: "2019-07-29T14:23Z"
     type: "nmdc:TimestampValue"
   depth:
-    has_maximum_numeric_value: 0.25
+    has_maximum_numeric_value: 0.305
     has_minimum_numeric_value: 0
     has_unit: m
     type: "nmdc:QuantityValue"
-  elev: 519.8
+  elev: 507.2
   env_broad_scale:
     term:
       id: "ENVO:00000446"
@@ -22,8 +22,8 @@ asserted:
     type: "nmdc:ControlledIdentifiedTermValue"
   env_local_scale:
     term:
-      id: "ENVO:01000869"
-      name: area of scrub
+      id: "ENVO:01000888"
+      name: area of gramanoid or herbaceous vegetation
       type: "nmdc:OntologyClass"
     type: "nmdc:ControlledIdentifiedTermValue"
   env_medium:
@@ -35,41 +35,41 @@ asserted:
   env_package:
     has_raw_value: soil
     type: "nmdc:TextValue"
-  id: "nmdc:bsm-11-wgmxd350"
-  name: OAES_042-M-31-32.5-20180529
+  id: "nmdc:bsm-11-3hm8jt19"
+  name: DCFS_004-M-6-33.5-20190729
   org_carb:
-    has_numeric_value: 1.32
+    has_numeric_value: 4.15
     has_unit: percent
     type: "nmdc:QuantityValue"
-  ph: 7.83
+  ph: 7.35
   samp_collec_device: auger
   soil_horizon: M horizon
   temp:
-    has_numeric_value: 33.6
+    has_numeric_value: 20.2
     has_unit: Celsius
     type: "nmdc:QuantityValue"
   tot_nitro_content:
-    has_numeric_value: 0.138
+    has_numeric_value: 0.142
     has_unit: mg/L
     type: "nmdc:QuantityValue"
   type: "nmdc:Biosample"
   water_content:
-  - 0.074 g of water/g of dry soil
+  - 0.238 g of water/g of dry soil
   geo_loc_name:
-    has_raw_value: "USA: Oklahoma, Marvin Klemme Range Research Station"
+    has_raw_value: "USA: North Dakota, Dakota Coteau Field Site"
     type: "nmdc:TextValue"
   biosample_categories:
   - NEON
   lat_lon:
-    latitude: 35.408887
-    longitude: -99.056266
+    latitude: 47.171565
+    longitude: -99.051268
     type: "nmdc:GeolocationValue"
   gold_biosample_identifiers: []
   associated_studies:
   - "nmdc:sty-11-34xj1150"
 inferred:
   soil_from_asserted_coords:
-    soil_type: Kastanozems
+    soil_type: Chernozems
     ontology_matches:
     - iri: "http://purl.obolibrary.org/obo/ENVO_00002240"
       short_form: ENVO_00002240
@@ -81,68 +81,90 @@ inferred:
         \ Kastanozems have a similar profile to that of Chernozems but the humus-rich\
         \ surface horizon is thinner and not as dark as that of the Chernozems and\
         \ they show more prominent accumulation of secondary carbonates."
-    - iri: "http://purl.obolibrary.org/obo/ENVO_00002249"
-      short_form: ENVO_00002249
-      obo_id: "ENVO:00002249"
-      label: phaeozem
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002237"
+      short_form: ENVO_00002237
+      obo_id: "ENVO:00002237"
+      label: chernozem
       description:
-      - "Phaeozems accommodate soils of relatively wet grassland and forest regions\
-        \ in moderately continental climates. Phaeozems are much like Chernozems and\
-        \ Kastanozems but are leached more intensively. Consequently, they have dark,\
-        \ humus rich surface horizons that, in comparison with Chernozems and Kastanozems,\
-        \ are less rich in bases. Phaeozems may or may not have secondary carbonates\
-        \ but have a high base saturation in the upper metre of the soil."
+      - Chernozems are soils with a thick black surface layer that is rich in organic
+        matter.
   land_cover_from_asserted_coords:
     land_cover:
       IGBP:
-      - date: '2018-01-01'
-        envo_term: grassland area
-        system_description: Dominated by herbaceous annuals (<2m).
-        system_term: Grasslands
+      - date: '2020-01-01'
+        envo_term: area of cropland
+        system_description: At least 60% of area is cultivated cropland.
+        system_term: Croplands
       UMD:
-      - date: '2018-01-01'
-        envo_term: grassland area
-        system_description: Dominated by herbaceous annuals (<2m).
-        system_term: Grasslands
+      - date: '2020-01-01'
+        envo_term: area of cropland
+        system_description: At least 60% of area is cultivated cropland.
+        system_term: Croplands
       LAI:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m) including cereal
           croplands.
         system_term: Grasslands
       BGC:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) including cereal
           croplands.
         system_term: Annual Grass Vegetation
       PFT:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: ENVO Term unavailable
-        system_description: Dominated by herbaceous annuals (<2m) that are not cultivated.
-        system_term: Grass
+        system_description: Dominated by herbaceous annuals (<2m).  At least 60% cultivated
+          cereal crops.
+        system_term: Cereal Croplands
       LCCS1:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
         system_term: Dense Herbaceous
       LCCS2:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: ENVO Term unavailable
-        system_description: Dominated by herbaceous annuals (<2m). At least 10% cover.
-        system_term: Natural Herbaceous
+        system_description: "Dominated by herbaceous annuals (<2m). At least 60% cover.\
+          \ Cultivated fraction >60%."
+        system_term: Herbaceous Croplands
       LCCS3:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: grassland area
         system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
         system_term: Grasslands
       QA:
-      - date: '2018-01-01'
+      - date: '2020-01-01'
         envo_term: ENVO Term unavailable
         system_description: Has a classification label and island according to the
           water mask.
         system_term: Classified land
     ontology_matches:
+      area of cropland:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000892"
+        short_form: ENVO_01000892
+        obo_id: "ENVO:01000892"
+        label: area of cropland
+        description:
+        - "An area of a planet's surface which is partly covered either by annual\
+          \ crops and perennial woody crops or by actively tilled land. This area\
+          \ is in contact with an atmospheric column extending from the planetary\
+          \ boundary layer to the planet's exosphere with little to no physical obstruction."
+        - "According to the NLCD 2011, at least 20% of these areas are covered by\
+          \ croplands or actively tilled land.  Such thresholds - which are themselves\
+          \ fuzzy - are not strictly asserted in this definition. The NLCD provides\
+          \ corn, soybeans, vegetables, tobacco, and cotton as examples of annual\
+          \ crops and the trees and vines in orchards and vineyards as examples of\
+          \ perennial woody crops."
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01001244"
+        short_form: ENVO_01001244
+        obo_id: "ENVO:01001244"
+        label: cropland ecosystem
+        description:
+        - "An ecosystem which 1) is determined by communities of annual crops, perennial\
+          \ woody crops, or by actively tilled land, 2) is primarily used for agricultural\
+          \ activity, and 3) contains no village or larger human settlement."
       grassland area:
       - iri: "http://purl.obolibrary.org/obo/ENVO_00000106"
         short_form: ENVO_00000106
@@ -158,85 +180,90 @@ inferred:
         - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
           \ and determine the system's structure and dynamics."
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2018-05-29'
-    closest_available_date: '2018-01-01'
+    target_collection_date: '2019-07-29'
+    closest_available_date: '2020-01-01'
     neighboring_dates:
-    - '2017-01-01'
-    - '2018-01-01'
     - '2019-01-01'
+    - '2020-01-01'
+    - '2021-01-01'
   weather_from_asserted_coords:
     coverage: 1.0
     strategy_used: 1
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2018-05-29'
+      date_used: '2019-07-29'
     station:
-      name: Clinton / Burns Flat
+      name: Carrington
       country: US
-      region: OK
+      region: ND
       wmo: null
-      icao: KCSM
-      latitude: 35.3398
-      longitude: -99.2005
-      elevation: 586.0
+      icao: K46D
+      latitude: 47.4511
+      longitude: -99.1513
+      elevation: 490.0
       timezone: America/Chicago
-      distance: 15166.721507590048
+      distance: 31984.684917639996
     measurements:
-      tavg: 26.9
-      tmin: 18.9
-      tmax: 33.9
-      wspd: 8.2
-      pres: 1006.0
+      tavg: 17.2
+      tmin: 13.0
+      tmax: 22.0
+      wspd: 4.5
   geospatial_from_asserted_coords:
     coordinates:
-      latitude: 35.408887
-      longitude: -99.056266
+      latitude: 47.171565
+      longitude: -99.051268
     elevation:
-      meters: 524.0
-      feet: 1719.2
+      meters: 500.0
+      feet: 1640.4
     place_info:
       coordinates:
-        latitude: 35.408887
-        longitude: -99.056266
-      display_name: "Washita County, Oklahoma, United States"
-      place_type: administrative
+        latitude: 47.171565
+        longitude: -99.051268
+      display_name: "Stutsman County, North Dakota, United States"
+      place_type: unclassified
       address:
-        county: Washita County
-        state: Oklahoma
+        county: Stutsman County
+        state: North Dakota
         country: United States
         country_code: us
       administrative: {}
       error: null
     osm_features:
       metadata:
-        total_features: 0
+        total_features: 1
         query_coordinates:
-        - 35.408887
-        - -99.056266
-        feature_counts: {}
+        - 47.171565
+        - -99.051268
+        feature_counts:
+          highway:
+            track: 1
       environmental_features: {}
-      nearest_features: []
+      nearest_features:
+      - type: "highway:track"
+        distance_m: 302.7
     environmental_summary:
-      total_environmental_features: 0
+      total_environmental_features: 1
       water_features_nearby: 0
       natural_areas_nearby: 0
       protected_areas_nearby: 0
-      dominant_land_types: []
+      dominant_land_types:
+      - type: "highway:track"
+        count: 1
       ecological_context: No major environmental features found within 1000m radius
   coordinate_sources:
     from_asserted_coords:
       coordinates:
-        latitude: 35.408887
-        longitude: -99.056266
+        latitude: 47.171565
+        longitude: -99.051268
       source: lat_lon field
-      map_url: "https://www.google.com/maps/place/35.408887,-99.056266/@35.408887,-99.056266,15z"
+      map_url: "https://www.google.com/maps/place/47.171565,-99.051268/@47.171565,-99.051268,15z"
     elevation_comparison:
-      asserted_elevation_m: 519.8
-      geospatial_elevation_m: 524.0
-      difference_m: 4.2
-      description: "Elevation difference: 4.2m between asserted (519.8m) and geospatial\
-        \ lookup (524.0m)"
+      asserted_elevation_m: 507.2
+      geospatial_elevation_m: 500.0
+      difference_m: 7.2
+      description: "Elevation difference: 7.2m between asserted (507.2m) and geospatial\
+        \ lookup (500.0m)"
   study_info:
     study_id: "nmdc:sty-11-34xj1150"
     study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
@@ -260,7 +287,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-wgmxd350"
+    biosample_id: "nmdc:bsm-11-3hm8jt19"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0
