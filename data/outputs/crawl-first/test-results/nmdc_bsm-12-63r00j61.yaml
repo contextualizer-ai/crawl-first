@@ -1,0 +1,304 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  biosample_categories:
+  - NEON
+  collection_date:
+    has_raw_value: "2015-08-26T13:00Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_numeric_value: 0.5
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 30.2
+  env_broad_scale:
+    term:
+      id: "ENVO:01000252"
+      name: freshwater lake biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:01000409"
+      name: freshwater littoral zone
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:04000007"
+      name: lake water
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_package:
+    has_raw_value: water
+    type: "nmdc:TextValue"
+  geo_loc_name:
+    has_raw_value: "USA: Florida, Lake Suggs"
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-12-63r00j61"
+  lat_lon:
+    latitude: 29.685093
+    longitude: -82.018412
+    type: "nmdc:GeolocationValue"
+  name: SUGG.IN.20150826
+  samp_collec_device: Kemmerer
+  samp_size:
+    has_numeric_value: 330
+    has_unit: mL
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  associated_studies:
+  - "nmdc:sty-11-hht5sb92"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Regosols
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002256"
+      short_form: ENVO_00002256
+      obo_id: "ENVO:00002256"
+      label: regosol
+      description:
+      - "Regosols form a taxonomic remnant group containing all soils that could not\
+        \ be accommodated in any of the other RSGs. In practice, Regosols are very\
+        \ weakly developed mineral soils in unconsolidated materials that do not have\
+        \ a mollic or umbric horizon, are not very shallow or very rich in gravels\
+        \ (Leptosols), sandy (Arenosols) or with fluvic materials (Fluvisols). Regosols\
+        \ are extensive in eroding lands, particularly in arid and semi-arid areas\
+        \ and in mountainous terrain."
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2016-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (canopy\
+          \ >2m). Tree cover >60%."
+        system_term: Evergreen Broadleaf Forests
+      UMD:
+      - date: '2016-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (canopy\
+          \ >2m). Tree cover >60%."
+        system_term: Evergreen Broadleaf Forests
+      LAI:
+      - date: '2016-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (>2m).\
+          \ Tree cover >60%."
+        system_term: Evergreen Broadleaf Forests
+      BGC:
+      - date: '2016-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by evergreen broadleaf and palmate trees and\
+          \ shrubs (>1m). Woody vegetation cover >10%."
+        system_term: Evergreen Broadleaf Vegetation
+      PFT:
+      - date: '2016-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by evergreen broadleaf and palmate trees (>2m).\
+          \ Tree cover > 10%."
+        system_term: Evergreen Broadleaf Trees
+      LCCS1:
+      - date: '2016-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (>2m).\
+          \ Tree cover > 60%."
+        system_term: Evergreen Broadleaf Forests
+      LCCS2:
+      - date: '2016-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover >60% (canopy >2m)."
+        system_term: Dense Forests
+      LCCS3:
+      - date: '2016-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover >60% (canopy >2m)."
+        system_term: Dense Forests
+      QA:
+      - date: '2016-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      broadleaf forest:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000430"
+        short_form: ENVO_01000430
+        obo_id: "ENVO:01000430"
+        label: broadleaf forest
+        description:
+        - "A forest biome which contains densely packed populations or communities\
+          \ of broadleaf trees, strongly limiting light penetration to the forest\
+          \ floor."
+        - A class created to group GFM 2000 terms by the dominant vegetation type.
+          Definitions pending.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000197"
+        short_form: ENVO_01000197
+        obo_id: "ENVO:01000197"
+        label: broadleaf forest biome
+        description:
+        - A broadleaf forest ecosystem which is in its climactic successional state.
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2015-08-26'
+    closest_available_date: '2016-01-01'
+    neighboring_dates:
+    - '2015-01-01'
+    - '2016-01-01'
+    - '2017-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2015-08-26'
+    station:
+      name: Keystone Heights / Theressa
+      country: US
+      region: FL
+      wmo: null
+      icao: K42J
+      latitude: 29.8448
+      longitude: -82.0475
+      elevation: 60.0
+      timezone: America/New_York
+      distance: 17979.194228021905
+    measurements:
+      tavg: 26.7
+      tmin: 22.0
+      tmax: 34.0
+      wspd: 2.2
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 29.685093
+      longitude: -82.018412
+    elevation:
+      meters: 39.0
+      feet: 128.0
+    place_info:
+      coordinates:
+        latitude: 29.685093
+        longitude: -82.018412
+      display_name: "Putnam County, Florida, United States"
+      place_type: administrative
+      address:
+        county: Putnam County
+        state: Florida
+        country: United States
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 21
+        query_coordinates:
+        - 29.685093
+        - -82.018412
+        feature_counts:
+          natural:
+            wetland: 12
+            water: 2
+            wood: 5
+            grassland: 1
+          highway:
+            track: 1
+      environmental_features:
+        natural:
+        - type: water
+          distance_m: 302.6
+          name: Lake Suggs
+          tags:
+            wikipedia: "en:Lake Suggs"
+        - type: water
+          distance_m: 941.1
+          name: Lake Rowan
+      nearest_features:
+      - type: "natural:wetland"
+        distance_m: 77.1
+      - type: "natural:wetland"
+        distance_m: 124.7
+      - type: "natural:wood"
+        distance_m: 257.7
+      - type: "natural:water"
+        distance_m: 302.6
+        name: Lake Suggs
+      - type: "natural:wetland"
+        distance_m: 305.7
+    environmental_summary:
+      total_environmental_features: 21
+      water_features_nearby: 2
+      natural_areas_nearby: 20
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "natural:wetland"
+        count: 12
+      - type: "natural:wood"
+        count: 5
+      - type: "natural:water"
+        count: 2
+      ecological_context: "Location has 2 water feature(s), 20 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 29.685093
+        longitude: -82.018412
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/29.685093,-82.018412/@29.685093,-82.018412,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 29.6876426
+        longitude: -82.0177884
+      source: "geocoded from geo_loc_name: USA: Florida, Lake Suggs"
+      geocode_result:
+        location_name: "USA: Florida, Lake Suggs"
+        coordinates:
+          latitude: 29.6876426
+          longitude: -82.0177884
+        display_name: "Lake Suggs, Putnam County, Florida, United States"
+        place_type: water
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/29.6876426,-82.0177884/@29.6876426,-82.0177884,15z"
+      elevation_meters: 31.0
+    combined_map_url: "https://www.google.com/maps/dir/29.685093,-82.018412/29.6876426,-82.0177884/@29.685093,-82.018412,10z"
+    combined_map_description: "Asserted coords (29.685093, -82.018412) vs Geocoded\
+      \ coords (29.6876426, -82.0177884)"
+    coordinate_distance:
+      meters: 289.8
+      kilometers: 0.29
+      description: "Distance between asserted and geocoded coordinates: 0.29 km"
+    elevation_comparison:
+      asserted_elevation_m: 30.2
+      geospatial_elevation_m: 39.0
+      difference_m: 8.8
+      description: "Elevation difference: 8.8m between asserted (30.2m) and geospatial\
+        \ lookup (39.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-hht5sb92"
+    study_name: "National Ecological Observatory Network: surface water metagenomes\
+      \ (DP1.20281.001)"
+    study_title: "National Ecological Observatory Network: surface water metagenomes\
+      \ (DP1.20281.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's surface water microbial\
+      \ shotgun metagenomics sequencing."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.20281.001\""
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-12-63r00j61"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

@@ -16,16 +16,18 @@ def test_cli_help() -> None:
 def test_cli_requires_input() -> None:
     """Test that CLI requires either biosample-id or input-file."""
     runner = CliRunner()
-    result = runner.invoke(main, ["--email", "test@example.com"])
-    assert result.exit_code != 0
-    assert "Error" in result.output
+    with runner.isolated_filesystem():
+        result = runner.invoke(main, ["--email", "test@example.com"])
+        assert result.exit_code != 0
+        assert "Must specify either --biosample-id or --input-file" in result.output
 
 
 def test_cli_requires_output() -> None:
     """Test that CLI requires either output-file or output-dir."""
     runner = CliRunner()
-    result = runner.invoke(
-        main, ["--biosample-id", "nmdc:bsm-11-test", "--email", "test@example.com"]
-    )
-    assert result.exit_code != 0
-    assert "Error" in result.output
+    with runner.isolated_filesystem():
+        result = runner.invoke(
+            main, ["--biosample-id", "nmdc:bsm-11-test", "--email", "test@example.com"]
+        )
+        assert result.exit_code != 0
+        assert "Must specify either --output-file or --output-dir" in result.output

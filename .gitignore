@@ -61,10 +61,10 @@ cache/
 *.log
 logs/
 
-# Output files
-*.yaml
-*.yml
-*.json
-results/
-output/
-test_*/
+## Output files
+#*.yaml
+#*.yml
+#*.json
+#results/
+#output/
+#test_*/

@@ -2,20 +2,24 @@
 """
 crawl-first: Deterministic biosample enrichment for LLM-ready data preparation.
 
-Systematically follows all discoverable links from NMDC biosample records to gather
-comprehensive environmental, geospatial, weather, publication, and ontological data.
+Systematically follows discoverable links from NMDC biosample records to gather
+environmental, geospatial, weather, publication, and ontological data.
 """
 
 import hashlib
 import json
+import logging
+import os
 import random
 import re
+import sys
+import time
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from math import asin, cos, radians, sin, sqrt
 from pathlib import Path
 from time import sleep
-from typing import Any, Dict, List, Optional, Tuple, TypeVar
+from typing import Any, Dict, List, Optional, TextIO, Tuple, TypeVar, Union
 
 import click
 import requests
@@ -88,6 +92,222 @@ NoRefsDumper.add_representer(str, str_presenter)
 # Global cache directory
 CACHE_DIR = Path(".cache")
 FULL_TEXT_DIR = Path(".cache/full_text_files")
+LOG_DIR = Path(os.getenv("LOG_DIR", "crawl_first/logs"))
+
+
+class LogCapture:
+    """Capture stdout/stderr and redirect to logger."""
+
+    def __init__(
+        self,
+        logger: logging.Logger,
+        level: int = logging.INFO,
+        prefix: str = "[STDOUT]",
+    ):
+        self.logger = logger
+        self.level = level
+        self.prefix = prefix
+
+    def write(self, data: Union[str, bytes]) -> int:
+        """Write data to logger."""
+        # Handle str, bytes, and other types that might be passed to write()
+        if isinstance(data, bytes):
+            data = data.decode("utf-8", errors="replace")
+        elif isinstance(data, str):
+            pass  # Already a string, no conversion needed
+        else:
+            # Convert other types (int, float, etc.) to string
+            data = str(data)
+
+        stripped = data.strip() if data else ""
+        if stripped:
+            # Remove any trailing newlines and log each line separately
+            lines = data.rstrip("\n\r").split("\n")
+            for line in lines:
+                line_stripped = line.strip()
+                if line_stripped:  # Only log non-empty lines
+                    self.logger.log(self.level, f"{self.prefix} {line_stripped}")
+
+        return len(data)
+
+    def flush(self) -> None:
+        """Flush - required for file-like interface."""
+        pass
+
+    def fileno(self) -> int:
+        """Return file descriptor - not supported."""
+        raise OSError("fileno not supported")
+
+    def isatty(self) -> bool:
+        """Return whether this is a tty."""
+        return False
+
+
+class OutputManager:
+    """Manage stdout/stderr capture and restoration."""
+
+    def __init__(self) -> None:
+        self.original_stdout: Optional[TextIO] = None
+        self.original_stderr: Optional[TextIO] = None
+
+    def store_originals(self) -> None:
+        """Store original stdout/stderr."""
+        self.original_stdout = sys.stdout
+        self.original_stderr = sys.stderr
+
+    def restore_originals(self) -> None:
+        """Restore original stdout/stderr."""
+        if self.original_stdout is not None:
+            sys.stdout = self.original_stdout
+        if self.original_stderr is not None:
+            sys.stderr = self.original_stderr
+
+
+class OutputCapture:
+    """Context manager for capturing stdout/stderr output to logger."""
+
+    def __init__(self, logger: logging.Logger):
+        self.logger = logger
+        self.output_manager = OutputManager()
+        self.active = False
+
+    def __enter__(self) -> "OutputCapture":
+        """Enter context - start capturing output."""
+        self.start()
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """Exit context - restore original output."""
+        self.stop()
+
+    def start(self) -> None:
+        """Start capturing output."""
+        if not self.active:
+            self.output_manager.store_originals()
+
+            # Create log capture objects
+            stdout_capture = LogCapture(self.logger, logging.INFO, "[STDOUT]")
+            stderr_capture = LogCapture(self.logger, logging.WARNING, "[STDERR]")
+
+            # Replace stdout/stderr
+            sys.stdout = stdout_capture
+            sys.stderr = stderr_capture
+
+            self.active = True
+
+    def stop(self) -> None:
+        """Stop capturing output and restore originals."""
+        if self.active:
+            self.output_manager.restore_originals()
+            self.active = False
+
+
+def should_disable_output_capture() -> bool:
+    """Check if output capture should be disabled.
+
+    Can be overridden by setting CRAWL_FIRST_FORCE_OUTPUT_CAPTURE=true to enable
+    output capture even in pytest environment, or CRAWL_FIRST_DISABLE_OUTPUT_CAPTURE=true
+    to disable output capture in any environment.
+    """
+    # Allow environment variable override
+    force_capture = os.getenv("CRAWL_FIRST_FORCE_OUTPUT_CAPTURE", "").lower() == "true"
+    if force_capture:
+        return False  # Pretend we're not in pytest to enable capture
+
+    disable_capture = (
+        os.getenv("CRAWL_FIRST_DISABLE_OUTPUT_CAPTURE", "").lower() == "true"
+    )
+    if disable_capture:
+        return True  # Pretend we're in pytest to disable capture
+
+    # Default behavior: detect pytest environment
+    return "pytest" in sys.modules or "PYTEST_CURRENT_TEST" in os.environ
+
+
+def setup_logging(
+    verbose: bool = False, capture_output: bool = True
+) -> Tuple[logging.Logger, Optional[OutputCapture]]:
+    """Setup logging configuration with file and console output.
+
+    Returns:
+        Tuple of (logger, output_capture) where output_capture is None if not enabled
+    """
+    # Create logs directory
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Configure root logger to capture all library logs
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+
+    # Clear any existing handlers from root
+    for handler in root_logger.handlers[:]:
+        root_logger.removeHandler(handler)
+
+    # Create our main logger
+    logger = logging.getLogger("crawl_first")
+    logger.setLevel(logging.DEBUG)
+
+    # Clear any existing handlers
+    logger.handlers.clear()
+
+    # Create formatters with UTC timezone
+    detailed_formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    detailed_formatter.converter = time.gmtime  # Use UTC for log entries
+    simple_formatter = logging.Formatter("%(levelname)s: %(message)s")
+
+    # File handler - captures EVERYTHING (our logs + library logs + stdout)
+    current_time = datetime.now(timezone.utc)
+    log_file = LOG_DIR / f"crawl_first_{current_time.strftime('%Y%m%d_%H%M%S')}.log"
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(detailed_formatter)
+
+    # Add file handler to root logger to capture all library logs
+    root_logger.addHandler(file_handler)
+
+    # Console handler - only for our main app logs
+    console_handler = logging.StreamHandler()
+    if verbose:
+        console_handler.setLevel(logging.DEBUG)
+        console_handler.setFormatter(detailed_formatter)
+    else:
+        console_handler.setLevel(logging.INFO)
+        console_handler.setFormatter(simple_formatter)
+
+    logger.addHandler(console_handler)
+
+    # Configure common library loggers to be more verbose in files
+    library_loggers = [
+        "requests",
+        "urllib3",
+        "geopy",
+        "artl_mcp",
+        "nmdc_mcp",
+        "ols_mcp",
+        "weather_mcp",
+        "landuse_mcp",
+    ]
+
+    for lib_name in library_loggers:
+        lib_logger = logging.getLogger(lib_name)
+        lib_logger.setLevel(logging.INFO if verbose else logging.WARNING)
+
+    # Capture stdout/stderr if requested and not in testing
+    output_capture = None
+    if capture_output and not should_disable_output_capture():
+        output_capture = OutputCapture(logger)
+        output_capture.start()
+
+    # Log the setup
+    logger.info(f"Logging initialized. Log file: {log_file}")
+    if capture_output:
+        logger.info("Output capture enabled - all stdout/stderr will be logged")
+
+    return logger, output_capture
+
 
 # Environmental feature types for OSM
 OSM_ENVIRONMENTAL_TAGS = {
@@ -834,7 +1054,7 @@ def get_cached_results(cache_type: str, key: str, field: str, default: T) -> T:
 
 def get_cached_entity(
     cache_type: str, key: str
-) -> tuple[bool, Optional[Dict[str, Any]]]:
+) -> Tuple[bool, Optional[Dict[str, Any]]]:
     """Get an entity from cache with proper typing. Returns (found_in_cache, entity)."""
     cached = get_cache(cache_type, key)
     if cached and "entity" in cached:
@@ -2159,6 +2379,11 @@ def load_biosample_ids(file_path: str, sample_size: Optional[int] = None) -> Lis
     help="Search radius in meters for geospatial features (default: 1000)",
 )
 @click.option("--verbose", is_flag=True, help="Verbose output")
+@click.option(
+    "--capture-output/--no-capture-output",
+    default=True,
+    help="Capture stdout/stderr to log file (default: True)",
+)
 def main(
     biosample_id: str,
     input_file: str,
@@ -2168,30 +2393,42 @@ def main(
     email: str,
     search_radius: int,
     verbose: bool,
+    capture_output: bool,
 ) -> None:
     """crawl-first: Deterministic biosample enrichment for LLM-ready data preparation."""
 
+    # Setup logging
+    logger, output_capture = setup_logging(verbose, capture_output)
+
     # Validate input options
     if input_file and biosample_id:
+        logger.error("Cannot specify both --biosample-id and --input-file")
         raise click.ClickException(
             "Cannot specify both --biosample-id and --input-file"
         )
     elif not input_file and not biosample_id:
+        logger.error("Must specify either --biosample-id or --input-file")
         raise click.ClickException("Must specify either --biosample-id or --input-file")
 
     # Validate output options
     if output_file and output_dir:
+        logger.error("Cannot specify both --output-file and --output-dir")
         raise click.ClickException("Cannot specify both --output-file and --output-dir")
     elif not output_file and not output_dir:
+        logger.error("Must specify either --output-file or --output-dir")
         raise click.ClickException("Must specify either --output-file or --output-dir")
 
     # Get biosample IDs
     if input_file:
+        logger.info(f"Loading biosample IDs from {input_file}")
         biosample_ids = load_biosample_ids(input_file, sample_size)
         if not biosample_ids:
+            logger.error("No biosample IDs to process")
             raise click.ClickException("No biosample IDs to process")
+        logger.info(f"Loaded {len(biosample_ids)} biosample IDs for processing")
     else:
         biosample_ids = [biosample_id]
+        logger.info(f"Processing single biosample: {biosample_id}")
 
     # Process biosamples
     results = {}
@@ -2201,10 +2438,10 @@ def main(
     if output_dir:
         output_path = Path(output_dir)
         output_path.mkdir(parents=True, exist_ok=True)
+        logger.info(f"Created output directory: {output_path}")
 
     for i, bid in enumerate(biosample_ids):
-        if verbose or len(biosample_ids) > 1:
-            click.echo(f"Processing {i+1}/{len(biosample_ids)}: {bid}")
+        logger.info(f"Processing {i+1}/{len(biosample_ids)}: {bid}")
 
         result = analyze_biosample(bid, email, search_radius)
         if result:
@@ -2222,33 +2459,33 @@ def main(
                             sort_keys=False,
                             indent=2,
                         )
-                    if verbose:
-                        click.echo(f"  Saved: {file_path}")
+                    logger.debug(f"Saved: {file_path}")
                 except Exception as e:
-                    click.echo(f"  Error saving {file_path}: {e}", err=True)
+                    logger.error(f"Error saving {file_path}: {e}")
                     failed.append(bid)
                     continue
             else:
                 # Collect for batch output (single file mode)
                 results[bid] = result
         else:
+            logger.warning(f"Failed to analyze biosample: {bid}")
             failed.append(bid)
 
     # Report summary
     if len(biosample_ids) > 1:
         if output_dir:
             successful_count = len(biosample_ids) - len(failed)
-            click.echo(
+            logger.info(
                 f"Processed {successful_count}/{len(biosample_ids)} biosamples successfully"
             )
-            click.echo(f"Files saved to: {output_dir}")
+            logger.info(f"Files saved to: {output_dir}")
         else:
-            click.echo(
+            logger.info(
                 f"Processed {len(results)}/{len(biosample_ids)} biosamples successfully"
             )
 
-        if failed and verbose:
-            click.echo(f"Failed: {', '.join(failed)}")
+        if failed:
+            logger.warning(f"Failed biosamples: {', '.join(failed)}")
 
     # Output results (only for single file mode since directory mode saves immediately)
     if output_file and results:
@@ -2262,7 +2499,7 @@ def main(
                 sort_keys=False,
                 indent=2,
             )
-        click.echo(f"Data saved to: {output_file}")
+        logger.info(f"Data saved to: {output_file}")
     elif results and not output_file and not output_dir:
         # Simple display for single biosample
         if len(results) == 1:
@@ -2270,20 +2507,20 @@ def main(
             asserted = result["asserted"]
             inferred = result["inferred"]
 
-            click.echo(f"Biosample: {asserted.get('id')}")
+            logger.info(f"Biosample: {asserted.get('id')}")
 
             # Show coordinate sources
             coord_sources = inferred.get("coordinate_sources", {})
             if "from_asserted_coords" in coord_sources:
                 coords = coord_sources["from_asserted_coords"]["coordinates"]
-                click.echo(
+                logger.info(
                     f"Asserted coordinates: {coords['latitude']}, {coords['longitude']}"
                 )
 
             if "from_geo_loc_name" in coord_sources:
                 coords = coord_sources["from_geo_loc_name"]["coordinates"]
                 source = coord_sources["from_geo_loc_name"]["source"]
-                click.echo(
+                logger.info(
                     f"Geocoded coordinates: {coords['latitude']}, {coords['longitude']} ({source})"
                 )
 
@@ -2297,12 +2534,12 @@ def main(
                             if "asserted" in soil_key
                             else "geo_loc_name"
                         )
-                        click.echo(f"Soil ({source}): {soil_type}")
+                        logger.info(f"Soil ({source}): {soil_type}")
 
             # Show publication info
             if "publication_analysis" in inferred:
                 pub_data = inferred["publication_analysis"]
-                click.echo(
+                logger.info(
                     f"Study DOIs: {pub_data.get('total_dois', 0)} total, {pub_data.get('publication_doi_count', 0)} publications"
                 )
 
@@ -2319,21 +2556,27 @@ def main(
 
                     elevation = geo_data.get("elevation")
                     if elevation:
-                        click.echo(f"Elevation ({source}): {elevation.get('meters')}m")
+                        logger.info(f"Elevation ({source}): {elevation.get('meters')}m")
 
                     place_info = geo_data.get("place_info", {})
                     if place_info.get("display_name"):
-                        click.echo(f"Location ({source}): {place_info['display_name']}")
+                        logger.info(
+                            f"Location ({source}): {place_info['display_name']}"
+                        )
 
                     env_summary = geo_data.get("environmental_summary", {})
                     total_features = env_summary.get("total_environmental_features", 0)
                     if total_features > 0:
-                        click.echo(
+                        logger.info(
                             f"Environmental features ({source}): {total_features} within {search_radius}m"
                         )
 
     if not results:
-        click.echo("No data processed successfully")
+        logger.error("No data processed successfully")
+
+    # Cleanup output capture
+    if output_capture:
+        output_capture.stop()
 
 
 if __name__ == "__main__":

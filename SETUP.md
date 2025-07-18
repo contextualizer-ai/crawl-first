@@ -38,10 +38,7 @@ In the GitHub repository settings:
 
 ```bash
 # Install dependencies with uv
-uv sync
-
-# Install in development mode
-uv pip install -e ".[dev]"
+uv sync --dev
 
 # Test the CLI
 uv run crawl-first --help

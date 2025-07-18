@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-x2qpz758"
+  id: "nmdc:bsm-11-1b246v67"
   type: "nmdc:Biosample"
-  name: A9
+  name: H14
   associated_studies:
   - "nmdc:sty-11-wbc14h22"
   env_broad_scale:
@@ -27,13 +27,13 @@ asserted:
       name: farm soil
   biosample_categories:
   - BRC
-  samp_name: A9
+  samp_name: H14
   agrochem_addition:
   - type: "nmdc:TextValue"
     has_raw_value: Fertilized
   collection_date:
     type: "nmdc:TimestampValue"
-    has_raw_value: '2016-05-02'
+    has_raw_value: '2016-06-27'
   cur_vegetation:
     type: "nmdc:TextValue"
     has_raw_value: Switchgrass
@@ -71,7 +71,7 @@ asserted:
     has_raw_value: 2 mm sieved
   source_mat_id:
     type: "nmdc:TextValue"
-    has_raw_value: "NCBI:19365998"
+    has_raw_value: "NCBI:19366244"
   specific_ecosystem: Bulk soil
   store_cond:
     type: "nmdc:TextValue"
@@ -164,7 +164,7 @@ inferred:
         description:
         - A portion of soil which is found in a savanna.
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2016-05-02'
+    target_collection_date: '2016-06-27'
     closest_available_date: '2016-01-01'
     neighboring_dates:
     - '2015-01-01'
@@ -176,7 +176,7 @@ inferred:
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2016-05-02'
+      date_used: '2016-06-27'
     station:
       name: Battle Creek / Avenue A Mobile Home Estates
       country: US
@@ -189,11 +189,12 @@ inferred:
       timezone: America/Detroit
       distance: 24984.427915304404
     measurements:
-      tavg: 8.7
-      tmin: 6.1
-      tmax: 11.7
-      wspd: 3.4
-      pres: 1016.6
+      tavg: 23.8
+      tmin: 17.8
+      tmax: 30.7
+      prcp: 0.0
+      wspd: 5.0
+      pres: 1015.5
   geospatial_from_asserted_coords:
     coordinates:
       latitude: 42.476365
@@ -334,7 +335,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-x2qpz758"
+    biosample_id: "nmdc:bsm-11-1b246v67"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0

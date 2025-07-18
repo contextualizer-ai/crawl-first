@@ -4,15 +4,15 @@
 
 ## Overview
 
-`crawl-first` systematically follows all discoverable links from NMDC biosample records to gather comprehensive environmental, geospatial, weather, publication, and ontological data. This deterministic approach ensures complete data enrichment before downstream LLM analysis.
+`crawl-first` systematically follows discoverable links from NMDC biosample records to gather environmental, geospatial, weather, publication, and ontological data. This deterministic approach enables comprehensive data enrichment before downstream LLM analysis.
 
 ## Philosophy
 
-Instead of letting LLMs make API calls or guess at missing data, `crawl-first` embodies the principle: **gather everything first, analyze second**. This ensures reproducible, comprehensive datasets for AI analysis.
+Instead of letting LLMs make API calls or guess at missing data, `crawl-first` embodies the principle: **gather first, analyze second**. This ensures reproducible, comprehensive datasets for AI analysis.
 
 ## Features
 
-- **Complete biosample enrichment**: Follows all linked data sources
+- **Biosample enrichment**: Follows discoverable linked data sources
 - **Geospatial analysis**: Coordinates, elevation, land cover, soil types
 - **Weather integration**: Historical weather data for sample collection dates  
 - **Publication tracking**: DOI resolution, full-text retrieval when available
@@ -21,16 +21,25 @@ Instead of letting LLMs make API calls or guess at missing data, `crawl-first` e
 - **Interactive maps**: Generated URLs for coordinate validation
 - **Comprehensive caching**: Prevents redundant API calls
 
-## Installation
+## System Requirements
 
-### Using uv (recommended)
+The following system utilities are required for development and testing:
+
+- `curl` - API requests and data fetching
+- `jq` - JSON processing in Makefile targets
+- `shuf` - Random sampling of biosample IDs
+- `head` - Data sampling utilities
+- Standard Unix utilities: `mkdir`, `rm`, `find`, `wc`
+
+On macOS, these are typically pre-installed. On Ubuntu/Debian:
 ```bash
-uv add crawl-first
+sudo apt update && sudo apt install curl jq coreutils
 ```
 
-### Using pip
+## Installation
+
 ```bash
-pip install crawl-first
+uv add crawl-first
 ```
 
 ## Usage
@@ -54,7 +63,7 @@ uv run crawl-first --input-file all_biosamples.txt --sample-size 50 --email your
 
 Each enriched biosample contains:
 - **Asserted data**: Original NMDC biosample record
-- **Inferred data**: All discovered linked information
+- **Inferred data**: Discovered linked information
   - Soil analysis with ENVO ontology terms
   - Land cover classification across multiple systems
   - Weather data from collection date
@@ -78,63 +87,24 @@ Each enriched biosample contains:
 git clone https://github.com/contextualizer-ai/crawl-first.git
 cd crawl-first
 
-# Install with uv
-uv sync
-uv pip install -e ".[dev]"
+# Install dependencies
+uv sync --dev
 
-# Or create a virtual environment and install
-uv venv
-source .venv/bin/activate  # or `.venv\Scripts\activate` on Windows
-uv pip install -e ".[dev]"
+# Run quality checks and tests
+make all
 
-# Run tests
+# Or run individual commands:
 uv run pytest
-
-# Code formatting and linting
 uv run black .
 uv run ruff check .
 uv run mypy .
 uv run deptry .
 ```
 
+**Note**: Full development workflow including data fetching and testing requires the system dependencies listed above.
+
 ### MCP Configuration for Claude Integration
 
-The repository includes Makefile targets that integrate with Claude Code for testing and automation. These targets require a properly configured `.mcp.json` file in your Claude configuration directory:
-
-```json
-{
-  "mcpServers": {
-    "weather-context-mcp": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["weather-context-mcp"]
-    },
-    "landuse-mcp": {
-      "type": "stdio", 
-      "command": "uvx",
-      "args": ["landuse-mcp"]
-    },
-    "nmdc-mcp": {
-      "type": "stdio",
-      "command": "uvx", 
-      "args": ["nmdc-mcp"]
-    },
-    "ols-mcp": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["ols-mcp"]
-    },
-    "artl-mcp": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["artl-mcp"]
-    }
-  }
-}
-```
+The repository includes Makefile targets that integrate with Claude Code for testing and automation. These targets require a properly configured `.mcp.json` file in your Claude configuration directory.
 
 **Note**: Makefile targets like `claude-weather-test.txt` and `random-ids-test.txt` will not work without proper MCP server configuration in Claude.
-
-## License
-
-MIT License - see LICENSE file for details.

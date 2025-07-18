@@ -1,3 +1,3 @@
-On January 1st, 2025, the weather at the Statue of Liberty was mild and rainy. Temperatures ranged from 42-49°F, with light rain (0.4 inches total) mostly in the early morning hours. High humidity (up to 99%) and westerly winds of 3-17 mph. The day cleared up by afternoon with partly cloudy skies.
+The weather at the Statue of Liberty on January 1st, 2025: cool with early morning rain (42-49°F), high humidity (90-98%), and decreasing wind speeds throughout the day.
 
-I used the weather-context-mcp service, which retrieved data from the New York Wall Street weather station (about 2 miles away) using the Meteostat database.
+I used the weather-context-mcp tool which retrieves data from Meteostat using the New York / Wall Street weather station (2.05 miles away).
