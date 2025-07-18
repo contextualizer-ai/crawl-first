@@ -317,7 +317,25 @@ OSM_ENVIRONMENTAL_TAGS = {
 
 @dataclass
 class OSMFeature:
-    """Represents a single OpenStreetMap feature."""
+    """
+    Represents a single OpenStreetMap (OSM) feature.
+
+    This class encapsulates the properties of an OSM feature, including its
+    unique identifier, type, tags, geometry, and spatial information.
+
+    Attributes:
+        feature_id (str): The unique identifier of the OSM feature.
+        feature_type (str): The type of the feature (e.g., "natural:water").
+        tags (Dict[str, str]): Key-value pairs representing OSM tags that
+            describe the feature's properties.
+        geometry_type (str): The type of geometry (e.g., "Point", "Polygon").
+        coordinates (Tuple[float, float]): The latitude and longitude of the
+            feature's location.
+        distance_from_center (float): The distance of the feature from a
+            reference center point, in meters.
+        area (Optional[float]): The area of the feature, if applicable, in
+            square meters. Defaults to None if not available.
+    """
 
     feature_id: str
     feature_type: str

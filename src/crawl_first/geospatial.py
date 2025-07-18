@@ -14,6 +14,11 @@ from geopy.geocoders import Nominatim
 from .cache import cache_key, get_cache, save_cache
 
 
+def nominatim_rate_limit() -> None:
+    """Apply rate limiting for Nominatim API (1 req/sec)."""
+    sleep(1.1)
+
+
 def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """Calculate great circle distance between two points in meters."""
     lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
@@ -84,7 +89,7 @@ def geocode_location_name(location_name: str) -> Dict[str, Any]:
     }
 
     try:
-        sleep(1.1)  # Rate limiting for Nominatim
+        nominatim_rate_limit()
         location = geolocator.geocode(location_name, language="en")
 
         if location:
@@ -144,7 +149,7 @@ def reverse_geocode(lat: float, lon: float) -> Dict[str, Any]:
     }
 
     try:
-        sleep(1.1)  # Rate limiting for Nominatim
+        nominatim_rate_limit()
         location = geolocator.reverse(f"{lat}, {lon}", language="en", zoom=18)
 
         if location:

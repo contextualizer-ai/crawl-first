@@ -487,6 +487,147 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
     return None
 
 
+def _try_pmcid_text(pmcid: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve full text using PMCID."""
+    try:
+        text = get_pmcid_text(pmcid)
+        if text and len(text.strip()) > 100:
+            return {"text": text, "length": len(text.strip())}
+    except Exception:
+        pass
+    return None
+
+
+def _try_pmid_text(pmid: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve full text using PMID."""
+    try:
+        text = get_pmid_text(pmid)
+        if text and len(text.strip()) > 100:
+            return {"text": text, "length": len(text.strip())}
+    except Exception:
+        pass
+    return None
+
+
+def _try_doi_simple_text(doi: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve full text using simple DOI method."""
+    try:
+        text = get_doi_text(doi)
+        if text and len(text.strip()) > 100:
+            return {"text": text, "length": len(text.strip())}
+    except Exception:
+        pass
+    return None
+
+
+def _try_doi_advanced_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve full text using advanced DOI method."""
+    try:
+        text = get_full_text_from_doi(doi, email)
+        if text and len(text.strip()) > 100:
+            return {"text": text, "length": len(text.strip())}
+    except Exception:
+        pass
+    return None
+
+
+def _try_unpaywall_pdf_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve full text via Unpaywall PDF extraction."""
+    try:
+        unpaywall_info = get_unpaywall_info(doi, email)
+        if unpaywall_info and unpaywall_info.get("is_oa"):
+            oa_locations = unpaywall_info.get("oa_locations", [])
+            for location in oa_locations:
+                pdf_url = location.get("url_for_pdf")
+                if pdf_url:
+                    text = extract_pdf_text(pdf_url)
+                    if text and len(text.strip()) > 100:
+                        return {"text": text, "length": len(text.strip())}
+    except Exception:
+        pass
+    return None
+
+
+def _attempt_full_text_retrieval(
+    paper_metadata: Dict[str, Any], email: str
+) -> Dict[str, Dict[str, Any]]:
+    """Attempt to retrieve full text using multiple strategies."""
+    attempts = {}
+    pmcid = paper_metadata.get("pmcid")
+    pmid = paper_metadata.get("pmid")
+    doi = paper_metadata.get("doi")
+
+    # Strategy 1: PMCID
+    if pmcid:
+        result = _try_pmcid_text(pmcid)
+        if result:
+            attempts["artl_pmcid"] = result
+
+    # Strategy 2: PMID
+    if pmid:
+        result = _try_pmid_text(pmid)
+        if result:
+            attempts["artl_pmid"] = result
+
+    # Strategy 3: DOI simple
+    if doi:
+        result = _try_doi_simple_text(doi)
+        if result:
+            attempts["artl_doi_simple"] = result
+
+    # Strategy 4: DOI advanced
+    if doi:
+        result = _try_doi_advanced_text(doi, email)
+        if result:
+            attempts["artl_doi_advanced"] = result
+
+    # Strategy 5: Unpaywall PDF
+    if doi:
+        result = _try_unpaywall_pdf_text(doi, email)
+        if result:
+            attempts["artl_unpaywall_pdf"] = result
+
+    return attempts
+
+
+def _select_best_text(
+    attempts: Dict[str, Dict[str, Any]],
+) -> tuple[Optional[str], Optional[str]]:
+    """Select the best text result from attempts."""
+    if not attempts:
+        return None, None
+
+    best_method = max(attempts.keys(), key=lambda k: attempts[k]["length"])
+    return attempts[best_method]["text"], best_method
+
+
+def _build_full_text_result(
+    identifiers: Dict[str, str],
+    full_text: Optional[str],
+    retrieval_method: Optional[str],
+    file_path: Optional[str],
+    attempts: Dict[str, Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Build the full text result dictionary."""
+    return {
+        "method": retrieval_method,
+        "identifiers": identifiers,
+        "file_path": file_path,
+        "content_length": len(full_text) if full_text else 0,
+        "status": (
+            "retrieved"
+            if full_text and file_path
+            else ("partial" if full_text else "not_available")
+        ),
+        "methods_attempted": list(attempts.keys()) if attempts else [],
+        "method_results": (
+            {k: {"length": v["length"]} for k, v in attempts.items()}
+            if attempts
+            else {}
+        ),
+    }
+
+
 def cached_get_full_text(
     paper_metadata: Dict[str, Any], email: str
 ) -> Optional[Dict[str, Any]]:
@@ -514,113 +655,25 @@ def cached_get_full_text(
         if cached.get("file_path") and Path(cached["file_path"]).exists():
             return cached
 
-    # Try ALL methods and pick the best result
-    attempts = {}
-
     try:
-        pmcid = paper_metadata.get("pmcid")
-        pmid = paper_metadata.get("pmid")
-        doi = paper_metadata.get("doi")
+        # Attempt to retrieve full text using multiple strategies
+        attempts = _attempt_full_text_retrieval(paper_metadata, email)
 
-        # Strategy 1: Try artl-mcp PMCID text if available
-        if pmcid:
-            try:
-                text = get_pmcid_text(pmcid)
-                if text and len(text.strip()) > 100:
-                    attempts["artl_pmcid"] = {"text": text, "length": len(text.strip())}
-            except Exception:
-                pass
-
-        # Strategy 2: Try artl-mcp PMID text if available
-        if pmid:
-            try:
-                text = get_pmid_text(pmid)
-                if text and len(text.strip()) > 100:
-                    attempts["artl_pmid"] = {"text": text, "length": len(text.strip())}
-            except Exception:
-                pass
-
-        # Strategy 3: Try artl-mcp DOI text (simple method)
-        if doi:
-            try:
-                text = get_doi_text(doi)
-                if text and len(text.strip()) > 100:
-                    attempts["artl_doi_simple"] = {
-                        "text": text,
-                        "length": len(text.strip()),
-                    }
-            except Exception:
-                pass
-
-        # Strategy 4: Try artl-mcp DOI text (advanced method with email)
-        if doi:
-            try:
-                text = get_full_text_from_doi(doi, email)
-                if text and len(text.strip()) > 100:
-                    attempts["artl_doi_advanced"] = {
-                        "text": text,
-                        "length": len(text.strip()),
-                    }
-            except Exception:
-                pass
-
-        # Strategy 5: Try Unpaywall + PDF extraction if DOI available
-        if doi:
-            try:
-                unpaywall_info = get_unpaywall_info(doi, email)
-                if unpaywall_info and unpaywall_info.get("is_oa"):
-                    oa_locations = unpaywall_info.get("oa_locations", [])
-                    for location in oa_locations:
-                        pdf_url = location.get("url_for_pdf")
-                        if pdf_url:
-                            text = extract_pdf_text(pdf_url)
-                            if text and len(text.strip()) > 100:
-                                attempts["artl_unpaywall_pdf"] = {
-                                    "text": text,
-                                    "length": len(text.strip()),
-                                }
-                                break
-            except Exception:
-                pass
-
-        # Pick the best result (longest text)
-        if attempts:
-            best_method = max(attempts.keys(), key=lambda k: attempts[k]["length"])
-            full_text = attempts[best_method]["text"]
-            retrieval_method = best_method
-        else:
-            full_text = None
-            retrieval_method = None
+        # Select the best result
+        full_text, retrieval_method = _select_best_text(attempts)
 
         # Save content to file if retrieved
         file_path = None
-        if (
-            full_text and len(full_text.strip()) > 100
-        ):  # Only save if substantial content
+        if full_text and len(full_text.strip()) > 100:
             file_path = save_full_text_to_file(full_text, identifiers)
 
-        # Prepare result with detailed attempt information
-        result = {
-            "method": retrieval_method,
-            "identifiers": identifiers,
-            "file_path": file_path,
-            "content_length": len(full_text) if full_text else 0,
-            "status": (
-                "retrieved"
-                if full_text and file_path
-                else ("partial" if full_text else "not_available")
-            ),
-            "methods_attempted": list(attempts.keys()) if attempts else [],
-            "method_results": (
-                {k: {"length": v["length"]} for k, v in attempts.items()}
-                if attempts
-                else {}
-            ),
-        }
+        # Build result
+        result = _build_full_text_result(
+            identifiers, full_text, retrieval_method, file_path, attempts
+        )
 
         # Cache result
         save_cache("full_text", key, result)
-
         return result
 
     except Exception:
@@ -634,6 +687,170 @@ def cached_get_full_text(
         }
         save_cache("full_text", key, failure_result)
         return failure_result
+
+
+def _get_study_info(
+    study_id: str, doi_details: Dict[str, Any], study_data: Optional[Dict[str, Any]]
+) -> Dict[str, Any]:
+    """Build study information dictionary."""
+    study_info = {
+        "study_id": study_id,
+        "study_name": doi_details.get("study_name", ""),
+    }
+
+    if study_data and isinstance(study_data, dict) and "error" not in study_data:
+        study_info.update(
+            {
+                "study_title": study_data.get("title", ""),
+                "study_description": study_data.get("description", ""),
+                "funding_sources": study_data.get("funding_sources", []),
+                "websites": study_data.get("websites", []),
+                "protocol_link": study_data.get("protocol_link", ""),
+                "objective": study_data.get("objective", ""),
+                "notes": study_data.get("notes", ""),
+                "homepage_website": study_data.get("homepage_website", ""),
+                "alternative_titles": study_data.get("alternative_titles", []),
+                "alternative_names": study_data.get("alternative_names", []),
+                "alternative_descriptions": study_data.get(
+                    "alternative_descriptions", []
+                ),
+            }
+        )
+
+    return study_info
+
+
+def _get_paper_metadata(clean_doi: str, pmid: Optional[str]) -> Dict[str, Any]:
+    """Get paper metadata from CrossRef and PubMed."""
+    paper_metadata: Dict[str, Any] = {
+        "doi": clean_doi,
+        "pmid": pmid,
+        "title": "",
+        "authors": [],
+        "journal": "",
+        "citation_count": None,
+        "abstract": "",
+        "retrieval_errors": [],
+    }
+
+    # Get metadata from CrossRef
+    try:
+        doi_metadata = get_doi_metadata(clean_doi)
+        if doi_metadata and doi_metadata.get("status") == "ok":
+            work_item = doi_metadata.get("message", {})
+            if work_item:
+                paper_info = extract_paper_info(work_item)
+                paper_metadata.update(paper_info)
+    except Exception as e:
+        retrieval_errors = paper_metadata["retrieval_errors"]
+        assert isinstance(retrieval_errors, list)  # Help mypy understand this is a list
+        retrieval_errors.append(f"CrossRef error: {e}")
+
+    # Get abstract from PubMed if needed
+    if pmid and not paper_metadata.get("abstract"):
+        try:
+            abstract = get_abstract_from_pubmed_id(pmid)
+            if abstract and abstract.strip():
+                paper_metadata["abstract"] = abstract
+        except Exception as e:
+            retrieval_errors = paper_metadata["retrieval_errors"]
+            assert isinstance(
+                retrieval_errors, list
+            )  # Help mypy understand this is a list
+            retrieval_errors.append(f"PubMed error: {e}")
+
+    return paper_metadata
+
+
+def _add_full_text_info(
+    paper_metadata: Dict[str, Any], clean_doi: str, pmid: Optional[str], email: str
+) -> None:
+    """Add full text information to paper metadata."""
+    full_text_metadata = {
+        "doi": clean_doi,
+        "pmid": pmid,
+        "pmcid": None,
+    }
+
+    full_text_result = cached_get_full_text(full_text_metadata, email)
+    if full_text_result:
+        paper_metadata["full_text"] = {
+            "status": full_text_result.get("status"),
+            "file_path": full_text_result.get("file_path"),
+            "content_length": full_text_result.get("content_length"),
+            "retrieval_method": full_text_result.get("method"),
+        }
+
+        if full_text_result.get("pdf_url"):
+            paper_metadata["full_text"]["pdf_url"] = full_text_result.get("pdf_url")
+    else:
+        paper_metadata["full_text"] = {
+            "status": "not_available",
+            "file_path": None,
+            "content_length": 0,
+            "retrieval_method": None,
+        }
+
+
+def _process_publication_doi(doi_entry: Dict[str, Any], email: str) -> Dict[str, Any]:
+    """Process a publication DOI to get detailed metadata."""
+    doi_value = doi_entry.get("doi_value", "")
+    enhanced_doi = {**doi_entry}
+
+    clean_doi = doi_value.replace("doi:", "").strip()
+    enhanced_doi["doi_url"] = f"https://doi.org/{clean_doi}"
+
+    # Get PMID
+    pmid = None
+    try:
+        pmid = doi_to_pmid(clean_doi)
+    except Exception:
+        pass
+
+    # Get paper metadata
+    paper_metadata = _get_paper_metadata(clean_doi, pmid)
+
+    # Add full text information
+    _add_full_text_info(paper_metadata, clean_doi, pmid, email)
+
+    enhanced_doi.update(
+        {
+            "converted_ids": {
+                "original_doi": doi_value,
+                "pmid": pmid,
+                "pmcid": None,
+            },
+            "paper_metadata": paper_metadata,
+        }
+    )
+
+    return enhanced_doi
+
+
+def _process_dois(
+    all_dois: List[Dict[str, Any]], email: str
+) -> tuple[List[Dict[str, Any]], int]:
+    """Process all DOIs and return enhanced DOIs with publication count."""
+    enhanced_dois = []
+    publication_doi_count = 0
+
+    for doi_entry in all_dois:
+        doi_value = doi_entry.get("doi_value", "")
+        doi_category = doi_entry.get("doi_category", "")
+
+        if doi_value:
+            if doi_category == "publication_doi":
+                publication_doi_count += 1
+                enhanced_doi = _process_publication_doi(doi_entry, email)
+            else:
+                # For non-publication DOIs, just add the URL
+                enhanced_doi = {**doi_entry}
+                clean_doi = doi_value.replace("doi:", "").strip()
+                enhanced_doi["doi_url"] = f"https://doi.org/{clean_doi}"
+
+            enhanced_dois.append(enhanced_doi)
+
+    return enhanced_dois, publication_doi_count
 
 
 def get_publication_analysis(biosample_id: str, email: str) -> Optional[Dict[str, Any]]:
@@ -684,29 +901,7 @@ def get_publication_analysis(biosample_id: str, email: str) -> Optional[Dict[str
             return None
 
         # Build study info
-        study_info = {
-            "study_id": study_id,
-            "study_name": doi_details.get("study_name", ""),
-        }
-
-        if study_data and isinstance(study_data, dict) and "error" not in study_data:
-            study_info.update(
-                {
-                    "study_title": study_data.get("title", ""),
-                    "study_description": study_data.get("description", ""),
-                    "funding_sources": study_data.get("funding_sources", []),
-                    "websites": study_data.get("websites", []),
-                    "protocol_link": study_data.get("protocol_link", ""),
-                    "objective": study_data.get("objective", ""),
-                    "notes": study_data.get("notes", ""),
-                    "homepage_website": study_data.get("homepage_website", ""),
-                    "alternative_titles": study_data.get("alternative_titles", []),
-                    "alternative_names": study_data.get("alternative_names", []),
-                    "alternative_descriptions": study_data.get(
-                        "alternative_descriptions", []
-                    ),
-                }
-            )
+        study_info = _get_study_info(study_id, doi_details, study_data)
 
         # Process DOIs
         all_dois = (
@@ -714,109 +909,7 @@ def get_publication_analysis(biosample_id: str, email: str) -> Optional[Dict[str
             if study_data
             else doi_details.get("associated_dois", [])
         )
-        enhanced_dois = []
-        publication_doi_count = 0
-
-        for doi_entry in all_dois:
-            doi_value = doi_entry.get("doi_value", "")
-            doi_category = doi_entry.get("doi_category", "")
-
-            if doi_value:
-                enhanced_doi = {**doi_entry}
-
-                # Add full URL for DOI
-                clean_doi = doi_value.replace("doi:", "").strip()
-                enhanced_doi["doi_url"] = f"https://doi.org/{clean_doi}"
-
-                # Only get detailed metadata for publication DOIs
-                if doi_category == "publication_doi":
-                    publication_doi_count += 1
-                    clean_doi = doi_value.replace("doi:", "").strip()
-
-                    # Get PMID
-                    pmid = None
-                    try:
-                        pmid = doi_to_pmid(clean_doi)
-                    except Exception:
-                        pass
-
-                    # Get paper metadata
-                    paper_metadata = {
-                        "doi": clean_doi,
-                        "pmid": pmid,
-                        "title": "",
-                        "authors": [],
-                        "journal": "",
-                        "citation_count": None,
-                        "abstract": "",
-                        "retrieval_errors": [],
-                    }
-
-                    try:
-                        doi_metadata = get_doi_metadata(clean_doi)
-                        if doi_metadata and doi_metadata.get("status") == "ok":
-                            work_item = doi_metadata.get("message", {})
-                            if work_item:
-                                paper_info = extract_paper_info(work_item)
-                                paper_metadata.update(paper_info)
-                    except Exception as e:
-                        paper_metadata["retrieval_errors"].append(
-                            f"CrossRef error: {e}"
-                        )
-
-                    # Get abstract from PubMed if needed
-                    if pmid and not paper_metadata.get("abstract"):
-                        try:
-                            abstract = get_abstract_from_pubmed_id(pmid)
-                            if abstract and abstract.strip():
-                                paper_metadata["abstract"] = abstract
-                        except Exception as e:
-                            paper_metadata["retrieval_errors"].append(
-                                f"PubMed error: {e}"
-                            )
-
-                    # Try to get full text content
-                    full_text_metadata = {
-                        "doi": clean_doi,
-                        "pmid": pmid,
-                        "pmcid": None,  # Could be enhanced to fetch PMCID from PMID
-                    }
-
-                    full_text_result = cached_get_full_text(full_text_metadata, email)
-                    if full_text_result:
-                        # Add full text file information to paper metadata
-                        paper_metadata["full_text"] = {
-                            "status": full_text_result.get("status"),
-                            "file_path": full_text_result.get("file_path"),
-                            "content_length": full_text_result.get("content_length"),
-                            "retrieval_method": full_text_result.get("method"),
-                        }
-
-                        # Include PDF URL if available but PyPDF2 not installed
-                        if full_text_result.get("pdf_url"):
-                            paper_metadata["full_text"]["pdf_url"] = (
-                                full_text_result.get("pdf_url")
-                            )
-                    else:
-                        paper_metadata["full_text"] = {
-                            "status": "not_available",
-                            "file_path": None,
-                            "content_length": 0,
-                            "retrieval_method": None,
-                        }
-
-                    enhanced_doi.update(
-                        {
-                            "converted_ids": {
-                                "original_doi": doi_value,
-                                "pmid": pmid,
-                                "pmcid": None,
-                            },
-                            "paper_metadata": paper_metadata,
-                        }
-                    )
-
-                enhanced_dois.append(enhanced_doi)
+        enhanced_dois, publication_doi_count = _process_dois(all_dois, email)
 
         result = {
             "biosample_id": biosample_id,
