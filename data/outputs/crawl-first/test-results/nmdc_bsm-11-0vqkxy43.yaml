@@ -1,0 +1,320 @@
+asserted:
+  id: "nmdc:bsm-11-0vqkxy43"
+  type: "nmdc:Biosample"
+  name: MMPRNT696
+  associated_studies:
+  - "nmdc:sty-11-wbc14h22"
+  env_broad_scale:
+    type: "nmdc:ControlledIdentifiedTermValue"
+    has_raw_value: "__temperate woodland biome [ENVO:01000221]"
+    term:
+      id: "ENVO:01000221"
+      type: "nmdc:OntologyClass"
+      name: temperate woodland biome
+  env_local_scale:
+    type: "nmdc:ControlledIdentifiedTermValue"
+    has_raw_value: "____agricultural field [ENVO:00000114]"
+    term:
+      id: "ENVO:00000114"
+      type: "nmdc:OntologyClass"
+      name: agricultural field
+  env_medium:
+    type: "nmdc:ControlledIdentifiedTermValue"
+    has_raw_value: "farm soil [ENVO:00005749]"
+    term:
+      id: "ENVO:00005749"
+      type: "nmdc:OntologyClass"
+      name: farm soil
+  biosample_categories:
+  - BRC
+  samp_name: MMPRNT696
+  agrochem_addition:
+  - type: "nmdc:TextValue"
+    has_raw_value: Fertilized
+  collection_date:
+    type: "nmdc:TimestampValue"
+    has_raw_value: '2017-07-25'
+  cur_vegetation:
+    type: "nmdc:TextValue"
+    has_raw_value: Restored Prairie
+  depth:
+    type: "nmdc:QuantityValue"
+    has_raw_value: 0 - 0.1
+    has_maximum_numeric_value: 0.1
+    has_minimum_numeric_value: 0.0
+  ecosystem: Environmental
+  ecosystem_category: Terrestrial
+  ecosystem_subtype: Agricultural land
+  ecosystem_type: Soil
+  elev: 217.0
+  env_package:
+    type: "nmdc:TextValue"
+    has_raw_value: soil
+  geo_loc_name:
+    type: "nmdc:TextValue"
+    has_raw_value: "USA: Michigan, Escanaba"
+  growth_facil:
+    type: "nmdc:ControlledTermValue"
+    has_raw_value: field
+  lat_lon:
+    type: "nmdc:GeolocationValue"
+    has_raw_value: 45.763274 -87.187681
+    latitude: 45.763274
+    longitude: -87.187681
+  samp_store_temp:
+    type: "nmdc:QuantityValue"
+    has_raw_value: -80 Celsius
+    has_numeric_value: -80.0
+    has_unit: Celsius
+  sieving:
+    type: "nmdc:TextValue"
+    has_raw_value: 2 mm sieved
+  source_mat_id:
+    type: "nmdc:TextValue"
+    has_raw_value: "NCBI:19407114"
+  specific_ecosystem: Bulk soil
+  store_cond:
+    type: "nmdc:TextValue"
+    has_raw_value: frozen
+  experimental_factor_other: Restored Prairie
+  analysis_type:
+  - metagenomics
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Podzols
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002257"
+      short_form: ENVO_00002257
+      obo_id: "ENVO:00002257"
+      label: podzol
+      description:
+      - "Podzols are soils with a typically ash-grey upper subsurface horizon, bleached\
+        \ by loss of organic matter and iron oxides, on top of a dark accumulation\
+        \ horizon with brown, reddish or black illuviated humus and/or reddish Fe\
+        \ compounds. Podzols occur in humid areas in the boreal and temperate zones\
+        \ and locally also in the tropics."
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m).
+        system_term: Grasslands
+      UMD:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m).
+        system_term: Grasslands
+      LAI:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Grasslands
+      BGC:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Annual Grass Vegetation
+      PFT:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) that are not cultivated.
+        system_term: Grass
+      LCCS1:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
+        system_term: Dense Herbaceous
+      LCCS2:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m). At least 10% cover.
+        system_term: Natural Herbaceous
+      LCCS3:
+      - date: '2018-01-01'
+        envo_term: grassland area
+        system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
+        system_term: Grasslands
+      QA:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      grassland area:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000106"
+        short_form: ENVO_00000106
+        obo_id: "ENVO:00000106"
+        label: grassland area
+        description:
+        - An area in which grasses (Graminae) are a significant component of the vegetation.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01001206"
+        short_form: ENVO_01001206
+        obo_id: "ENVO:01001206"
+        label: grassland ecosystem
+        description:
+        - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
+          \ and determine the system's structure and dynamics."
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2017-07-25'
+    closest_available_date: '2018-01-01'
+    neighboring_dates:
+    - '2017-01-01'
+    - '2018-01-01'
+    - '2019-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2017-07-25'
+    station:
+      name: Escanaba
+      country: US
+      region: MI
+      wmo: '72648'
+      icao: KESC
+      latitude: 45.75
+      longitude: -87.0333
+      elevation: 180.0
+      timezone: America/Detroit
+      distance: 12067.717475466769
+    measurements:
+      tavg: 18.0
+      tmin: 10.0
+      tmax: 24.4
+      prcp: 0.0
+      snow: 0.0
+      wspd: 3.4
+      pres: 1022.5
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 45.763274
+      longitude: -87.187681
+    elevation:
+      meters: 215.0
+      feet: 705.4
+    place_info:
+      coordinates:
+        latitude: 45.763274
+        longitude: -87.187681
+      display_name: "Escanaba to Hermansville Rail Trail, Wells Township, Delta County,\
+        \ Michigan, United States"
+      place_type: cycleway
+      address:
+        road: Escanaba to Hermansville Rail Trail
+        city: Wells Township
+        county: Delta County
+        state: Michigan
+        country: United States
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 4
+        query_coordinates:
+        - 45.763274
+        - -87.187681
+        feature_counts:
+          highway:
+            track: 3
+          natural:
+            water: 1
+      environmental_features: {}
+      nearest_features:
+      - type: "highway:track"
+        distance_m: 270.7
+      - type: "highway:track"
+        distance_m: 568.0
+      - type: "natural:water"
+        distance_m: 810.6
+      - type: "highway:track"
+        distance_m: 967.2
+    environmental_summary:
+      total_environmental_features: 4
+      water_features_nearby: 1
+      natural_areas_nearby: 1
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "highway:track"
+        count: 3
+      - type: "natural:water"
+        count: 1
+      ecological_context: "Location has 1 water feature(s), 1 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 45.763274
+        longitude: -87.187681
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/45.763274,-87.187681/@45.763274,-87.187681,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 45.7455707
+        longitude: -87.0647434
+      source: "geocoded from geo_loc_name: USA: Michigan, Escanaba"
+      geocode_result:
+        location_name: "USA: Michigan, Escanaba"
+        coordinates:
+          latitude: 45.7455707
+          longitude: -87.0647434
+        display_name: "Escanaba, Delta County, Michigan, 49829, United States"
+        place_type: administrative
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/45.7455707,-87.0647434/@45.7455707,-87.0647434,15z"
+      elevation_meters: 183.0
+    combined_map_url: "https://www.google.com/maps/dir/45.763274,-87.187681/45.7455707,-87.0647434/@45.763274,-87.187681,10z"
+    combined_map_description: "Asserted coords (45.763274, -87.187681) vs Geocoded\
+      \ coords (45.7455707, -87.0647434)"
+    coordinate_distance:
+      meters: 9739.1
+      kilometers: 9.74
+      description: "Distance between asserted and geocoded coordinates: 9.74 km"
+    elevation_comparison:
+      asserted_elevation_m: 217.0
+      geospatial_elevation_m: 215.0
+      difference_m: 2.0
+      description: "Elevation difference: 2.0m between asserted (217.0m) and geospatial\
+        \ lookup (215.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-wbc14h22"
+    study_name: Switchgrass cropping systems affect soil carbon and nitrogen and microbial
+      diversity and activity on marginal lands
+    study_title: Switchgrass cropping systems affect soil carbon and nitrogen and
+      microbial diversity and activity on marginal lands
+    study_description: "Understanding how the rhizosphere microbiome influences soil\
+      \ nitrogen (N) transformations can inform management decisions that promote\
+      \ bioenergy crop productivity under low-N conditions. Here, we coupled amplicon\
+      \ sequencing with soil physiochemical and enzymatic parameters to understand\
+      \ how rhizosphere microbial communities mediate N-transformations under low-\
+      \ and high- N conditions. We collected rhizosphere soils from switchgrass (P.\
+      \ virgatum), restored prairie, and undisturbed grassland across five locations\
+      \ in the Great Lakes Region, two fertilization regimes, and three growing seasons\
+      \ (2016- 2018)."
+    funding_sources:
+    - "This research was funded by the Biological Systems Science Division, U.S. Department\
+      \ of Energy (DOE) (grant number DE-FOA-0001207). The field sites are maintained\
+      \ by the Great Lakes Bioenergy Research Center (DE-SC0018409 and DE-FC02-07ER64494)."
+    websites:
+    - "https://plannet.wsu.edu/microbially-mediated-perennial-rhizosphere-nitrogen-transformations-mmprnt/"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website: ''
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-0vqkxy43"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0
