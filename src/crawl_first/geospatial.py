@@ -4,6 +4,7 @@ Geospatial utilities for crawl-first.
 Handles coordinate processing, geocoding, reverse geocoding, and distance calculations.
 """
 
+import time
 from math import asin, cos, radians, sin, sqrt
 from time import sleep
 from typing import Any, Dict, Optional
@@ -32,7 +33,6 @@ def nominatim_rate_limit() -> None:
     since the last Nominatim request. Updates the last request timestamp.
     """
     global _last_nominatim_request_time
-    import time
 
     current_time = time.time()
 
@@ -41,9 +41,11 @@ def nominatim_rate_limit() -> None:
         if time_since_last_request < NOMINATIM_RATE_LIMIT_SECONDS:
             sleep_time = NOMINATIM_RATE_LIMIT_SECONDS - time_since_last_request
             sleep(sleep_time)
+            # Recalculate current time after sleep for accuracy
+            current_time = time.time()
 
-    # Update the timestamp after potential sleep
-    _last_nominatim_request_time = time.time()
+    # Update the timestamp with consistent timing
+    _last_nominatim_request_time = current_time
 
 
 def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
