@@ -1,30 +1,37 @@
-Based on my available tools, I have access to the following MCP servers:
+Based on my available tools, I have access to the following MCP servers and their capabilities:
 
-**NMDC MCP** - National Microbiome Data Collaborative server
-- Collection management: `get_collection_names`, `get_collection_stats`
-- Sample retrieval: `get_samples_in_elevation_range`, `get_samples_within_lat_lon_bounding_box`, `get_samples_by_ecosystem`
-- Entity operations: `get_entity_by_id`, `get_entity_by_id_with_projection`, `get_entities_by_ids_with_projection`
-- Study/biosample relationships: `get_study_for_biosample`, `get_biosamples_for_study`
-- DOI management: `get_study_doi_details`, `search_studies_by_doi_criteria`
-- ID operations: `get_all_collection_ids`, `get_random_collection_ids`
+**MCP Servers:**
+- **ols-mcp**: Ontology Lookup Service
+- **landuse-mcp**: Land use and soil data 
+- **nmdc-mcp**: National Microbiome Data Collaborative
+- **artl-mcp**: Article/literature retrieval
+- **weather-context-mcp**: Weather data
 
-**OLS MCP** - Ontology Lookup Service
-- `search_all_ontologies` - Search across all ontologies
-- `get_ontology_info` - Get ontology details
-- `get_terms_from_ontology` - Get terms from specific ontologies
+**Available Tools by Server:**
 
-**Landuse MCP** - Geospatial land use data
-- `get_land_cover` - Land use classification data
-- `get_soil_type` - FAO soil classifications
-- `get_landuse_dates` - Available data dates
+**ols-mcp** (3 tools):
+- `search_all_ontologies` - Search across ontologies
+- `get_ontology_info` - Get ontology details  
+- `get_terms_from_ontology` - Get terms from specific ontology
 
-**ARTL MCP** - Academic Research Text Library
-- DOI/PMID operations: `get_doi_metadata`, `doi_to_pmid`, `pmid_to_doi`
-- Full text retrieval: `get_full_text_from_doi`, `get_pmid_text`, `get_pmcid_text`
-- Paper search: `search_papers_by_keyword`, `search_recent_papers`, `search_pubmed_for_pmids`
-- PDF processing: `extract_pdf_text`, `get_text_from_pdf_url`
+**landuse-mcp** (3 tools):
+- `get_land_cover` - Land use data for coordinates
+- `get_soil_type` - FAO soil classification
+- `get_landuse_dates` - Available dates for land use data
 
-**Weather Context MCP**
-- `get_weather` - Historical weather data via meteostat
+**nmdc-mcp** (16 tools):
+- Collection management (names, stats, IDs)
+- Sample retrieval (elevation, location, ecosystem)
+- Entity operations (get by ID, with projections)
+- Study operations (biosamples, DOI details, search)
 
-All servers are currently loaded and accessible.
+**artl-mcp** (19 tools):
+- DOI/PMID operations and conversions
+- Full text retrieval from various sources
+- Literature search and metadata retrieval
+- PDF text extraction
+
+**weather-context-mcp** (1 tool):
+- `get_weather` - Hourly/daily weather data for coordinates
+
+No MCP resources are currently available from the servers.

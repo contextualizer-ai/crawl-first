@@ -1,0 +1,269 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  collection_date:
+    has_raw_value: "2016-09-27T13:45Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_maximum_numeric_value: 0.125
+    has_minimum_numeric_value: 0
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 86.6
+  env_broad_scale:
+    term:
+      id: "ENVO:00000446"
+      name: terrestrial biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:01000843"
+      name: area of evergreen forest
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:00001998"
+      name: soil
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_package:
+    has_raw_value: soil
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-11-4ra1ye56"
+  name: GUAN_002-M-2.5-29.5-20160927
+  ph: 7.39
+  samp_collec_device: probe
+  soil_horizon: M horizon
+  temp:
+    has_numeric_value: 27.1
+    has_unit: Celsius
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  water_content:
+  - 0.342 g of water/g of dry soil
+  geo_loc_name:
+    has_raw_value: "USA: Puerto Rico, Guanica Forest"
+    type: "nmdc:TextValue"
+  biosample_categories:
+  - NEON
+  lat_lon:
+    latitude: 17.970294
+    longitude: -66.824633
+    type: "nmdc:GeolocationValue"
+  gold_biosample_identifiers: []
+  associated_studies:
+  - "nmdc:sty-11-34xj1150"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Water
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002006"
+      short_form: ENVO_00002006
+      obo_id: "ENVO:00002006"
+      label: liquid water
+      description:
+      - An environmental material primarily composed of dihydrogen oxide in its liquid
+        form.
+    - iri: "http://purl.obolibrary.org/obo/CHEBI_15377"
+      short_form: CHEBI_15377
+      obo_id: "CHEBI:15377"
+      label: water
+      description: []
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2017-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (canopy\
+          \ >2m). Tree cover >60%."
+        system_term: Evergreen Broadleaf Forests
+      UMD:
+      - date: '2017-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (canopy\
+          \ >2m). Tree cover >60%."
+        system_term: Evergreen Broadleaf Forests
+      LAI:
+      - date: '2017-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (>2m).\
+          \ Tree cover >60%."
+        system_term: Evergreen Broadleaf Forests
+      BGC:
+      - date: '2017-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by evergreen broadleaf and palmate trees and\
+          \ shrubs (>1m). Woody vegetation cover >10%."
+        system_term: Evergreen Broadleaf Vegetation
+      PFT:
+      - date: '2017-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by evergreen broadleaf and palmate trees (>2m).\
+          \ Tree cover > 10%."
+        system_term: Evergreen Broadleaf Trees
+      LCCS1:
+      - date: '2017-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by evergreen broadleaf and palmate trees (>2m).\
+          \ Tree cover > 60%."
+        system_term: Evergreen Broadleaf Forests
+      LCCS2:
+      - date: '2017-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover >60% (canopy >2m)."
+        system_term: Dense Forests
+      LCCS3:
+      - date: '2017-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover >60% (canopy >2m)."
+        system_term: Dense Forests
+      QA:
+      - date: '2017-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      broadleaf forest:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000430"
+        short_form: ENVO_01000430
+        obo_id: "ENVO:01000430"
+        label: broadleaf forest
+        description:
+        - "A forest biome which contains densely packed populations or communities\
+          \ of broadleaf trees, strongly limiting light penetration to the forest\
+          \ floor."
+        - A class created to group GFM 2000 terms by the dominant vegetation type.
+          Definitions pending.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000197"
+        short_form: ENVO_01000197
+        obo_id: "ENVO:01000197"
+        label: broadleaf forest biome
+        description:
+        - A broadleaf forest ecosystem which is in its climactic successional state.
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2016-09-27'
+    closest_available_date: '2017-01-01'
+    neighboring_dates:
+    - '2016-01-01'
+    - '2017-01-01'
+    - '2018-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 3
+    strategy_details:
+      search_radius_km: 75
+      coverage_threshold: 0.25
+      date_used: '2016-09-26'
+    station:
+      name: "Aquadilla, Rafael Hernandez Airport"
+      country: US
+      region: null
+      wmo: '78514'
+      icao: TJBQ
+      latitude: 18.5
+      longitude: -67.1333
+      elevation: 72.0
+      timezone: America/Puerto_Rico
+      distance: 67319.67301554327
+    measurements:
+      tavg: 27.7
+      wspd: 3.1
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 17.970294
+      longitude: -66.824633
+    elevation:
+      meters: 86.0
+      feet: 282.2
+    place_info:
+      coordinates:
+        latitude: 17.970294
+        longitude: -66.824633
+      display_name: "Lluveras, Boca, Guayanilla, Puerto Rico, 09656, United States"
+      place_type: path
+      address:
+        road: Lluveras
+        county: Guayanilla
+        state: Puerto Rico
+        country: United States
+        postcode: 09656
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 6
+        query_coordinates:
+        - 17.970294
+        - -66.824633
+        feature_counts:
+          highway:
+            track: 1
+            path: 5
+      environmental_features: {}
+      nearest_features:
+      - type: "highway:path"
+        distance_m: 407.9
+      - type: "highway:path"
+        distance_m: 436.2
+      - type: "highway:path"
+        distance_m: 559.1
+      - type: "highway:path"
+        distance_m: 693.2
+      - type: "highway:path"
+        distance_m: 700.4
+    environmental_summary:
+      total_environmental_features: 6
+      water_features_nearby: 0
+      natural_areas_nearby: 0
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "highway:path"
+        count: 5
+      - type: "highway:track"
+        count: 1
+      ecological_context: No major environmental features found within 1000m radius
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 17.970294
+        longitude: -66.824633
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/17.970294,-66.824633/@17.970294,-66.824633,15z"
+    elevation_comparison:
+      asserted_elevation_m: 86.6
+      geospatial_elevation_m: 86.0
+      difference_m: 0.6
+      description: "Elevation difference: 0.6m between asserted (86.6m) and geospatial\
+        \ lookup (86.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-34xj1150"
+    study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_title: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's soil microbial shotgun metagenomics\
+      \ sequencing. Typically, measurements are done on plot-level composite samples\
+      \ and represent up to three randomly selected sampling locations within a plot."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.10107.001"
+    - "https://data.neonscience.org/api/v0/documents/NEON.DOC.014048vO"
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-4ra1ye56"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

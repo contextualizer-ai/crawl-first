@@ -40,10 +40,7 @@ git clone https://github.com/contextualizer-ai/crawl-first.git
 cd crawl-first
 
 # Install dependencies
-uv sync
-
-# Install in development mode  
-uv pip install -e ".[dev]"
+uv sync --dev
 
 # Verify installation
 uv run crawl-first --help

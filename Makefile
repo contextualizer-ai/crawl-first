@@ -18,7 +18,7 @@ format:
 # Lint code with ruff
 lint:
 	@echo "🔍 Linting code with ruff..."
-	uv run ruff check .
+	uv run ruff check . --fix
 	@echo "✅ Linting complete"
 
 # Type checking with mypy
@@ -83,12 +83,7 @@ squeaky-clean: clean
 	@echo "🧽 Squeaky clean - removing all generated files..."
 	rm -rf .cache/
 	rm -rf data/
-	rm -rf results/
-	rm -rf crawl-first-test-results/
-	rm -f biosample-ids.txt
-	rm -f biosample-ids-10.txt
-	rm -f random-ids-test.txt
-	rm -f claude-weather-test.txt
+	rm -rf crawl_first/logs/
 	@echo "✨ Squeaky clean complete - all generated files removed"
 
 # Quick development cycle - format, lint, and test

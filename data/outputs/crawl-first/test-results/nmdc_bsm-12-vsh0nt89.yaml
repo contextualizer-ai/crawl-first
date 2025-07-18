@@ -1,0 +1,283 @@
+asserted:
+  analysis_type:
+  - metagenomics
+  biosample_categories:
+  - NEON
+  collection_date:
+    has_raw_value: "2018-07-17T15:31Z"
+    type: "nmdc:TimestampValue"
+  conduc:
+    has_numeric_value: 560
+    has_unit: uS/cm
+    type: "nmdc:QuantityValue"
+  diss_oxygen:
+    has_numeric_value: 7.3
+    has_unit: mg/L
+    type: "nmdc:QuantityValue"
+  elev: 286.7
+  env_broad_scale:
+    term:
+      id: "ENVO:03605008"
+      name: freshwater stream biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:03605007"
+      name: freshwater stream
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:03605006"
+      name: stream water
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_package:
+    has_raw_value: water
+    type: "nmdc:TextValue"
+  geo_loc_name:
+    has_raw_value: "USA: Oklahoma, Blue River"
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-12-vsh0nt89"
+  lat_lon:
+    latitude: 34.443439
+    longitude: -96.623887
+    type: "nmdc:GeolocationValue"
+  name: BLUE.SS.20180717
+  samp_collec_device: Grab
+  samp_size:
+    has_numeric_value: 452
+    has_unit: mL
+    type: "nmdc:QuantityValue"
+  temp:
+    has_numeric_value: 24.2
+    has_unit: Cel
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  depth:
+    has_numeric_value: 0.1
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  associated_studies:
+  - "nmdc:sty-11-hht5sb92"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Phaeozems
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002249"
+      short_form: ENVO_00002249
+      obo_id: "ENVO:00002249"
+      label: phaeozem
+      description:
+      - "Phaeozems accommodate soils of relatively wet grassland and forest regions\
+        \ in moderately continental climates. Phaeozems are much like Chernozems and\
+        \ Kastanozems but are leached more intensively. Consequently, they have dark,\
+        \ humus rich surface horizons that, in comparison with Chernozems and Kastanozems,\
+        \ are less rich in bases. Phaeozems may or may not have secondary carbonates\
+        \ but have a high base saturation in the upper metre of the soil."
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2019-01-01'
+        envo_term: savanna
+        system_description: "Tree cover 10-30% (canopy >2m)."
+        system_term: Savannas
+      UMD:
+      - date: '2019-01-01'
+        envo_term: savanna
+        system_description: "Tree cover 10-30% (canopy >2m)."
+        system_term: Savannas
+      LAI:
+      - date: '2019-01-01'
+        envo_term: savanna
+        system_description: "Between 10-60% tree cover (>2m)."
+        system_term: Savannas
+      BGC:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
+          \ Woody vegetation cover >10%."
+        system_term: Deciduous Broadleaf Vegetation
+      PFT:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
+          \ >10%."
+        system_term: Deciduous Broadleaf Trees
+      LCCS1:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-30% (canopy >2m)."
+        system_term: Sparse Forests
+      LCCS2:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-60% (canopy >2m)."
+        system_term: Open Forests
+      LCCS3:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover 10-60% (canopy >2m)."
+        system_term: Open Forests
+      QA:
+      - date: '2019-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      savanna:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000261"
+        short_form: ENVO_00000261
+        obo_id: "ENVO:00000261"
+        label: savanna
+        description:
+        - "A terrestrial ecosystem which has its composition and function determined\
+          \ by an unbroken herbaceous layer - primarily composed of grasses, sedges,\
+          \ or rushes - interspersed with trees or shrubs."
+        - "Savannas are intermediate grassland-woodland ecosystems, with some instances\
+          \ having almost no trees and others having trees at densities higher than\
+          \ some forests. Savannas are typically subject to tropical or subtropical\
+          \ climatic conditions. Savannas typically have seasonal water availability\
+          \ and grass, sedge (Cyperaceae) or  rush (Juncaceae) communities."
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00005746"
+        short_form: ENVO_00005746
+        obo_id: "ENVO:00005746"
+        label: savanna soil
+        description:
+        - A portion of soil which is found in a savanna.
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2018-07-17'
+    closest_available_date: '2019-01-01'
+    neighboring_dates:
+    - '2018-01-01'
+    - '2019-01-01'
+    - '2020-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    strategy_used: 1
+    strategy_details:
+      search_radius_km: 50
+      coverage_threshold: 0.3
+      date_used: '2018-07-17'
+    station:
+      name: Ardmore / Gene Autry
+      country: US
+      region: OK
+      wmo: null
+      icao: KADM
+      latitude: 34.3043
+      longitude: -97.0206
+      elevation: 237.0
+      timezone: America/Chicago
+      distance: 39559.98611287966
+    measurements:
+      tavg: 31.7
+      tmin: 23.0
+      tmax: 39.7
+      wspd: 1.4
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 34.443439
+      longitude: -96.623887
+    elevation:
+      meters: 296.0
+      feet: 971.1
+    place_info:
+      coordinates:
+        latitude: 34.443439
+        longitude: -96.623887
+      display_name: "Harris Ranch Road, Connerville, Johnston County, Oklahoma, 74836,\
+        \ United States"
+      place_type: residential
+      address:
+        road: Harris Ranch Road
+        county: Johnston County
+        state: Oklahoma
+        country: United States
+        postcode: '74836'
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 0
+        query_coordinates:
+        - 34.443439
+        - -96.623887
+        feature_counts: {}
+      environmental_features: {}
+      nearest_features: []
+    environmental_summary:
+      total_environmental_features: 0
+      water_features_nearby: 0
+      natural_areas_nearby: 0
+      protected_areas_nearby: 0
+      dominant_land_types: []
+      ecological_context: No major environmental features found within 1000m radius
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 34.443439
+        longitude: -96.623887
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/34.443439,-96.623887/@34.443439,-96.623887,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 33.9704233
+        longitude: -96.1987438
+      source: "geocoded from geo_loc_name: USA: Oklahoma, Blue River"
+      geocode_result:
+        location_name: "USA: Oklahoma, Blue River"
+        coordinates:
+          latitude: 33.9704233
+          longitude: -96.1987438
+        display_name: "Blue River, Bryan County, Oklahoma, United States"
+        place_type: river
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/33.9704233,-96.1987438/@33.9704233,-96.1987438,15z"
+      elevation_meters: 161.0
+    combined_map_url: "https://www.google.com/maps/dir/34.443439,-96.623887/33.9704233,-96.1987438/@34.443439,-96.623887,10z"
+    combined_map_description: "Asserted coords (34.443439, -96.623887) vs Geocoded\
+      \ coords (33.9704233, -96.1987438)"
+    coordinate_distance:
+      meters: 65535.6
+      kilometers: 65.54
+      description: "Distance between asserted and geocoded coordinates: 65.54 km"
+    elevation_comparison:
+      asserted_elevation_m: 286.7
+      geospatial_elevation_m: 296.0
+      difference_m: 9.3
+      description: "Elevation difference: 9.3m between asserted (286.7m) and geospatial\
+        \ lookup (296.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-hht5sb92"
+    study_name: "National Ecological Observatory Network: surface water metagenomes\
+      \ (DP1.20281.001)"
+    study_title: "National Ecological Observatory Network: surface water metagenomes\
+      \ (DP1.20281.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's surface water microbial\
+      \ shotgun metagenomics sequencing."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.20281.001\""
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-12-vsh0nt89"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

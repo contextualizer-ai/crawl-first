@@ -2,8 +2,8 @@
 """
 crawl-first: Deterministic biosample enrichment for LLM-ready data preparation.
 
-Systematically follows all discoverable links from NMDC biosample records to gather
-comprehensive environmental, geospatial, weather, publication, and ontological data.
+Systematically follows discoverable links from NMDC biosample records to gather
+environmental, geospatial, weather, publication, and ontological data.
 """
 
 import hashlib
@@ -13,6 +13,7 @@ import os
 import random
 import re
 import sys
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from math import asin, cos, radians, sin, sqrt
@@ -91,7 +92,7 @@ NoRefsDumper.add_representer(str, str_presenter)
 # Global cache directory
 CACHE_DIR = Path(".cache")
 FULL_TEXT_DIR = Path(".cache/full_text_files")
-LOG_DIR = Path(os.getenv("LOG_DIR", "crawl_first_logs"))
+LOG_DIR = Path(os.getenv("LOG_DIR", "crawl_first/logs"))
 
 
 class LogCapture:
@@ -202,26 +203,37 @@ class OutputCapture:
 
 
 def is_pytest_environment() -> bool:
-    """Check if running in pytest environment."""
+    """Check if running in pytest environment.
+
+    Can be overridden by setting CRAWL_FIRST_FORCE_OUTPUT_CAPTURE=true to enable
+    output capture even in pytest environment, or CRAWL_FIRST_DISABLE_OUTPUT_CAPTURE=true
+    to disable output capture in any environment.
+    """
+    # Allow environment variable override
+    force_capture = os.getenv("CRAWL_FIRST_FORCE_OUTPUT_CAPTURE", "").lower() == "true"
+    if force_capture:
+        return False  # Pretend we're not in pytest to enable capture
+
+    disable_capture = (
+        os.getenv("CRAWL_FIRST_DISABLE_OUTPUT_CAPTURE", "").lower() == "true"
+    )
+    if disable_capture:
+        return True  # Pretend we're in pytest to disable capture
+
+    # Default behavior: detect pytest environment
     return "pytest" in sys.modules or "PYTEST_CURRENT_TEST" in os.environ
-
-
-# Global output manager instance
-# NOTE: This global instance is not thread-safe. If multi-threading is added,
-# consider using thread-local storage or explicit OutputManager instances
-_output_manager = OutputManager()
 
 
 def setup_logging(
     verbose: bool = False, capture_output: bool = True
-) -> tuple[logging.Logger, Optional[OutputCapture]]:
+) -> Tuple[logging.Logger, Optional[OutputCapture]]:
     """Setup logging configuration with file and console output.
 
     Returns:
         Tuple of (logger, output_capture) where output_capture is None if not enabled
     """
     # Create logs directory
-    LOG_DIR.mkdir(exist_ok=True)
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
 
     # Configure root logger to capture all library logs
     root_logger = logging.getLogger()
@@ -238,11 +250,12 @@ def setup_logging(
     # Clear any existing handlers
     logger.handlers.clear()
 
-    # Create formatters
+    # Create formatters with UTC timezone
     detailed_formatter = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
+    detailed_formatter.converter = time.gmtime  # Use UTC for log entries
     simple_formatter = logging.Formatter("%(levelname)s: %(message)s")
 
     # File handler - captures EVERYTHING (our logs + library logs + stdout)
@@ -294,11 +307,6 @@ def setup_logging(
         logger.info("Output capture enabled - all stdout/stderr will be logged")
 
     return logger, output_capture
-
-
-def restore_output() -> None:
-    """Restore original stdout/stderr."""
-    _output_manager.restore_originals()
 
 
 # Environmental feature types for OSM
@@ -1046,7 +1054,7 @@ def get_cached_results(cache_type: str, key: str, field: str, default: T) -> T:
 
 def get_cached_entity(
     cache_type: str, key: str
-) -> tuple[bool, Optional[Dict[str, Any]]]:
+) -> Tuple[bool, Optional[Dict[str, Any]]]:
     """Get an entity from cache with proper typing. Returns (found_in_cache, entity)."""
     cached = get_cache(cache_type, key)
     if cached and "entity" in cached:

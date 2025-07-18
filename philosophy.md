@@ -4,12 +4,12 @@
 
 **"Deterministic biosample enrichment for LLM-ready data preparation"**
 
-The fundamental principle behind crawl-first is to systematically follow ALL discoverable links from NMDC biosample records to gather comprehensive environmental, geospatial, weather, publication, and ontological data BEFORE feeding it to LLMs for analysis. This "crawl-first" approach ensures deterministic, reproducible data gathering rather than ad-hoc LLM-driven exploration.
+The fundamental principle behind crawl-first is to systematically follow discoverable links from NMDC biosample records to gather comprehensive environmental, geospatial, weather, publication, and ontological data BEFORE feeding it to LLMs for analysis. This "crawl-first" approach ensures deterministic, reproducible data gathering rather than ad-hoc LLM-driven exploration.
 
 ## Your Vision & Intentions
 
 ### Primary Goals
-1. **Comprehensive Data Enrichment**: Extract maximum value from NMDC biosample records by following every possible data link
+1. **Comprehensive Data Enrichment**: Extract maximum value from NMDC biosample records by following discoverable data links
 2. **LLM-Ready Output**: Structure enriched data in YAML format optimized for LLM consumption and analysis
 3. **Deterministic Processing**: Ensure reproducible results through systematic caching and consistent methodologies
 4. **Quality Data Validation**: Include coordinate validation, distance calculations, and elevation comparisons to assess data quality
@@ -107,14 +107,14 @@ The fundamental principle behind crawl-first is to systematically follow ALL dis
 
 ### Data Flow
 1. **Input**: NMDC biosample ID(s)
-2. **Enrichment**: Follow all discoverable links to gather comprehensive data
+2. **Enrichment**: Follow discoverable links to gather comprehensive data
 3. **Validation**: Calculate distances, compare elevations, verify coordinates
 4. **Output**: Structured YAML with `asserted` (original) and `inferred` (enriched) data sections
 
 ### Output Structure
 ```yaml
 asserted: # Original NMDC biosample metadata
-inferred: # All enriched data including:
+inferred: # Enriched data including:
   coordinate_sources: # Validation and mapping
   soil_from_asserted_coords: # Soil analysis + ENVO terms
   land_cover_from_asserted_coords: # Multi-system land cover
