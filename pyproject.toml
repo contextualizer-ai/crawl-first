@@ -1,0 +1,56 @@
+[project]
+name = "crawl-first"
+version = "0.1.0"
+description = "Deterministic biosample enrichment tool for LLM-ready data preparation"
+readme = "README.md"
+authors = [
+    {name = "MAM", email = "MAM@lbl.gov"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.11"
+dependencies = [
+    "artl-mcp>=0.18.1",
+    "click>=8.2.1",
+    "geopy>=2.4.1",
+    "landuse-mcp>=0.1.9",
+    "meteostat>=1.7.4",
+    "nmdc-mcp>=0.3.1",
+    "ols-mcp>=0.1.5",
+    "pandas>=2.3.1",
+    "pyyaml>=6.0.2",
+    "weather-context-mcp>=0.2.14",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+crawl-first = "crawl_first.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+]
+ignore = [
+    "E501",  # line too long, handled by black
+]
+
+[tool.ruff.isort]
+known-first-party = ["crawl_first"]
