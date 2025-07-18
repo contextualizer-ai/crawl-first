@@ -13,6 +13,11 @@ import requests
 from .cache import cache_key, get_cache, save_cache
 from .geospatial import calculate_distance
 
+# Overpass API retry configuration
+# This is REACTIVE error recovery - we sleep after failures to allow
+# temporary server issues to resolve before retrying
+OVERPASS_RETRY_DELAY_SECONDS = 5
+
 # Environmental feature types for OSM
 OSM_ENVIRONMENTAL_TAGS = {
     "natural": {
@@ -512,7 +517,9 @@ def query_osm_features(
 
         except requests.exceptions.RequestException:
             if attempt < 2:
-                sleep(5)
+                # REACTIVE sleep - only after an actual failure
+                # Allows temporary server issues (503, timeouts) to resolve
+                sleep(OVERPASS_RETRY_DELAY_SECONDS)
                 continue
             else:
                 return []
