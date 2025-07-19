@@ -72,7 +72,14 @@ def pmid_to_doi(pmid: str) -> Optional[str]:
             return str(elocationid)
 
         return None
-    except Exception:
+    except requests.RequestException:
+        # Handle network-related errors
+        return None
+    except json.JSONDecodeError:
+        # Handle JSON parsing errors
+        return None
+    except KeyError:
+        # Handle missing keys in the response data
         return None
 
 
