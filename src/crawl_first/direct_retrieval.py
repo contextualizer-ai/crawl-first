@@ -37,7 +37,14 @@ def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[s
         records = data.get("records", [])
         field_value = records[0].get(field, None) if records else None
         return field_value
-    except Exception:
+    except requests.RequestException:
+        # Handle network-related errors
+        return None
+    except json.JSONDecodeError:
+        # Handle JSON parsing errors
+        return None
+    except KeyError:
+        # Handle missing keys in the JSON response
         return None
 
 
