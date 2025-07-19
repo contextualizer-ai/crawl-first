@@ -210,7 +210,7 @@ def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
 def get_text_from_doi_direct(doi: str, email: str) -> Optional[Dict[str, Any]]:
     """
     Comprehensive text retrieval from DOI using multiple direct methods.
-    Downloads PDFs and saves text content as files.
+    Retrieves text and PDF content and returns it in a dictionary for the caller to handle.
     """
     result: Dict[str, Any] = {
         "doi": doi,
