@@ -406,7 +406,6 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
             # Clean for YAML serialization
             cleaned = {
                 "coverage": weather_data.get("coverage"),
-                "strategy_used": 1,  # Always 1 since we only try once
                 "strategy_details": {
                     "search_radius_km": 150,
                     "coverage_threshold": 0.5,
