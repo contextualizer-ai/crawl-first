@@ -40,6 +40,16 @@ PMC_FTP_OA_URL = (
 DOI_PATTERN = r"/(10\.\d{4,}/[\w\-.]+)"
 
 
+def safe_get(element: Any, attr: str, default: str = "") -> str:
+    """Safely get an attribute from a BeautifulSoup element."""
+    try:
+        if hasattr(element, "get"):
+            return element.get(attr, default) or default
+        return default
+    except Exception:
+        return default
+
+
 def extract_doi_from_url(url: str) -> Optional[str]:
     """Extract DOI from a given journal URL."""
     doi_match = re.search(DOI_PATTERN, url)
@@ -763,21 +773,33 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
                             # Parse supplementary material references from XML
                             supp_materials = soup.find_all("supplementary-material")
                             for supp in supp_materials:
-                                href = safe_get(supp, "xlink:href") or safe_get(supp, "href")
+                                href = safe_get(supp, "xlink:href") or safe_get(
+                                    supp, "href"
+                                )
                                 if href:
-                                    label_elem = supp.find("label") if hasattr(supp, "find") else None
-                                    caption_elem = supp.find("caption") if hasattr(supp, "find") else None
+                                    label_elem = (
+                                        supp.find("label")
+                                        if hasattr(supp, "find")
+                                        else None
+                                    )
+                                    caption_elem = (
+                                        supp.find("caption")
+                                        if hasattr(supp, "find")
+                                        else None
+                                    )
 
                                     supp_info = {
                                         "filename": href,
                                         "label": (
                                             label_elem.get_text()
-                                            if label_elem and hasattr(label_elem, "get_text")
+                                            if label_elem
+                                            and hasattr(label_elem, "get_text")
                                             else ""
                                         ),
                                         "caption": (
                                             caption_elem.get_text()
-                                            if caption_elem and hasattr(caption_elem, "get_text")
+                                            if caption_elem
+                                            and hasattr(caption_elem, "get_text")
                                             else ""
                                         ),
                                         "mimetype": safe_get(supp, "mimetype", ""),
@@ -868,14 +890,13 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
             f"Successfully extracted PMC OA package for {pmcid}: {result['file_count']} files, {result['total_size']} bytes, {len(result['supplementary_files'])} supplementary files"
         )
 
-        # Cache the result (without storing the full text content to save space)
+        # Cache the result without full text content (only metadata)
         cache_result = result.copy()
-        if "text_content" in cache_result and len(cache_result["text_content"]) > TEXT_CONTENT_TRUNCATION_LIMIT:
-            # Store only a summary for large text content
-            cache_result["text_content"] = (
-                cache_result["text_content"][:CACHE_TRUNCATION_LENGTH] + "... [truncated for cache]"
-            )
-            cache_result["text_truncated_for_cache"] = True
+        if "text_content" in cache_result:
+            # Remove full text from cache, store only metadata
+            del cache_result["text_content"]
+            cache_result["text_content_length"] = len(result.get("text_content", ""))
+            cache_result["has_full_text"] = bool(result.get("text_content"))
         save_cache("pmc_oa_package", key, {"result": cache_result})
 
         return result
@@ -960,8 +981,14 @@ def get_comprehensive_pmcid_package(pmcid: str) -> Optional[Dict[str, Any]]:
             logger.info(
                 f"Full text retrieved from PMC OA package for {pmcid}: {len(result['text'])} characters"
             )
-            # Cache and return successful result
-            save_cache("comprehensive_pmcid", key, {"result": result})
+            # Cache result without full text content (only metadata)
+            cache_result = result.copy()
+            if "text" in cache_result:
+                # Remove full text from cache, store only metadata
+                del cache_result["text"]
+                cache_result["text_length"] = len(result.get("text", ""))
+                cache_result["has_text"] = bool(result.get("text"))
+            save_cache("comprehensive_pmcid", key, {"result": cache_result})
             return result
         else:
             logger.debug(
@@ -1014,7 +1041,17 @@ def get_comprehensive_pmcid_package(pmcid: str) -> Optional[Dict[str, Any]]:
             f"Comprehensive PMCID package retrieval failed for {pmcid}: no text or supplementary files found"
         )
 
-    save_cache("comprehensive_pmcid", key, {"result": final_result})
+    # Cache result without full text content (only metadata)
+    if final_result:
+        cache_result = final_result.copy()
+        if "text" in cache_result:
+            # Remove full text from cache, store only metadata
+            del cache_result["text"]
+            cache_result["text_length"] = len(final_result.get("text", ""))
+            cache_result["has_text"] = bool(final_result.get("text"))
+        save_cache("comprehensive_pmcid", key, {"result": cache_result})
+    else:
+        save_cache("comprehensive_pmcid", key, {"result": None})
     return final_result
 
 

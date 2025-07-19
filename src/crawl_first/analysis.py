@@ -685,7 +685,12 @@ def _build_full_text_result(
         "methods_attempted": list(attempts.keys()) if attempts else [],
         "method_results": (
             {
-                k: {key: val for key, val in v.items() if key != "pdf_content"}
+                k: {
+                    key: val
+                    for key, val in v.items()
+                    if key != "pdf_content"
+                    and not (key == "text" and v.get("type") == "full_text_file")
+                }
                 for k, v in attempts.items()
             }
             if attempts
