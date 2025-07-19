@@ -353,7 +353,12 @@ def timed_operation(
                             context["arg1"] = arg_str
                         else:
                             context["arg1"] = "<large_object>"
-                    except Exception:
+                    except Exception as e:
+                        # Get logger for debugging, fallback to performance logger
+                        debug_logger = logger or logging.getLogger("crawl_first.performance")
+                        debug_logger.debug(
+                            f"Failed to process arg1: {type(e).__name__}: {e}", exc_info=True
+                        )
                         context["arg1"] = "<repr_failed>"
 
                 if len(args) > 1:
@@ -369,7 +374,12 @@ def timed_operation(
                             context["arg2"] = arg_str
                         else:
                             context["arg2"] = "<large_object>"
-                    except Exception:
+                    except Exception as e:
+                        # Get logger for debugging, fallback to performance logger
+                        debug_logger = logger or logging.getLogger("crawl_first.performance")
+                        debug_logger.debug(
+                            f"Failed to process arg2: {type(e).__name__}: {e}", exc_info=True
+                        )
                         context["arg2"] = "<repr_failed>"
 
                 # Include important kwargs with safe handling
@@ -391,7 +401,13 @@ def timed_operation(
                                 context[key] = value_str
                             else:
                                 context[key] = "<large_object>"
-                        except Exception:
+                        except Exception as e:
+                            # Get logger for debugging, fallback to performance logger
+                            debug_logger = logger or logging.getLogger("crawl_first.performance")
+                            debug_logger.debug(
+                                f"Failed to process key '{key}' in kwargs: {type(e).__name__}: {e}",
+                                exc_info=True,
+                            )
                             context[key] = "<repr_failed>"
 
             with PerformanceTimer(operation_name, logger, context, log_level):
@@ -427,8 +443,10 @@ def log_cache_operation(
     )
     hit_rate = _cache_metrics[cache_name]["hits"] / max(total_ops, 1) * 100
 
+    # Safe key slicing to avoid IndexError
+    key_display = key[:CACHE_KEY_SLICE_LENGTH] if len(key) > CACHE_KEY_SLICE_LENGTH else key
     logger.debug(
-        f"Cache {operation}: {cache_name} (key: {key[:CACHE_KEY_SLICE_LENGTH]}...) "
+        f"Cache {operation}: {cache_name} (key: {key_display}...) "
         f"hit_rate: {hit_rate:.1f}% ({_cache_metrics[cache_name]['hits']}/{total_ops})"
     )
 
@@ -542,15 +560,16 @@ def log_memory_usage(logger: logging.Logger, operation: str) -> None:
             f"VMS: {usage['vms_mb']:.1f}MB, "
             f"System %: {usage['percent']:.1f}%"
         )
-    except Exception as e:
-        # Catching all exceptions here because memory monitoring is non-critical.
-        # Expected exceptions include:
-        # - psutil.NoSuchProcess: If the process no longer exists.
-        # - psutil.AccessDenied: If access to process information is denied.
-        # - psutil.ZombieProcess: If the process is in zombie state.
-        # These exceptions are safe to ignore as they do not affect the application's core functionality.
+    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
+        # Catching specific psutil exceptions because memory monitoring is non-critical.
         logger.debug(
             f"Could not measure memory usage after {operation}. Exception: {e}",
+            exc_info=True,
+        )
+    except Exception as e:
+        # Catch any other unexpected exceptions
+        logger.warning(
+            f"Unexpected error during memory monitoring after {operation}: {type(e).__name__}: {e}",
             exc_info=True,
         )
 

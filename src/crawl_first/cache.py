@@ -49,11 +49,13 @@ def get_cache(cache_type: str, key: str) -> Optional[Dict[str, Any]]:
                 return None
 
         except Exception as e:
+            # Safe key slicing to avoid IndexError
+            key_display = key[:50] if len(key) > 50 else key
             log_enhanced_error(
                 logger,
                 e,
                 f"reading cache {cache_type}",
-                {"key": key[:50], "file": str(cache_file)},
+                {"key": key_display, "file": str(cache_file)},
             )
             log_cache_operation(cache_type, "miss", key, logger)
             return None
@@ -83,11 +85,13 @@ def save_cache(cache_type: str, key: str, data: Dict[str, Any]) -> None:
         )
 
     except Exception as e:
+        # Safe key slicing to avoid IndexError
+        key_display = key[:50] if len(key) > 50 else key
         log_enhanced_error(
             logger,
             e,
             f"writing cache {cache_type}",
-            {"key": key[:50], "file": str(cache_file), "data_size": len(str(data))},
+            {"key": key_display, "file": str(cache_file), "data_size": len(str(data))},
         )
 
 
