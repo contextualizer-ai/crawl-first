@@ -181,47 +181,29 @@ test-mcp: data/outputs/claude/weather-test.txt data/outputs/claude/mcp-servers-t
 	@echo "🔧 MCP diagnostic tests complete"
 
 # Specific compression targets with safeguards
-cache.tar.gz: .cache
-	@if [ -d "$<" ]; then \
-		file_count=$$(find "$<" -type f | wc -l); \
+define compress_dir
+	@if [ -d "$1" ]; then \
+		file_count=$$(find "$1" -type f | wc -l); \
 		if [ $$file_count -gt 0 ]; then \
-			echo "📦 Compressing $< directory ($$file_count files)..."; \
-			tar -czf $@ $<; \
-			echo "✅ $< compressed to $@"; \
+			echo "📦 Compressing $1 directory ($$file_count files)..."; \
+			tar -czf $2 $1; \
+			echo "✅ $1 compressed to $2"; \
 		else \
-			echo "⚠️  Directory $< exists but contains no files - skipping compression to avoid overwriting existing archive"; \
+			echo "⚠️  Directory $1 exists but contains no files - skipping compression to avoid overwriting existing archive"; \
 		fi; \
 	else \
-		echo "⚠️  Directory $< does not exist"; \
+		echo "⚠️  Directory $1 does not exist"; \
 	fi
+endef
+
+cache.tar.gz: .cache
+	$(call compress_dir,$<,$@)
 
 data.tar.gz: data
-	@if [ -d "$<" ]; then \
-		file_count=$$(find "$<" -type f | wc -l); \
-		if [ $$file_count -gt 0 ]; then \
-			echo "📦 Compressing $< directory ($$file_count files)..."; \
-			tar -czf $@ $<; \
-			echo "✅ $< compressed to $@"; \
-		else \
-			echo "⚠️  Directory $< exists but contains no files - skipping compression to avoid overwriting existing archive"; \
-		fi; \
-	else \
-		echo "⚠️  Directory $< does not exist"; \
-	fi
+	$(call compress_dir,$<,$@)
 
 logs.tar.gz: crawl_first/logs
-	@if [ -d "$<" ]; then \
-		file_count=$$(find "$<" -type f | wc -l); \
-		if [ $$file_count -gt 0 ]; then \
-			echo "📦 Compressing $< directory ($$file_count files)..."; \
-			tar -czf $@ $<; \
-			echo "✅ $< compressed to $@"; \
-		else \
-			echo "⚠️  Directory $< exists but contains no files - skipping compression to avoid overwriting existing archive"; \
-		fi; \
-	else \
-		echo "⚠️  Directory $< does not exist"; \
-	fi
+	$(call compress_dir,$<,$@)
 
 # Compress all archives
 compress-all: cache.tar.gz data.tar.gz logs.tar.gz
