@@ -114,8 +114,14 @@ def get_pmid_from_pmcid(pmcid: str) -> Optional[str]:
                 return str(item["value"])
 
         return None
-    except Exception as e:
-        logger.warning(f"Error converting PMCID {pmcid} to PMID: {e}")
+    except requests.RequestException as e:
+        logger.warning(f"Network error converting PMCID {pmcid} to PMID: {e}")
+        return None
+    except json.JSONDecodeError as e:
+        logger.warning(f"JSON parsing error for PMCID {pmcid}: {e}")
+        return None
+    except (KeyError, IndexError) as e:
+        logger.debug(f"No PMID found for PMCID {pmcid}: {e}")
         return None
 
 
