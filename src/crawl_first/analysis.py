@@ -601,7 +601,7 @@ def _structure_text_as_yaml(text: str, source: str) -> str:
             # Simple heuristic: lines that are short and end with certain patterns might be headers
             if len(line) < LINE_LENGTH_THRESHOLD and (
                 line.isupper()
-                or line.endswith((":",))
+                or line.endswith(":")
                 or line.startswith(
                     (
                         "Abstract",
