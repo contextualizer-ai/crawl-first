@@ -684,7 +684,11 @@ def _attempt_full_text_retrieval(
             attempts["doi_native_text"] = result
 
     # AVOID: PDF extraction methods entirely
-    # No _try_doi_advanced_text or PDF text extraction
+    # PDF extraction methods are avoided due to performance concerns and reliability issues.
+    # Extracting text from PDFs can be computationally expensive and error-prone, especially
+    # when dealing with complex layouts or scanned documents. Instead, we prioritize
+    # structured data sources like BioC XML or metadata APIs to ensure more accurate and
+    # efficient text retrieval.
 
     return attempts
 
