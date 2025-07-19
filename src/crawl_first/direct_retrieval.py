@@ -6,11 +6,14 @@ Based on patterns from artl-mcp but with proper email handling and error resilie
 """
 
 import json
+import logging
 import re
 from typing import Any, Dict, Optional
 
 import requests
 from bs4 import BeautifulSoup
+
+logger = logging.getLogger(__name__)
 
 # API endpoints from artl-mcp
 BIOC_URL = "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/{pmid}/ascii"
@@ -38,14 +41,14 @@ def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[s
         records = data.get("records", [])
         field_value = records[0].get(field, None) if records else None
         return field_value
-    except requests.RequestException:
-        # Handle network-related errors
+    except requests.RequestException as e:
+        logger.warning(f"Network error fetching {field} for DOI {doi}: {e}")
         return None
-    except json.JSONDecodeError:
-        # Handle JSON parsing errors
+    except json.JSONDecodeError as e:
+        logger.warning(f"JSON parsing error for DOI {doi}: {e}")
         return None
-    except KeyError:
-        # Handle missing keys in the JSON response
+    except (KeyError, IndexError) as e:
+        logger.debug(f"Missing {field} field for DOI {doi}: {e}")
         return None
 
 
@@ -80,14 +83,14 @@ def pmid_to_doi(pmid: str) -> Optional[str]:
             return str(elocationid)
 
         return None
-    except requests.RequestException:
-        # Handle network-related errors
+    except requests.RequestException as e:
+        logger.warning(f"Network error converting PMID {pmid} to DOI: {e}")
         return None
-    except json.JSONDecodeError:
-        # Handle JSON parsing errors
+    except json.JSONDecodeError as e:
+        logger.warning(f"JSON parsing error for PMID {pmid}: {e}")
         return None
-    except KeyError:
-        # Handle missing keys in the response data
+    except (KeyError, IndexError) as e:
+        logger.debug(f"No DOI found for PMID {pmid}: {e}")
         return None
 
 
@@ -111,7 +114,8 @@ def get_pmid_from_pmcid(pmcid: str) -> Optional[str]:
                 return str(item["value"])
 
         return None
-    except Exception:
+    except Exception as e:
+        logger.warning(f"Error converting PMCID {pmcid} to PMID: {e}")
         return None
 
 
@@ -123,7 +127,8 @@ def get_unpaywall_info(doi: str, email: str) -> Optional[Dict[str, Any]]:
         response.raise_for_status()
         data = response.json()
         return data if isinstance(data, dict) else None
-    except Exception:
+    except Exception as e:
+        logger.warning(f"Error fetching Unpaywall info for DOI {doi}: {e}")
         return None
 
 
@@ -142,14 +147,14 @@ def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
             message = data["message"]
             return message if isinstance(message, dict) else None
         return None
-    except requests.RequestException:
-        # Handle network-related errors
+    except requests.RequestException as e:
+        logger.warning(f"Network error fetching CrossRef metadata for DOI {doi}: {e}")
         return None
-    except json.JSONDecodeError:
-        # Handle JSON parsing errors
+    except json.JSONDecodeError as e:
+        logger.warning(f"JSON parsing error for CrossRef DOI {doi}: {e}")
         return None
-    except KeyError:
-        # Handle missing keys in the JSON response
+    except (KeyError, IndexError) as e:
+        logger.debug(f"Missing data in CrossRef response for DOI {doi}: {e}")
         return None
 
 
@@ -171,11 +176,11 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
 
         full_text = "\n".join(text_sections).strip()
         return full_text if full_text else None
-    except requests.RequestException:
-        # Handle HTTP-related errors
+    except requests.RequestException as e:
+        logger.warning(f"Network error fetching BioC XML for PMID {pmid}: {e}")
         return None
-    except AttributeError:
-        # Handle parsing errors or missing XML structure
+    except Exception as e:
+        logger.warning(f"Error parsing BioC XML for PMID {pmid}: {e}")
         return None
 
 
@@ -212,9 +217,11 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
         abstract = re.sub(r" +", " ", abstract).strip()
 
         return f"{title}\n\n{abstract}\n\nPMID:{pmid}"
-    except requests.RequestException:
+    except requests.RequestException as e:
+        logger.warning(f"Network error fetching PubMed abstract for PMID {pmid}: {e}")
         return None
-    except (KeyError, IndexError):
+    except Exception as e:
+        logger.warning(f"Error parsing PubMed abstract for PMID {pmid}: {e}")
         return None
 
 
@@ -230,7 +237,11 @@ def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
             return None
 
         return response.content
-    except (requests.RequestException, ValueError):
+    except requests.RequestException as e:
+        logger.warning(f"Network error downloading PDF from {pdf_url}: {e}")
+        return None
+    except Exception as e:
+        logger.warning(f"Error downloading PDF from {pdf_url}: {e}")
         return None
 
 
