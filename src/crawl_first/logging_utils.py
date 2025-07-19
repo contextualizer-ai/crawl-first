@@ -355,9 +355,12 @@ def timed_operation(
                             context["arg1"] = "<large_object>"
                     except Exception as e:
                         # Get logger for debugging, fallback to performance logger
-                        debug_logger = logger or logging.getLogger("crawl_first.performance")
+                        debug_logger = logger or logging.getLogger(
+                            "crawl_first.performance"
+                        )
                         debug_logger.debug(
-                            f"Failed to process arg1: {type(e).__name__}: {e}", exc_info=True
+                            f"Failed to process arg1: {type(e).__name__}: {e}",
+                            exc_info=True,
                         )
                         context["arg1"] = "<repr_failed>"
 
@@ -376,9 +379,12 @@ def timed_operation(
                             context["arg2"] = "<large_object>"
                     except Exception as e:
                         # Get logger for debugging, fallback to performance logger
-                        debug_logger = logger or logging.getLogger("crawl_first.performance")
+                        debug_logger = logger or logging.getLogger(
+                            "crawl_first.performance"
+                        )
                         debug_logger.debug(
-                            f"Failed to process arg2: {type(e).__name__}: {e}", exc_info=True
+                            f"Failed to process arg2: {type(e).__name__}: {e}",
+                            exc_info=True,
                         )
                         context["arg2"] = "<repr_failed>"
 
@@ -403,7 +409,9 @@ def timed_operation(
                                 context[key] = "<large_object>"
                         except Exception as e:
                             # Get logger for debugging, fallback to performance logger
-                            debug_logger = logger or logging.getLogger("crawl_first.performance")
+                            debug_logger = logger or logging.getLogger(
+                                "crawl_first.performance"
+                            )
                             debug_logger.debug(
                                 f"Failed to process key '{key}' in kwargs: {type(e).__name__}: {e}",
                                 exc_info=True,
@@ -444,7 +452,9 @@ def log_cache_operation(
     hit_rate = _cache_metrics[cache_name]["hits"] / max(total_ops, 1) * 100
 
     # Safe key slicing to avoid IndexError
-    key_display = key[:CACHE_KEY_SLICE_LENGTH] if len(key) > CACHE_KEY_SLICE_LENGTH else key
+    key_display = (
+        key[:CACHE_KEY_SLICE_LENGTH] if len(key) > CACHE_KEY_SLICE_LENGTH else key
+    )
     logger.debug(
         f"Cache {operation}: {cache_name} (key: {key_display}...) "
         f"hit_rate: {hit_rate:.1f}% ({_cache_metrics[cache_name]['hits']}/{total_ops})"
