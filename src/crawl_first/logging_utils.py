@@ -23,6 +23,11 @@ F = TypeVar("F", bound=Callable[..., Any])
 # Global log directory
 LOG_DIR = Path(os.getenv("LOG_DIR", "crawl_first/logs"))
 
+# Constants for consistent string handling
+CACHE_KEY_SLICE_LENGTH = 50
+ARG_STRING_MAX_LENGTH = 100
+LARGE_OBJECT_SIZE_THRESHOLD = 1024
+
 
 class LogCapture:
     """Capture stdout/stderr and redirect to logger."""
@@ -280,10 +285,14 @@ class PerformanceTimer:
         if self.start_time is not None:
             self.duration = self.end_time - self.start_time
         else:
-            self.duration = 0.0
+            self.duration = None
+            self.logger.warning(
+                f"{self.operation_name} timer was not started properly. Duration is undefined."
+            )
 
-        # Store metrics for analysis
-        _performance_metrics[self.operation_name].append(self.duration)
+        # Store metrics for analysis (only if duration is valid)
+        if self.duration is not None:
+            _performance_metrics[self.operation_name].append(self.duration)
 
         # Determine log level based on duration and success
         status = "FAILED" if exc_type is not None else "completed"
@@ -291,15 +300,21 @@ class PerformanceTimer:
 
         # Use different log levels based on duration (slow operations get warnings)
         log_level = self.log_level
-        if self.duration > 30:  # Very slow
-            log_level = logging.WARNING
-        elif self.duration > 10:  # Slow
-            log_level = logging.INFO
+        if self.duration is not None:
+            if self.duration > 30:  # Very slow
+                log_level = logging.WARNING
+            elif self.duration > 10:  # Slow
+                log_level = logging.INFO
 
-        self.logger.log(
-            log_level,
-            f"{self.operation_name} {status} in {self.duration:.3f}s{context_str}",
-        )
+            self.logger.log(
+                log_level,
+                f"{self.operation_name} {status} in {self.duration:.3f}s{context_str}",
+            )
+        else:
+            self.logger.log(
+                logging.WARNING,
+                f"{self.operation_name} {status} with invalid timing{context_str}",
+            )
 
 
 def timed_operation(
@@ -326,21 +341,28 @@ def timed_operation(
                 # Include first few args and relevant kwargs with safe string representation
                 if len(args) > 0:
                     try:
-                        # Safe string representation that handles complex objects
-                        arg_str = str(args[0])
-                        # Truncate if too long and sanitize sensitive patterns
-                        if len(arg_str) > 100:
-                            arg_str = arg_str[:97] + "..."
-                        context["arg1"] = arg_str
+                        # Check type and size before converting to string for performance
+                        if isinstance(args[0], (int, float, str, bool)) or sys.getsizeof(args[0]) < LARGE_OBJECT_SIZE_THRESHOLD:
+                            arg_str = str(args[0])
+                            # Truncate if too long
+                            if len(arg_str) > ARG_STRING_MAX_LENGTH:
+                                arg_str = arg_str[:ARG_STRING_MAX_LENGTH-3] + "..."
+                            context["arg1"] = arg_str
+                        else:
+                            context["arg1"] = "<large_object>"
                     except Exception:
                         context["arg1"] = "<repr_failed>"
 
                 if len(args) > 1:
                     try:
-                        arg_str = str(args[1])
-                        if len(arg_str) > 100:
-                            arg_str = arg_str[:97] + "..."
-                        context["arg2"] = arg_str
+                        # Check type and size before converting to string for performance
+                        if isinstance(args[1], (int, float, str, bool)) or sys.getsizeof(args[1]) < LARGE_OBJECT_SIZE_THRESHOLD:
+                            arg_str = str(args[1])
+                            if len(arg_str) > ARG_STRING_MAX_LENGTH:
+                                arg_str = arg_str[:ARG_STRING_MAX_LENGTH-3] + "..."
+                            context["arg2"] = arg_str
+                        else:
+                            context["arg2"] = "<large_object>"
                     except Exception:
                         context["arg2"] = "<repr_failed>"
 
@@ -349,10 +371,14 @@ def timed_operation(
                 for key in important_kwargs:
                     if key in kwargs:
                         try:
-                            value_str = str(kwargs[key])
-                            if len(value_str) > 100:
-                                value_str = value_str[:97] + "..."
-                            context[key] = value_str
+                            # Apply same size check for kwargs
+                            if isinstance(kwargs[key], (int, float, str, bool)) or sys.getsizeof(kwargs[key]) < LARGE_OBJECT_SIZE_THRESHOLD:
+                                value_str = str(kwargs[key])
+                                if len(value_str) > ARG_STRING_MAX_LENGTH:
+                                    value_str = value_str[:ARG_STRING_MAX_LENGTH-3] + "..."
+                                context[key] = value_str
+                            else:
+                                context[key] = "<large_object>"
                         except Exception:
                             context[key] = "<repr_failed>"
 
@@ -390,7 +416,7 @@ def log_cache_operation(
     hit_rate = _cache_metrics[cache_name]["hits"] / max(total_ops, 1) * 100
 
     logger.debug(
-        f"Cache {operation}: {cache_name} (key: {key[:50]}...) "
+        f"Cache {operation}: {cache_name} (key: {key[:CACHE_KEY_SLICE_LENGTH]}...) "
         f"hit_rate: {hit_rate:.1f}% ({_cache_metrics[cache_name]['hits']}/{total_ops})"
     )
 
@@ -505,7 +531,12 @@ def log_memory_usage(logger: logging.Logger, operation: str) -> None:
             f"System %: {usage['percent']:.1f}%"
         )
     except Exception as e:
-        # Don't let memory monitoring break the application
+        # Catching all exceptions here because memory monitoring is non-critical.
+        # Expected exceptions include:
+        # - psutil.NoSuchProcess: If the process no longer exists.
+        # - psutil.AccessDenied: If access to process information is denied.
+        # - psutil.ZombieProcess: If the process is in zombie state.
+        # These exceptions are safe to ignore as they do not affect the application's core functionality.
         logger.debug(
             f"Could not measure memory usage after {operation}. Exception: {e}",
             exc_info=True,

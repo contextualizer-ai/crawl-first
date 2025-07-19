@@ -75,10 +75,11 @@ def save_cache(cache_type: str, key: str, data: Dict[str, Any]) -> None:
         with open(cache_file, "w") as f:
             f.write(serialized_data)
 
-        # Log successful cache write with file size (avoiding extra I/O)
-        file_size = len(serialized_data.encode("utf-8"))
+        # Log successful cache write with estimated file size
+        # Using string length as approximation to avoid encoding overhead
+        file_size_estimate = len(serialized_data)
         logger.debug(
-            f"Cached {cache_type} data: {file_size} bytes (key: {key[:50]}...)"
+            f"Cached {cache_type} data: ~{file_size_estimate} chars (key: {key[:50]}...)"
         )
 
     except Exception as e:

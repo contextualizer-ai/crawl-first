@@ -196,9 +196,8 @@ def _analyze_asserted_coordinates(
     with PerformanceTimer("soil_analysis", logger, context, logging.DEBUG):
         soil_result = get_soil_analysis(asserted_lat, asserted_lon)
         inferred["soil_from_asserted_coords"] = soil_result
-        soil_type = soil_result.get("soil_type")
-        if soil_type:
-            logger.debug(f"Found soil type: {soil_type}")
+        if soil_result.get("soil_type"):
+            logger.debug(f"Found soil type: {soil_result.get('soil_type')}")
 
     # Land cover analysis
     if date:
