@@ -571,34 +571,70 @@ def _attempt_full_text_retrieval(
                     "length": doi_result["length"],
                 }
             elif doi_result.get("text"):
-                attempts["direct_doi_text"] = {
-                    "text": doi_result["text"],
-                    "length": doi_result["length"],
-                    "source": doi_result["source"],
-                    "format": "raw",
-                }
+                # Check if this is full text or abstract
+                if doi_result.get("is_full_text"):
+                    # Full text - save to file, not cache
+                    attempts["direct_doi_full_text"] = {
+                        "text": doi_result["text"],
+                        "length": doi_result["length"],
+                        "source": doi_result["source"],
+                        "format": "raw",
+                        "type": "full_text_file",
+                    }
+                else:
+                    # Abstract only - can go in cache
+                    attempts["direct_doi_text"] = {
+                        "text": doi_result["text"],
+                        "length": doi_result["length"],
+                        "source": doi_result["source"],
+                        "format": "raw",
+                    }
 
     # TRY PMCID-based retrieval
     if pmcid:
         pmcid_result = get_text_from_pmcid_direct(pmcid)
         if pmcid_result and pmcid_result.get("text"):
-            attempts["direct_pmcid_text"] = {
-                "text": pmcid_result["text"],
-                "length": pmcid_result["length"],
-                "source": pmcid_result["source"],
-                "format": "raw",
-            }
+            # Check if this is full text or abstract
+            if pmcid_result.get("is_full_text"):
+                # Full text - save to file, not cache
+                attempts["direct_pmcid_full_text"] = {
+                    "text": pmcid_result["text"],
+                    "length": pmcid_result["length"],
+                    "source": pmcid_result["source"],
+                    "format": "raw",
+                    "type": "full_text_file",
+                }
+            else:
+                # Abstract only - can go in cache
+                attempts["direct_pmcid_text"] = {
+                    "text": pmcid_result["text"],
+                    "length": pmcid_result["length"],
+                    "source": pmcid_result["source"],
+                    "format": "raw",
+                }
 
     # TRY PMID-based retrieval
     if pmid:
         pmid_result = get_text_from_pmid_direct(pmid)
         if pmid_result and pmid_result.get("text"):
-            attempts["direct_pmid_text"] = {
-                "text": pmid_result["text"],
-                "length": pmid_result["length"],
-                "source": pmid_result["source"],
-                "format": "raw",
-            }
+            # Check if this is full text or abstract
+            if pmid_result.get("is_full_text"):
+                # Full text - save to file, not cache
+                attempts["direct_pmid_full_text"] = {
+                    "text": pmid_result["text"],
+                    "length": pmid_result["length"],
+                    "source": pmid_result["source"],
+                    "format": "raw",
+                    "type": "full_text_file",
+                }
+            else:
+                # Abstract only - can go in cache
+                attempts["direct_pmid_text"] = {
+                    "text": pmid_result["text"],
+                    "length": pmid_result["length"],
+                    "source": pmid_result["source"],
+                    "format": "raw",
+                }
 
     return attempts
 
@@ -649,7 +685,12 @@ def _build_full_text_result(
         "methods_attempted": list(attempts.keys()) if attempts else [],
         "method_results": (
             {
-                k: {key: val for key, val in v.items() if key != "pdf_content"}
+                k: {
+                    key: val
+                    for key, val in v.items()
+                    if key != "pdf_content"
+                    and not (key == "text" and v.get("type") == "full_text_file")
+                }
                 for k, v in attempts.items()
             }
             if attempts
@@ -723,11 +764,15 @@ def cached_get_full_text(
         # Otherwise save text content if available
         elif full_text and len(full_text.strip()) > 100:
             file_path = save_full_text_to_file(full_text, identifiers)
-        # Also save any available text content from other methods
+        # Also save any available full text content from other methods
         else:
-            # Look for text content in other attempts and save it
+            # Look for full text content in other attempts and save it to files
             for method_name, attempt in attempts.items():
-                if attempt.get("text") and len(attempt["text"].strip()) > 100:
+                if (
+                    attempt.get("text")
+                    and len(attempt["text"].strip()) > 100
+                    and attempt.get("type") == "full_text_file"
+                ):
                     file_path = save_full_text_to_file(attempt["text"], identifiers)
                     break
 
