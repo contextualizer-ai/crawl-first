@@ -9,14 +9,15 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
+import yaml
 from artl_mcp.tools import (
     doi_to_pmid,
     extract_paper_info,
-    extract_pdf_text,
     get_abstract_from_pubmed_id,
     get_doi_metadata,
     get_doi_text,
     get_full_text_from_doi,
+    get_full_text_info,
     get_pmcid_text,
     get_pmid_text,
     get_unpaywall_info,
@@ -529,8 +530,8 @@ def _try_doi_advanced_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
     return _try_retrieve_text(get_full_text_from_doi, doi, email)
 
 
-def _try_unpaywall_pdf_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve full text via Unpaywall PDF extraction."""
+def _try_unpaywall_pdf_url(doi: str, email: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve PDF URL via Unpaywall for direct download."""
     try:
         unpaywall_info = get_unpaywall_info(doi, email)
         if unpaywall_info and unpaywall_info.get("is_oa"):
@@ -538,65 +539,158 @@ def _try_unpaywall_pdf_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
             for location in oa_locations:
                 pdf_url = location.get("url_for_pdf")
                 if pdf_url:
-                    text = extract_pdf_text(pdf_url)
-                    if text and len(text.strip()) > 100:
-                        return {"text": text, "length": len(text.strip())}
+                    return {
+                        "pdf_url": pdf_url,
+                        "type": "pdf_download",
+                        "source": "unpaywall",
+                    }
     except Exception:
         pass
     return None
 
 
+def _try_doi_fetcher_pdf_url(doi: str, email: str) -> Optional[Dict[str, Any]]:
+    """Try to retrieve PDF URL via DOIFetcher for direct download."""
+    try:
+        full_text_info = get_full_text_info(doi, email)
+        if full_text_info and full_text_info.get("pdf_url"):
+            return {
+                "pdf_url": full_text_info["pdf_url"],
+                "type": "pdf_download",
+                "source": "doi_fetcher",
+            }
+    except Exception:
+        pass
+    return None
+
+
+def _convert_text_to_yaml(text: str, source: str) -> str:
+    """Convert extracted text to YAML format for better structure."""
+
+    # Parse the text into structured data
+    lines = text.strip().split("\n")
+    structured_data: Dict[str, Any] = {
+        "source": source,
+        "content_type": "native_text",
+        "sections": [],
+    }
+
+    current_section: Dict[str, Any] = {"title": "Main Content", "paragraphs": []}
+    current_paragraph: List[str] = []
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            if current_paragraph:
+                current_section["paragraphs"].append(" ".join(current_paragraph))
+                current_paragraph = []
+        else:
+            # Simple heuristic: lines that are short and end with certain patterns might be headers
+            if len(line) < 80 and (
+                line.isupper()
+                or line.endswith((":",))
+                or line.startswith(
+                    (
+                        "Abstract",
+                        "Introduction",
+                        "Methods",
+                        "Results",
+                        "Discussion",
+                        "Conclusion",
+                    )
+                )
+            ):
+                # Save current section if it has content
+                if current_section["paragraphs"]:
+                    structured_data["sections"].append(current_section)
+                # Start new section
+                current_section = {"title": line, "paragraphs": []}
+                current_paragraph = []
+            else:
+                current_paragraph.append(line)
+
+    # Add final paragraph and section
+    if current_paragraph:
+        current_section["paragraphs"].append(" ".join(current_paragraph))
+    if current_section["paragraphs"]:
+        structured_data["sections"].append(current_section)
+
+    return yaml.dump(structured_data, default_flow_style=False, allow_unicode=True)
+
+
 def _attempt_full_text_retrieval(
     paper_metadata: Dict[str, Any], email: str
 ) -> Dict[str, Dict[str, Any]]:
-    """Attempt to retrieve full text using multiple strategies."""
+    """Attempt to retrieve full text using prioritized strategies: PDF URLs first, then native text."""
     attempts = {}
     pmcid = paper_metadata.get("pmcid")
     pmid = paper_metadata.get("pmid")
     doi = paper_metadata.get("doi")
 
-    # Strategy 1: PMCID
+    # FIRST PRIORITY: PDF URL Discovery
+    if doi:
+        # Try Unpaywall for PDF URLs
+        result = _try_unpaywall_pdf_url(doi, email)
+        if result:
+            attempts["unpaywall_pdf_url"] = result
+
+        # Try DOIFetcher for PDF URLs (may find different sources)
+        result = _try_doi_fetcher_pdf_url(doi, email)
+        if result:
+            attempts["doi_fetcher_pdf_url"] = result
+
+    # SECOND PRIORITY: Native Text (BioC XML from PubMed Central)
     if pmcid:
         result = _try_pmcid_text(pmcid)
         if result:
-            attempts["artl_pmcid"] = result
+            # Convert to YAML format
+            result["text"] = _convert_text_to_yaml(result["text"], "pmcid_bioc")
+            result["format"] = "yaml"
+            attempts["pmcid_native_text"] = result
 
-    # Strategy 2: PMID
     if pmid:
         result = _try_pmid_text(pmid)
         if result:
-            attempts["artl_pmid"] = result
+            # Convert to YAML format
+            result["text"] = _convert_text_to_yaml(result["text"], "pmid_bioc")
+            result["format"] = "yaml"
+            attempts["pmid_native_text"] = result
 
-    # Strategy 3: DOI simple
     if doi:
         result = _try_doi_simple_text(doi)
         if result:
-            attempts["artl_doi_simple"] = result
+            # Convert to YAML format
+            result["text"] = _convert_text_to_yaml(result["text"], "doi_bioc")
+            result["format"] = "yaml"
+            attempts["doi_native_text"] = result
 
-    # Strategy 4: DOI advanced
-    if doi:
-        result = _try_doi_advanced_text(doi, email)
-        if result:
-            attempts["artl_doi_advanced"] = result
-
-    # Strategy 5: Unpaywall PDF
-    if doi:
-        result = _try_unpaywall_pdf_text(doi, email)
-        if result:
-            attempts["artl_unpaywall_pdf"] = result
+    # AVOID: PDF extraction methods entirely
+    # No _try_doi_advanced_text or PDF text extraction
 
     return attempts
 
 
-def _select_best_text(
+def _select_best_result(
     attempts: Dict[str, Dict[str, Any]],
-) -> tuple[Optional[str], Optional[str]]:
-    """Select the best text result from attempts."""
+) -> tuple[Optional[str], Optional[str], Optional[str]]:
+    """Select the best result from attempts, preferring PDF downloads."""
     if not attempts:
-        return None, None
+        return None, None, None
 
-    best_method = max(attempts.keys(), key=lambda k: attempts[k]["length"])
-    return attempts[best_method]["text"], best_method
+    # Check for PDF download first (highest priority)
+    for method, result in attempts.items():
+        if result.get("type") == "pdf_download":
+            return None, method, result.get("pdf_url")
+
+    # Fall back to text retrieval - select the longest text
+    text_attempts = {k: v for k, v in attempts.items() if v.get("text")}
+    if text_attempts:
+        best_method = max(
+            text_attempts.keys(), key=lambda k: text_attempts[k]["length"]
+        )
+        return text_attempts[best_method]["text"], best_method, None
+
+    return None, None, None
 
 
 def _build_full_text_result(
@@ -604,26 +698,31 @@ def _build_full_text_result(
     full_text: Optional[str],
     retrieval_method: Optional[str],
     file_path: Optional[str],
+    pdf_url: Optional[str],
     attempts: Dict[str, Dict[str, Any]],
 ) -> Dict[str, Any]:
     """Build the full text result dictionary."""
-    return {
+    result = {
         "method": retrieval_method,
         "identifiers": identifiers,
         "file_path": file_path,
         "content_length": len(full_text) if full_text else 0,
-        "status": (
-            "retrieved"
-            if full_text and file_path
-            else ("partial" if full_text else "not_available")
-        ),
         "methods_attempted": list(attempts.keys()) if attempts else [],
-        "method_results": (
-            {k: {"length": v["length"]} for k, v in attempts.items()}
-            if attempts
-            else {}
-        ),
+        "method_results": ({k: v for k, v in attempts.items()} if attempts else {}),
     }
+
+    # Set status based on what we have
+    if pdf_url:
+        result["status"] = "pdf_available"
+        result["pdf_url"] = pdf_url
+    elif full_text and file_path:
+        result["status"] = "retrieved"
+    elif full_text:
+        result["status"] = "partial"
+    else:
+        result["status"] = "not_available"
+
+    return result
 
 
 def cached_get_full_text(
@@ -657,8 +756,8 @@ def cached_get_full_text(
         # Attempt to retrieve full text using multiple strategies
         attempts = _attempt_full_text_retrieval(paper_metadata, email)
 
-        # Select the best result
-        full_text, retrieval_method = _select_best_text(attempts)
+        # Select the best result (preferring PDF downloads)
+        full_text, retrieval_method, pdf_url = _select_best_result(attempts)
 
         # Save content to file if retrieved
         file_path = None
@@ -667,7 +766,7 @@ def cached_get_full_text(
 
         # Build result
         result = _build_full_text_result(
-            identifiers, full_text, retrieval_method, file_path, attempts
+            identifiers, full_text, retrieval_method, file_path, pdf_url, attempts
         )
 
         # Cache result
