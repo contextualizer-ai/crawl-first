@@ -127,7 +127,14 @@ def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
             message = data["message"]
             return message if isinstance(message, dict) else None
         return None
-    except Exception:
+    except requests.RequestException:
+        # Handle network-related errors
+        return None
+    except json.JSONDecodeError:
+        # Handle JSON parsing errors
+        return None
+    except KeyError:
+        # Handle missing keys in the JSON response
         return None
 
 
