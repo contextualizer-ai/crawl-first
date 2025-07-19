@@ -873,7 +873,7 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
         if "text_content" in cache_result and len(cache_result["text_content"]) > TEXT_CONTENT_TRUNCATION_LIMIT:
             # Store only a summary for large text content
             cache_result["text_content"] = (
-                cache_result["text_content"][:1000] + "... [truncated for cache]"
+                cache_result["text_content"][:CACHE_TRUNCATION_LENGTH] + "... [truncated for cache]"
             )
             cache_result["text_truncated_for_cache"] = True
         save_cache("pmc_oa_package", key, {"result": cache_result})
