@@ -40,6 +40,106 @@ PMC_FTP_OA_URL = (
 DOI_PATTERN = r"/(10\.\d{4,}/[\w\-.]+)"
 
 
+def create_supplementary_files_directory() -> Path:
+    """Create and return the supplementary files directory path."""
+    supp_dir = Path(".cache/supplementary_files")
+    supp_dir.mkdir(parents=True, exist_ok=True)
+    return supp_dir
+
+
+def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Optional[str]:
+    """Download a supplementary file and return the local file path."""
+    logger.debug(
+        f"Downloading supplementary file: {file_info.get('filename', 'unknown')} for {pmcid}"
+    )
+
+    download_url = file_info.get("download_url", "")
+    filename = file_info.get("filename", "")
+
+    if not download_url or not filename:
+        logger.warning(
+            f"Missing download URL or filename for supplementary file: {file_info}"
+        )
+        return None
+
+    try:
+        # Create supplementary files directory
+        supp_dir = create_supplementary_files_directory()
+
+        # Clean filename for filesystem safety
+        safe_filename = re.sub(r'[<>:"/\\|?*]', "_", filename)
+        if not safe_filename:
+            safe_filename = f"supplement_{pmcid}_{hash(download_url) % 10000}"
+
+        # Add PMCID prefix to avoid conflicts
+        final_filename = f"{pmcid}_{safe_filename}"
+        file_path = supp_dir / final_filename
+
+        # Skip if file already exists
+        if file_path.exists():
+            logger.debug(f"Supplementary file already exists: {file_path}")
+            return str(file_path.relative_to(Path.cwd()))
+
+        # Download the file
+        response = requests.get(download_url, timeout=30, stream=True)
+        response.raise_for_status()
+
+        # Save to file
+        with open(file_path, "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+
+        file_size = file_path.stat().st_size
+        logger.info(
+            f"Downloaded supplementary file: {filename} ({file_size} bytes) to {file_path}"
+        )
+
+        # Return relative path
+        return str(file_path.relative_to(Path.cwd()))
+
+    except requests.RequestException as e:
+        logger.warning(f"Network error downloading supplementary file {filename}: {e}")
+        return None
+    except Exception as e:
+        logger.warning(f"Error downloading supplementary file {filename}: {e}")
+        return None
+
+
+def save_supplementary_files(
+    file_list: List[Dict[str, Any]], pmcid: str
+) -> List[Dict[str, Any]]:
+    """Download and save supplementary files, return updated file list with local paths."""
+    if not file_list:
+        return []
+
+    logger.info(
+        f"Starting download of {len(file_list)} supplementary files for {pmcid}"
+    )
+    updated_files = []
+
+    for file_info in file_list:
+        updated_file = file_info.copy()
+
+        # Download the file
+        local_path = download_supplementary_file(file_info, pmcid)
+        if local_path:
+            updated_file["local_path"] = local_path
+            updated_file["download_status"] = "success"
+        else:
+            updated_file["download_status"] = "failed"
+
+        updated_files.append(updated_file)
+
+    successful_downloads = len(
+        [f for f in updated_files if f.get("download_status") == "success"]
+    )
+    logger.info(
+        f"Downloaded {successful_downloads}/{len(file_list)} supplementary files for {pmcid}"
+    )
+
+    return updated_files
+
+
 def safe_get(element: Any, attr: str, default: str = "") -> str:
     """Safely get an attribute from a BeautifulSoup element."""
     try:
@@ -614,8 +714,14 @@ def get_europe_pmc_supplementary_files(pmcid: str) -> Optional[List[Dict[str, An
                     f"Skipping non-dict supplementary file entry {i} for {pmcid}"
                 )
 
-        # Cache the result
+        # Download the supplementary files
         result = parsed_files if parsed_files else []
+        if result:
+            logger.info(
+                f"Downloading {len(result)} Europe PMC supplementary files for {pmcid}"
+            )
+            result = save_supplementary_files(result, pmcid)
+
         logger.info(f"Caching {len(result)} Europe PMC supplementary files for {pmcid}")
         save_cache("europe_pmc_supplements", key, {"files": result})
 
@@ -1005,6 +1111,7 @@ def get_comprehensive_pmcid_package(pmcid: str) -> Optional[Dict[str, Any]]:
         logger.info(
             f"Found {len(europe_supps)} Europe PMC supplementary files for {pmcid}"
         )
+        # Files are already downloaded by get_europe_pmc_supplementary_files
         result["supplementary_files"].extend(europe_supps)
     else:
         logger.debug(f"No Europe PMC supplementary files found for {pmcid}")
