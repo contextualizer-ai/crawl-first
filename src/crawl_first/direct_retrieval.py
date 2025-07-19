@@ -870,7 +870,7 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
 
         # Cache the result (without storing the full text content to save space)
         cache_result = result.copy()
-        if "text_content" in cache_result and len(cache_result["text_content"]) > 10000:
+        if "text_content" in cache_result and len(cache_result["text_content"]) > TEXT_CONTENT_TRUNCATION_LIMIT:
             # Store only a summary for large text content
             cache_result["text_content"] = (
                 cache_result["text_content"][:1000] + "... [truncated for cache]"
