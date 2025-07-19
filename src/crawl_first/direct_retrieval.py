@@ -186,7 +186,9 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
         abstract = re.sub(r" +", " ", abstract).strip()
 
         return f"{title}\n\n{abstract}\n\nPMID:{pmid}"
-    except Exception:
+    except requests.RequestException:
+        return None
+    except (KeyError, IndexError):
         return None
 
 
