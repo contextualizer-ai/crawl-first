@@ -290,9 +290,7 @@ def get_text_from_pmid_direct(pmid: str) -> Optional[Dict[str, Any]]:
     }
 
     # 1. Try BioC XML first
-    methods_tried = result["methods_tried"]
-    assert isinstance(methods_tried, list)
-    methods_tried.append("bioc_xml")
+    result["methods_tried"].append("bioc_xml")
     text = get_bioc_xml_text(pmid)
     if text and len(text.strip()) > 100:
         result["text"] = text
@@ -301,9 +299,7 @@ def get_text_from_pmid_direct(pmid: str) -> Optional[Dict[str, Any]]:
         return result
 
     # 2. Fallback to abstract
-    methods_tried = result["methods_tried"]
-    assert isinstance(methods_tried, list)
-    methods_tried.append("pubmed_abstract")
+    result["methods_tried"].append("pubmed_abstract")
     abstract = get_pubmed_abstract(pmid)
     if abstract and len(abstract.strip()) > 50:
         result["text"] = abstract
@@ -328,9 +324,7 @@ def get_text_from_pmcid_direct(pmcid: str) -> Optional[Dict[str, Any]]:
     }
 
     # Convert PMCID to PMID
-    methods_tried = result["methods_tried"]
-    assert isinstance(methods_tried, list)
-    methods_tried.append("pmcid_to_pmid")
+    result["methods_tried"].append("pmcid_to_pmid")
     pmid = get_pmid_from_pmcid(pmcid)
     if pmid:
         result["pmid"] = pmid
@@ -340,11 +334,7 @@ def get_text_from_pmcid_direct(pmcid: str) -> Optional[Dict[str, Any]]:
             result["text"] = pmid_result["text"]
             result["source"] = pmid_result["source"]
             result["length"] = pmid_result["length"]
-            methods_tried = result["methods_tried"]
-            pmid_methods_tried = pmid_result["methods_tried"]
-            assert isinstance(methods_tried, list)
-            assert isinstance(pmid_methods_tried, list)
-            methods_tried.extend(pmid_methods_tried)
+            result["methods_tried"].extend(pmid_result["methods_tried"])
             return result
 
     return result
