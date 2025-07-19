@@ -577,8 +577,8 @@ def _try_doi_fetcher_pdf_url(doi: str, email: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def _convert_text_to_yaml(text: str, source: str) -> str:
-    """Convert extracted text to YAML format for better structure."""
+def _structure_text_as_yaml(text: str, source: str) -> str:
+    """Parse and structure extracted text into YAML format with section detection."""
 
     # Parse the text into structured data
     lines = text.strip().split("\n")
@@ -663,7 +663,7 @@ def _attempt_full_text_retrieval(
         result = _try_pmcid_text(pmcid)
         if result:
             # Convert to YAML format
-            result["text"] = _convert_text_to_yaml(result["text"], "pmcid_bioc")
+            result["text"] = _structure_text_as_yaml(result["text"], "pmcid_bioc")
             result["format"] = "yaml"
             attempts["pmcid_native_text"] = result
 
@@ -671,7 +671,7 @@ def _attempt_full_text_retrieval(
         result = _try_pmid_text(pmid)
         if result:
             # Convert to YAML format
-            result["text"] = _convert_text_to_yaml(result["text"], "pmid_bioc")
+            result["text"] = _structure_text_as_yaml(result["text"], "pmid_bioc")
             result["format"] = "yaml"
             attempts["pmid_native_text"] = result
 
@@ -679,7 +679,7 @@ def _attempt_full_text_retrieval(
         result = _try_doi_simple_text(doi)
         if result:
             # Convert to YAML format
-            result["text"] = _convert_text_to_yaml(result["text"], "doi_bioc")
+            result["text"] = _structure_text_as_yaml(result["text"], "doi_bioc")
             result["format"] = "yaml"
             attempts["doi_native_text"] = result
 
