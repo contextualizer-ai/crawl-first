@@ -201,7 +201,7 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
 
         # Extract ONLY text from <text> tags within <passage>
         text_tags = soup.find_all("text")
-        if not text_tags or not hasattr(text_tags, "__iter__"):
+        if not text_tags:
             logger.debug(f"No valid text tags found in BioC XML for PMID {pmid}")
             return None
 
