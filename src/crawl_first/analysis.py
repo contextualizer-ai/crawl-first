@@ -459,7 +459,7 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
         save_cache("weather", key, {"result": None})
         return None
 
-    except (ConnectionError, TimeoutError, ValueError, KeyError) as e:
+    except (ConnectionError, TimeoutError, ValueError, KeyError):
         # No retries with different parameters - if it fails, cache and return None
         # Only catch expected errors from weather API calls
         save_cache("weather", key, {"result": None})
