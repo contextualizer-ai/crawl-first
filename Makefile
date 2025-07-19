@@ -172,10 +172,10 @@ data/outputs/crawl-first/test-results/: data/inputs/biosample-ids.txt
 		--verbose
 	@echo "✅ Crawl-first results saved to $@"
 
-# Full test suite - code quality + data processing + application testing
-full-test: all setup-dirs data/inputs/biosample-ids.txt data/samples/biosample-ids-10.txt data/outputs/claude/weather-test.txt data/outputs/claude/mcp-servers-test.txt data/outputs/claude/landuse-mcp-test.txt data/outputs/tests/random-ids-test.txt data/outputs/crawl-first/test-results/ check-cli
+# Full test suite - code quality + data processing + application testing (excludes slow Claude MCP tests)
+full-test: all setup-dirs data/inputs/biosample-ids.txt data/samples/biosample-ids-10.txt data/outputs/tests/random-ids-test.txt data/outputs/crawl-first/test-results/ check-cli
 	@echo "🎯 Full test suite complete - all code quality checks and application tests passed"
 
-# MCP diagnostic tests only
-test-mcp: data/outputs/claude/mcp-servers-test.txt data/outputs/claude/landuse-mcp-test.txt
+# MCP diagnostic tests - Claude interactions with MCP servers (includes weather test)
+test-mcp: data/outputs/claude/weather-test.txt data/outputs/claude/mcp-servers-test.txt data/outputs/claude/landuse-mcp-test.txt
 	@echo "🔧 MCP diagnostic tests complete"
