@@ -149,7 +149,11 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
 
         full_text = "\n".join(text_sections).strip()
         return full_text if full_text else None
-    except Exception:
+    except requests.RequestException:
+        # Handle HTTP-related errors
+        return None
+    except AttributeError:
+        # Handle parsing errors or missing XML structure
         return None
 
 
