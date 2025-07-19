@@ -10,6 +10,7 @@ license = {text = "MIT"}
 requires-python = ">=3.11"
 dependencies = [
     "artl-mcp>=0.18.1",
+    "beautifulsoup4>=4.12.0",
     "click>=8.2.1",
     "geopy>=2.4.1",
     "landuse-mcp>=0.1.9",

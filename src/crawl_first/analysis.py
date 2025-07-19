@@ -11,16 +11,9 @@ from typing import Any, Callable, Dict, List, NamedTuple, Optional
 
 import yaml
 from artl_mcp.tools import (
-    doi_to_pmid,
     extract_paper_info,
     get_abstract_from_pubmed_id,
     get_doi_metadata,
-    get_doi_text,
-    get_full_text_from_doi,
-    get_full_text_info,
-    get_pmcid_text,
-    get_pmid_text,
-    get_unpaywall_info,
 )
 from landuse_mcp.main import get_land_cover, get_landuse_dates, get_soil_type
 from nmdc_mcp.api import (
@@ -38,6 +31,14 @@ from .cache import (
     get_cached_results,
     save_cache,
     save_full_text_to_file,
+    save_pdf_to_file,
+)
+from .direct_retrieval import (
+    doi_to_pmcid,
+    doi_to_pmid,
+    get_text_from_doi_direct,
+    get_text_from_pmcid_direct,
+    get_text_from_pmid_direct,
 )
 
 # Constants for text processing
@@ -488,60 +489,6 @@ def _try_retrieve_text(
     return None
 
 
-def _try_pmcid_text(pmcid: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve full text using PMCID."""
-    return _try_retrieve_text(get_pmcid_text, pmcid)
-
-
-def _try_pmid_text(pmid: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve full text using PMID."""
-    return _try_retrieve_text(get_pmid_text, pmid)
-
-
-def _try_doi_simple_text(doi: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve full text using simple DOI method."""
-    return _try_retrieve_text(get_doi_text, doi)
-
-
-def _try_doi_advanced_text(doi: str, email: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve full text using advanced DOI method."""
-    return _try_retrieve_text(get_full_text_from_doi, doi, email)
-
-
-def _try_unpaywall_pdf_url(doi: str, email: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve PDF URL via Unpaywall for direct download."""
-    try:
-        unpaywall_info = get_unpaywall_info(doi, email)
-        if unpaywall_info and unpaywall_info.get("is_oa"):
-            oa_locations = unpaywall_info.get("oa_locations", [])
-            for location in oa_locations:
-                pdf_url = location.get("url_for_pdf")
-                if pdf_url:
-                    return {
-                        "pdf_url": pdf_url,
-                        "type": "pdf_download",
-                        "source": "unpaywall",
-                    }
-    except Exception:
-        pass
-    return None
-
-
-def _try_doi_fetcher_pdf_url(doi: str, email: str) -> Optional[Dict[str, Any]]:
-    """Try to retrieve PDF URL via DOIFetcher for direct download."""
-    try:
-        full_text_info = get_full_text_info(doi, email)
-        if full_text_info and full_text_info.get("pdf_url"):
-            return {
-                "pdf_url": full_text_info["pdf_url"],
-                "type": "pdf_download",
-                "source": "doi_fetcher",
-            }
-    except Exception:
-        pass
-    return None
-
-
 def _structure_text_as_yaml(text: str, source: str) -> str:
     """Parse and structure extracted text into YAML format with section detection."""
 
@@ -605,55 +552,53 @@ def _structure_text_as_yaml(text: str, source: str) -> str:
 def _attempt_full_text_retrieval(
     paper_metadata: Dict[str, Any], email: str
 ) -> Dict[str, Dict[str, Any]]:
-    """Attempt to retrieve full text using prioritized strategies: PDF URLs first, then native text."""
+    """Attempt to retrieve full text using direct API calls and organize the results into a dictionary."""
     attempts = {}
     pmcid = paper_metadata.get("pmcid")
     pmid = paper_metadata.get("pmid")
     doi = paper_metadata.get("doi")
 
-    # FIRST PRIORITY: PDF URL Discovery
+    # TRY DOI-based retrieval first (most comprehensive)
     if doi:
-        # Try Unpaywall for PDF URLs
-        result = _try_unpaywall_pdf_url(doi, email)
-        if result:
-            attempts["unpaywall_pdf_url"] = result
+        doi_result = get_text_from_doi_direct(doi, email)
+        if doi_result:
+            if doi_result.get("pdf_content"):
+                attempts["direct_unpaywall_pdf"] = {
+                    "pdf_url": doi_result["pdf_url"],
+                    "pdf_content": doi_result["pdf_content"],
+                    "type": "pdf_download",
+                    "source": doi_result["source"],
+                    "length": doi_result["length"],
+                }
+            elif doi_result.get("text"):
+                attempts["direct_doi_text"] = {
+                    "text": doi_result["text"],
+                    "length": doi_result["length"],
+                    "source": doi_result["source"],
+                    "format": "raw",
+                }
 
-        # Try DOIFetcher for PDF URLs (may find different sources)
-        result = _try_doi_fetcher_pdf_url(doi, email)
-        if result:
-            attempts["doi_fetcher_pdf_url"] = result
-
-    # SECOND PRIORITY: Native Text (BioC XML from PubMed Central)
+    # TRY PMCID-based retrieval
     if pmcid:
-        result = _try_pmcid_text(pmcid)
-        if result:
-            # Convert to YAML format
-            result["text"] = _structure_text_as_yaml(result["text"], "pmcid_bioc")
-            result["format"] = "yaml"
-            attempts["pmcid_native_text"] = result
+        pmcid_result = get_text_from_pmcid_direct(pmcid)
+        if pmcid_result and pmcid_result.get("text"):
+            attempts["direct_pmcid_text"] = {
+                "text": pmcid_result["text"],
+                "length": pmcid_result["length"],
+                "source": pmcid_result["source"],
+                "format": "raw",
+            }
 
+    # TRY PMID-based retrieval
     if pmid:
-        result = _try_pmid_text(pmid)
-        if result:
-            # Convert to YAML format
-            result["text"] = _structure_text_as_yaml(result["text"], "pmid_bioc")
-            result["format"] = "yaml"
-            attempts["pmid_native_text"] = result
-
-    if doi:
-        result = _try_doi_simple_text(doi)
-        if result:
-            # Convert to YAML format
-            result["text"] = _structure_text_as_yaml(result["text"], "doi_bioc")
-            result["format"] = "yaml"
-            attempts["doi_native_text"] = result
-
-    # AVOID: PDF extraction methods entirely
-    # PDF extraction methods are avoided due to performance concerns and reliability issues.
-    # Extracting text from PDFs can be computationally expensive and error-prone, especially
-    # when dealing with complex layouts or scanned documents. Instead, we prioritize
-    # structured data sources like BioC XML or metadata APIs to ensure more accurate and
-    # efficient text retrieval.
+        pmid_result = get_text_from_pmid_direct(pmid)
+        if pmid_result and pmid_result.get("text"):
+            attempts["direct_pmid_text"] = {
+                "text": pmid_result["text"],
+                "length": pmid_result["length"],
+                "source": pmid_result["source"],
+                "format": "raw",
+            }
 
     return attempts
 
@@ -702,11 +647,21 @@ def _build_full_text_result(
         "file_path": file_path,
         "content_length": len(full_text) if full_text else 0,
         "methods_attempted": list(attempts.keys()) if attempts else [],
-        "method_results": ({k: v for k, v in attempts.items()} if attempts else {}),
+        "method_results": (
+            {
+                k: {key: val for key, val in v.items() if key != "pdf_content"}
+                for k, v in attempts.items()
+            }
+            if attempts
+            else {}
+        ),
     }
 
     # Set status based on what we have
-    if pdf_url:
+    if file_path and file_path.endswith(".pdf"):
+        result["status"] = "pdf_downloaded"
+        result["pdf_url"] = pdf_url
+    elif pdf_url:
         result["status"] = "pdf_available"
         result["pdf_url"] = pdf_url
     elif full_text and file_path:
@@ -760,8 +715,21 @@ def cached_get_full_text(
 
         # Save content to file if retrieved
         file_path = None
-        if full_text and len(full_text.strip()) > 100:
+
+        # Check if we have PDF content to save
+        if retrieval_method and attempts.get(retrieval_method, {}).get("pdf_content"):
+            pdf_content = attempts[retrieval_method]["pdf_content"]
+            file_path = save_pdf_to_file(pdf_content, identifiers)
+        # Otherwise save text content if available
+        elif full_text and len(full_text.strip()) > 100:
             file_path = save_full_text_to_file(full_text, identifiers)
+        # Also save any available text content from other methods
+        else:
+            # Look for text content in other attempts and save it
+            for method_name, attempt in attempts.items():
+                if attempt.get("text") and len(attempt["text"].strip()) > 100:
+                    file_path = save_full_text_to_file(attempt["text"], identifiers)
+                    break
 
         # Build result
         result = _build_full_text_result(
@@ -862,10 +830,18 @@ def _add_full_text_info(
     paper_metadata: Dict[str, Any], clean_doi: str, pmid: Optional[str], email: str
 ) -> None:
     """Add full text information to paper metadata."""
+    # Try to get PMCID for better retrieval
+    pmcid = None
+    if clean_doi:
+        try:
+            pmcid = doi_to_pmcid(clean_doi)
+        except Exception:
+            pass
+
     full_text_metadata = {
         "doi": clean_doi,
         "pmid": pmid,
-        "pmcid": None,
+        "pmcid": pmcid,
     }
 
     full_text_result = cached_get_full_text(full_text_metadata, email)
@@ -896,10 +872,12 @@ def _process_publication_doi(doi_entry: Dict[str, Any], email: str) -> Dict[str,
     clean_doi = doi_value.replace("doi:", "").strip()
     enhanced_doi["doi_url"] = f"https://doi.org/{clean_doi}"
 
-    # Get PMID
+    # Get PMID and PMCID
     pmid = None
+    pmcid = None
     try:
         pmid = doi_to_pmid(clean_doi)
+        pmcid = doi_to_pmcid(clean_doi)
     except Exception:
         pass
 
@@ -914,7 +892,7 @@ def _process_publication_doi(doi_entry: Dict[str, Any], email: str) -> Dict[str,
             "converted_ids": {
                 "original_doi": doi_value,
                 "pmid": pmid,
-                "pmcid": None,
+                "pmcid": pmcid,
             },
             "paper_metadata": paper_metadata,
         }

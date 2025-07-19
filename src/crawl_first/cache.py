@@ -115,6 +115,67 @@ def get_cached_entity(
     return (False, None)
 
 
+@timed_operation("pdf_file_save", include_args=False)
+def save_pdf_to_file(content: bytes, identifiers: Dict[str, str]) -> Optional[str]:
+    """
+    Save PDF content to a file and return the file path.
+
+    Args:
+        content: PDF content as bytes to save
+        identifiers: Dictionary with doi, pmid, pmcid for filename generation
+
+    Returns:
+        Relative file path or None if failed
+    """
+    logger = logging.getLogger("crawl_first.cache")
+
+    try:
+        # Create full text directory if it doesn't exist
+        FULL_TEXT_DIR.mkdir(parents=True, exist_ok=True)
+
+        # Generate filename from identifiers
+        filename_parts = []
+        if identifiers.get("doi"):
+            # Clean DOI for filename
+            clean_doi = (
+                identifiers["doi"].replace("/", "_").replace(":", "_").replace(".", "_")
+            )
+            filename_parts.append(f"doi_{clean_doi}")
+        if identifiers.get("pmid"):
+            filename_parts.append(f"pmid_{identifiers['pmid']}")
+        if identifiers.get("pmcid"):
+            filename_parts.append(f"pmcid_{identifiers['pmcid']}")
+
+        if not filename_parts:
+            # Fallback to hash if no identifiers
+            filename_parts = [cache_key(identifiers)]
+
+        # Ensure filename_parts is not empty or contains only empty strings
+        if not any(filename_parts):
+            filename_parts = ["default"]
+        filename = (
+            "_".join(filename_parts[:2]) + ".pdf"
+        )  # Limit to 2 parts to avoid overly long names
+        filepath = FULL_TEXT_DIR / filename
+
+        # Write PDF content to file
+        with open(filepath, "wb") as f:
+            f.write(content)
+
+        # Return relative path (handle absolute paths safely)
+        try:
+            relative_path = str(filepath.relative_to(Path.cwd()))
+        except ValueError:
+            # Fallback to absolute path if relative path fails
+            relative_path = str(filepath)
+        logger.debug(f"Saved PDF to file: {relative_path} ({len(content)} bytes)")
+        return relative_path
+
+    except Exception as e:
+        logger.error(f"Failed to save PDF to file: {e}")
+        return None
+
+
 @timed_operation("full_text_file_save", include_args=False)
 def save_full_text_to_file(content: str, identifiers: Dict[str, str]) -> Optional[str]:
     """
@@ -168,8 +229,12 @@ def save_full_text_to_file(content: str, identifiers: Dict[str, str]) -> Optiona
         )
         log_memory_usage(logger, "full text file save")
 
-        # Return relative path from current directory
-        return str(filepath.relative_to(Path.cwd()))
+        # Return relative path from current directory (handle absolute paths safely)
+        try:
+            return str(filepath.relative_to(Path.cwd()))
+        except ValueError:
+            # Fallback to absolute path if relative path fails
+            return str(filepath)
 
     except Exception as e:
         log_enhanced_error(

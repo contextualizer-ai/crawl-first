@@ -253,8 +253,16 @@ def main(
                             f"Environmental features ({source}): {total_features} within {search_radius}m"
                         )
 
-    if not results:
-        logger.error("No data processed successfully")
+    # Check success based on mode
+    if output_dir:
+        # In directory mode, check if we processed more than we failed
+        successful_count = len(biosample_ids) - len(failed)
+        if successful_count == 0:
+            logger.error("No data processed successfully")
+    else:
+        # In single file mode, check if results dict has data
+        if not results:
+            logger.error("No data processed successfully")
 
     # Cleanup output capture
     if output_capture:
