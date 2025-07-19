@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 BIOC_URL = "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/{pmid}/ascii"
 PUBMED_EUTILS_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}&retmode=xml"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={pmid}&retmode=xml"
-DOI_PATTERN = r"/(10\.\d{4,9}/[\w\-.]+)"
+DOI_PATTERN = r"/(10\.\d{4,}/[\w\-.]+)"
 
 
 def extract_doi_from_url(url: str) -> Optional[str]:
