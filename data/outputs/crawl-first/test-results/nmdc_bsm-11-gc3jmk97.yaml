@@ -1,0 +1,370 @@
+asserted:
+  id: "nmdc:bsm-11-gc3jmk97"
+  name: "Freshwater microbial communities from Mississippi River, Illinois, USA -\
+    \ NASQAN2012_132"
+  description: "Freshwater microbial communities from Mississippi River, Illinois,\
+    \ USA"
+  env_broad_scale:
+    has_raw_value: ENVO_01000253
+    term:
+      id: "ENVO:01000253"
+      name: freshwater river biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    has_raw_value: ENVO_00000022
+    term:
+      id: "ENVO:00000022"
+      name: river
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    has_raw_value: ENVO_00002042
+    term:
+      id: "ENVO:00002042"
+      name: surface water
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  type: "nmdc:Biosample"
+  img_identifiers:
+  - "img.taxon:3300046775"
+  samp_name: NASQAN2012_132
+  gold_biosample_identifiers:
+  - "gold:Gb0260849"
+  elev: 127.0
+  geo_loc_name:
+    has_raw_value: "USA: Illinois"
+    type: "nmdc:TextValue"
+  lat_lon:
+    has_raw_value: 38.9511 -90.3712
+    latitude: 38.9511
+    longitude: -90.3712
+    type: "nmdc:GeolocationValue"
+  samp_taxon_id:
+    has_raw_value: "freshwater metagenome [NCBITaxon:449393]"
+    term:
+      id: "NCBITaxon:449393"
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  ecosystem: Environmental
+  ecosystem_category: Aquatic
+  ecosystem_type: Freshwater
+  ecosystem_subtype: River
+  specific_ecosystem: Unclassified
+  add_date: "2020-11-12T00:00:00"
+  habitat: Freshwater
+  location: USA
+  mod_date: "2020-11-12T00:00:00"
+  ncbi_taxonomy_name: freshwater metagenome
+  sample_collection_site: river surface water
+  collection_date:
+    has_raw_value: '2012-05-02'
+    type: "nmdc:TimestampValue"
+  associated_studies:
+  - "nmdc:sty-11-5tgfr349"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Phaeozems
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002249"
+      short_form: ENVO_00002249
+      obo_id: "ENVO:00002249"
+      label: phaeozem
+      description:
+      - "Phaeozems accommodate soils of relatively wet grassland and forest regions\
+        \ in moderately continental climates. Phaeozems are much like Chernozems and\
+        \ Kastanozems but are leached more intensively. Consequently, they have dark,\
+        \ humus rich surface horizons that, in comparison with Chernozems and Kastanozems,\
+        \ are less rich in bases. Phaeozems may or may not have secondary carbonates\
+        \ but have a high base saturation in the upper metre of the soil."
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      UMD:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      BGC:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      PFT:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      LCCS1:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      LCCS2:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      LCCS3:
+      - date: '2012-01-01'
+        envo_term: water body
+        system_description: At least 60% of area is covered by permanent water bodies.
+        system_term: Water Bodies
+      QA:
+      - date: '2012-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and is water according to the
+          water mask.
+        system_term: Classified water
+    ontology_matches:
+      water body:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000063"
+        short_form: ENVO_00000063
+        obo_id: "ENVO:00000063"
+        label: water body
+        description:
+        - "The term body of water most often refers to large accumulations of water,\
+          \ such as oceans, seas, and lakes, but it includes smaller pools of water\
+          \ such as ponds, wetlands, or more rarely, puddles. A body of water does\
+          \ not have to be still or contained; Rivers, streams, canals, and other\
+          \ geographical features where water moves from one place to another are\
+          \ also considered bodies of water."
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000061"
+        short_form: ENVO_00000061
+        obo_id: "ENVO:00000061"
+        label: underground water body
+        description:
+        - A geographical feature associated with water that is under the surface of
+          the earth.
+        - "This class should probably be replaced with a quality-like entity \"underground\"\
+          \ which can then be distributed to the subclasses, solving the double inheritance."
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2012-05-02'
+    closest_available_date: '2012-01-01'
+    neighboring_dates:
+    - '2011-01-01'
+    - '2012-01-01'
+    - '2013-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    search_radius_km: 150
+    coverage_threshold: 0.5
+    date_used: '2012-05-02'
+    station:
+      name: St Charles / Beckett (Historical)
+      country: US
+      region: MO
+      wmo: null
+      icao: KSET
+      latitude: 38.9297
+      longitude: -90.43
+      elevation: 133.0
+      timezone: America/Chicago
+      distance: 5614.648031893589
+    measurements:
+      tavg: 25.7
+      tmin: 17.8
+      tmax: 31.1
+      wspd: 5.1
+      pres: 1010.7
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 38.9511
+      longitude: -90.3712
+    elevation:
+      meters: 127.0
+      feet: 416.7
+    place_info:
+      coordinates:
+        latitude: 38.9511
+        longitude: -90.3712
+      display_name: "River Road, Elsah, Jersey County, Illinois, 52028, United States"
+      place_type: primary
+      address:
+        road: River Road
+        village: Elsah
+        county: Jersey County
+        state: Illinois
+        country: United States
+        postcode: '52028'
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 17
+        query_coordinates:
+        - 38.9511
+        - -90.3712
+        feature_counts:
+          leisure:
+            park: 1
+          amenity:
+            toilets: 1
+          man_made:
+            groyne: 1
+          waterway:
+            stream: 6
+          highway:
+            footway: 4
+            track: 1
+          place:
+            islet: 1
+          natural:
+            cliff: 2
+      environmental_features:
+        leisure:
+        - type: park
+          distance_m: 883.6
+          name: Elsah Historic District
+        place:
+        - type: islet
+          distance_m: 683.9
+          name: Elsah Bar
+      nearest_features:
+      - type: "natural:cliff"
+        distance_m: 565.3
+      - type: "waterway:stream"
+        distance_m: 605.7
+      - type: "highway:footway"
+        distance_m: 662.8
+      - type: "place:islet"
+        distance_m: 683.9
+        name: Elsah Bar
+      - type: "highway:footway"
+        distance_m: 692.9
+    environmental_summary:
+      total_environmental_features: 17
+      water_features_nearby: 6
+      natural_areas_nearby: 2
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "waterway:stream"
+        count: 6
+      - type: "highway:footway"
+        count: 4
+      - type: "natural:cliff"
+        count: 2
+      ecological_context: "Location has 6 water feature(s), 2 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 38.9511
+        longitude: -90.3712
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/38.9511,-90.3712/@38.9511,-90.3712,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 40.0796606
+        longitude: -89.4337288
+      source: "geocoded from geo_loc_name: USA: Illinois"
+      geocode_result:
+        location_name: "USA: Illinois"
+        coordinates:
+          latitude: 40.0796606
+          longitude: -89.4337288
+        display_name: "Illinois, United States"
+        place_type: administrative
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/40.0796606,-89.4337288/@40.0796606,-89.4337288,15z"
+      elevation_meters: 183.0
+    combined_map_url: "https://www.google.com/maps/dir/38.9511,-90.3712/40.0796606,-89.4337288/@38.9511,-90.3712,10z"
+    combined_map_description: "Asserted coords (38.9511, -90.3712) vs Geocoded coords\
+      \ (40.0796606, -89.4337288)"
+    coordinate_distance:
+      meters: 149044.1
+      kilometers: 149.04
+      description: "Distance between asserted and geocoded coordinates: 149.04 km"
+    elevation_comparison:
+      asserted_elevation_m: 127.0
+      geospatial_elevation_m: 127.0
+      difference_m: 0.0
+      description: "Elevation difference: 0.0m between asserted (127.0m) and geospatial\
+        \ lookup (127.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-5tgfr349"
+    study_name: Freshwater microbial communities from rivers from various locations
+      all over the world
+    study_title: "Creating the GROW (Genome Resolved Open Watershed) Database: Leveraging\
+      \ Distributed Research Networks to Understand Watershed Systems"
+    study_description: "Streams and rivers represent key functioning units in Earth\u2019\
+      s terrestrial system that provide services essential for global energy, food\
+      \ and water security, as well as human recreation. Rivers are responsible for\
+      \ the transport and nutrient processing of terrestrial water and solutes across\
+      \ landscapes with discharge into reservoirs, estuaries, and oceans. Despite\
+      \ these important ecological roles, we know surprisingly little about the microbiomes\
+      \ in river and stream systems. Here, we will address this knowledge gap by sampling\
+      \ over 250 rivers, including the 35 larger rivers in the United States, many\
+      \ of which will be collected over time or across interconnected hydrological\
+      \ units, with a sub-set also receiving metatranscriptomes and metabolome data.\
+      \ To accomplish this breadth and intensity of sampling, we have formed a collaborative\
+      \ 15-member research consortium composed of hydrologists, geochemists, ecologists,\
+      \ and microbiologists. The overarching objective is to genomically resolve the\
+      \ taxonomy, the metabolic potential and expression, and distribution of riverine\
+      \ microorganisms and traits within and across watersheds."
+    funding_sources:
+    - "The U.S. Department of Energy, Office of Science, Office of Biological and\
+      \ Environmental Research (BER) under contract DE-AC05-76RL01830 (PNNL) for the\
+      \ River Corridor Hydrobiogeochemistry Science Focus Area."
+    - BER Genomic Sciences Early Career Research Program award DE-SC0019746 to K.
+      Wrighton.
+    websites:
+    - "https://www.pnnl.gov/projects/WHONDRS"
+    - "https://narrative.kbase.us/#org/grow"
+    - "https://microbialecosystemslab.com/"
+    - "https://www.pnnl.gov/projects/river-corridor"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website: ''
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  all_dois:
+  - doi_value: "doi:10.46936/10.25585/60001289"
+    doi_category: award_doi
+    doi_provider: jgi
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.46936/10.25585/60001289"
+  - doi_value: "doi:10.46936/sarr.proj.2018.50298/60000034"
+    doi_category: award_doi
+    doi_provider: emsl
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.46936/sarr.proj.2018.50298/60000034"
+  - doi_value: "doi:10.46936/cpcy.proj.2019.51180/60006718"
+    doi_category: award_doi
+    doi_provider: emsl
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.46936/cpcy.proj.2019.51180/60006718"
+  - doi_value: "doi:10.15485/1603775"
+    doi_category: dataset_doi
+    doi_provider: ess_dive
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.15485/1603775"
+  - doi_value: "doi:10.15485/1729719"
+    doi_category: dataset_doi
+    doi_provider: ess_dive
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.15485/1729719"
+  - doi_value: "doi:10.25982/109073.30/1895615"
+    doi_category: dataset_doi
+    doi_provider: kbase
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.25982/109073.30/1895615"
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-gc3jmk97"
+    total_dois: 6
+    publication_doi_count: 0
+    award_doi_count: 3
+    dataset_doi_count: 3
