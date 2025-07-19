@@ -4,6 +4,7 @@ Biosample analysis orchestration for crawl-first.
 Coordinates comprehensive analysis of NMDC biosample records.
 """
 
+import logging
 from typing import Any, Dict, NamedTuple, Optional
 
 from landuse_mcp.main import get_landuse_dates
@@ -19,6 +20,12 @@ from .analysis import (
 )
 from .cache import cache_key, get_cache, save_cache
 from .geospatial import calculate_distance, geocode_location_name, get_elevation
+from .logging_utils import (
+    PerformanceTimer,
+    log_enhanced_error,
+    log_memory_usage,
+    timed_operation,
+)
 from .osm import query_osm_features, summarize_osm_features
 
 
@@ -181,37 +188,66 @@ def _analyze_asserted_coordinates(
     search_radius: int,
 ) -> Dict[str, Any]:
     """Perform all analyses using asserted coordinates."""
+    logger = logging.getLogger("crawl_first.biosample")
+    context = {"lat": asserted_lat, "lon": asserted_lon, "date": date}
     inferred = {}
 
     # Soil analysis
-    inferred["soil_from_asserted_coords"] = get_soil_analysis(
-        asserted_lat, asserted_lon
-    )
+    with PerformanceTimer("soil_analysis", logger, context, logging.DEBUG):
+        soil_result = get_soil_analysis(asserted_lat, asserted_lon)
+        inferred["soil_from_asserted_coords"] = soil_result
+        soil_type = soil_result.get("soil_type")
+        if soil_type:
+            logger.debug(f"Found soil type: {soil_type}")
 
     # Land cover analysis
     if date:
-        inferred["land_cover_from_asserted_coords"] = get_land_cover_analysis(
-            asserted_lat, asserted_lon, date
-        )
+        with PerformanceTimer("land_cover_analysis", logger, context, logging.DEBUG):
+            land_cover = get_land_cover_analysis(asserted_lat, asserted_lon, date)
+            inferred["land_cover_from_asserted_coords"] = land_cover
+            logger.debug(f"Completed land cover analysis for date {date}")
 
         # Available landuse dates
         if parsed_date:
-            landuse_dates_info = _get_landuse_dates_info(
-                asserted_lat, asserted_lon, parsed_date
-            )
-            if landuse_dates_info:
-                inferred["landuse_dates_from_asserted_coords"] = landuse_dates_info
+            with PerformanceTimer("landuse_dates", logger, context, logging.DEBUG):
+                landuse_dates_info = _get_landuse_dates_info(
+                    asserted_lat, asserted_lon, parsed_date
+                )
+                if landuse_dates_info:
+                    inferred["landuse_dates_from_asserted_coords"] = landuse_dates_info
+                    closest = landuse_dates_info.get("closest_available_date")
+                    logger.debug(
+                        f"Found closest landuse date: {closest} (target: {parsed_date})"
+                    )
 
         # Weather analysis
-        weather = get_weather_analysis(asserted_lat, asserted_lon, date)
-        if weather:
-            inferred["weather_from_asserted_coords"] = weather
+        with PerformanceTimer("weather_analysis", logger, context, logging.DEBUG):
+            weather = get_weather_analysis(asserted_lat, asserted_lon, date)
+            if weather:
+                inferred["weather_from_asserted_coords"] = weather
+                logger.debug(f"Retrieved weather data for {date}")
+            else:
+                logger.debug(f"No weather data available for {date}")
 
     # Geospatial analysis
-    geospatial_asserted = get_geospatial_analysis(
-        asserted_lat, asserted_lon, radius=search_radius
-    )
-    inferred["geospatial_from_asserted_coords"] = geospatial_asserted
+    with PerformanceTimer(
+        "geospatial_analysis",
+        logger,
+        {**context, "radius": search_radius},
+        logging.DEBUG,
+    ):
+        geospatial_asserted = get_geospatial_analysis(
+            asserted_lat, asserted_lon, radius=search_radius
+        )
+        inferred["geospatial_from_asserted_coords"] = geospatial_asserted
+
+        elevation = geospatial_asserted.get("elevation", {}).get("meters")
+        features = geospatial_asserted.get("environmental_summary", {}).get(
+            "total_environmental_features", 0
+        )
+        logger.debug(
+            f"Geospatial analysis: elevation={elevation}m, {features} environmental features"
+        )
 
     return inferred
 
@@ -389,44 +425,109 @@ def _process_publication_analysis(
         inferred["publication_analysis"] = publications
 
 
+@timed_operation("biosample_analysis", include_args=True)
 def analyze_biosample(
     biosample_id: str, email: str, search_radius: int = 1000
 ) -> Optional[Dict[str, Any]]:
     """Perform comprehensive analysis of a biosample."""
-    try:
-        # Get complete biosample data
-        full_biosample = cached_fetch_nmdc_entity_by_id(biosample_id)
-        if not full_biosample:
-            return None
+    logger = logging.getLogger("crawl_first.biosample")
+    context = {"biosample_id": biosample_id, "search_radius": search_radius}
 
-        # Extract coordinates and date information
-        coords_and_date = _extract_biosample_coordinates_and_date(full_biosample)
-        asserted_lat = coords_and_date.asserted_lat
-        asserted_lon = coords_and_date.asserted_lon
-        location_name = coords_and_date.location_name
-        date = coords_and_date.date
-        parsed_date = coords_and_date.parsed_date
+    with PerformanceTimer("complete_biosample_analysis", logger, context, logging.INFO):
+        try:
+            logger.info(f"Starting analysis for biosample {biosample_id}")
 
-        inferred = {}
+            # Get complete biosample data
+            with PerformanceTimer(
+                "fetch_biosample_data", logger, context, logging.DEBUG
+            ):
+                full_biosample = cached_fetch_nmdc_entity_by_id(biosample_id)
+                if not full_biosample:
+                    logger.warning(f"No biosample data found for {biosample_id}")
+                    return None
 
-        # Analyze using asserted coordinates
-        if asserted_lat is not None and asserted_lon is not None:
-            asserted_analyses = _analyze_asserted_coordinates(
-                asserted_lat, asserted_lon, date, parsed_date, search_radius
+                logger.debug(
+                    f"Retrieved biosample data with {len(full_biosample)} fields"
+                )
+
+            # Extract coordinates and date information
+            with PerformanceTimer(
+                "extract_coordinates_date", logger, context, logging.DEBUG
+            ):
+                coords_and_date = _extract_biosample_coordinates_and_date(
+                    full_biosample
+                )
+                asserted_lat = coords_and_date.asserted_lat
+                asserted_lon = coords_and_date.asserted_lon
+                location_name = coords_and_date.location_name
+                date = coords_and_date.date
+                parsed_date = coords_and_date.parsed_date
+
+                logger.info(
+                    f"Extracted coordinates: lat={asserted_lat}, lon={asserted_lon}, "
+                    f"location='{location_name}', date='{date}' (parsed: {parsed_date})"
+                )
+
+            inferred = {}
+
+            # Analyze using asserted coordinates
+            if asserted_lat is not None and asserted_lon is not None:
+                logger.info(
+                    f"Running spatial analyses for coordinates ({asserted_lat}, {asserted_lon})"
+                )
+                with PerformanceTimer(
+                    "spatial_analyses",
+                    logger,
+                    {**context, "lat": asserted_lat, "lon": asserted_lon},
+                    logging.INFO,
+                ):
+                    asserted_analyses = _analyze_asserted_coordinates(
+                        asserted_lat, asserted_lon, date, parsed_date, search_radius
+                    )
+                    inferred.update(asserted_analyses)
+                    logger.info(
+                        f"Completed spatial analyses: {list(asserted_analyses.keys())}"
+                    )
+            else:
+                logger.warning(
+                    f"No coordinates available for {biosample_id} - skipping spatial analysis"
+                )
+
+            # Create coordinate sources summary
+            with PerformanceTimer("coordinate_sources", logger, context, logging.DEBUG):
+                coord_sources = _create_coordinate_sources(
+                    asserted_lat, asserted_lon, location_name, full_biosample, inferred
+                )
+                if coord_sources:
+                    inferred["coordinate_sources"] = coord_sources
+                    logger.debug(
+                        f"Created coordinate sources with {len(coord_sources)} entries"
+                    )
+
+            # Publication analysis
+            with PerformanceTimer(
+                "publication_analysis", logger, context, logging.INFO
+            ):
+                _process_publication_analysis(biosample_id, email, inferred)
+                pub_analysis = inferred.get("publication_analysis", {})
+                if pub_analysis:
+                    logger.info(
+                        f"Completed publication analysis with {len(pub_analysis)} sections"
+                    )
+                else:
+                    logger.debug("No publication analysis results")
+
+            log_memory_usage(logger, f"biosample analysis for {biosample_id}")
+
+            logger.info(
+                f"Successfully completed analysis for {biosample_id} with "
+                f"{len(inferred)} inferred data sections"
             )
-            inferred.update(asserted_analyses)
 
-        # Create coordinate sources summary
-        coord_sources = _create_coordinate_sources(
-            asserted_lat, asserted_lon, location_name, full_biosample, inferred
-        )
-        if coord_sources:
-            inferred["coordinate_sources"] = coord_sources
+            return {"asserted": full_biosample, "inferred": inferred}
 
-        # Publication analysis
-        _process_publication_analysis(biosample_id, email, inferred)
-
-        return {"asserted": full_biosample, "inferred": inferred}
-
-    except Exception:
-        return None
+        except Exception as e:
+            log_enhanced_error(
+                logger, e, f"analyzing biosample {biosample_id}", context
+            )
+            return None

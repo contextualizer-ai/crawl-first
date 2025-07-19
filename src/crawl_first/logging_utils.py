@@ -1,16 +1,24 @@
 """
 Logging utilities for crawl-first.
 
-Handles output capture, logging configuration, and file management.
+Handles output capture, logging configuration, file management, performance timing,
+and enhanced error logging with contextual information.
 """
 
+import functools
 import logging
 import os
 import sys
 import time
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Optional, TextIO, Tuple, Union
+from typing import Any, Callable, Dict, Optional, TextIO, Tuple, TypeVar, Union
+
+import psutil
+
+# Type variables for decorator
+F = TypeVar("F", bound=Callable[..., Any])
 
 # Global log directory
 LOG_DIR = Path(os.getenv("LOG_DIR", "crawl_first/logs"))
@@ -232,3 +240,288 @@ def setup_logging(
         logger.info("Output capture enabled - all stdout/stderr will be logged")
 
     return logger, output_capture
+
+
+# Global performance metrics storage
+_performance_metrics: Dict[str, list] = defaultdict(list)
+_cache_metrics: Dict[str, Dict[str, int]] = defaultdict(
+    lambda: {"hits": 0, "misses": 0}
+)
+
+
+class PerformanceTimer:
+    """Context manager and decorator for timing operations with detailed logging."""
+
+    def __init__(
+        self,
+        operation_name: str,
+        logger: Optional[logging.Logger] = None,
+        context: Optional[Dict[str, Any]] = None,
+        log_level: int = logging.INFO,
+    ):
+        self.operation_name = operation_name
+        self.logger = logger or logging.getLogger("crawl_first.performance")
+        self.context = context or {}
+        self.log_level = log_level
+        self.start_time: Optional[float] = None
+        self.end_time: Optional[float] = None
+        self.duration: Optional[float] = None
+
+    def __enter__(self) -> "PerformanceTimer":
+        """Start timing the operation."""
+        self.start_time = time.perf_counter()
+        context_str = f" {self.context}" if self.context else ""
+        self.logger.log(self.log_level, f"Starting {self.operation_name}{context_str}")
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """End timing and log results."""
+        self.end_time = time.perf_counter()
+        self.duration = self.end_time - self.start_time
+
+        # Store metrics for analysis
+        _performance_metrics[self.operation_name].append(self.duration)
+
+        # Determine log level based on duration and success
+        status = "FAILED" if exc_type is not None else "completed"
+        context_str = f" {self.context}" if self.context else ""
+
+        # Use different log levels based on duration (slow operations get warnings)
+        log_level = self.log_level
+        if self.duration > 30:  # Very slow
+            log_level = logging.WARNING
+        elif self.duration > 10:  # Slow
+            log_level = logging.INFO
+
+        self.logger.log(
+            log_level,
+            f"{self.operation_name} {status} in {self.duration:.3f}s{context_str}",
+        )
+
+
+def timed_operation(
+    operation_name: str,
+    logger: Optional[logging.Logger] = None,
+    log_level: int = logging.INFO,
+    include_args: bool = False,
+) -> Callable[[F], F]:
+    """Decorator to time function execution with enhanced logging.
+
+    Args:
+        operation_name: Name of the operation for logging
+        logger: Logger instance to use (defaults to performance logger)
+        log_level: Logging level for timing messages
+        include_args: Whether to include function arguments in context
+    """
+
+    def decorator(func: F) -> F:
+        @functools.wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            # Extract context from function arguments if requested
+            context = {}
+            if include_args and args:
+                # Include first few args and relevant kwargs
+                if len(args) > 0:
+                    context["arg1"] = str(args[0])[:100]  # Limit length
+                if len(args) > 1:
+                    context["arg2"] = str(args[1])[:100]
+
+                # Include important kwargs
+                important_kwargs = ["biosample_id", "doi", "lat", "lon", "email"]
+                for key in important_kwargs:
+                    if key in kwargs:
+                        context[key] = str(kwargs[key])[:100]
+
+            with PerformanceTimer(operation_name, logger, context, log_level):
+                return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+def log_cache_operation(
+    cache_name: str, operation: str, key: str, logger: Optional[logging.Logger] = None
+) -> None:
+    """Log cache operations and update metrics.
+
+    Args:
+        cache_name: Name of the cache (e.g., 'nmdc_entity', 'full_text')
+        operation: 'hit' or 'miss'
+        key: Cache key for debugging
+        logger: Logger instance
+    """
+    logger = logger or logging.getLogger("crawl_first.cache")
+
+    # Update metrics
+    if operation == "hit":
+        _cache_metrics[cache_name]["hits"] += 1
+    elif operation == "miss":
+        _cache_metrics[cache_name]["misses"] += 1
+
+    # Log cache operation
+    total_ops = (
+        _cache_metrics[cache_name]["hits"] + _cache_metrics[cache_name]["misses"]
+    )
+    hit_rate = _cache_metrics[cache_name]["hits"] / max(total_ops, 1) * 100
+
+    logger.debug(
+        f"Cache {operation}: {cache_name} (key: {key[:50]}...) "
+        f"hit_rate: {hit_rate:.1f}% ({_cache_metrics[cache_name]['hits']}/{total_ops})"
+    )
+
+
+def log_enhanced_error(
+    logger: logging.Logger,
+    error: Exception,
+    operation: str,
+    context: Optional[Dict[str, Any]] = None,
+    level: int = logging.ERROR,
+) -> None:
+    """Log errors with enhanced contextual information.
+
+    Args:
+        logger: Logger instance
+        error: Exception that occurred
+        operation: Description of what operation failed
+        context: Dictionary of contextual information (biosample_id, coordinates, etc.)
+        level: Logging level to use
+    """
+    context = context or {}
+    context_str = " | ".join([f"{k}: {v}" for k, v in context.items()])
+    error_type = type(error).__name__
+
+    logger.log(level, f"{operation} failed: {error_type}: {error}")
+    if context_str:
+        logger.log(level, f"Context: {context_str}")
+
+
+def log_data_quality_issue(
+    logger: logging.Logger,
+    issue_type: str,
+    expected: Any,
+    actual: Any,
+    context: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Log data quality issues with context.
+
+    Args:
+        logger: Logger instance
+        issue_type: Type of issue (e.g., 'missing_field', 'invalid_format', 'unexpected_value')
+        expected: What was expected
+        actual: What was actually found
+        context: Contextual information
+    """
+    context = context or {}
+    context_str = " | ".join([f"{k}: {v}" for k, v in context.items()])
+
+    logger.warning(
+        f"Data quality issue ({issue_type}): expected {expected}, got {actual}"
+    )
+    if context_str:
+        logger.warning(f"Context: {context_str}")
+
+
+def log_performance_summary(logger: Optional[logging.Logger] = None) -> None:
+    """Log a summary of performance metrics collected during execution."""
+    logger = logger or logging.getLogger("crawl_first.performance")
+
+    if not _performance_metrics:
+        logger.info("No performance metrics collected")
+        return
+
+    logger.info("=== Performance Summary ===")
+
+    # Log timing statistics
+    for operation, times in _performance_metrics.items():
+        if times:
+            avg_time = sum(times) / len(times)
+            min_time = min(times)
+            max_time = max(times)
+            total_time = sum(times)
+
+            logger.info(
+                f"{operation}: {len(times)} calls, "
+                f"avg: {avg_time:.3f}s, min: {min_time:.3f}s, max: {max_time:.3f}s, "
+                f"total: {total_time:.3f}s"
+            )
+
+    # Log cache statistics
+    logger.info("=== Cache Performance ===")
+    for cache_name, metrics in _cache_metrics.items():
+        total = metrics["hits"] + metrics["misses"]
+        if total > 0:
+            hit_rate = metrics["hits"] / total * 100
+            logger.info(
+                f"{cache_name}: {hit_rate:.1f}% hit rate "
+                f"({metrics['hits']} hits, {metrics['misses']} misses)"
+            )
+
+
+def get_memory_usage() -> Dict[str, float]:
+    """Get current memory usage information."""
+    process = psutil.Process()
+    memory_info = process.memory_info()
+
+    return {
+        "rss_mb": memory_info.rss / 1024 / 1024,  # Resident Set Size in MB
+        "vms_mb": memory_info.vms / 1024 / 1024,  # Virtual Memory Size in MB
+        "percent": process.memory_percent(),  # Percentage of system memory
+    }
+
+
+def log_memory_usage(logger: logging.Logger, operation: str) -> None:
+    """Log current memory usage for debugging memory-intensive operations."""
+    try:
+        usage = get_memory_usage()
+        logger.debug(
+            f"Memory usage after {operation}: "
+            f"RSS: {usage['rss_mb']:.1f}MB, "
+            f"VMS: {usage['vms_mb']:.1f}MB, "
+            f"System %: {usage['percent']:.1f}%"
+        )
+    except Exception:
+        # Don't let memory monitoring break the application
+        logger.debug(f"Could not measure memory usage after {operation}")
+
+
+def log_api_call_result(
+    logger: logging.Logger,
+    api_name: str,
+    endpoint: str,
+    response_code: Optional[int] = None,
+    response_size: Optional[int] = None,
+    duration: Optional[float] = None,
+    success: bool = True,
+    context: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Log API call results with detailed information.
+
+    Args:
+        logger: Logger instance
+        api_name: Name of the API service (e.g., 'NMDC', 'Unpaywall', 'OpenStreetMap')
+        endpoint: API endpoint or operation name
+        response_code: HTTP response code if applicable
+        response_size: Size of response in bytes if applicable
+        duration: Duration of the call in seconds
+        success: Whether the call was successful
+        context: Additional context (coordinates, IDs, etc.)
+    """
+    context = context or {}
+    status = "SUCCESS" if success else "FAILED"
+
+    parts = [f"{api_name} API call {status}: {endpoint}"]
+
+    if response_code is not None:
+        parts.append(f"HTTP {response_code}")
+    if duration is not None:
+        parts.append(f"{duration:.3f}s")
+    if response_size is not None:
+        parts.append(f"{response_size} bytes")
+
+    context_str = " | ".join([f"{k}: {v}" for k, v in context.items()])
+    if context_str:
+        parts.append(f"Context: {context_str}")
+
+    level = logging.INFO if success else logging.WARNING
+    logger.log(level, " | ".join(parts))
