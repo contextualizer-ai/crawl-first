@@ -763,30 +763,27 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
                             # Parse supplementary material references from XML
                             supp_materials = soup.find_all("supplementary-material")
                             for supp in supp_materials:
-                                if hasattr(supp, "get"):
-                                    href = supp.get("xlink:href") or supp.get("href")  # type: ignore[attr-defined]
-                                    if href:
-                                        label_elem = supp.find("label") if hasattr(supp, "find") else None  # type: ignore[attr-defined]
-                                        caption_elem = supp.find("caption") if hasattr(supp, "find") else None  # type: ignore[attr-defined]
+                                href = safe_get(supp, "xlink:href") or safe_get(supp, "href")
+                                if href:
+                                    label_elem = supp.find("label") if hasattr(supp, "find") else None
+                                    caption_elem = supp.find("caption") if hasattr(supp, "find") else None
 
-                                        supp_info = {
-                                            "filename": href,
-                                            "label": (
-                                                label_elem.get_text()  # type: ignore[union-attr]
-                                                if label_elem
-                                                and hasattr(label_elem, "get_text")
-                                                else ""
-                                            ),
-                                            "caption": (
-                                                caption_elem.get_text()  # type: ignore[union-attr]
-                                                if caption_elem
-                                                and hasattr(caption_elem, "get_text")
-                                                else ""
-                                            ),
-                                            "mimetype": supp.get("mimetype", "") if hasattr(supp, "get") else "",  # type: ignore[attr-defined]
-                                            "type": "supplementary_reference",
-                                        }
-                                        result["supplementary_files"].append(supp_info)
+                                    supp_info = {
+                                        "filename": href,
+                                        "label": (
+                                            label_elem.get_text()
+                                            if label_elem and hasattr(label_elem, "get_text")
+                                            else ""
+                                        ),
+                                        "caption": (
+                                            caption_elem.get_text()
+                                            if caption_elem and hasattr(caption_elem, "get_text")
+                                            else ""
+                                        ),
+                                        "mimetype": safe_get(supp, "mimetype", ""),
+                                        "type": "supplementary_reference",
+                                    }
+                                    result["supplementary_files"].append(supp_info)
 
                             # Extract text from article body
                             text_elements = soup.find_all(
