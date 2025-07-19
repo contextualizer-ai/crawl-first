@@ -5,6 +5,7 @@ Implements direct API calls to bypass artl-mcp issues while maximizing text retr
 Based on patterns from artl-mcp but with proper email handling and error resilience.
 """
 
+import json
 import re
 from typing import Any, Dict, Optional
 
@@ -218,26 +219,18 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
 
 
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
-    """Download PDF content from URL with domain validation and content-type check."""
+    """Download PDF content from URL with basic validation."""
     try:
-        # Whitelist of trusted domains
-        trusted_domains = ["example.com", "trustedsource.org"]
-        from urllib.parse import urlparse
-
-        # Parse the domain from the URL
-        parsed_url = urlparse(pdf_url)
-        if parsed_url.netloc not in trusted_domains:
-            raise ValueError("URL domain is not in the trusted whitelist.")
-
-        # Perform the request
         response = requests.get(pdf_url, timeout=30)
         response.raise_for_status()
 
-        # Validate content type
-        if response.headers.get("Content-Type") != "application/pdf":
-            raise ValueError("The URL does not point to a valid PDF file.")
+        # Check if content appears to be PDF (flexible validation)
+        content_type = response.headers.get("Content-Type", "").lower()
+        if "pdf" not in content_type and not pdf_url.lower().endswith(".pdf"):
+            return None
+
         return response.content
-    except requests.RequestException:
+    except (requests.RequestException, ValueError):
         return None
 
 
