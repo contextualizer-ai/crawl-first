@@ -406,11 +406,9 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
             # Clean for YAML serialization
             cleaned = {
                 "coverage": weather_data.get("coverage"),
-                "strategy_details": {
-                    "search_radius_km": 150,
-                    "coverage_threshold": 0.5,
-                    "date_used": parsed_date,
-                },
+                "search_radius_km": 150,
+                "coverage_threshold": 0.5,
+                "date_used": parsed_date,
             }
 
             if "station" in weather_data:
