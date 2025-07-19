@@ -7,7 +7,7 @@ Handles various types of data analysis: soil, land cover, weather, publications,
 import re
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, NamedTuple, Optional
 
 import yaml
 from artl_mcp.tools import (
@@ -39,6 +39,19 @@ from .cache import (
     save_cache,
     save_full_text_to_file,
 )
+
+# Constants for text processing
+LINE_LENGTH_THRESHOLD = 80
+YAML_WIDTH_LIMIT = 80
+YAML_INDENT_SIZE = 2
+
+
+class FullTextResult(NamedTuple):
+    """Result from full text retrieval attempts."""
+
+    text: Optional[str]
+    method: Optional[str]
+    pdf_url: Optional[str]
 
 
 def parse_collection_date(date_string: str) -> Optional[str]:
@@ -586,7 +599,7 @@ def _convert_text_to_yaml(text: str, source: str) -> str:
                 current_paragraph = []
         else:
             # Simple heuristic: lines that are short and end with certain patterns might be headers
-            if len(line) < 80 and (
+            if len(line) < LINE_LENGTH_THRESHOLD and (
                 line.isupper()
                 or line.endswith((":",))
                 or line.startswith(
@@ -615,7 +628,13 @@ def _convert_text_to_yaml(text: str, source: str) -> str:
     if current_section["paragraphs"]:
         structured_data["sections"].append(current_section)
 
-    return yaml.dump(structured_data, default_flow_style=False, allow_unicode=True)
+    return yaml.dump(
+        structured_data,
+        default_flow_style=False,
+        allow_unicode=True,
+        width=YAML_WIDTH_LIMIT,
+        indent=YAML_INDENT_SIZE,
+    )
 
 
 def _attempt_full_text_retrieval(
@@ -672,15 +691,17 @@ def _attempt_full_text_retrieval(
 
 def _select_best_result(
     attempts: Dict[str, Dict[str, Any]],
-) -> tuple[Optional[str], Optional[str], Optional[str]]:
+) -> FullTextResult:
     """Select the best result from attempts, preferring PDF downloads."""
     if not attempts:
-        return None, None, None
+        return FullTextResult(text=None, method=None, pdf_url=None)
 
     # Check for PDF download first (highest priority)
     for method, result in attempts.items():
         if result.get("type") == "pdf_download":
-            return None, method, result.get("pdf_url")
+            return FullTextResult(
+                text=None, method=method, pdf_url=result.get("pdf_url")
+            )
 
     # Fall back to text retrieval - select the longest text
     text_attempts = {k: v for k, v in attempts.items() if v.get("text")}
@@ -688,9 +709,13 @@ def _select_best_result(
         best_method = max(
             text_attempts.keys(), key=lambda k: text_attempts[k]["length"]
         )
-        return text_attempts[best_method]["text"], best_method, None
+        return FullTextResult(
+            text=text_attempts[best_method]["text"],
+            method=best_method,
+            pdf_url=None,
+        )
 
-    return None, None, None
+    return FullTextResult(text=None, method=None, pdf_url=None)
 
 
 def _build_full_text_result(
@@ -757,7 +782,12 @@ def cached_get_full_text(
         attempts = _attempt_full_text_retrieval(paper_metadata, email)
 
         # Select the best result (preferring PDF downloads)
-        full_text, retrieval_method, pdf_url = _select_best_result(attempts)
+        best_result = _select_best_result(attempts)
+        full_text, retrieval_method, pdf_url = (
+            best_result.text,
+            best_result.method,
+            best_result.pdf_url,
+        )
 
         # Save content to file if retrieved
         file_path = None
