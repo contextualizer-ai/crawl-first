@@ -24,13 +24,13 @@ def extract_doi_from_url(url: str) -> Optional[str]:
     return doi_match.group(1) if doi_match else None
 
 
-def _fetch_field_from_doi(doi: str, field: str) -> Optional[str]:
+def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[str]:
     """Fetch a specific field (e.g., 'pmid' or 'pmcid') from the NCBI ID Converter API."""
     try:
         api_url = (
             f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
         )
-        response = requests.get(api_url, timeout=10)
+        response = requests.get(api_url, timeout=timeout)
         response.raise_for_status()
         data = response.json()
 
