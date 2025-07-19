@@ -150,6 +150,9 @@ def save_pdf_to_file(content: bytes, identifiers: Dict[str, str]) -> Optional[st
             # Fallback to hash if no identifiers
             filename_parts = [cache_key(identifiers)]
 
+        # Ensure filename_parts is not empty or contains only empty strings
+        if not any(filename_parts):
+            filename_parts = ["default"]
         filename = (
             "_".join(filename_parts[:2]) + ".pdf"
         )  # Limit to 2 parts to avoid overly long names
