@@ -24,8 +24,8 @@ def extract_doi_from_url(url: str) -> Optional[str]:
     return doi_match.group(1) if doi_match else None
 
 
-def doi_to_pmid(doi: str) -> Optional[str]:
-    """Convert DOI to PMID using NCBI ID Converter API."""
+def _fetch_field_from_doi(doi: str, field: str) -> Optional[str]:
+    """Fetch a specific field (e.g., 'pmid' or 'pmcid') from the NCBI ID Converter API."""
     try:
         api_url = (
             f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
@@ -35,27 +35,20 @@ def doi_to_pmid(doi: str) -> Optional[str]:
         data = response.json()
 
         records = data.get("records", [])
-        pmid = records[0].get("pmid", None) if records else None
-        return pmid
+        field_value = records[0].get(field, None) if records else None
+        return field_value
     except Exception:
         return None
+
+
+def doi_to_pmid(doi: str) -> Optional[str]:
+    """Convert DOI to PMID using NCBI ID Converter API."""
+    return _fetch_field_from_doi(doi, "pmid")
 
 
 def doi_to_pmcid(doi: str) -> Optional[str]:
     """Convert DOI to PMCID using NCBI ID Converter API."""
-    try:
-        api_url = (
-            f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
-        )
-        response = requests.get(api_url, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-
-        records = data.get("records", [])
-        pmcid = records[0].get("pmcid", None) if records else None
-        return pmcid
-    except Exception:
-        return None
+    return _fetch_field_from_doi(doi, "pmcid")
 
 
 def pmid_to_doi(pmid: str) -> Optional[str]:
