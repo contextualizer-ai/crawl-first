@@ -24,20 +24,27 @@ def extract_doi_from_url(url: str) -> Optional[str]:
     return doi_match.group(1) if doi_match else None
 
 
-def _fetch_field_from_doi(doi: str, field: str) -> Optional[str]:
+def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[str]:
     """Fetch a specific field (e.g., 'pmid' or 'pmcid') from the NCBI ID Converter API."""
     try:
         api_url = (
             f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
         )
-        response = requests.get(api_url, timeout=10)
+        response = requests.get(api_url, timeout=timeout)
         response.raise_for_status()
         data = response.json()
 
         records = data.get("records", [])
         field_value = records[0].get(field, None) if records else None
         return field_value
-    except Exception:
+    except requests.RequestException:
+        # Handle network-related errors
+        return None
+    except json.JSONDecodeError:
+        # Handle JSON parsing errors
+        return None
+    except KeyError:
+        # Handle missing keys in the JSON response
         return None
 
 
@@ -72,7 +79,14 @@ def pmid_to_doi(pmid: str) -> Optional[str]:
             return str(elocationid)
 
         return None
-    except Exception:
+    except requests.RequestException:
+        # Handle network-related errors
+        return None
+    except json.JSONDecodeError:
+        # Handle JSON parsing errors
+        return None
+    except KeyError:
+        # Handle missing keys in the response data
         return None
 
 
@@ -127,7 +141,14 @@ def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
             message = data["message"]
             return message if isinstance(message, dict) else None
         return None
-    except Exception:
+    except requests.RequestException:
+        # Handle network-related errors
+        return None
+    except json.JSONDecodeError:
+        # Handle JSON parsing errors
+        return None
+    except KeyError:
+        # Handle missing keys in the JSON response
         return None
 
 
@@ -149,7 +170,11 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
 
         full_text = "\n".join(text_sections).strip()
         return full_text if full_text else None
-    except Exception:
+    except requests.RequestException:
+        # Handle HTTP-related errors
+        return None
+    except AttributeError:
+        # Handle parsing errors or missing XML structure
         return None
 
 
@@ -186,17 +211,33 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
         abstract = re.sub(r" +", " ", abstract).strip()
 
         return f"{title}\n\n{abstract}\n\nPMID:{pmid}"
-    except Exception:
+    except requests.RequestException:
+        return None
+    except (KeyError, IndexError):
         return None
 
 
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
-    """Download PDF content from URL."""
+    """Download PDF content from URL with domain validation and content-type check."""
     try:
+        # Whitelist of trusted domains
+        trusted_domains = ["example.com", "trustedsource.org"]
+        from urllib.parse import urlparse
+
+        # Parse the domain from the URL
+        parsed_url = urlparse(pdf_url)
+        if parsed_url.netloc not in trusted_domains:
+            raise ValueError("URL domain is not in the trusted whitelist.")
+
+        # Perform the request
         response = requests.get(pdf_url, timeout=30)
         response.raise_for_status()
+
+        # Validate content type
+        if response.headers.get("Content-Type") != "application/pdf":
+            raise ValueError("The URL does not point to a valid PDF file.")
         return response.content
-    except Exception:
+    except requests.RequestException:
         return None
 
 
