@@ -210,7 +210,7 @@ def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
         if response.headers.get("Content-Type") != "application/pdf":
             raise ValueError("The URL does not point to a valid PDF file.")
         return response.content
-    except Exception:
+    except requests.RequestException:
         return None
 
 
