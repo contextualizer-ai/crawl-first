@@ -1,5 +1,5 @@
 # Makefile for crawl-first development and quality control
-.PHONY: all install clean format lint typecheck deps-check test test-verbose security build dev ci setup-dirs squeaky-clean full-test test-mcp
+.PHONY: all install clean format lint typecheck deps-check test test-verbose security build dev ci setup-dirs squeaky-clean full-test test-mcp compress-all
 
 # Default target - runs all quality checks and tests
 all: install format lint typecheck deps-check test
@@ -179,3 +179,35 @@ full-test: all setup-dirs data/inputs/biosample-ids.txt data/samples/biosample-i
 # MCP diagnostic tests - Claude interactions with MCP servers (includes weather test)
 test-mcp: data/outputs/claude/weather-test.txt data/outputs/claude/mcp-servers-test.txt data/outputs/claude/landuse-mcp-test.txt
 	@echo "🔧 MCP diagnostic tests complete"
+
+# Compression targets for archiving large directories
+cache.tar.gz: .cache
+	@if [ -d "$<" ]; then \
+		echo "📦 Compressing cache directory..."; \
+		tar -czf $@ $<; \
+		echo "✅ Cache compressed to $@"; \
+	else \
+		echo "⚠️  Cache directory $< does not exist"; \
+	fi
+
+data.tar.gz: data
+	@if [ -d "$<" ]; then \
+		echo "📦 Compressing data directory..."; \
+		tar -czf $@ $<; \
+		echo "✅ Data compressed to $@"; \
+	else \
+		echo "⚠️  Data directory $< does not exist"; \
+	fi
+
+logs.tar.gz: crawl_first/logs
+	@if [ -d "$<" ]; then \
+		echo "📦 Compressing logs directory..."; \
+		tar -czf $@ $<; \
+		echo "✅ Logs compressed to $@"; \
+	else \
+		echo "⚠️  Logs directory $< does not exist"; \
+	fi
+
+# Compress all archives
+compress-all: cache.tar.gz data.tar.gz logs.tar.gz
+	@echo "📦 All directories compressed: $^"
