@@ -342,11 +342,14 @@ def timed_operation(
                 if len(args) > 0:
                     try:
                         # Check type and size before converting to string for performance
-                        if isinstance(args[0], (int, float, str, bool)) or sys.getsizeof(args[0]) < LARGE_OBJECT_SIZE_THRESHOLD:
+                        if (
+                            isinstance(args[0], (int, float, str, bool))
+                            or sys.getsizeof(args[0]) < LARGE_OBJECT_SIZE_THRESHOLD
+                        ):
                             arg_str = str(args[0])
                             # Truncate if too long
                             if len(arg_str) > ARG_STRING_MAX_LENGTH:
-                                arg_str = arg_str[:ARG_STRING_MAX_LENGTH-3] + "..."
+                                arg_str = arg_str[: ARG_STRING_MAX_LENGTH - 3] + "..."
                             context["arg1"] = arg_str
                         else:
                             context["arg1"] = "<large_object>"
@@ -356,10 +359,13 @@ def timed_operation(
                 if len(args) > 1:
                     try:
                         # Check type and size before converting to string for performance
-                        if isinstance(args[1], (int, float, str, bool)) or sys.getsizeof(args[1]) < LARGE_OBJECT_SIZE_THRESHOLD:
+                        if (
+                            isinstance(args[1], (int, float, str, bool))
+                            or sys.getsizeof(args[1]) < LARGE_OBJECT_SIZE_THRESHOLD
+                        ):
                             arg_str = str(args[1])
                             if len(arg_str) > ARG_STRING_MAX_LENGTH:
-                                arg_str = arg_str[:ARG_STRING_MAX_LENGTH-3] + "..."
+                                arg_str = arg_str[: ARG_STRING_MAX_LENGTH - 3] + "..."
                             context["arg2"] = arg_str
                         else:
                             context["arg2"] = "<large_object>"
@@ -372,10 +378,16 @@ def timed_operation(
                     if key in kwargs:
                         try:
                             # Apply same size check for kwargs
-                            if isinstance(kwargs[key], (int, float, str, bool)) or sys.getsizeof(kwargs[key]) < LARGE_OBJECT_SIZE_THRESHOLD:
+                            if (
+                                isinstance(kwargs[key], (int, float, str, bool))
+                                or sys.getsizeof(kwargs[key])
+                                < LARGE_OBJECT_SIZE_THRESHOLD
+                            ):
                                 value_str = str(kwargs[key])
                                 if len(value_str) > ARG_STRING_MAX_LENGTH:
-                                    value_str = value_str[:ARG_STRING_MAX_LENGTH-3] + "..."
+                                    value_str = (
+                                        value_str[: ARG_STRING_MAX_LENGTH - 3] + "..."
+                                    )
                                 context[key] = value_str
                             else:
                                 context[key] = "<large_object>"
