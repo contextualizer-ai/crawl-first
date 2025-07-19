@@ -105,7 +105,7 @@ def geocode_location_name(location_name: str) -> Dict[str, Any]:
     if cached:
         return cached
 
-    geolocator = Nominatim(user_agent="biosample-analyzer/1.0")
+    geolocator = Nominatim(user_agent="biosample-analyzer/1.0", timeout=10)
 
     result: Dict[str, Any] = {
         "location_name": location_name,
@@ -166,7 +166,7 @@ def reverse_geocode(lat: float, lon: float) -> Dict[str, Any]:
     if cached:
         return cached
 
-    geolocator = Nominatim(user_agent="biosample-analyzer/1.0")
+    geolocator = Nominatim(user_agent="biosample-analyzer/1.0", timeout=10)
 
     result = {
         "coordinates": {"latitude": lat, "longitude": lon},
