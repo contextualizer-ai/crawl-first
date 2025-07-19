@@ -191,10 +191,24 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
 
 
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
-    """Download PDF content from URL."""
+    """Download PDF content from URL with domain validation and content-type check."""
     try:
+        # Whitelist of trusted domains
+        trusted_domains = ["example.com", "trustedsource.org"]
+        from urllib.parse import urlparse
+
+        # Parse the domain from the URL
+        parsed_url = urlparse(pdf_url)
+        if parsed_url.netloc not in trusted_domains:
+            raise ValueError("URL domain is not in the trusted whitelist.")
+
+        # Perform the request
         response = requests.get(pdf_url, timeout=30)
         response.raise_for_status()
+
+        # Validate content type
+        if response.headers.get("Content-Type") != "application/pdf":
+            raise ValueError("The URL does not point to a valid PDF file.")
         return response.content
     except Exception:
         return None
