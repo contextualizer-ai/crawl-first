@@ -5,7 +5,7 @@ Handles various types of data analysis: soil, land cover, weather, publications,
 """
 
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Dict, List, NamedTuple, Optional
 
@@ -374,18 +374,8 @@ def get_land_cover_analysis(lat: float, lon: float, date: str) -> Dict[str, Any]
         return {"land_cover": None, "ontology_matches": {}}
 
 
-def get_nearby_day_date(date_str: str, day_offset: int) -> Optional[str]:
-    """Get a date offset by specified days."""
-    try:
-        dt = datetime.strptime(date_str, "%Y-%m-%d")
-        new_dt = dt + timedelta(days=day_offset)
-        return new_dt.strftime("%Y-%m-%d")
-    except (ValueError, OverflowError):
-        return None
-
-
 def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str, Any]]:
-    """Get weather data with YAML-safe formatting and intelligent date parsing."""
+    """Get weather data with YAML-safe formatting using exact date and standard parameters."""
     # Parse the collection date
     parsed_date = parse_collection_date(date) if date else None
     if not parsed_date:
@@ -400,105 +390,82 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
             return result if isinstance(result, dict) or result is None else None
         return cached if isinstance(cached, dict) else None
 
-    # Try multiple strategies for weather data with progressively relaxed parameters
-    strategies: List[Dict[str, Any]] = [
-        # Strategy 1: Exact date, close radius, high coverage
-        {"search_radius_km": 50, "coverage_threshold": 0.3, "date": parsed_date},
-        # Strategy 2: Exact date, medium radius, lower coverage
-        {"search_radius_km": 100, "coverage_threshold": 0.2, "date": parsed_date},
-        # Strategy 3: Nearby dates (±1 day), close radius
-        {
-            "search_radius_km": 75,
-            "coverage_threshold": 0.25,
-            "date": get_nearby_day_date(parsed_date, -1),
-        },
-        {
-            "search_radius_km": 75,
-            "coverage_threshold": 0.25,
-            "date": get_nearby_day_date(parsed_date, 1),
-        },
-        # Strategy 4: Last resort - wider radius with exact date
-        {"search_radius_km": 200, "coverage_threshold": 0.1, "date": parsed_date},
-    ]
+    # Single attempt with standard parameters - no tricks or fallbacks
+    try:
+        weather_data = get_weather(
+            lat=lat,
+            lon=lon,
+            date=parsed_date,
+            search_radius_km=150,  # Standard radius
+            timeseries_type="daily",
+            coverage_threshold=0.5,  # Standard coverage requirement
+            measurement_units="scientific",
+        )
 
-    for i, strategy in enumerate(strategies):
-        try:
-            if not strategy["date"]:  # Skip if date calculation failed
-                continue
+        if weather_data:
+            # Clean for YAML serialization
+            cleaned = {
+                "coverage": weather_data.get("coverage"),
+                "strategy_used": 1,  # Always 1 since we only try once
+                "strategy_details": {
+                    "search_radius_km": 150,
+                    "coverage_threshold": 0.5,
+                    "date_used": parsed_date,
+                },
+            }
 
-            weather_data = get_weather(
-                lat=lat,
-                lon=lon,
-                date=strategy["date"],
-                search_radius_km=strategy["search_radius_km"],
-                timeseries_type="daily",
-                coverage_threshold=strategy["coverage_threshold"],
-                measurement_units="scientific",
-            )
-
-            if weather_data:
-                # Clean for YAML serialization
-                cleaned = {
-                    "coverage": weather_data.get("coverage"),
-                    "strategy_used": i + 1,
-                    "strategy_details": {
-                        "search_radius_km": strategy["search_radius_km"],
-                        "coverage_threshold": strategy["coverage_threshold"],
-                        "date_used": strategy["date"],
-                    },
+            if "station" in weather_data:
+                station = weather_data["station"]
+                cleaned["station"] = {
+                    k: v
+                    for k, v in station.items()
+                    if k
+                    in [
+                        "name",
+                        "country",
+                        "region",
+                        "wmo",
+                        "icao",
+                        "latitude",
+                        "longitude",
+                        "elevation",
+                        "timezone",
+                        "distance",
+                    ]
                 }
 
-                if "station" in weather_data:
-                    station = weather_data["station"]
-                    cleaned["station"] = {
-                        k: v
-                        for k, v in station.items()
-                        if k
-                        in [
-                            "name",
-                            "country",
-                            "region",
-                            "wmo",
-                            "icao",
-                            "latitude",
-                            "longitude",
-                            "elevation",
-                            "timezone",
-                            "distance",
-                        ]
-                    }
+            if "data" in weather_data:
+                measurements = {}
+                for measurement_type, values in weather_data["data"].items():
+                    if isinstance(values, dict) and values:
+                        for timestamp, value in values.items():
+                            if value is not None and not (
+                                isinstance(value, float) and str(value) == "nan"
+                            ):
+                                # Convert temperature from Kelvin to Celsius
+                                if measurement_type in [
+                                    "tavg",
+                                    "tmin",
+                                    "tmax",
+                                ] and isinstance(value, (int, float)):
+                                    value = round(
+                                        value - 273.15, 1
+                                    )  # Kelvin to Celsius
+                                measurements[measurement_type] = value
+                                break
+                cleaned["measurements"] = measurements
 
-                if "data" in weather_data:
-                    measurements = {}
-                    for measurement_type, values in weather_data["data"].items():
-                        if isinstance(values, dict) and values:
-                            for timestamp, value in values.items():
-                                if value is not None and not (
-                                    isinstance(value, float) and str(value) == "nan"
-                                ):
-                                    # Convert temperature from Kelvin to Celsius
-                                    if measurement_type in [
-                                        "tavg",
-                                        "tmin",
-                                        "tmax",
-                                    ] and isinstance(value, (int, float)):
-                                        value = round(
-                                            value - 273.15, 1
-                                        )  # Kelvin to Celsius
-                                    measurements[measurement_type] = value
-                                    break
-                    cleaned["measurements"] = measurements
+            save_cache("weather", key, {"result": cleaned})
+            return cleaned
+        else:
+            # No fallbacks - if it fails with standard parameters, cache and return None
+            save_cache("weather", key, {"result": None})
+            return None
 
-                save_cache("weather", key, {"result": cleaned})
-                return cleaned
-
-        except Exception:
-            # Continue to next strategy on failure
-            continue
-
-    # If all strategies failed, cache and return None
-    save_cache("weather", key, {"result": None})
-    return None
+    except Exception:
+        # No retries with different parameters - if it fails, cache and return None
+        save_cache("weather", key, {"result": None})
+        return None
 
 
 def _try_retrieve_text(
