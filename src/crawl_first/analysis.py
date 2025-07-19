@@ -649,9 +649,11 @@ def _build_full_text_result(
         "methods_attempted": list(attempts.keys()) if attempts else [],
         "method_results": (
             {
-                k: {key: val for key, val in v.items() if key != "pdf_content"} 
+                k: {key: val for key, val in v.items() if key != "pdf_content"}
                 for k, v in attempts.items()
-            } if attempts else {}
+            }
+            if attempts
+            else {}
         ),
     }
 
@@ -713,7 +715,7 @@ def cached_get_full_text(
 
         # Save content to file if retrieved
         file_path = None
-        
+
         # Check if we have PDF content to save
         if retrieval_method and attempts.get(retrieval_method, {}).get("pdf_content"):
             pdf_content = attempts[retrieval_method]["pdf_content"]
