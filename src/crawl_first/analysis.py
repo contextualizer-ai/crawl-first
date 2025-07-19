@@ -552,7 +552,7 @@ def _structure_text_as_yaml(text: str, source: str) -> str:
 def _attempt_full_text_retrieval(
     paper_metadata: Dict[str, Any], email: str
 ) -> Dict[str, Dict[str, Any]]:
-    """Attempt to retrieve full text using direct API calls - downloads PDFs and saves text."""
+    """Attempt to retrieve full text using direct API calls and organize the results into a dictionary."""
     attempts = {}
     pmcid = paper_metadata.get("pmcid")
     pmid = paper_metadata.get("pmid")
