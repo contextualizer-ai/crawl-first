@@ -1,0 +1,482 @@
+asserted:
+  id: "nmdc:bsm-11-dd8yd668"
+  name: "Bulk soil microbial communities from poplar common garden site in Corvallis,\
+    \ Oregon, USA - BESC-388-Co2_54_7 soil"
+  description: "Bulk soil microbial communities from poplar common garden site in\
+    \ Corvallis, Oregon, USA"
+  env_broad_scale:
+    has_raw_value: ENVO_00000446
+    term:
+      id: "ENVO:00000446"
+      name: terrestrial biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    has_raw_value: ENVO_00000011
+    term:
+      id: "ENVO:00000011"
+      name: garden
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    has_raw_value: ENVO_00005802
+    term:
+      id: "ENVO:00005802"
+      name: bulk soil
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  collected_from: "nmdc:frsite-11-wdy01683"
+  type: "nmdc:Biosample"
+  img_identifiers:
+  - "img.taxon:3300053075"
+  samp_name: BESC-388-Co2_54_7 soil
+  gold_biosample_identifiers:
+  - "gold:Gb0291628"
+  elev: 62.0
+  geo_loc_name:
+    has_raw_value: "USA: Oregon"
+    type: "nmdc:TextValue"
+  lat_lon:
+    has_raw_value: 44.5876 -123.1939
+    latitude: 44.5876
+    longitude: -123.1939
+    type: "nmdc:GeolocationValue"
+  samp_taxon_id:
+    has_raw_value: "soil metagenome [NCBITaxon:410658]"
+    term:
+      id: "NCBITaxon:410658"
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  ecosystem: Environmental
+  ecosystem_category: Terrestrial
+  ecosystem_type: Soil
+  ecosystem_subtype: Botanical garden
+  specific_ecosystem: Bulk soil
+  add_date: "2021-05-01T00:00:00"
+  habitat: Soil
+  location: USA
+  mod_date: "2021-05-01T00:00:00"
+  ncbi_taxonomy_name: soil metagenome
+  sample_collection_site: Bulk Soil
+  depth:
+    has_raw_value: '0.1'
+    has_numeric_value: 0.1
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  ph: 6.48
+  calcium:
+    has_raw_value: 2044.05 mg/kg
+    has_numeric_value: 2044.05
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  magnesium:
+    has_raw_value: 398.928 mg/kg
+    has_numeric_value: 398.928
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  potassium:
+    has_raw_value: 184.092 mg/kg
+    has_numeric_value: 184.092
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  tot_nitro:
+    has_raw_value: 0.327 Percent
+    has_numeric_value: 0.327
+    has_unit: Percent
+    type: "nmdc:QuantityValue"
+  lbc_thirty:
+    has_raw_value: 528 ppm
+    has_numeric_value: 528.0
+    has_unit: ppm
+    type: "nmdc:QuantityValue"
+  lbceq:
+    has_raw_value: 1531.2 ppm
+    has_numeric_value: 1531.2
+    has_unit: ppm
+    type: "nmdc:QuantityValue"
+  manganese:
+    has_raw_value: 18.3765 mg/kg
+    has_numeric_value: 18.3765
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  zinc:
+    has_raw_value: 4.2708 mg/kg
+    has_numeric_value: 4.2708
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  ammonium_nitrogen:
+    has_raw_value: 0 mg/kg
+    has_numeric_value: 0.0
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  nitrate_nitrogen:
+    has_raw_value: 0.463 mg/kg
+    has_numeric_value: 0.463
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  nitrite_nitrogen:
+    has_raw_value: 0 mg/kg
+    has_numeric_value: 0.0
+    has_unit: mg/kg
+    type: "nmdc:QuantityValue"
+  collection_date:
+    has_raw_value: '2020-09-03'
+    type: "nmdc:TimestampValue"
+  associated_studies:
+  - "nmdc:sty-11-r2h77870"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Cambisols
+    ontology_matches:
+    - iri: "http://purl.obolibrary.org/obo/ENVO_00002235"
+      short_form: ENVO_00002235
+      obo_id: "ENVO:00002235"
+      label: cambisol
+      description:
+      - "Cambisols combine soils with at least an incipient subsurface soil formation.\
+        \ Transformation of parent material is evident from structure formation and\
+        \ mostly brownish discoloration, increasing clay percentage, and/or carbonate\
+        \ removal."
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2021-01-01'
+        envo_term: area of cropland
+        system_description: At least 60% of area is cultivated cropland.
+        system_term: Croplands
+      UMD:
+      - date: '2021-01-01'
+        envo_term: area of cropland
+        system_description: At least 60% of area is cultivated cropland.
+        system_term: Croplands
+      LAI:
+      - date: '2021-01-01'
+        envo_term: grassland area
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Grasslands
+      BGC:
+      - date: '2021-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) including cereal
+          croplands.
+        system_term: Annual Grass Vegetation
+      PFT:
+      - date: '2021-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m).  At least 60% cultivated
+          cereal crops.
+        system_term: Cereal Croplands
+      LCCS1:
+      - date: '2021-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
+        system_term: Dense Herbaceous
+      LCCS2:
+      - date: '2021-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by herbaceous annuals (<2m). At least 60% cover.\
+          \ Cultivated fraction >60%."
+        system_term: Herbaceous Croplands
+      LCCS3:
+      - date: '2021-01-01'
+        envo_term: grassland area
+        system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
+        system_term: Grasslands
+      QA:
+      - date: '2021-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      area of cropland:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000892"
+        short_form: ENVO_01000892
+        obo_id: "ENVO:01000892"
+        label: area of cropland
+        description:
+        - "An area of a planet's surface which is partly covered either by annual\
+          \ crops and perennial woody crops or by actively tilled land. This area\
+          \ is in contact with an atmospheric column extending from the planetary\
+          \ boundary layer to the planet's exosphere with little to no physical obstruction."
+        - "According to the NLCD 2011, at least 20% of these areas are covered by\
+          \ croplands or actively tilled land.  Such thresholds - which are themselves\
+          \ fuzzy - are not strictly asserted in this definition. The NLCD provides\
+          \ corn, soybeans, vegetables, tobacco, and cotton as examples of annual\
+          \ crops and the trees and vines in orchards and vineyards as examples of\
+          \ perennial woody crops."
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01001244"
+        short_form: ENVO_01001244
+        obo_id: "ENVO:01001244"
+        label: cropland ecosystem
+        description:
+        - "An ecosystem which 1) is determined by communities of annual crops, perennial\
+          \ woody crops, or by actively tilled land, 2) is primarily used for agricultural\
+          \ activity, and 3) contains no village or larger human settlement."
+      grassland area:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_00000106"
+        short_form: ENVO_00000106
+        obo_id: "ENVO:00000106"
+        label: grassland area
+        description:
+        - An area in which grasses (Graminae) are a significant component of the vegetation.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01001206"
+        short_form: ENVO_01001206
+        obo_id: "ENVO:01001206"
+        label: grassland ecosystem
+        description:
+        - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
+          \ and determine the system's structure and dynamics."
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2020-09-03'
+    closest_available_date: '2021-01-01'
+    neighboring_dates:
+    - '2020-01-01'
+    - '2021-01-01'
+    - '2022-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    search_radius_km: 150
+    coverage_threshold: 0.5
+    date_used: '2020-09-03'
+    station:
+      name: Corvallis / Dry Creek
+      country: US
+      region: OR
+      wmo: null
+      icao: KCVO
+      latitude: 44.4971
+      longitude: -123.2895
+      elevation: 76.0
+      timezone: America/Los_Angeles
+      distance: 12596.438502533498
+    measurements:
+      tavg: 23.7
+      tmin: 13.9
+      tmax: 36.1
+      prcp: 0.0
+      wspd: 3.6
+      pres: 1015.8
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 44.5876
+      longitude: -123.1939
+    elevation:
+      meters: 66.0
+      feet: 216.5
+    place_info:
+      coordinates:
+        latitude: 44.5876
+        longitude: -123.1939
+      display_name: "Northeast Strawberry Lane, Benton County, Oregon, United States"
+      place_type: residential
+      address:
+        road: Northeast Strawberry Lane
+        county: Benton County
+        state: Oregon
+        country: United States
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 19
+        query_coordinates:
+        - 44.5876
+        - -123.1939
+        feature_counts:
+          place:
+            islet: 1
+          natural:
+            tree: 1
+            wood: 3
+          waterway:
+            stream: 1
+          highway:
+            track: 4
+          landuse:
+            farmland: 9
+      environmental_features:
+        place:
+        - type: islet
+          distance_m: 632.6
+          name: Truax Island
+        waterway:
+        - type: stream
+          distance_m: 581.7
+          name: Dead River
+      nearest_features:
+      - type: "landuse:farmland"
+        distance_m: 63.2
+      - type: "highway:track"
+        distance_m: 267.5
+      - type: "landuse:farmland"
+        distance_m: 296.5
+      - type: "natural:wood"
+        distance_m: 328.9
+      - type: "landuse:farmland"
+        distance_m: 360.6
+    environmental_summary:
+      total_environmental_features: 19
+      water_features_nearby: 1
+      natural_areas_nearby: 4
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "landuse:farmland"
+        count: 9
+      - type: "highway:track"
+        count: 4
+      - type: "natural:wood"
+        count: 3
+      ecological_context: "Location has 1 water feature(s), 4 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 44.5876
+        longitude: -123.1939
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/44.5876,-123.1939/@44.5876,-123.1939,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 43.9792797
+        longitude: -120.737257
+      source: "geocoded from geo_loc_name: USA: Oregon"
+      geocode_result:
+        location_name: "USA: Oregon"
+        coordinates:
+          latitude: 43.9792797
+          longitude: -120.737257
+        display_name: "Oregon, United States"
+        place_type: administrative
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/43.9792797,-120.737257/@43.9792797,-120.737257,15z"
+      elevation_meters: 1182.0
+    combined_map_url: "https://www.google.com/maps/dir/44.5876,-123.1939/43.9792797,-120.737257/@44.5876,-123.1939,10z"
+    combined_map_description: "Asserted coords (44.5876, -123.1939) vs Geocoded coords\
+      \ (43.9792797, -120.737257)"
+    coordinate_distance:
+      meters: 206916.0
+      kilometers: 206.92
+      description: "Distance between asserted and geocoded coordinates: 206.92 km"
+    elevation_comparison:
+      asserted_elevation_m: 62.0
+      geospatial_elevation_m: 66.0
+      difference_m: 4.0
+      description: "Elevation difference: 4.0m between asserted (62.0m) and geospatial\
+        \ lookup (66.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-r2h77870"
+    study_name: "Roots, rhizosphere and bulk soil microbial communities from poplar\
+      \ common garden sites in Oregon, USA"
+    study_title: "Bio-Scales: Defining plant gene function and its connection to ecosystem\
+      \ nitrogen and carbon cycle"
+    study_description: The goal of this Bio-Scales Pilot Project study is to understand
+      how plant traits modify the microbiome and in particular how the coupled plant-soil-microbial
+      system influences nitrogen transformation patterns and fluxes.
+    funding_sources:
+    - "U.S. Department of Energy, Office of Science, Office of Biological and Environmental\
+      \ Research (BER) under contract DE-AC05-00OR22725; Project Number (FWP): ERKPA12"
+    websites:
+    - "https://www.ornl.gov/section/bioimaging-and-analytics"
+    - "https://pmiweb.ornl.gov/"
+    - "https://www.ornl.gov/project/bio-scales"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website: ''
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  all_dois:
+  - doi_value: "doi:10.46936/10.25585/60000017"
+    doi_category: award_doi
+    doi_provider: jgi
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.46936/10.25585/60000017"
+  - doi_value: "doi:10.25345/C58K7520G"
+    doi_category: dataset_doi
+    doi_provider: massive
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.25345/C58K7520G"
+  - doi_value: "doi:10.1038/s41597-024-03069-7"
+    doi_category: publication_doi
+    type: "nmdc:Doi"
+    doi_url: "https://doi.org/10.1038/s41597-024-03069-7"
+    converted_ids:
+      original_doi: "doi:10.1038/s41597-024-03069-7"
+      pmid: 38580669
+      pmcid: PMC10997577
+    paper_metadata:
+      doi: 10.1038/s41597-024-03069-7
+      pmid: 38580669
+      title: "An integrated metagenomic, metabolomic and transcriptomic survey of\
+        \ Populus across genotypes and environments"
+      authors:
+      - Christopher Schadt
+      - Stanton Martin
+      - Alyssa Carrell
+      - Allison Fortner
+      - Dan Hopp
+      - Dan Jacobson
+      - Dawn Klingeman
+      - Brandon Kristy
+      - Jana Phillips
+      - Bryan Piatkowski
+      - Mark A. Miller
+      - Montana Smith
+      - Sujay Patil
+      - Mark Flynn
+      - Shane Canon
+      - Alicia Clum
+      - Christopher J. Mungall
+      - Christa Pennacchio
+      - Benjamin Bowen
+      - Katherine Louie
+      - Trent Northen
+      - Emiley A. Eloe-Fadrosh
+      - Melanie A. Mayes
+      - Wellington Muchero
+      - David J. Weston
+      - Julie Mitchell
+      - Mitchel Doktycz
+      journal: Scientific Data
+      citation_count: 3
+      abstract: "<jats:title>Abstract</jats:title><jats:p>Bridging molecular information\
+        \ to ecosystem-level processes would provide the capacity to understand system\
+        \ vulnerability and, potentially, a means for assessing ecosystem health.\
+        \ Here, we present an integrated dataset containing environmental and metagenomic\
+        \ information from plant-associated microbial communities, plant transcriptomics,\
+        \ plant and soil metabolomics, and soil chemistry and activity characterization\
+        \ measurements derived from the model tree species <jats:italic>Populus trichocarpa</jats:italic>.\
+        \ Soil, rhizosphere, root endosphere, and leaf samples were collected from\
+        \ 27 different <jats:italic>P. trichocarpa</jats:italic> genotypes grown in\
+        \ two different environments leading to an integrated dataset of 318 metagenomes,\
+        \ 98 plant transcriptomes, and 314 metabolomic profiles that are supported\
+        \ by diverse soil measurements. This expansive dataset will provide insights\
+        \ into causal linkages that relate genomic features and molecular level events\
+        \ to system-level properties and their environmental influences.</jats:p>"
+      retrieval_errors: []
+      published_date:
+        date-parts:
+        - - 2024
+          - 4
+          - 5
+      url: "https://doi.org/10.1038/s41597-024-03069-7"
+      type: journal-article
+      publisher: Springer Science and Business Media LLC
+      full_text:
+        status: pdf_available
+        file_path: null
+        content_length: 0
+        retrieval_method: direct_unpaywall_pdf
+        pdf_url: "https://www.nature.com/articles/s41597-024-03069-7.pdf"
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-dd8yd668"
+    total_dois: 3
+    publication_doi_count: 1
+    award_doi_count: 1
+    dataset_doi_count: 1

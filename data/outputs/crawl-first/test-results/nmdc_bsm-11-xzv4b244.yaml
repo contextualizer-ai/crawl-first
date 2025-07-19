@@ -1,0 +1,397 @@
+asserted:
+  ammonium_nitrogen:
+    has_numeric_value: 0.313
+    has_unit: mg/L
+    type: "nmdc:QuantityValue"
+  analysis_type:
+  - metagenomics
+  carb_nitro_ratio:
+    has_numeric_value: 18.7
+    type: "nmdc:QuantityValue"
+  collection_date:
+    has_raw_value: "2018-06-12T16:15Z"
+    type: "nmdc:TimestampValue"
+  depth:
+    has_maximum_numeric_value: 0.055
+    has_minimum_numeric_value: 0
+    has_unit: m
+    type: "nmdc:QuantityValue"
+  elev: 1179.4
+  env_broad_scale:
+    term:
+      id: "ENVO:00000446"
+      name: terrestrial biome
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_local_scale:
+    term:
+      id: "ENVO:01000816"
+      name: area of deciduous forest
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_medium:
+    term:
+      id: "ENVO:00001998"
+      name: soil
+      type: "nmdc:OntologyClass"
+    type: "nmdc:ControlledIdentifiedTermValue"
+  env_package:
+    has_raw_value: soil
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-11-xzv4b244"
+  name: MLBS_064-O-16.5-4.5-20180612
+  nitro:
+    has_numeric_value: 0.56
+    has_unit: percent
+    type: "nmdc:QuantityValue"
+  org_carb:
+    has_numeric_value: 10.46
+    has_unit: percent
+    type: "nmdc:QuantityValue"
+  ph: 4.18
+  samp_collec_device: brownie cutter
+  soil_horizon: O horizon
+  temp:
+    has_numeric_value: 17.5
+    has_unit: Celsius
+    type: "nmdc:QuantityValue"
+  tot_nitro_content:
+    has_numeric_value: 0.09
+    has_unit: mg/L
+    type: "nmdc:QuantityValue"
+  type: "nmdc:Biosample"
+  water_content:
+  - 0.631 g of water/g of dry soil
+  geo_loc_name:
+    has_raw_value: "USA: Virginia, Mountain Lake Biological Station"
+    type: "nmdc:TextValue"
+  biosample_categories:
+  - NEON
+  lat_lon:
+    latitude: 37.37556
+    longitude: -80.5202
+    type: "nmdc:GeolocationValue"
+  gold_biosample_identifiers: []
+  associated_studies:
+  - "nmdc:sty-11-34xj1150"
+inferred:
+  soil_from_asserted_coords:
+    soil_type: Acriosols
+    ontology_matches: []
+  land_cover_from_asserted_coords:
+    land_cover:
+      IGBP:
+      - date: '2018-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by deciduous broadleaf trees (canopy >2m).\
+          \ Tree cover >60%."
+        system_term: Deciduous Broadleaf Forests
+      UMD:
+      - date: '2018-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by deciduous broadleaf trees (canopy >2m).\
+          \ Tree cover >60%."
+        system_term: Deciduous Broadleaf Forests
+      LAI:
+      - date: '2018-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
+          \ >60%."
+        system_term: Deciduous Broadleaf Forests
+      BGC:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees and shrubs (>1m).\
+          \ Woody vegetation cover >10%."
+        system_term: Deciduous Broadleaf Vegetation
+      PFT:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
+          \ >10%."
+        system_term: Deciduous Broadleaf Trees
+      LCCS1:
+      - date: '2018-01-01'
+        envo_term: broadleaf forest
+        system_description: "Dominated by deciduous broadleaf trees (>2m). Tree cover\
+          \ >60%."
+        system_term: Deciduous Broadleaf Forests
+      LCCS2:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover >60% (canopy >2m)."
+        system_term: Dense Forests
+      LCCS3:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: "Tree cover >60% (canopy >2m)."
+        system_term: Dense Forests
+      QA:
+      - date: '2018-01-01'
+        envo_term: ENVO Term unavailable
+        system_description: Has a classification label and island according to the
+          water mask.
+        system_term: Classified land
+    ontology_matches:
+      broadleaf forest:
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000430"
+        short_form: ENVO_01000430
+        obo_id: "ENVO:01000430"
+        label: broadleaf forest
+        description:
+        - "A forest biome which contains densely packed populations or communities\
+          \ of broadleaf trees, strongly limiting light penetration to the forest\
+          \ floor."
+        - A class created to group GFM 2000 terms by the dominant vegetation type.
+          Definitions pending.
+      - iri: "http://purl.obolibrary.org/obo/ENVO_01000197"
+        short_form: ENVO_01000197
+        obo_id: "ENVO:01000197"
+        label: broadleaf forest biome
+        description:
+        - A broadleaf forest ecosystem which is in its climactic successional state.
+  landuse_dates_from_asserted_coords:
+    target_collection_date: '2018-06-12'
+    closest_available_date: '2018-01-01'
+    neighboring_dates:
+    - '2017-01-01'
+    - '2018-01-01'
+    - '2019-01-01'
+  weather_from_asserted_coords:
+    coverage: 1.0
+    search_radius_km: 150
+    coverage_threshold: 0.5
+    date_used: '2018-06-12'
+    station:
+      name: Blacksburg / Airport Acres
+      country: US
+      region: VA
+      wmo: null
+      icao: KBCB
+      latitude: 37.2076
+      longitude: -80.4078
+      elevation: 650.0
+      timezone: America/New_York
+      distance: 21158.235676685348
+    measurements:
+      tavg: 16.5
+      tmin: 14.8
+      tmax: 19.1
+      wspd: 2.7
+  geospatial_from_asserted_coords:
+    coordinates:
+      latitude: 37.37556
+      longitude: -80.5202
+    elevation:
+      meters: 1177.0
+      feet: 3861.5
+    place_info:
+      coordinates:
+        latitude: 37.37556
+        longitude: -80.5202
+      display_name: "White Pine Trail (Private), Giles County, Virginia, 24094, United\
+        \ States"
+      place_type: footway
+      address:
+        road: White Pine Trail (Private)
+        county: Giles County
+        state: Virginia
+        country: United States
+        postcode: '24094'
+        country_code: us
+      administrative: {}
+      error: null
+    osm_features:
+      metadata:
+        total_features: 27
+        query_coordinates:
+        - 37.37556
+        - -80.5202
+        feature_counts:
+          natural:
+            valley: 1
+            wood: 2
+            water: 2
+          amenity:
+            university: 1
+          highway:
+            footway: 15
+            track: 1
+          building:
+            university: 4
+            greenhouse: 1
+      environmental_features:
+        natural:
+        - type: water
+          distance_m: 199.3
+          name: Riopel Pond
+        - type: water
+          distance_m: 246.5
+          name: "Horton's Pond"
+        - type: valley
+          distance_m: 818.5
+          name: Moonshine Dell
+        amenity:
+        - type: university
+          distance_m: 253.6
+          name: Mountain Lake Biological Station (University of Virginia)
+        highway:
+        - type: footway
+          distance_m: 92.2
+          name: White Pine Trail (Private)
+        - type: footway
+          distance_m: 258.1
+          name: Moonshine Dell Trail (Private)
+        - type: footway
+          distance_m: 271.0
+          name: "John's Creek Trail (Private)"
+        - type: footway
+          distance_m: 276.1
+          name: Hedwig Trail (Private)
+        - type: footway
+          distance_m: 350.1
+          name: Maple Trail (Private)
+        - type: footway
+          distance_m: 359.9
+          name: Spruce Bog Trail (Private)
+        - type: footway
+          distance_m: 362.1
+          name: Cross Trail (Private)
+        - type: footway
+          distance_m: 375.7
+          name: Rhododendron Trail (Private)
+        - type: footway
+          distance_m: 428.4
+          name: "John's Creek Trail (Public)"
+        - type: footway
+          distance_m: 505.1
+          name: Spruce Bog Trail (Public)
+        - type: footway
+          distance_m: 527.2
+          name: Rhododendron Trail (Public)
+        - type: track
+          distance_m: 612.8
+          name: Spring Road (Private)
+        - type: footway
+          distance_m: 638.1
+          name: Moonshine Dell Trail (Public)
+        - type: footway
+          distance_m: 640.3
+          name: Maple Trail (Public)
+        - type: footway
+          distance_m: 847.4
+          name: Sartain Branch Trail (Public)
+        - type: footway
+          distance_m: 936.0
+          name: Sartain Branch Trail (Private)
+        building:
+        - type: university
+          distance_m: 137.8
+          name: Wilbur Computer Lab
+        - type: university
+          distance_m: 156.9
+          name: Lewis Hall
+          tags:
+            description: Auditorium and Registration
+        - type: university
+          distance_m: 181.0
+          name: Murray Hall
+        - type: university
+          distance_m: 338.8
+          name: Jefferson Dining Hall
+      nearest_features:
+      - type: "highway:footway"
+        distance_m: 92.2
+        name: White Pine Trail (Private)
+      - type: "building:greenhouse"
+        distance_m: 99.4
+      - type: "building:university"
+        distance_m: 137.8
+        name: Wilbur Computer Lab
+      - type: "building:university"
+        distance_m: 156.9
+        name: Lewis Hall
+      - type: "building:university"
+        distance_m: 181.0
+        name: Murray Hall
+    environmental_summary:
+      total_environmental_features: 27
+      water_features_nearby: 2
+      natural_areas_nearby: 5
+      protected_areas_nearby: 0
+      dominant_land_types:
+      - type: "highway:footway"
+        count: 15
+      - type: "building:university"
+        count: 4
+      - type: "natural:wood"
+        count: 2
+      ecological_context: "Location has 2 water feature(s), 5 natural area(s) within\
+        \ 1000m radius"
+  coordinate_sources:
+    from_asserted_coords:
+      coordinates:
+        latitude: 37.37556
+        longitude: -80.5202
+      source: lat_lon field
+      map_url: "https://www.google.com/maps/place/37.37556,-80.5202/@37.37556,-80.5202,15z"
+    from_geo_loc_name:
+      coordinates:
+        latitude: 37.3637602
+        longitude: -80.5226996
+      source: "geocoded from geo_loc_name: USA: Virginia, Mountain Lake Biological\
+        \ Station"
+      geocode_result:
+        location_name: "USA: Virginia, Mountain Lake Biological Station"
+        coordinates:
+          latitude: 37.3637602
+          longitude: -80.5226996
+        display_name: "University of Virginia Mountain Lake Biological Station, Sartain\
+          \ Branch Trail (Public), Giles County, Virginia, 24094, United States"
+        place_type: university
+        address: {}
+        administrative: {}
+        error: null
+      map_url: "https://www.google.com/maps/place/37.3637602,-80.5226996/@37.3637602,-80.5226996,15z"
+      elevation_meters: 1265.0
+    combined_map_url: "https://www.google.com/maps/dir/37.37556,-80.5202/37.3637602,-80.5226996/@37.37556,-80.5202,10z"
+    combined_map_description: "Asserted coords (37.37556, -80.5202) vs Geocoded coords\
+      \ (37.3637602, -80.5226996)"
+    coordinate_distance:
+      meters: 1330.5
+      kilometers: 1.33
+      description: "Distance between asserted and geocoded coordinates: 1.33 km"
+    elevation_comparison:
+      asserted_elevation_m: 1179.4
+      geospatial_elevation_m: 1177.0
+      difference_m: 2.4
+      description: "Elevation difference: 2.4m between asserted (1179.4m) and geospatial\
+        \ lookup (1177.0m)"
+  study_info:
+    study_id: "nmdc:sty-11-34xj1150"
+    study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_title: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
+    study_description: "This study contains the quality-controlled laboratory metadata\
+      \ and minimally processed sequence data from NEON's soil microbial shotgun metagenomics\
+      \ sequencing. Typically, measurements are done on plot-level composite samples\
+      \ and represent up to three randomly selected sampling locations within a plot."
+    funding_sources:
+    - "NSF#1724433 National Ecological Observatory Network: Operations Activities"
+    websites:
+    - "https://data.neonscience.org/data-products/DP1.10107.001"
+    - "https://data.neonscience.org/api/v0/documents/NEON.DOC.014048vO"
+    - "https://data.neonscience.org/api/v0/documents/NEON_metagenomes_userGuide_vE.pdf"
+    protocol_link: ''
+    objective: ''
+    notes: ''
+    homepage_website:
+    - "https://www.neonscience.org/"
+    alternative_titles: []
+    alternative_names: []
+    alternative_descriptions: []
+  publication_analysis:
+    biosample_id: "nmdc:bsm-11-xzv4b244"
+    total_dois: 0
+    publication_doi_count: 0
+    award_doi_count: 0
+    dataset_doi_count: 0

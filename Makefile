@@ -160,13 +160,13 @@ data/outputs/tests/random-ids-test.txt: data/inputs/biosample-ids.txt process_ra
 	./process_random_ids.sh --file data/inputs/biosample-ids.txt --count 5 > $@ || true
 	@echo "✅ Random ID processing saved to $@"
 
-# Run crawl-first on 3 random biosample IDs
+# Run crawl-first on 10 random biosample IDs
 data/outputs/crawl-first/test-results/: data/inputs/biosample-ids.txt
-	@echo "🧬 Running crawl-first on 3 random biosample IDs..."
+	@echo "🧬 Running crawl-first on 10 random biosample IDs..."
 	mkdir -p $@
 	uv run crawl-first \
 		--input-file data/inputs/biosample-ids.txt \
-		--sample-size 3 \
+		--sample-size 10 \
 		--email MAM@lbl.gov \
 		--output-dir $@ \
 		--verbose
