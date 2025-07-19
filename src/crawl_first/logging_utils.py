@@ -277,7 +277,10 @@ class PerformanceTimer:
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
         """End timing and log results."""
         self.end_time = time.perf_counter()
-        self.duration = self.end_time - self.start_time
+        if self.start_time is not None:
+            self.duration = self.end_time - self.start_time
+        else:
+            self.duration = 0.0
 
         # Store metrics for analysis
         _performance_metrics[self.operation_name].append(self.duration)
@@ -320,22 +323,43 @@ def timed_operation(
             # Extract context from function arguments if requested
             context = {}
             if include_args and args:
-                # Include first few args and relevant kwargs
+                # Include first few args and relevant kwargs with safe string representation
                 if len(args) > 0:
-                    context["arg1"] = str(args[0])[:100]  # Limit length
-                if len(args) > 1:
-                    context["arg2"] = str(args[1])[:100]
+                    try:
+                        # Safe string representation that handles complex objects
+                        arg_str = str(args[0])
+                        # Truncate if too long and sanitize sensitive patterns
+                        if len(arg_str) > 100:
+                            arg_str = arg_str[:97] + "..."
+                        context["arg1"] = arg_str
+                    except Exception:
+                        context["arg1"] = "<repr_failed>"
 
-                # Include important kwargs
+                if len(args) > 1:
+                    try:
+                        arg_str = str(args[1])
+                        if len(arg_str) > 100:
+                            arg_str = arg_str[:97] + "..."
+                        context["arg2"] = arg_str
+                    except Exception:
+                        context["arg2"] = "<repr_failed>"
+
+                # Include important kwargs with safe handling
                 important_kwargs = ["biosample_id", "doi", "lat", "lon", "email"]
                 for key in important_kwargs:
                     if key in kwargs:
-                        context[key] = str(kwargs[key])[:100]
+                        try:
+                            value_str = str(kwargs[key])
+                            if len(value_str) > 100:
+                                value_str = value_str[:97] + "..."
+                            context[key] = value_str
+                        except Exception:
+                            context[key] = "<repr_failed>"
 
             with PerformanceTimer(operation_name, logger, context, log_level):
                 return func(*args, **kwargs)
 
-        return wrapper
+        return wrapper  # type: ignore[return-value]
 
     return decorator
 
@@ -480,9 +504,12 @@ def log_memory_usage(logger: logging.Logger, operation: str) -> None:
             f"VMS: {usage['vms_mb']:.1f}MB, "
             f"System %: {usage['percent']:.1f}%"
         )
-    except Exception:
+    except Exception as e:
         # Don't let memory monitoring break the application
-        logger.debug(f"Could not measure memory usage after {operation}")
+        logger.debug(
+            f"Could not measure memory usage after {operation}. Exception: {e}",
+            exc_info=True,
+        )
 
 
 def log_api_call_result(

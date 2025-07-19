@@ -10,7 +10,7 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple, TypeVar
 
-from crawl_first.logging_utils import (
+from .logging_utils import (
     log_cache_operation,
     log_enhanced_error,
     log_memory_usage,
@@ -71,11 +71,12 @@ def save_cache(cache_type: str, key: str, data: Dict[str, Any]) -> None:
     cache_file = cache_dir / f"{key}.json"
 
     try:
+        serialized_data = json.dumps(data, indent=2)
         with open(cache_file, "w") as f:
-            json.dump(data, f, indent=2)
+            f.write(serialized_data)
 
-        # Log successful cache write with file size
-        file_size = cache_file.stat().st_size
+        # Log successful cache write with file size (avoiding extra I/O)
+        file_size = len(serialized_data.encode("utf-8"))
         logger.debug(
             f"Cached {cache_type} data: {file_size} bytes (key: {key[:50]}...)"
         )
