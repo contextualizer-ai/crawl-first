@@ -6,8 +6,16 @@ Handles MD5-based caching for API calls and computations.
 
 import hashlib
 import json
+import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple, TypeVar
+
+from .logging_utils import (
+    log_cache_operation,
+    log_enhanced_error,
+    log_memory_usage,
+    timed_operation,
+)
 
 T = TypeVar("T")
 
@@ -23,28 +31,68 @@ def cache_key(data: Dict[str, Any]) -> str:
 
 def get_cache(cache_type: str, key: str) -> Optional[Dict[str, Any]]:
     """Get data from cache."""
+    logger = logging.getLogger("crawl_first.cache")
     cache_file = CACHE_DIR / cache_type / f"{key}.json"
+
     if cache_file.exists():
         try:
             with open(cache_file, "r") as f:
                 data = json.load(f)
                 # Ensure we return a dict or None
-                return data if isinstance(data, dict) else None
-        except Exception:
-            pass
-    return None
+                result = data if isinstance(data, dict) else None
+
+            if result is not None:
+                log_cache_operation(cache_type, "hit", key, logger)
+                return result
+            else:
+                log_cache_operation(cache_type, "miss", key, logger)
+                return None
+
+        except Exception as e:
+            # Safe key slicing to avoid IndexError
+            key_display = key[:50] if len(key) > 50 else key
+            log_enhanced_error(
+                logger,
+                e,
+                f"reading cache {cache_type}",
+                {"key": key_display, "file": str(cache_file)},
+            )
+            log_cache_operation(cache_type, "miss", key, logger)
+            return None
+    else:
+        log_cache_operation(cache_type, "miss", key, logger)
+        return None
 
 
+@timed_operation("cache_save", include_args=False)
 def save_cache(cache_type: str, key: str, data: Dict[str, Any]) -> None:
     """Save data to cache."""
+    logger = logging.getLogger("crawl_first.cache")
     cache_dir = CACHE_DIR / cache_type
     cache_dir.mkdir(parents=True, exist_ok=True)
     cache_file = cache_dir / f"{key}.json"
+
     try:
+        serialized_data = json.dumps(data, indent=2)
         with open(cache_file, "w") as f:
-            json.dump(data, f, indent=2)
-    except Exception:
-        pass
+            f.write(serialized_data)
+
+        # Log successful cache write with estimated file size
+        # Using string length as approximation to avoid encoding overhead
+        file_size_estimate = len(serialized_data)
+        logger.debug(
+            f"Cached {cache_type} data: ~{file_size_estimate} chars (key: {key[:50]}...)"
+        )
+
+    except Exception as e:
+        # Safe key slicing to avoid IndexError
+        key_display = key[:50] if len(key) > 50 else key
+        log_enhanced_error(
+            logger,
+            e,
+            f"writing cache {cache_type}",
+            {"key": key_display, "file": str(cache_file), "data_size": len(str(data))},
+        )
 
 
 def get_cached_results(cache_type: str, key: str, field: str, default: T) -> T:
@@ -67,6 +115,7 @@ def get_cached_entity(
     return (False, None)
 
 
+@timed_operation("full_text_file_save", include_args=False)
 def save_full_text_to_file(content: str, identifiers: Dict[str, str]) -> Optional[str]:
     """
     Save full text content to a file and return the file path.
@@ -78,6 +127,8 @@ def save_full_text_to_file(content: str, identifiers: Dict[str, str]) -> Optiona
     Returns:
         Relative file path or None if failed
     """
+    logger = logging.getLogger("crawl_first.cache")
+
     try:
         # Create full text directory if it doesn't exist
         FULL_TEXT_DIR.mkdir(parents=True, exist_ok=True)
@@ -108,8 +159,23 @@ def save_full_text_to_file(content: str, identifiers: Dict[str, str]) -> Optiona
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(content)
 
+        # Log successful file creation with size and identifiers
+        file_size = filepath.stat().st_size
+        content_size = len(content)
+        logger.info(
+            f"Saved full text to file: {file_size} bytes "
+            f"(content: {content_size} chars, identifiers: {identifiers})"
+        )
+        log_memory_usage(logger, "full text file save")
+
         # Return relative path from current directory
         return str(filepath.relative_to(Path.cwd()))
 
-    except Exception:
+    except Exception as e:
+        log_enhanced_error(
+            logger,
+            e,
+            "saving full text to file",
+            {"identifiers": str(identifiers), "content_length": len(content)},
+        )
         return None

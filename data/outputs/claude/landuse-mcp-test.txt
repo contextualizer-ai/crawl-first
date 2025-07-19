@@ -1,1 +1,0 @@
-The coordinates (40.7128, -74.0060) show as "Water Bodies" across all land cover classification systems for 2020. I used the `mcp__landuse-mcp__get_land_cover` MCP tool.

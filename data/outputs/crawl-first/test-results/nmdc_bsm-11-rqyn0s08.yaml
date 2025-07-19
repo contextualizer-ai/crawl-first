@@ -1,15 +1,22 @@
 asserted:
+  ammonium_nitrogen:
+    has_numeric_value: 0.136
+    has_unit: mg/L
+    type: "nmdc:QuantityValue"
   analysis_type:
   - metagenomics
+  carb_nitro_ratio:
+    has_numeric_value: 11.5
+    type: "nmdc:QuantityValue"
   collection_date:
-    has_raw_value: "2016-08-17T16:29Z"
+    has_raw_value: "2019-03-12T21:09Z"
     type: "nmdc:TimestampValue"
   depth:
-    has_maximum_numeric_value: 0.045
+    has_maximum_numeric_value: 0.3
     has_minimum_numeric_value: 0
     has_unit: m
     type: "nmdc:QuantityValue"
-  elev: 281
+  elev: 383.1
   env_broad_scale:
     term:
       id: "ENVO:00000446"
@@ -18,8 +25,8 @@ asserted:
     type: "nmdc:ControlledIdentifiedTermValue"
   env_local_scale:
     term:
-      id: "ENVO:01000816"
-      name: area of deciduous forest
+      id: "ENVO:01000888"
+      name: area of gramanoid or herbaceous vegetation
       type: "nmdc:OntologyClass"
     type: "nmdc:ControlledIdentifiedTermValue"
   env_medium:
@@ -28,91 +35,95 @@ asserted:
       name: soil
       type: "nmdc:OntologyClass"
     type: "nmdc:ControlledIdentifiedTermValue"
-  id: "nmdc:bsm-11-01f6m423"
-  name: CLBJ_038-O-11-3.5-20160817
-  ph: 7.21
-  soil_horizon: O horizon
+  env_package:
+    has_raw_value: soil
+    type: "nmdc:TextValue"
+  id: "nmdc:bsm-11-rqyn0s08"
+  name: SJER_004-M-9-1-20190312
+  nitro:
+    has_numeric_value: 0.07
+    has_unit: percent
+    type: "nmdc:QuantityValue"
+  org_carb:
+    has_numeric_value: 0.76
+    has_unit: percent
+    type: "nmdc:QuantityValue"
+  ph: 6.68
+  samp_collec_device: auger
+  soil_horizon: M horizon
   temp:
-    has_numeric_value: 23.2
+    has_numeric_value: 13.2
     has_unit: Celsius
     type: "nmdc:QuantityValue"
+  tot_nitro_content:
+    has_numeric_value: 0.047
+    has_unit: mg/L
+    type: "nmdc:QuantityValue"
   type: "nmdc:Biosample"
+  water_content:
+  - 0.105 g of water/g of dry soil
   geo_loc_name:
-    has_raw_value: "USA: Texas, Lyndon B. Johnson National Grassland"
+    has_raw_value: "USA: California, San Joaquin Experimental Range"
     type: "nmdc:TextValue"
   biosample_categories:
   - NEON
   lat_lon:
-    latitude: 33.414259
-    longitude: -97.597098
+    latitude: 37.108972
+    longitude: -119.746305
     type: "nmdc:GeolocationValue"
-  gold_biosample_identifiers:
-  - "gold:Gb0255559"
-  ecosystem: Environmental
-  ecosystem_category: Terrestrial
-  ecosystem_type: Soil
-  ecosystem_subtype: Unclassified
+  gold_biosample_identifiers: []
   associated_studies:
   - "nmdc:sty-11-34xj1150"
 inferred:
   soil_from_asserted_coords:
-    soil_type: Luvisols
-    ontology_matches:
-    - iri: "http://purl.obolibrary.org/obo/ENVO_00002248"
-      short_form: ENVO_00002248
-      obo_id: "ENVO:00002248"
-      label: luvisol
-      description:
-      - Luvisols are soils that have a higher clay content in the subsoil than in
-        the topsoil as a result of pedogenetic processes (especially clay migration)
-        leading to an argic subsoil horizon. Luvisols have high-activity clays throughout
-        the argic horizon and a high base saturation at certain depths.
+    soil_type: Acriosols
+    ontology_matches: []
   land_cover_from_asserted_coords:
     land_cover:
       IGBP:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m).
         system_term: Grasslands
       UMD:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m).
         system_term: Grasslands
       LAI:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: Dominated by herbaceous annuals (<2m) including cereal
           croplands.
         system_term: Grasslands
       BGC:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) including cereal
           croplands.
         system_term: Annual Grass Vegetation
       PFT:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) that are not cultivated.
         system_term: Grass
       LCCS1:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m) at least 60% cover.
         system_term: Dense Herbaceous
       LCCS2:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Dominated by herbaceous annuals (<2m). At least 10% cover.
         system_term: Natural Herbaceous
       LCCS3:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: grassland area
         system_description: "Dominated by herbaceous annuals (<2m) >10% cover."
         system_term: Grasslands
       QA:
-      - date: '2017-01-01'
+      - date: '2019-01-01'
         envo_term: ENVO Term unavailable
         system_description: Has a classification label and island according to the
           water mask.
@@ -133,149 +144,138 @@ inferred:
         - "An ecosystem in which grasses (Graminae) are the dominant form of vegetation\
           \ and determine the system's structure and dynamics."
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2016-08-17'
-    closest_available_date: '2017-01-01'
+    target_collection_date: '2019-03-12'
+    closest_available_date: '2019-01-01'
     neighboring_dates:
-    - '2016-01-01'
-    - '2017-01-01'
     - '2018-01-01'
+    - '2019-01-01'
+    - '2020-01-01'
   weather_from_asserted_coords:
     coverage: 1.0
     strategy_used: 1
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2016-08-17'
+      date_used: '2019-03-12'
     station:
-      name: Decatur
+      name: Madera / Notarb
       country: US
-      region: TX
+      region: CA
       wmo: null
-      icao: KLUD
-      latitude: 33.2542
-      longitude: -97.5805
-      elevation: 319.0
-      timezone: America/Chicago
-      distance: 17864.42089774691
+      icao: KMAE
+      latitude: 36.9886
+      longitude: -120.1124
+      elevation: 78.0
+      timezone: America/Los_Angeles
+      distance: 35138.916501395426
     measurements:
-      tavg: 24.5
-      tmin: 22.7
-      tmax: 28.0
-      wspd: 3.1
+      tavg: 12.0
+      tmin: 3.9
+      tmax: 20.0
+      wspd: 2.8
+      pres: 1011.6
   geospatial_from_asserted_coords:
     coordinates:
-      latitude: 33.414259
-      longitude: -97.597098
+      latitude: 37.108972
+      longitude: -119.746305
     elevation:
-      meters: 288.0
-      feet: 944.9
+      meters: 388.0
+      feet: 1273.0
     place_info:
       coordinates:
-        latitude: 33.414259
-        longitude: -97.597098
-      display_name: "County Road 2675, Wise County, Texas, United States"
-      place_type: residential
+        latitude: 37.108972
+        longitude: -119.746305
+      display_name: "Southern Yosemite Highway, Madera County, California, 93645,\
+        \ United States"
+      place_type: primary
       address:
-        road: County Road 2675
-        county: Wise County
-        state: Texas
+        road: Southern Yosemite Highway
+        county: Madera County
+        state: California
         country: United States
+        postcode: '93645'
         country_code: us
       administrative: {}
       error: null
     osm_features:
       metadata:
-        total_features: 19
+        total_features: 23
         query_coordinates:
-        - 33.414259
-        - -97.597098
+        - 37.108972
+        - -119.746305
         feature_counts:
-          waterway:
-            dam: 1
-          landuse:
-            reservoir: 1
           highway:
-            path: 6
-            track: 2
+            track: 3
+            path: 2
           natural:
-            water: 9
-      environmental_features:
-        waterway:
-        - type: dam
-          distance_m: 890.0
-          name: Soil Conservation Service Site 11a Dam
-        landuse:
-        - type: reservoir
-          distance_m: 890.0
-          name: Soil Conservation Service Site 11a Reservoir
-        highway:
-        - type: path
-          distance_m: 807.6
-          name: Orange Trail
+            water: 1
+          waterway:
+            stream: 17
+      environmental_features: {}
       nearest_features:
+      - type: "waterway:stream"
+        distance_m: 78.4
       - type: "natural:water"
-        distance_m: 505.9
-      - type: "natural:water"
-        distance_m: 507.6
-      - type: "natural:water"
-        distance_m: 515.2
+        distance_m: 93.8
+      - type: "waterway:stream"
+        distance_m: 96.1
       - type: "highway:path"
-        distance_m: 591.7
-      - type: "natural:water"
-        distance_m: 595.7
+        distance_m: 148.0
+      - type: "highway:path"
+        distance_m: 166.8
     environmental_summary:
-      total_environmental_features: 19
-      water_features_nearby: 10
-      natural_areas_nearby: 9
+      total_environmental_features: 23
+      water_features_nearby: 18
+      natural_areas_nearby: 1
       protected_areas_nearby: 0
       dominant_land_types:
-      - type: "natural:water"
-        count: 9
-      - type: "highway:path"
-        count: 6
+      - type: "waterway:stream"
+        count: 17
       - type: "highway:track"
+        count: 3
+      - type: "highway:path"
         count: 2
-      ecological_context: "Location has 10 water feature(s), 9 natural area(s) within\
+      ecological_context: "Location has 18 water feature(s), 1 natural area(s) within\
         \ 1000m radius"
   coordinate_sources:
     from_asserted_coords:
       coordinates:
-        latitude: 33.414259
-        longitude: -97.597098
+        latitude: 37.108972
+        longitude: -119.746305
       source: lat_lon field
-      map_url: "https://www.google.com/maps/place/33.414259,-97.597098/@33.414259,-97.597098,15z"
+      map_url: "https://www.google.com/maps/place/37.108972,-119.746305/@37.108972,-119.746305,15z"
     from_geo_loc_name:
       coordinates:
-        latitude: 33.36984
-        longitude: -97.593456
-      source: "geocoded from geo_loc_name: USA: Texas, Lyndon B. Johnson National\
-        \ Grassland"
+        latitude: 37.1027423
+        longitude: -119.7331853
+      source: "geocoded from geo_loc_name: USA: California, San Joaquin Experimental\
+        \ Range"
       geocode_result:
-        location_name: "USA: Texas, Lyndon B. Johnson National Grassland"
+        location_name: "USA: California, San Joaquin Experimental Range"
         coordinates:
-          latitude: 33.36984
-          longitude: -97.593456
-        display_name: "Lyndon B. Johnson National Grassland, Wise County, Texas, United\
-          \ States"
-        place_type: protected_area
+          latitude: 37.1027423
+          longitude: -119.7331853
+        display_name: "San Joaquin Experimental Range, Madera County, California,\
+          \ United States"
+        place_type: national_park
         address: {}
         administrative: {}
         error: null
-      map_url: "https://www.google.com/maps/place/33.36984,-97.593456/@33.36984,-97.593456,15z"
-      elevation_meters: 304.0
-    combined_map_url: "https://www.google.com/maps/dir/33.414259,-97.597098/33.36984,-97.593456/@33.414259,-97.597098,10z"
-    combined_map_description: "Asserted coords (33.414259, -97.597098) vs Geocoded\
-      \ coords (33.36984, -97.593456)"
+      map_url: "https://www.google.com/maps/place/37.1027423,-119.7331853/@37.1027423,-119.7331853,15z"
+      elevation_meters: 409.0
+    combined_map_url: "https://www.google.com/maps/dir/37.108972,-119.746305/37.1027423,-119.7331853/@37.108972,-119.746305,10z"
+    combined_map_description: "Asserted coords (37.108972, -119.746305) vs Geocoded\
+      \ coords (37.1027423, -119.7331853)"
     coordinate_distance:
-      meters: 4950.7
-      kilometers: 4.95
-      description: "Distance between asserted and geocoded coordinates: 4.95 km"
+      meters: 1354.1
+      kilometers: 1.35
+      description: "Distance between asserted and geocoded coordinates: 1.35 km"
     elevation_comparison:
-      asserted_elevation_m: 281
-      geospatial_elevation_m: 288.0
-      difference_m: 7.0
-      description: "Elevation difference: 7.0m between asserted (281m) and geospatial\
-        \ lookup (288.0m)"
+      asserted_elevation_m: 383.1
+      geospatial_elevation_m: 388.0
+      difference_m: 4.9
+      description: "Elevation difference: 4.9m between asserted (383.1m) and geospatial\
+        \ lookup (388.0m)"
   study_info:
     study_id: "nmdc:sty-11-34xj1150"
     study_name: "National Ecological Observatory Network: soil metagenomes (DP1.10107.001)"
@@ -299,7 +299,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-01f6m423"
+    biosample_id: "nmdc:bsm-11-rqyn0s08"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0

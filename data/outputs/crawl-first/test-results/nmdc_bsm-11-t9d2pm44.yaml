@@ -1,7 +1,7 @@
 asserted:
-  id: "nmdc:bsm-11-9jygss67"
+  id: "nmdc:bsm-11-t9d2pm44"
   type: "nmdc:Biosample"
-  name: MMPRNT11
+  name: K22
   associated_studies:
   - "nmdc:sty-11-wbc14h22"
   env_broad_scale:
@@ -27,16 +27,16 @@ asserted:
       name: farm soil
   biosample_categories:
   - BRC
-  samp_name: MMPRNT11
+  samp_name: K22
   agrochem_addition:
   - type: "nmdc:TextValue"
     has_raw_value: Fertilized
   collection_date:
     type: "nmdc:TimestampValue"
-    has_raw_value: '2017-03-27'
+    has_raw_value: '2016-07-11'
   cur_vegetation:
     type: "nmdc:TextValue"
-    has_raw_value: Switchgrass
+    has_raw_value: Restored Prairie
   depth:
     type: "nmdc:QuantityValue"
     has_raw_value: 0 - 0.1
@@ -71,12 +71,12 @@ asserted:
     has_raw_value: 2 mm sieved
   source_mat_id:
     type: "nmdc:TextValue"
-    has_raw_value: "NCBI:19406648"
+    has_raw_value: "NCBI:19365722"
   specific_ecosystem: Bulk soil
   store_cond:
     type: "nmdc:TextValue"
     has_raw_value: frozen
-  experimental_factor_other: Switchgrass
+  experimental_factor_other: Restored Prairie
   analysis_type:
   - metagenomics
 inferred:
@@ -164,7 +164,7 @@ inferred:
         description:
         - A portion of soil which is found in a savanna.
   landuse_dates_from_asserted_coords:
-    target_collection_date: '2017-03-27'
+    target_collection_date: '2016-07-11'
     closest_available_date: '2017-01-01'
     neighboring_dates:
     - '2016-01-01'
@@ -176,7 +176,7 @@ inferred:
     strategy_details:
       search_radius_km: 50
       coverage_threshold: 0.3
-      date_used: '2017-03-27'
+      date_used: '2016-07-11'
     station:
       name: Battle Creek / Avenue A Mobile Home Estates
       country: US
@@ -189,11 +189,11 @@ inferred:
       timezone: America/Detroit
       distance: 24984.427915304404
     measurements:
-      tavg: 10.7
-      tmin: 8.2
-      tmax: 12.2
-      wspd: 3.5
-      pres: 1012.9
+      tavg: 23.2
+      tmin: 17.8
+      tmax: 29.4
+      wspd: 3.2
+      pres: 1016.2
   geospatial_from_asserted_coords:
     coordinates:
       latitude: 42.476365
@@ -334,7 +334,7 @@ inferred:
     alternative_names: []
     alternative_descriptions: []
   publication_analysis:
-    biosample_id: "nmdc:bsm-11-9jygss67"
+    biosample_id: "nmdc:bsm-11-t9d2pm44"
     total_dois: 0
     publication_doi_count: 0
     award_doi_count: 0
