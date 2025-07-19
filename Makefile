@@ -180,33 +180,25 @@ full-test: all setup-dirs data/inputs/biosample-ids.txt data/samples/biosample-i
 test-mcp: data/outputs/claude/weather-test.txt data/outputs/claude/mcp-servers-test.txt data/outputs/claude/landuse-mcp-test.txt
 	@echo "🔧 MCP diagnostic tests complete"
 
-# Compression targets for archiving large directories
+# Compression pattern rule for archiving directories
+%.tar.gz:
+	@if [ -d "$<" ]; then \
+		file_count=$$(find "$<" -type f | wc -l); \
+		if [ $$file_count -gt 0 ]; then \
+			echo "📦 Compressing $< directory ($$file_count files)..."; \
+			tar -czf $@ $<; \
+			echo "✅ $< compressed to $@"; \
+		else \
+			echo "⚠️  Directory $< exists but contains no files - skipping compression to avoid overwriting existing archive"; \
+		fi; \
+	else \
+		echo "⚠️  Directory $< does not exist"; \
+	fi
+
+# Specific compression targets
 cache.tar.gz: .cache
-	@if [ -d "$<" ]; then \
-		echo "📦 Compressing cache directory..."; \
-		tar -czf $@ $<; \
-		echo "✅ Cache compressed to $@"; \
-	else \
-		echo "⚠️  Cache directory $< does not exist"; \
-	fi
-
 data.tar.gz: data
-	@if [ -d "$<" ]; then \
-		echo "📦 Compressing data directory..."; \
-		tar -czf $@ $<; \
-		echo "✅ Data compressed to $@"; \
-	else \
-		echo "⚠️  Data directory $< does not exist"; \
-	fi
-
 logs.tar.gz: crawl_first/logs
-	@if [ -d "$<" ]; then \
-		echo "📦 Compressing logs directory..."; \
-		tar -czf $@ $<; \
-		echo "✅ Logs compressed to $@"; \
-	else \
-		echo "⚠️  Logs directory $< does not exist"; \
-	fi
 
 # Compress all archives
 compress-all: cache.tar.gz data.tar.gz logs.tar.gz
