@@ -234,13 +234,16 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
     """Download PDF content from URL with basic validation."""
     try:
-        response = requests.get(pdf_url, timeout=30)
+        response = requests.get(pdf_url, timeout=30, stream=True)
         response.raise_for_status()
 
         # Check if content appears to be PDF (flexible validation)
         content_type = response.headers.get("Content-Type", "").lower()
         if "pdf" not in content_type and not pdf_url.lower().endswith(".pdf"):
-            return None
+            # Check the magic bytes for PDF
+            first_bytes = response.raw.read(4)
+            if not first_bytes.startswith(b"%PDF"):
+                return None
 
         return response.content
     except requests.RequestException as e:
