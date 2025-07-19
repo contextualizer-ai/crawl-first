@@ -454,13 +454,14 @@ def get_weather_analysis(lat: float, lon: float, date: str) -> Optional[Dict[str
 
             save_cache("weather", key, {"result": cleaned})
             return cleaned
-        else:
-            # No fallbacks - if it fails with standard parameters, cache and return None
-            save_cache("weather", key, {"result": None})
-            return None
 
-    except Exception:
+        # No fallbacks - if it fails with standard parameters, cache and return None
+        save_cache("weather", key, {"result": None})
+        return None
+
+    except (ConnectionError, TimeoutError, ValueError, KeyError) as e:
         # No retries with different parameters - if it fails, cache and return None
+        # Only catch expected errors from weather API calls
         save_cache("weather", key, {"result": None})
         return None
 
