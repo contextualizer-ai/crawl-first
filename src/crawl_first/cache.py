@@ -20,8 +20,8 @@ from .logging_utils import (
 T = TypeVar("T")
 
 # Global cache directory
-CACHE_DIR = Path(".cache")
-FULL_TEXT_DIR = Path(".cache/full_text_files")
+CACHE_DIR = Path("cache")
+FULL_TEXT_DIR = Path("cache/full_text_files")
 
 
 def cache_key(data: Dict[str, Any]) -> str:

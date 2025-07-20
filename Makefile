@@ -81,9 +81,9 @@ clean:
 # Squeaky clean - removes all generated files including data and test results
 squeaky-clean: clean
 	@echo "🧽 Squeaky clean - removing all generated files..."
-	rm -rf .cache/
+	rm -rf cache/
 	rm -rf data/
-	rm -rf crawl_first/logs/
+	rm -rf logs/
 	@echo "✨ Squeaky clean complete - all generated files removed"
 
 # Quick development cycle - format, lint, and test
@@ -196,15 +196,25 @@ define compress_dir
 	fi
 endef
 
-cache.tar.gz: .cache
+# Create archives directory
+archives:
+	@mkdir -p archives
+
+# Clean archives directory
+archives-clean:
+	@echo "🗑️  Cleaning archives directory..."
+	rm -rf archives/
+	@echo "✅ Archives cleaned"
+
+archives/cache.tar.gz: cache | archives
 	$(call compress_dir,$<,$@)
 
-data.tar.gz: data
+archives/data.tar.gz: data | archives
 	$(call compress_dir,$<,$@)
 
-logs.tar.gz: crawl_first/logs
+archives/logs.tar.gz: logs | archives
 	$(call compress_dir,$<,$@)
 
 # Compress all archives
-compress-all: cache.tar.gz data.tar.gz logs.tar.gz
+compress-all: archives/cache.tar.gz archives/data.tar.gz archives/logs.tar.gz
 	@echo "📦 All directories compressed: $^"
