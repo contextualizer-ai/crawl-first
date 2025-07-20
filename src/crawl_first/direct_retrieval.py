@@ -148,11 +148,12 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
                             logger.warning(
                                 f"File size exceeds the maximum limit of {MAX_FILE_SIZE} bytes. Aborting download."
                             )
+                            file_path.unlink(missing_ok=True)  # Remove partially downloaded file
                             return None
-                        f.write(chunk)
-        finally:
-            if total_downloaded > MAX_FILE_SIZE:
-                file_path.unlink(missing_ok=True)  # Remove partially downloaded file
+        except Exception as e:
+            logger.error(f"An error occurred during file download: {e}")
+            file_path.unlink(missing_ok=True)  # Ensure cleanup on unexpected errors
+            raise
 
         file_size = file_path.stat().st_size
         logger.info(
