@@ -65,6 +65,9 @@ TRUSTED_DOMAINS = {
     "api.crossref.org",
 }
 
+# Default headers for HTTP requests
+DEFAULT_HEADERS = {"User-Agent": USER_AGENT}
+
 # API endpoints from artl-mcp and enhanced sources
 BIOC_URL = "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/{pmid}/ascii"
 PUBMED_EUTILS_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}&retmode=xml"
@@ -139,7 +142,7 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
             return str(file_path.relative_to(Path.cwd()))
 
         # Download the file with User-Agent header
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(download_url, timeout=30, stream=True, headers=headers)
         response.raise_for_status()
 
@@ -154,8 +157,11 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
                             logger.warning(
                                 f"File size exceeds the maximum limit of {MAX_FILE_SIZE} bytes. Aborting download."
                             )
-                            file_path.unlink(missing_ok=True)  # Remove partially downloaded file
+                            file_path.unlink(
+                                missing_ok=True
+                            )  # Remove partially downloaded file
                             return None
+                        f.write(chunk)
         except Exception as e:
             logger.error(f"An error occurred during file download: {e}")
             file_path.unlink(missing_ok=True)  # Ensure cleanup on unexpected errors
@@ -234,7 +240,7 @@ def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[s
         api_url = (
             f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
         )
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(api_url, timeout=timeout, headers=headers)
         response.raise_for_status()
         data = response.json()
@@ -272,7 +278,7 @@ def pmid_to_doi(pmid: str) -> Optional[str]:
             pmid = pmid.split(":")[1]
 
         url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}&retmode=json"
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(url, timeout=10, headers=headers)
         response.raise_for_status()
         data = response.json()
@@ -306,7 +312,7 @@ def get_pmid_from_pmcid(pmcid: str) -> Optional[str]:
 
         url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
         params = {"db": "pmc", "id": pmcid.replace("PMC", ""), "retmode": "json"}
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
 
         response = requests.get(url, params=params, timeout=10, headers=headers)
         response.raise_for_status()
@@ -334,7 +340,7 @@ def get_unpaywall_info(doi: str, email: str) -> Optional[Dict[str, Any]]:
     """Get Unpaywall information with proper email handling."""
     try:
         base_url = f"https://api.unpaywall.org/v2/{doi}"
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(
             f"{base_url}?email={email}", timeout=10, headers=headers
         )
@@ -351,7 +357,7 @@ def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
     try:
         base_url = "https://api.crossref.org/works/"
         headers = {
-            "User-Agent": "crawl-first/1.0",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         }
         response = requests.get(f"{base_url}{doi}", headers=headers, timeout=10)
@@ -380,7 +386,7 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
         if ":" in pmid:
             pmid = pmid.split(":")[1]
 
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(BIOC_URL.format(pmid=pmid), timeout=10, headers=headers)
 
         if response.status_code != 200:
@@ -419,7 +425,7 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
         if ":" in pmid:
             pmid = pmid.split(":")[1]
 
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(
             EFETCH_URL.format(pmid=pmid), timeout=10, headers=headers
         )
@@ -460,7 +466,7 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
     """Download PDF content from URL with basic validation."""
     try:
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(pdf_url, timeout=30, stream=True, headers=headers)
         response.raise_for_status()
 
@@ -597,7 +603,7 @@ def get_europe_pmc_full_text_html(pmcid: str) -> Optional[str]:
             pmcid = f"PMC{pmcid}"
 
         url = EUROPE_PMC_HTML_URL.format(pmcid=pmcid)
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
@@ -641,7 +647,7 @@ def get_europe_pmc_full_text_xml(pmcid: str) -> Optional[str]:
             pmcid = f"PMC{pmcid}"
 
         url = EUROPE_PMC_XML_URL.format(pmcid=pmcid)
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
@@ -684,7 +690,7 @@ def get_pmc_efetch_xml(pmcid: str) -> Optional[str]:
             pmcid = pmcid[3:]  # Remove PMC prefix for E-utilities
 
         url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id={pmcid}&rettype=xml"
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
@@ -744,7 +750,7 @@ def get_europe_pmc_supplementary_files(pmcid: str) -> Optional[List[Dict[str, An
     try:
         url = EUROPE_PMC_SUPP_URL.format(pmcid=pmcid)
         logger.debug(f"Requesting Europe PMC supplements URL: {url}")
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
 
         response = requests.get(url, timeout=10, headers=headers)
         logger.debug(
@@ -892,7 +898,7 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
         logger.debug(
             f"Checking PMC OA package availability with HEAD request for {pmcid}"
         )
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         head_response = requests.head(ftp_url, timeout=10, headers=headers)
         logger.debug(f"HEAD response status: {head_response.status_code} for {pmcid}")
 
@@ -905,7 +911,7 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
             return None
 
         logger.info(f"PMC OA package available, downloading from: {ftp_url}")
-        headers = {"User-Agent": USER_AGENT}
+        headers = DEFAULT_HEADERS
         response = requests.get(ftp_url, timeout=60, stream=True, headers=headers)
         response.raise_for_status()
 
