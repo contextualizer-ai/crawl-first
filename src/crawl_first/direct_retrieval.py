@@ -46,6 +46,12 @@ WINDOWS_RESERVED_FILENAMES = {
     "LPT1",
     "LPT2",
     "LPT3",
+    "LPT4",
+    "LPT5",
+    "LPT6",
+    "LPT7",
+    "LPT8",
+    "LPT9",
 }
 
 # Trusted domains for downloads
