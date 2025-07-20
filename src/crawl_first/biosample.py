@@ -286,6 +286,176 @@ def _get_landuse_dates_info(
     return None
 
 
+def _analyze_asserted_coordinates_robust(
+    asserted_lat: float,
+    asserted_lon: float,
+    date: Optional[str],
+    parsed_date: Optional[str],
+    search_radius: int,
+) -> Dict[str, Any]:
+    """Perform all analyses using asserted coordinates with fault tolerance."""
+    logger = logging.getLogger("crawl_first.biosample")
+    context = {"lat": asserted_lat, "lon": asserted_lon, "date": date}
+    
+    result = {
+        "data": {},
+        "errors": [],
+        "completed_sections": [],
+        "failed_sections": []
+    }
+
+    # Soil analysis
+    try:
+        with PerformanceTimer("soil_analysis", logger, context, logging.DEBUG):
+            soil_result = get_soil_analysis(asserted_lat, asserted_lon)
+            result["data"]["soil_from_asserted_coords"] = soil_result
+            result["completed_sections"].append("soil_analysis")
+            if soil_result.get("soil_type"):
+                logger.debug(f"Found soil type: {soil_result.get('soil_type')}")
+    except Exception as e:
+        error_msg = f"Soil analysis failed: {str(e)}"
+        logger.error(error_msg)
+        result["errors"].append(f"soil_analysis: {error_msg}")
+        result["failed_sections"].append("soil_analysis")
+
+    # Land cover analysis
+    if date:
+        try:
+            with PerformanceTimer("land_cover_analysis", logger, context, logging.DEBUG):
+                land_cover = get_land_cover_analysis(asserted_lat, asserted_lon, date)
+                result["data"]["land_cover_from_asserted_coords"] = land_cover
+                result["completed_sections"].append("land_cover_analysis")
+                logger.debug(f"Completed land cover analysis for date {date}")
+        except Exception as e:
+            error_msg = f"Land cover analysis failed: {str(e)}"
+            logger.error(error_msg)
+            result["errors"].append(f"land_cover_analysis: {error_msg}")
+            result["failed_sections"].append("land_cover_analysis")
+
+        # Available landuse dates
+        if parsed_date:
+            try:
+                with PerformanceTimer("landuse_dates", logger, context, logging.DEBUG):
+                    landuse_dates_info = _get_landuse_dates_info(
+                        asserted_lat, asserted_lon, parsed_date
+                    )
+                    if landuse_dates_info:
+                        result["data"]["landuse_dates_from_asserted_coords"] = landuse_dates_info
+                        result["completed_sections"].append("landuse_dates")
+                        closest = landuse_dates_info.get("closest_available_date")
+                        logger.debug(
+                            f"Found closest landuse date: {closest} (target: {parsed_date})"
+                        )
+            except Exception as e:
+                error_msg = f"Landuse dates analysis failed: {str(e)}"
+                logger.error(error_msg)
+                result["errors"].append(f"landuse_dates: {error_msg}")
+                result["failed_sections"].append("landuse_dates")
+
+        # Weather analysis
+        try:
+            with PerformanceTimer("weather_analysis", logger, context, logging.DEBUG):
+                weather = get_weather_analysis(asserted_lat, asserted_lon, date)
+                if weather:
+                    result["data"]["weather_from_asserted_coords"] = weather
+                    result["completed_sections"].append("weather_analysis")
+                    logger.debug(f"Retrieved weather data for {date}")
+                else:
+                    logger.debug(f"No weather data available for {date}")
+                    result["completed_sections"].append("weather_analysis")  # No data is not a failure
+        except Exception as e:
+            error_msg = f"Weather analysis failed: {str(e)}"
+            logger.error(error_msg)
+            result["errors"].append(f"weather_analysis: {error_msg}")
+            result["failed_sections"].append("weather_analysis")
+
+    # Geospatial analysis - this is where the original failures occurred
+    try:
+        with PerformanceTimer(
+            "geospatial_analysis",
+            logger,
+            {**context, "radius": search_radius},
+            logging.DEBUG,
+        ):
+            geospatial_asserted = get_geospatial_analysis(
+                asserted_lat, asserted_lon, radius=search_radius
+            )
+            result["data"]["geospatial_from_asserted_coords"] = geospatial_asserted
+            result["completed_sections"].append("geospatial_analysis")
+            
+            elevation = geospatial_asserted.get("elevation", {}).get("meters")
+            features = geospatial_asserted.get("environmental_summary", {}).get(
+                "total_environmental_features", 0
+            )
+            logger.debug(
+                f"Geospatial analysis: elevation={elevation}m, {features} environmental features"
+            )
+    except Exception as e:
+        error_msg = f"Geospatial analysis failed: {str(e)}"
+        logger.error(error_msg)
+        result["errors"].append(f"geospatial_analysis: {error_msg}")
+        result["failed_sections"].append("geospatial_analysis")
+
+    return result
+
+
+def _create_coordinate_sources_robust(
+    asserted_lat: Optional[float],
+    asserted_lon: Optional[float],
+    location_name: Optional[str],
+    full_biosample: Optional[Dict[str, Any]],
+    inferred: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """Create comprehensive coordinate sources information with fault tolerance."""
+    try:
+        return _create_coordinate_sources(asserted_lat, asserted_lon, location_name, full_biosample or {}, inferred)
+    except Exception as e:
+        logger = logging.getLogger("crawl_first.biosample")
+        logger.error(f"Failed to create coordinate sources: {str(e)}")
+        return None
+
+
+def _process_publication_analysis_robust(
+    biosample_id: str, email: str
+) -> Dict[str, Any]:
+    """Process publication analysis with fault tolerance and literature retrieval."""
+    logger = logging.getLogger("crawl_first.biosample")
+    
+    result = {
+        "data": {},
+        "errors": [],
+        "completed_sections": [],
+        "failed_sections": []
+    }
+    
+    try:
+        publications = get_publication_analysis(biosample_id, email)
+        if publications:
+            # Extract study_info and all_dois to be siblings
+            study_info = publications.pop("study_info", None)
+            all_dois = publications.pop("_all_dois", None)
+
+            if study_info:
+                result["data"]["study_info"] = study_info
+            if all_dois:
+                result["data"]["all_dois"] = all_dois
+            result["data"]["publication_analysis"] = publications
+            result["completed_sections"].append("publication_analysis")
+            
+            logger.debug(f"Publication analysis completed with {len(publications)} sections")
+        else:
+            logger.debug("No publication analysis results")
+            result["completed_sections"].append("publication_analysis")  # No data is not a failure
+            
+    except Exception as e:
+        error_msg = f"Publication analysis failed: {str(e)}"
+        logger.error(error_msg)
+        result["errors"].append(f"publication_analysis: {error_msg}")
+        result["failed_sections"].append("publication_analysis")
+    
+    return result
+
+
 def _process_geocoded_coordinates(location_name: str) -> Optional[Dict[str, Any]]:
     """Process geocoded coordinates from location name."""
     geocode_result = geocode_location_name(location_name.strip())
@@ -427,106 +597,174 @@ def _process_publication_analysis(
 @timed_operation("biosample_analysis", include_args=True)
 def analyze_biosample(
     biosample_id: str, email: str, search_radius: int = 1000
-) -> Optional[Dict[str, Any]]:
-    """Perform comprehensive analysis of a biosample."""
+) -> Dict[str, Any]:
+    """Perform comprehensive analysis of a biosample with robust error handling.
+    
+    Returns a dictionary with whatever data could be successfully retrieved,
+    never returns None to ensure no data is lost.
+    """
     logger = logging.getLogger("crawl_first.biosample")
     context = {"biosample_id": biosample_id, "search_radius": search_radius}
 
-    with PerformanceTimer("complete_biosample_analysis", logger, context, logging.INFO):
-        try:
-            logger.info(f"Starting analysis for biosample {biosample_id}")
+    # Initialize result structure - always return something
+    result = {
+        "asserted": None,
+        "inferred": {},
+        "analysis_errors": [],
+        "analysis_metadata": {
+            "biosample_id": biosample_id,
+            "search_radius": search_radius,
+            "completed_sections": [],
+            "failed_sections": []
+        }
+    }
 
-            # Get complete biosample data
+    with PerformanceTimer("complete_biosample_analysis", logger, context, logging.INFO):
+        logger.info(f"Starting analysis for biosample {biosample_id}")
+
+        # Section 1: Get complete biosample data (critical - if this fails, still return what we have)
+        try:
             with PerformanceTimer(
                 "fetch_biosample_data", logger, context, logging.DEBUG
             ):
                 full_biosample = cached_fetch_nmdc_entity_by_id(biosample_id)
-                if not full_biosample:
-                    logger.warning(f"No biosample data found for {biosample_id}")
-                    return None
+                if full_biosample:
+                    result["asserted"] = full_biosample
+                    result["analysis_metadata"]["completed_sections"].append("nmdc_data_fetch")
+                    logger.debug(
+                        f"Retrieved biosample data with {len(full_biosample)} fields"
+                    )
+                else:
+                    error_msg = f"No biosample data found for {biosample_id}"
+                    logger.warning(error_msg)
+                    result["analysis_errors"].append(f"nmdc_data_fetch: {error_msg}")
+                    result["analysis_metadata"]["failed_sections"].append("nmdc_data_fetch")
+        except Exception as e:
+            error_msg = f"Failed to fetch NMDC data: {str(e)}"
+            logger.error(error_msg)
+            result["analysis_errors"].append(f"nmdc_data_fetch: {error_msg}")
+            result["analysis_metadata"]["failed_sections"].append("nmdc_data_fetch")
 
-                logger.debug(
-                    f"Retrieved biosample data with {len(full_biosample)} fields"
-                )
+        # Section 2: Extract coordinates and date information
+        coords_and_date = None
+        try:
+            if result["asserted"]:
+                with PerformanceTimer(
+                    "extract_coordinates_date", logger, context, logging.DEBUG
+                ):
+                    coords_and_date = _extract_biosample_coordinates_and_date(
+                        result["asserted"]
+                    )
+                    result["analysis_metadata"]["completed_sections"].append("coordinate_extraction")
+                    
+                    logger.info(
+                        f"Extracted coordinates: lat={coords_and_date.asserted_lat}, lon={coords_and_date.asserted_lon}, "
+                        f"location='{coords_and_date.location_name}', date='{coords_and_date.date}' (parsed: {coords_and_date.parsed_date})"
+                    )
+        except Exception as e:
+            error_msg = f"Failed to extract coordinates/date: {str(e)}"
+            logger.error(error_msg)
+            result["analysis_errors"].append(f"coordinate_extraction: {error_msg}")
+            result["analysis_metadata"]["failed_sections"].append("coordinate_extraction")
 
-            # Extract coordinates and date information
-            with PerformanceTimer(
-                "extract_coordinates_date", logger, context, logging.DEBUG
-            ):
-                coords_and_date = _extract_biosample_coordinates_and_date(
-                    full_biosample
-                )
-                asserted_lat = coords_and_date.asserted_lat
-                asserted_lon = coords_and_date.asserted_lon
-                location_name = coords_and_date.location_name
-                date = coords_and_date.date
-                parsed_date = coords_and_date.parsed_date
-
-                logger.info(
-                    f"Extracted coordinates: lat={asserted_lat}, lon={asserted_lon}, "
-                    f"location='{location_name}', date='{date}' (parsed: {parsed_date})"
-                )
-
-            inferred = {}
-
-            # Analyze using asserted coordinates
-            if asserted_lat is not None and asserted_lon is not None:
-                logger.info(
-                    f"Running spatial analyses for coordinates ({asserted_lat}, {asserted_lon})"
-                )
+        # Section 3: Spatial analyses (fault-tolerant)
+        if coords_and_date and coords_and_date.asserted_lat is not None and coords_and_date.asserted_lon is not None:
+            logger.info(
+                f"Running spatial analyses for coordinates ({coords_and_date.asserted_lat}, {coords_and_date.asserted_lon})"
+            )
+            try:
                 with PerformanceTimer(
                     "spatial_analyses",
                     logger,
-                    {**context, "lat": asserted_lat, "lon": asserted_lon},
+                    {**context, "lat": coords_and_date.asserted_lat, "lon": coords_and_date.asserted_lon},
                     logging.INFO,
                 ):
-                    asserted_analyses = _analyze_asserted_coordinates(
-                        asserted_lat, asserted_lon, date, parsed_date, search_radius
+                    asserted_analyses = _analyze_asserted_coordinates_robust(
+                        coords_and_date.asserted_lat, coords_and_date.asserted_lon, 
+                        coords_and_date.date, coords_and_date.parsed_date, search_radius
                     )
-                    inferred.update(asserted_analyses)
+                    result["inferred"].update(asserted_analyses["data"])
+                    result["analysis_errors"].extend(asserted_analyses["errors"])
+                    result["analysis_metadata"]["completed_sections"].extend(asserted_analyses["completed_sections"])
+                    result["analysis_metadata"]["failed_sections"].extend(asserted_analyses["failed_sections"])
+                    
                     logger.info(
-                        f"Completed spatial analyses: {list(asserted_analyses.keys())}"
+                        f"Completed spatial analyses: {asserted_analyses['completed_sections']}"
                     )
-            else:
-                logger.warning(
-                    f"No coordinates available for {biosample_id} - skipping spatial analysis"
-                )
+            except Exception as e:
+                error_msg = f"Spatial analyses framework failed: {str(e)}"
+                logger.error(error_msg)
+                result["analysis_errors"].append(f"spatial_analyses: {error_msg}")
+                result["analysis_metadata"]["failed_sections"].append("spatial_analyses")
+        else:
+            logger.warning(
+                f"No coordinates available for {biosample_id} - skipping spatial analysis"
+            )
+            result["analysis_metadata"]["failed_sections"].append("spatial_analyses_no_coordinates")
 
-            # Create coordinate sources summary
-            with PerformanceTimer("coordinate_sources", logger, context, logging.DEBUG):
-                coord_sources = _create_coordinate_sources(
-                    asserted_lat, asserted_lon, location_name, full_biosample, inferred
-                )
-                if coord_sources:
-                    inferred["coordinate_sources"] = coord_sources
-                    logger.debug(
-                        f"Created coordinate sources with {len(coord_sources)} entries"
+        # Section 4: Coordinate sources summary (fault-tolerant)
+        try:
+            if coords_and_date:
+                with PerformanceTimer("coordinate_sources", logger, context, logging.DEBUG):
+                    coord_sources = _create_coordinate_sources_robust(
+                        coords_and_date.asserted_lat, coords_and_date.asserted_lon, 
+                        coords_and_date.location_name, result["asserted"], result["inferred"]
                     )
+                    if coord_sources:
+                        result["inferred"]["coordinate_sources"] = coord_sources
+                        result["analysis_metadata"]["completed_sections"].append("coordinate_sources")
+                        logger.debug(
+                            f"Created coordinate sources with {len(coord_sources)} entries"
+                        )
+        except Exception as e:
+            error_msg = f"Failed to create coordinate sources: {str(e)}"
+            logger.error(error_msg)
+            result["analysis_errors"].append(f"coordinate_sources: {error_msg}")
+            result["analysis_metadata"]["failed_sections"].append("coordinate_sources")
 
-            # Publication analysis
+        # Section 5: Publication analysis (fault-tolerant)
+        try:
             with PerformanceTimer(
                 "publication_analysis", logger, context, logging.INFO
             ):
-                _process_publication_analysis(biosample_id, email, inferred)
-                pub_analysis = inferred.get("publication_analysis", {})
-                if pub_analysis:
+                pub_result = _process_publication_analysis_robust(biosample_id, email)
+                if pub_result["data"]:
+                    result["inferred"].update(pub_result["data"])
+                    result["analysis_metadata"]["completed_sections"].append("publication_analysis")
+                    
+                    pub_analysis = result["inferred"].get("publication_analysis", {})
                     logger.info(
                         f"Completed publication analysis with {len(pub_analysis)} sections"
                     )
                 else:
                     logger.debug("No publication analysis results")
-
-            log_memory_usage(logger, f"biosample analysis for {biosample_id}")
-
-            logger.info(
-                f"Successfully completed analysis for {biosample_id} with "
-                f"{len(inferred)} inferred data sections"
-            )
-
-            return {"asserted": full_biosample, "inferred": inferred}
-
+                
+                if pub_result["errors"]:
+                    result["analysis_errors"].extend(pub_result["errors"])
+                    result["analysis_metadata"]["failed_sections"].append("publication_analysis_partial")
         except Exception as e:
-            log_enhanced_error(
-                logger, e, f"analyzing biosample {biosample_id}", context
+            error_msg = f"Publication analysis framework failed: {str(e)}"
+            logger.error(error_msg)
+            result["analysis_errors"].append(f"publication_analysis: {error_msg}")
+            result["analysis_metadata"]["failed_sections"].append("publication_analysis")
+
+        log_memory_usage(logger, f"biosample analysis for {biosample_id}")
+
+        # Final summary
+        completed_count = len(result["analysis_metadata"]["completed_sections"])
+        failed_count = len(result["analysis_metadata"]["failed_sections"])
+        total_errors = len(result["analysis_errors"])
+        
+        if failed_count == 0 and total_errors == 0:
+            logger.info(
+                f"Successfully completed all analysis for {biosample_id} with "
+                f"{len(result['inferred'])} inferred data sections"
             )
-            return None
+        else:
+            logger.warning(
+                f"Completed analysis for {biosample_id} with partial success: "
+                f"{completed_count} sections completed, {failed_count} sections failed, "
+                f"{total_errors} total errors, {len(result['inferred'])} inferred data sections"
+            )
+
+        return result

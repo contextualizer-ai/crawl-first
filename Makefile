@@ -166,7 +166,7 @@ data/outputs/crawl-first/test-results/: data/inputs/biosample-ids.txt
 	mkdir -p $@
 	uv run crawl-first \
 		--input-file data/inputs/biosample-ids.txt \
-		--sample-size 10 \
+		--sample-size 1500 \
 		--email MAM@lbl.gov \
 		--output-dir $@ \
 		--verbose

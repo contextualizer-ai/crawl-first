@@ -126,7 +126,14 @@ def main(
         logger.info(f"Processing {i+1}/{len(biosample_ids)}: {bid}")
 
         result = analyze_biosample(bid, email, search_radius)
-        if result:
+        
+        # Check if we got any useful data (NMDC data or inferred data)
+        has_data = (
+            result.get("asserted") is not None or 
+            len(result.get("inferred", {})) > 0
+        )
+        
+        if has_data:
             if output_dir:
                 # Write individual YAML file immediately
                 filename = bid.replace(":", "_") + ".yaml"
@@ -142,6 +149,11 @@ def main(
                             indent=2,
                         )
                     logger.debug(f"Saved: {file_path}")
+                    
+                    # Log any errors that occurred during analysis
+                    errors = result.get("analysis_errors", [])
+                    if errors:
+                        logger.warning(f"Partial analysis for {bid}: {len(errors)} errors occurred")
                 except Exception as e:
                     logger.error(f"Error saving {file_path}: {e}")
                     failed.append(bid)
@@ -149,8 +161,13 @@ def main(
             else:
                 # Collect for batch output (single file mode)
                 results[bid] = result
+                
+                # Log any errors that occurred during analysis
+                errors = result.get("analysis_errors", [])
+                if errors:
+                    logger.warning(f"Partial analysis for {bid}: {len(errors)} errors occurred")
         else:
-            logger.warning(f"Failed to analyze biosample: {bid}")
+            logger.warning(f"No useful data retrieved for biosample: {bid}")
             failed.append(bid)
 
     # Report summary
@@ -186,10 +203,25 @@ def main(
         # Simple display for single biosample
         if len(results) == 1:
             result = list(results.values())[0]
-            asserted = result["asserted"]
-            inferred = result["inferred"]
+            asserted = result.get("asserted")
+            inferred = result.get("inferred", {})
+            metadata = result.get("analysis_metadata", {})
+            errors = result.get("analysis_errors", [])
 
-            logger.info(f"Biosample: {asserted.get('id')}")
+            biosample_id = metadata.get("biosample_id", "unknown")
+            logger.info(f"Biosample: {biosample_id}")
+            
+            if asserted:
+                logger.info(f"NMDC data: {len(asserted)} fields retrieved")
+            else:
+                logger.warning("No NMDC data retrieved")
+            
+            if errors:
+                logger.warning(f"Analysis errors: {len(errors)}")
+                
+            completed_sections = metadata.get("completed_sections", [])
+            failed_sections = metadata.get("failed_sections", [])
+            logger.info(f"Analysis sections: {len(completed_sections)} completed, {len(failed_sections)} failed")
 
             # Show coordinate sources
             coord_sources = inferred.get("coordinate_sources", {})
