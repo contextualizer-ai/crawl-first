@@ -23,6 +23,42 @@ from .cache import cache_key, get_cache, save_cache
 
 logger = logging.getLogger(__name__)
 
+# Module-level constants
+USER_AGENT = "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
+MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
+CHUNK_SIZE = 8192
+
+# Windows reserved filenames
+WINDOWS_RESERVED_FILENAMES = {
+    "CON",
+    "PRN",
+    "AUX",
+    "NUL",
+    "COM1",
+    "COM2",
+    "COM3",
+    "COM4",
+    "COM5",
+    "COM6",
+    "COM7",
+    "COM8",
+    "COM9",
+    "LPT1",
+    "LPT2",
+    "LPT3",
+}
+
+# Trusted domains for downloads
+TRUSTED_DOMAINS = {
+    "www.ebi.ac.uk",
+    "europepmc.org",
+    "ftp.ncbi.nlm.nih.gov",
+    "www.ncbi.nlm.nih.gov",
+    "eutils.ncbi.nlm.nih.gov",
+    "api.unpaywall.org",
+    "api.crossref.org",
+}
+
 # API endpoints from artl-mcp and enhanced sources
 BIOC_URL = "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/{pmid}/ascii"
 PUBMED_EUTILS_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}&retmode=xml"
@@ -67,16 +103,7 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
     # Validate the download URL to prevent SSRF vulnerabilities
     try:
         parsed_url = urlparse(download_url)
-        trusted_domains = {
-            "www.ebi.ac.uk",
-            "europepmc.org",
-            "ftp.ncbi.nlm.nih.gov",
-            "www.ncbi.nlm.nih.gov",
-            "eutils.ncbi.nlm.nih.gov",
-            "api.unpaywall.org",
-            "api.crossref.org",
-        }
-        if parsed_url.netloc not in trusted_domains:
+        if parsed_url.netloc not in TRUSTED_DOMAINS:
             logger.warning(f"Untrusted domain in download URL: {parsed_url.netloc}")
             return None
     except Exception as e:
@@ -92,24 +119,7 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
         safe_filename = "".join(
             c if c.isalnum() or c in "._-" else "_" for c in safe_filename
         )
-        if not safe_filename or safe_filename in {
-            "CON",
-            "PRN",
-            "AUX",
-            "NUL",
-            "COM1",
-            "COM2",
-            "COM3",
-            "COM4",
-            "COM5",
-            "COM6",
-            "COM7",
-            "COM8",
-            "COM9",
-            "LPT1",
-            "LPT2",
-            "LPT3",
-        }:
+        if not safe_filename or safe_filename in WINDOWS_RESERVED_FILENAMES:
             url_hash = hashlib.md5(download_url.encode()).hexdigest()[:8]
             safe_filename = f"supplement_{pmcid}_{url_hash}"
 
@@ -123,29 +133,26 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
             return str(file_path.relative_to(Path.cwd()))
 
         # Download the file with User-Agent header
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(download_url, timeout=30, stream=True, headers=headers)
         response.raise_for_status()
 
         # Save to file with size limit to prevent disk space exhaustion
-        MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
         total_downloaded = 0
-        with open(file_path, "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:  # Filter out keep-alive chunks
-                    total_downloaded += len(chunk)
-                    if total_downloaded > MAX_FILE_SIZE:
-                        logger.warning(
-                            f"File size exceeds the maximum limit of {MAX_FILE_SIZE} bytes. Aborting download."
-                        )
-                        f.close()
-                        file_path.unlink(
-                            missing_ok=True
-                        )  # Remove partially downloaded file
-                        return None
-                    f.write(chunk)
+        try:
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
+                    if chunk:  # Filter out keep-alive chunks
+                        total_downloaded += len(chunk)
+                        if total_downloaded > MAX_FILE_SIZE:
+                            logger.warning(
+                                f"File size exceeds the maximum limit of {MAX_FILE_SIZE} bytes. Aborting download."
+                            )
+                            return None
+                        f.write(chunk)
+        finally:
+            if total_downloaded > MAX_FILE_SIZE:
+                file_path.unlink(missing_ok=True)  # Remove partially downloaded file
 
         file_size = file_path.stat().st_size
         logger.info(
@@ -220,9 +227,7 @@ def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[s
         api_url = (
             f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
         )
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(api_url, timeout=timeout, headers=headers)
         response.raise_for_status()
         data = response.json()
@@ -260,9 +265,7 @@ def pmid_to_doi(pmid: str) -> Optional[str]:
             pmid = pmid.split(":")[1]
 
         url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}&retmode=json"
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(url, timeout=10, headers=headers)
         response.raise_for_status()
         data = response.json()
@@ -296,9 +299,7 @@ def get_pmid_from_pmcid(pmcid: str) -> Optional[str]:
 
         url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
         params = {"db": "pmc", "id": pmcid.replace("PMC", ""), "retmode": "json"}
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
 
         response = requests.get(url, params=params, timeout=10, headers=headers)
         response.raise_for_status()
@@ -326,9 +327,7 @@ def get_unpaywall_info(doi: str, email: str) -> Optional[Dict[str, Any]]:
     """Get Unpaywall information with proper email handling."""
     try:
         base_url = f"https://api.unpaywall.org/v2/{doi}"
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(
             f"{base_url}?email={email}", timeout=10, headers=headers
         )
@@ -374,9 +373,7 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
         if ":" in pmid:
             pmid = pmid.split(":")[1]
 
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(BIOC_URL.format(pmid=pmid), timeout=10, headers=headers)
 
         if response.status_code != 200:
@@ -415,9 +412,7 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
         if ":" in pmid:
             pmid = pmid.split(":")[1]
 
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(
             EFETCH_URL.format(pmid=pmid), timeout=10, headers=headers
         )
@@ -458,9 +453,7 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
     """Download PDF content from URL with basic validation."""
     try:
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(pdf_url, timeout=30, stream=True, headers=headers)
         response.raise_for_status()
 
@@ -597,9 +590,7 @@ def get_europe_pmc_full_text_html(pmcid: str) -> Optional[str]:
             pmcid = f"PMC{pmcid}"
 
         url = EUROPE_PMC_HTML_URL.format(pmcid=pmcid)
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
@@ -643,9 +634,7 @@ def get_europe_pmc_full_text_xml(pmcid: str) -> Optional[str]:
             pmcid = f"PMC{pmcid}"
 
         url = EUROPE_PMC_XML_URL.format(pmcid=pmcid)
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
@@ -688,9 +677,7 @@ def get_pmc_efetch_xml(pmcid: str) -> Optional[str]:
             pmcid = pmcid[3:]  # Remove PMC prefix for E-utilities
 
         url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id={pmcid}&rettype=xml"
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
@@ -750,9 +737,7 @@ def get_europe_pmc_supplementary_files(pmcid: str) -> Optional[List[Dict[str, An
     try:
         url = EUROPE_PMC_SUPP_URL.format(pmcid=pmcid)
         logger.debug(f"Requesting Europe PMC supplements URL: {url}")
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
 
         response = requests.get(url, timeout=10, headers=headers)
         logger.debug(
@@ -900,9 +885,7 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
         logger.debug(
             f"Checking PMC OA package availability with HEAD request for {pmcid}"
         )
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         head_response = requests.head(ftp_url, timeout=10, headers=headers)
         logger.debug(f"HEAD response status: {head_response.status_code} for {pmcid}")
 
@@ -915,9 +898,7 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
             return None
 
         logger.info(f"PMC OA package available, downloading from: {ftp_url}")
-        headers = {
-            "User-Agent": "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
-        }
+        headers = {"User-Agent": USER_AGENT}
         response = requests.get(ftp_url, timeout=60, stream=True, headers=headers)
         response.raise_for_status()
 
