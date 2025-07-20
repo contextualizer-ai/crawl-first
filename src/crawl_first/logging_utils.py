@@ -20,8 +20,10 @@ import psutil
 # Type variables for decorator
 F = TypeVar("F", bound=Callable[..., Any])
 
-# Global log directory
-LOG_DIR = Path(os.getenv("LOG_DIR", Path(__file__).resolve().parent / "logs"))
+# Global log directory - project root
+LOG_DIR = Path(
+    os.getenv("LOG_DIR", Path(__file__).resolve().parent.parent.parent / "logs")
+)
 
 # Constants for consistent string handling
 CACHE_KEY_SLICE_LENGTH = 50

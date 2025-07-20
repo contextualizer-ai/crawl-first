@@ -19,8 +19,8 @@ from .logging_utils import (
 
 T = TypeVar("T")
 
-# Global cache directory
-CACHE_DIR = Path(__file__).parent / "cache"
+# Global cache directory - project root
+CACHE_DIR = Path(__file__).resolve().parent.parent.parent / "cache"
 FULL_TEXT_DIR = CACHE_DIR / "full_text_files"
 
 

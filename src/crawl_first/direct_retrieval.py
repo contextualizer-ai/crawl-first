@@ -89,8 +89,9 @@ DOI_PATTERN = r"/(10\.\d{4,}/[\w\-.]+)"
 
 def create_supplementary_files_directory() -> Path:
     """Create and return the supplementary files directory path."""
-    script_dir = Path(__file__).resolve().parent
-    supp_dir = script_dir / "cache" / "supplementary_files"
+    # Project root cache directory
+    project_root = Path(__file__).resolve().parent.parent.parent
+    supp_dir = project_root / "cache" / "supplementary_files"
     supp_dir.mkdir(parents=True, exist_ok=True)
     return supp_dir
 
