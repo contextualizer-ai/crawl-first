@@ -19,9 +19,9 @@ from .logging_utils import (
 
 T = TypeVar("T")
 
-# Global cache directory
-CACHE_DIR = Path(".cache")
-FULL_TEXT_DIR = Path(".cache/full_text_files")
+# Global cache directory - project root
+CACHE_DIR = Path(__file__).resolve().parent.parent.parent / "cache"
+FULL_TEXT_DIR = CACHE_DIR / "full_text_files"
 
 
 def cache_key(data: Dict[str, Any]) -> str:
