@@ -163,7 +163,10 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
                             return None
                         f.write(chunk)
         except Exception as e:
-            logger.error(f"An error occurred during file download: {e}")
+            logger.error(
+                f"An error occurred during file download: {e}. "
+                f"Context: file_path={file_path}, download_url={download_url}, pmcid={pmcid}"
+            )
             file_path.unlink(missing_ok=True)  # Ensure cleanup on unexpected errors
             raise
 
