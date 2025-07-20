@@ -55,8 +55,8 @@ def generate_pdf_filename(identifiers: Dict[str, str]) -> str:
         # Fallback to hash if no identifiers
         filename_parts = [cache_key(identifiers)]
 
-    # Ensure filename_parts is not empty or contains only empty strings
-    if not any(filename_parts):
+    # Ensure filename_parts is not empty and does not contain only empty strings
+    if not filename_parts or all(not part for part in filename_parts):
         filename_parts = ["default"]
 
     filename = (
