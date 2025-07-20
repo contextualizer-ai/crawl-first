@@ -129,7 +129,7 @@ def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Option
             c if c.isalnum() or c in "._-" else "_" for c in safe_filename
         )
         if not safe_filename or safe_filename in WINDOWS_RESERVED_FILENAMES:
-            url_hash = hashlib.sha256(download_url.encode()).hexdigest()[:8]
+            url_hash = hashlib.sha256(download_url.encode()).hexdigest()[:16]
             safe_filename = f"supplement_{pmcid}_{url_hash}"
 
         # Add PMCID prefix to avoid conflicts
