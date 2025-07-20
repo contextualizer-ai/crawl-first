@@ -21,7 +21,7 @@ import psutil
 F = TypeVar("F", bound=Callable[..., Any])
 
 # Global log directory
-LOG_DIR = Path(os.getenv("LOG_DIR", "logs"))
+LOG_DIR = Path(os.getenv("LOG_DIR", Path(__file__).resolve().parent / "logs"))
 
 # Constants for consistent string handling
 CACHE_KEY_SLICE_LENGTH = 50
