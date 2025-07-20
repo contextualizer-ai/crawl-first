@@ -5,6 +5,7 @@ Implements direct API calls to bypass artl-mcp issues while maximizing text retr
 Based on patterns from artl-mcp but with proper email handling and error resilience.
 """
 
+import hashlib
 import json
 import logging
 import re
@@ -12,6 +13,7 @@ import tarfile
 import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -20,6 +22,51 @@ from bs4 import BeautifulSoup
 from .cache import cache_key, get_cache, save_cache
 
 logger = logging.getLogger(__name__)
+
+# Module-level constants
+USER_AGENT = "crawl-first/1.0 (+https://github.com/contextualizer-ai/crawl-first)"
+MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
+CHUNK_SIZE = 8192
+
+# Windows reserved filenames
+WINDOWS_RESERVED_FILENAMES = {
+    "CON",
+    "PRN",
+    "AUX",
+    "NUL",
+    "COM1",
+    "COM2",
+    "COM3",
+    "COM4",
+    "COM5",
+    "COM6",
+    "COM7",
+    "COM8",
+    "COM9",
+    "LPT1",
+    "LPT2",
+    "LPT3",
+    "LPT4",
+    "LPT5",
+    "LPT6",
+    "LPT7",
+    "LPT8",
+    "LPT9",
+}
+
+# Trusted domains for downloads
+TRUSTED_DOMAINS = {
+    "www.ebi.ac.uk",
+    "europepmc.org",
+    "ftp.ncbi.nlm.nih.gov",
+    "www.ncbi.nlm.nih.gov",
+    "eutils.ncbi.nlm.nih.gov",
+    "api.unpaywall.org",
+    "api.crossref.org",
+}
+
+# Default headers for HTTP requests
+DEFAULT_HEADERS = {"User-Agent": USER_AGENT}
 
 # API endpoints from artl-mcp and enhanced sources
 BIOC_URL = "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/{pmid}/ascii"
@@ -38,6 +85,140 @@ PMC_FTP_OA_URL = (
     "https://ftp.ncbi.nlm.nih.gov/pub/pmc/oa_package/{dir1}/{dir2}/{pmcid}.tar.gz"
 )
 DOI_PATTERN = r"/(10\.\d{4,}/[\w\-.]+)"
+
+
+def create_supplementary_files_directory() -> Path:
+    """Create and return the supplementary files directory path."""
+    supp_dir = Path(".cache/supplementary_files")
+    supp_dir.mkdir(parents=True, exist_ok=True)
+    return supp_dir
+
+
+def download_supplementary_file(file_info: Dict[str, Any], pmcid: str) -> Optional[str]:
+    """Download a supplementary file and return the local file path."""
+    logger.debug(
+        f"Downloading supplementary file: {file_info.get('filename', 'unknown')} for {pmcid}"
+    )
+
+    download_url = file_info.get("download_url", "")
+    filename = file_info.get("filename", "")
+
+    if not download_url or not filename:
+        logger.warning(
+            f"Missing download URL or filename for supplementary file: {file_info}"
+        )
+        return None
+
+    # Validate the download URL to prevent SSRF vulnerabilities
+    try:
+        parsed_url = urlparse(download_url)
+        if parsed_url.netloc not in TRUSTED_DOMAINS:
+            logger.warning(f"Untrusted domain in download URL: {parsed_url.netloc}")
+            return None
+    except Exception as e:
+        logger.warning(f"Invalid download URL format: {download_url} - {e}")
+        return None
+
+    try:
+        # Create supplementary files directory
+        supp_dir = create_supplementary_files_directory()
+
+        # Clean filename for filesystem safety using pathlib
+        safe_filename = Path(filename).name  # Extract the name part of the filename
+        safe_filename = "".join(
+            c if c.isalnum() or c in "._-" else "_" for c in safe_filename
+        )
+        if not safe_filename or safe_filename in WINDOWS_RESERVED_FILENAMES:
+            url_hash = hashlib.sha256(download_url.encode()).hexdigest()[:16]
+            safe_filename = f"supplement_{pmcid}_{url_hash}"
+
+        # Add PMCID prefix to avoid conflicts
+        final_filename = f"{pmcid}_{safe_filename}"
+        file_path = supp_dir / final_filename
+
+        # Skip if file already exists
+        if file_path.exists():
+            logger.debug(f"Supplementary file already exists: {file_path}")
+            return str(file_path.relative_to(Path.cwd()))
+
+        # Download the file with User-Agent header
+        headers = DEFAULT_HEADERS
+        response = requests.get(download_url, timeout=30, stream=True, headers=headers)
+        response.raise_for_status()
+
+        # Save to file with size limit to prevent disk space exhaustion
+        total_downloaded = 0
+        try:
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
+                    if chunk:  # Filter out keep-alive chunks
+                        total_downloaded += len(chunk)
+                        if total_downloaded > MAX_FILE_SIZE:
+                            logger.warning(
+                                f"File size exceeds the maximum limit of {MAX_FILE_SIZE} bytes. Aborting download."
+                            )
+                            file_path.unlink(
+                                missing_ok=True
+                            )  # Remove partially downloaded file
+                            return None
+                        f.write(chunk)
+        except Exception as e:
+            logger.error(
+                f"An error occurred during file download: {e}. "
+                f"Context: file_path={file_path}, download_url={download_url}, pmcid={pmcid}"
+            )
+            file_path.unlink(missing_ok=True)  # Ensure cleanup on unexpected errors
+            raise
+
+        file_size = file_path.stat().st_size
+        logger.info(
+            f"Downloaded supplementary file: {filename} ({file_size} bytes) to {file_path}"
+        )
+
+        # Return relative path
+        return str(file_path.relative_to(Path.cwd()))
+
+    except requests.RequestException as e:
+        logger.warning(f"Network error downloading supplementary file {filename}: {e}")
+        return None
+    except Exception as e:
+        logger.warning(f"Error downloading supplementary file {filename}: {e}")
+        return None
+
+
+def save_supplementary_files(
+    file_list: List[Dict[str, Any]], pmcid: str
+) -> List[Dict[str, Any]]:
+    """Download and save supplementary files, return updated file list with local paths."""
+    if not file_list:
+        return []
+
+    logger.info(
+        f"Starting download of {len(file_list)} supplementary files for {pmcid}"
+    )
+    updated_files = []
+
+    for file_info in file_list:
+        updated_file = file_info.copy()
+
+        # Download the file
+        local_path = download_supplementary_file(file_info, pmcid)
+        if local_path:
+            updated_file["local_path"] = local_path
+            updated_file["download_status"] = "success"
+        else:
+            updated_file["download_status"] = "failed"
+
+        updated_files.append(updated_file)
+
+    successful_downloads = len(
+        [f for f in updated_files if f.get("download_status") == "success"]
+    )
+    logger.info(
+        f"Downloaded {successful_downloads}/{len(file_list)} supplementary files for {pmcid}"
+    )
+
+    return updated_files
 
 
 def safe_get(element: Any, attr: str, default: str = "") -> str:
@@ -62,7 +243,8 @@ def _fetch_field_from_doi(doi: str, field: str, timeout: int = 10) -> Optional[s
         api_url = (
             f"https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids={doi}&format=json"
         )
-        response = requests.get(api_url, timeout=timeout)
+        headers = DEFAULT_HEADERS
+        response = requests.get(api_url, timeout=timeout, headers=headers)
         response.raise_for_status()
         data = response.json()
 
@@ -99,7 +281,8 @@ def pmid_to_doi(pmid: str) -> Optional[str]:
             pmid = pmid.split(":")[1]
 
         url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}&retmode=json"
-        response = requests.get(url, timeout=10)
+        headers = DEFAULT_HEADERS
+        response = requests.get(url, timeout=10, headers=headers)
         response.raise_for_status()
         data = response.json()
 
@@ -132,8 +315,9 @@ def get_pmid_from_pmcid(pmcid: str) -> Optional[str]:
 
         url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
         params = {"db": "pmc", "id": pmcid.replace("PMC", ""), "retmode": "json"}
+        headers = DEFAULT_HEADERS
 
-        response = requests.get(url, params=params, timeout=10)
+        response = requests.get(url, params=params, timeout=10, headers=headers)
         response.raise_for_status()
         data = response.json()
 
@@ -159,7 +343,10 @@ def get_unpaywall_info(doi: str, email: str) -> Optional[Dict[str, Any]]:
     """Get Unpaywall information with proper email handling."""
     try:
         base_url = f"https://api.unpaywall.org/v2/{doi}"
-        response = requests.get(f"{base_url}?email={email}", timeout=10)
+        headers = DEFAULT_HEADERS
+        response = requests.get(
+            f"{base_url}?email={email}", timeout=10, headers=headers
+        )
         response.raise_for_status()
         data = response.json()
         return data if isinstance(data, dict) else None
@@ -173,7 +360,7 @@ def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
     try:
         base_url = "https://api.crossref.org/works/"
         headers = {
-            "User-Agent": "crawl-first/1.0",
+            "User-Agent": USER_AGENT,
             "Accept": "application/json",
         }
         response = requests.get(f"{base_url}{doi}", headers=headers, timeout=10)
@@ -202,7 +389,8 @@ def get_bioc_xml_text(pmid: str) -> Optional[str]:
         if ":" in pmid:
             pmid = pmid.split(":")[1]
 
-        response = requests.get(BIOC_URL.format(pmid=pmid), timeout=10)
+        headers = DEFAULT_HEADERS
+        response = requests.get(BIOC_URL.format(pmid=pmid), timeout=10, headers=headers)
 
         if response.status_code != 200:
             return None
@@ -240,7 +428,10 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
         if ":" in pmid:
             pmid = pmid.split(":")[1]
 
-        response = requests.get(EFETCH_URL.format(pmid=pmid), timeout=10)
+        headers = DEFAULT_HEADERS
+        response = requests.get(
+            EFETCH_URL.format(pmid=pmid), timeout=10, headers=headers
+        )
 
         if response.status_code != 200:
             return None
@@ -278,7 +469,8 @@ def get_pubmed_abstract(pmid: str) -> Optional[str]:
 def download_pdf_from_url(pdf_url: str) -> Optional[bytes]:
     """Download PDF content from URL with basic validation."""
     try:
-        response = requests.get(pdf_url, timeout=30, stream=True)
+        headers = DEFAULT_HEADERS
+        response = requests.get(pdf_url, timeout=30, stream=True, headers=headers)
         response.raise_for_status()
 
         # Check if content appears to be PDF (flexible validation)
@@ -414,7 +606,8 @@ def get_europe_pmc_full_text_html(pmcid: str) -> Optional[str]:
             pmcid = f"PMC{pmcid}"
 
         url = EUROPE_PMC_HTML_URL.format(pmcid=pmcid)
-        response = requests.get(url, timeout=15)
+        headers = DEFAULT_HEADERS
+        response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
             logger.debug(
@@ -457,7 +650,8 @@ def get_europe_pmc_full_text_xml(pmcid: str) -> Optional[str]:
             pmcid = f"PMC{pmcid}"
 
         url = EUROPE_PMC_XML_URL.format(pmcid=pmcid)
-        response = requests.get(url, timeout=15)
+        headers = DEFAULT_HEADERS
+        response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
             logger.debug(
@@ -499,7 +693,8 @@ def get_pmc_efetch_xml(pmcid: str) -> Optional[str]:
             pmcid = pmcid[3:]  # Remove PMC prefix for E-utilities
 
         url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id={pmcid}&rettype=xml"
-        response = requests.get(url, timeout=15)
+        headers = DEFAULT_HEADERS
+        response = requests.get(url, timeout=15, headers=headers)
 
         if response.status_code != 200:
             logger.debug(f"PMC EFetch returned {response.status_code} for PMC{pmcid}")
@@ -558,8 +753,9 @@ def get_europe_pmc_supplementary_files(pmcid: str) -> Optional[List[Dict[str, An
     try:
         url = EUROPE_PMC_SUPP_URL.format(pmcid=pmcid)
         logger.debug(f"Requesting Europe PMC supplements URL: {url}")
+        headers = DEFAULT_HEADERS
 
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=10, headers=headers)
         logger.debug(
             f"Europe PMC supplements API response: {response.status_code} for {pmcid}"
         )
@@ -614,8 +810,14 @@ def get_europe_pmc_supplementary_files(pmcid: str) -> Optional[List[Dict[str, An
                     f"Skipping non-dict supplementary file entry {i} for {pmcid}"
                 )
 
-        # Cache the result
+        # Download the supplementary files
         result = parsed_files if parsed_files else []
+        if result:
+            logger.info(
+                f"Downloading {len(result)} Europe PMC supplementary files for {pmcid}"
+            )
+            result = save_supplementary_files(result, pmcid)
+
         logger.info(f"Caching {len(result)} Europe PMC supplementary files for {pmcid}")
         save_cache("europe_pmc_supplements", key, {"files": result})
 
@@ -699,7 +901,8 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
         logger.debug(
             f"Checking PMC OA package availability with HEAD request for {pmcid}"
         )
-        head_response = requests.head(ftp_url, timeout=10)
+        headers = DEFAULT_HEADERS
+        head_response = requests.head(ftp_url, timeout=10, headers=headers)
         logger.debug(f"HEAD response status: {head_response.status_code} for {pmcid}")
 
         if head_response.status_code != 200:
@@ -711,7 +914,8 @@ def get_pmc_oa_package(pmcid: str) -> Optional[Dict[str, Any]]:
             return None
 
         logger.info(f"PMC OA package available, downloading from: {ftp_url}")
-        response = requests.get(ftp_url, timeout=60, stream=True)
+        headers = DEFAULT_HEADERS
+        response = requests.get(ftp_url, timeout=60, stream=True, headers=headers)
         response.raise_for_status()
 
         content_length = response.headers.get("content-length")
@@ -1005,6 +1209,7 @@ def get_comprehensive_pmcid_package(pmcid: str) -> Optional[Dict[str, Any]]:
         logger.info(
             f"Found {len(europe_supps)} Europe PMC supplementary files for {pmcid}"
         )
+        # Files are already downloaded by get_europe_pmc_supplementary_files
         result["supplementary_files"].extend(europe_supps)
     else:
         logger.debug(f"No Europe PMC supplementary files found for {pmcid}")
