@@ -26,6 +26,7 @@ from weather_mcp.main import get_weather
 
 from .cache import (
     cache_key,
+    generate_pdf_filename,
     get_cache,
     get_cached_entity,
     get_cached_results,
@@ -36,9 +37,11 @@ from .cache import (
 from .direct_retrieval import (
     doi_to_pmcid,
     doi_to_pmid,
+    get_crossref_metadata,
     get_text_from_doi_direct,
     get_text_from_pmcid_direct,
     get_text_from_pmid_direct,
+    get_unpaywall_info,
 )
 
 # Constants for text processing
@@ -675,8 +678,10 @@ def _build_full_text_result(
     file_path: Optional[str],
     pdf_url: Optional[str],
     attempts: Dict[str, Dict[str, Any]],
+    crossref_metadata: Optional[Dict[str, Any]] = None,
+    unpaywall_metadata: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
-    """Build the full text result dictionary."""
+    """Build the full text result dictionary with comprehensive metadata."""
     result = {
         "method": retrieval_method,
         "identifiers": identifiers,
@@ -698,17 +703,51 @@ def _build_full_text_result(
         ),
     }
 
+    # Add comprehensive metadata from CrossRef and Unpaywall
+    if crossref_metadata:
+        result["crossref_metadata"] = crossref_metadata
+        # Extract key metadata fields for easy access
+        result["title"] = crossref_metadata.get("title")
+        result["journal"] = crossref_metadata.get("container_title")
+        result["publisher"] = crossref_metadata.get("publisher")
+        result["published_date"] = crossref_metadata.get("published_date")
+        result["abstract"] = crossref_metadata.get("abstract")
+        result["license"] = crossref_metadata.get("license")
+        result["url"] = crossref_metadata.get("url")
+
+    if unpaywall_metadata:
+        result["unpaywall_metadata"] = unpaywall_metadata
+        # Extract key open access information
+        result["is_open_access"] = unpaywall_metadata.get("is_oa", False)
+        result["oa_date"] = unpaywall_metadata.get("oa_date")
+        result["pdf_urls"] = unpaywall_metadata.get("pdf_urls", [])
+        result["best_oa_location"] = unpaywall_metadata.get("best_oa_location")
+        result["oa_locations"] = unpaywall_metadata.get("oa_locations", [])
+        result["journal_is_oa"] = unpaywall_metadata.get("journal_is_oa")
+        result["has_repository_copy"] = unpaywall_metadata.get("has_repository_copy")
+
     # Set status based on what we have
     if file_path and file_path.endswith(".pdf"):
         result["status"] = "pdf_downloaded"
         result["pdf_url"] = pdf_url
-    elif pdf_url:
+    elif pdf_url or (unpaywall_metadata and unpaywall_metadata.get("pdf_urls")):
         result["status"] = "pdf_available"
-        result["pdf_url"] = pdf_url
+        result["pdf_url"] = pdf_url or (
+            unpaywall_metadata.get("pdf_urls", [None])[0]
+            if unpaywall_metadata
+            else None
+        )
+        # Add suggested PDF filename when URL is available but download failed
+        result["suggested_pdf_filename"] = generate_pdf_filename(identifiers)
     elif full_text and file_path:
         result["status"] = "retrieved"
     elif full_text:
         result["status"] = "partial"
+    elif crossref_metadata or unpaywall_metadata:
+        result["status"] = "metadata_available"
+        # Add suggested PDF filename if we have PDF URLs from metadata
+        if unpaywall_metadata and unpaywall_metadata.get("pdf_urls"):
+            result["suggested_pdf_filename"] = generate_pdf_filename(identifiers)
     else:
         result["status"] = "not_available"
 
@@ -719,14 +758,14 @@ def cached_get_full_text(
     paper_metadata: Dict[str, Any], email: str
 ) -> Optional[Dict[str, Any]]:
     """
-    Cached wrapper for full text fetching using artl-mcp with file storage.
+    Cached wrapper for full text fetching with comprehensive metadata storage.
 
     Args:
         paper_metadata: Paper metadata containing doi, pmid, pmcid, etc.
         email: Email address for API requests
 
     Returns:
-        Dictionary with file info or None if failed
+        Dictionary with file info and comprehensive metadata
     """
     # Create cache key from available identifiers
     identifiers = {
@@ -738,11 +777,24 @@ def cached_get_full_text(
     key = cache_key(identifiers)
     cached = get_cache("full_text", key)
     if cached:
-        # Check if cached file still exists
-        if cached.get("file_path") and Path(cached["file_path"]).exists():
+        # Check if cached file still exists or if we have comprehensive metadata
+        if (cached.get("file_path") and Path(cached["file_path"]).exists()) or (
+            cached.get("crossref_metadata") or cached.get("unpaywall_metadata")
+        ):
             return cached
 
     try:
+        # Always fetch comprehensive metadata from CrossRef and Unpaywall
+        crossref_metadata = None
+        unpaywall_metadata = None
+
+        doi = identifiers.get("doi")
+        if doi:
+            # Get CrossRef metadata
+            crossref_metadata = get_crossref_metadata(doi)
+            # Get Unpaywall metadata
+            unpaywall_metadata = get_unpaywall_info(doi, email)
+
         # Attempt to retrieve full text using multiple strategies
         attempts = _attempt_full_text_retrieval(paper_metadata, email)
 
@@ -776,24 +828,65 @@ def cached_get_full_text(
                     file_path = save_full_text_to_file(attempt["text"], identifiers)
                     break
 
-        # Build result
+        # Build result with comprehensive metadata
         result = _build_full_text_result(
-            identifiers, full_text, retrieval_method, file_path, pdf_url, attempts
+            identifiers,
+            full_text,
+            retrieval_method,
+            file_path,
+            pdf_url,
+            attempts,
+            crossref_metadata,
+            unpaywall_metadata,
         )
 
-        # Cache result
+        # Cache result (now includes comprehensive metadata even if download failed)
         save_cache("full_text", key, result)
         return result
 
     except Exception:
-        # Cache failure as well
-        failure_result = {
+        # Even in failure, try to get metadata
+        crossref_metadata = None
+        unpaywall_metadata = None
+
+        doi = identifiers.get("doi")
+        if doi:
+            try:
+                crossref_metadata = get_crossref_metadata(doi)
+                unpaywall_metadata = get_unpaywall_info(doi, email)
+            except Exception:
+                pass  # Metadata fetch failed too
+
+        # Cache failure with any available metadata
+        failure_result: Dict[str, Any] = {
             "method": None,
             "identifiers": identifiers,
             "file_path": None,
             "content_length": 0,
             "status": "error",
+            "methods_attempted": [],
+            "method_results": {},
         }
+
+        # Add metadata if available
+        if crossref_metadata:
+            failure_result["crossref_metadata"] = crossref_metadata
+            failure_result["title"] = crossref_metadata.get("title")
+            failure_result["journal"] = crossref_metadata.get("container_title")
+            failure_result["publisher"] = crossref_metadata.get("publisher")
+            failure_result["status"] = "metadata_available"
+
+        if unpaywall_metadata:
+            failure_result["unpaywall_metadata"] = unpaywall_metadata
+            failure_result["is_open_access"] = unpaywall_metadata.get("is_oa", False)
+            failure_result["pdf_urls"] = unpaywall_metadata.get("pdf_urls", [])
+            failure_result["status"] = "metadata_available"
+            # Add suggested PDF filename if we have PDF URLs
+            if unpaywall_metadata.get("pdf_urls"):
+                failure_result["suggested_pdf_filename"] = generate_pdf_filename(
+                    identifiers
+                )
+
         save_cache("full_text", key, failure_result)
         return failure_result
 
@@ -874,7 +967,7 @@ def _get_paper_metadata(clean_doi: str, pmid: Optional[str]) -> Dict[str, Any]:
 def _add_full_text_info(
     paper_metadata: Dict[str, Any], clean_doi: str, pmid: Optional[str], email: str
 ) -> None:
-    """Add full text information to paper metadata."""
+    """Add comprehensive full text and metadata information to paper metadata."""
     # Try to get PMCID for better retrieval
     pmcid = None
     if clean_doi:
@@ -891,6 +984,7 @@ def _add_full_text_info(
 
     full_text_result = cached_get_full_text(full_text_metadata, email)
     if full_text_result:
+        # Basic full text information
         paper_metadata["full_text"] = {
             "status": full_text_result.get("status"),
             "file_path": full_text_result.get("file_path"),
@@ -898,8 +992,75 @@ def _add_full_text_info(
             "retrieval_method": full_text_result.get("method"),
         }
 
+        # Add PDF information
         if full_text_result.get("pdf_url"):
             paper_metadata["full_text"]["pdf_url"] = full_text_result.get("pdf_url")
+        if full_text_result.get("pdf_urls"):
+            paper_metadata["full_text"]["pdf_urls"] = full_text_result.get("pdf_urls")
+        if full_text_result.get("suggested_pdf_filename"):
+            paper_metadata["full_text"]["suggested_pdf_filename"] = (
+                full_text_result.get("suggested_pdf_filename")
+            )
+
+        # Add comprehensive CrossRef metadata
+        crossref_metadata = full_text_result.get("crossref_metadata")
+        if crossref_metadata:
+            paper_metadata["crossref_metadata"] = {
+                "title": crossref_metadata.get("title"),
+                "abstract": crossref_metadata.get("abstract"),
+                "publisher": crossref_metadata.get("publisher"),
+                "journal": crossref_metadata.get("container_title"),
+                "published_date": crossref_metadata.get("published_date"),
+                "type": crossref_metadata.get("type"),
+                "subject": crossref_metadata.get("subject"),
+                "license": crossref_metadata.get("license"),
+                "url": crossref_metadata.get("url"),
+                "page": crossref_metadata.get("page"),
+                "volume": crossref_metadata.get("volume"),
+                "issue": crossref_metadata.get("issue"),
+                "author": crossref_metadata.get("author"),
+                "language": crossref_metadata.get("language"),
+                "funder": crossref_metadata.get("funder"),
+                "reference_count": crossref_metadata.get("reference_count"),
+                "is_referenced_by_count": crossref_metadata.get(
+                    "is_referenced_by_count"
+                ),
+                "issn": crossref_metadata.get("issn"),
+                "isbn": crossref_metadata.get("isbn"),
+            }
+
+        # Add comprehensive Unpaywall metadata
+        unpaywall_metadata = full_text_result.get("unpaywall_metadata")
+        if unpaywall_metadata:
+            paper_metadata["unpaywall_metadata"] = {
+                "is_open_access": unpaywall_metadata.get("is_oa", False),
+                "oa_date": unpaywall_metadata.get("oa_date"),
+                "genre": unpaywall_metadata.get("genre"),
+                "journal_is_oa": unpaywall_metadata.get("journal_is_oa"),
+                "journal_is_in_doaj": unpaywall_metadata.get("journal_is_in_doaj"),
+                "journal_name": unpaywall_metadata.get("journal_name"),
+                "publisher": unpaywall_metadata.get("publisher"),
+                "published_date": unpaywall_metadata.get("published_date"),
+                "title": unpaywall_metadata.get("title"),
+                "year": unpaywall_metadata.get("year"),
+                "has_repository_copy": unpaywall_metadata.get("has_repository_copy"),
+                "best_oa_location": unpaywall_metadata.get("best_oa_location"),
+                "oa_locations": unpaywall_metadata.get("oa_locations", []),
+                "pdf_urls": unpaywall_metadata.get("pdf_urls", []),
+                "data_standard": unpaywall_metadata.get("data_standard"),
+            }
+
+        # Add open access summary for easy reference
+        paper_metadata["open_access_summary"] = {
+            "is_open_access": full_text_result.get("is_open_access", False),
+            "oa_date": full_text_result.get("oa_date"),
+            "has_repository_copy": full_text_result.get("has_repository_copy"),
+            "pdf_available": bool(
+                full_text_result.get("pdf_urls") or full_text_result.get("pdf_url")
+            ),
+            "pdf_count": len(full_text_result.get("pdf_urls", [])),
+        }
+
     else:
         paper_metadata["full_text"] = {
             "status": "not_available",
@@ -907,6 +1068,64 @@ def _add_full_text_info(
             "content_length": 0,
             "retrieval_method": None,
         }
+
+        # Even if full text retrieval failed, try to get metadata directly
+        if clean_doi:
+            try:
+                crossref_metadata = get_crossref_metadata(clean_doi)
+                if crossref_metadata:
+                    paper_metadata["crossref_metadata"] = {
+                        "title": crossref_metadata.get("title"),
+                        "abstract": crossref_metadata.get("abstract"),
+                        "publisher": crossref_metadata.get("publisher"),
+                        "journal": crossref_metadata.get("container_title"),
+                        "published_date": crossref_metadata.get("published_date"),
+                        "type": crossref_metadata.get("type"),
+                        "subject": crossref_metadata.get("subject"),
+                        "license": crossref_metadata.get("license"),
+                        "url": crossref_metadata.get("url"),
+                        "author": crossref_metadata.get("author"),
+                    }
+
+                unpaywall_metadata = get_unpaywall_info(clean_doi, email)
+                if unpaywall_metadata:
+                    paper_metadata["unpaywall_metadata"] = {
+                        "is_open_access": unpaywall_metadata.get("is_oa", False),
+                        "oa_date": unpaywall_metadata.get("oa_date"),
+                        "journal_is_oa": unpaywall_metadata.get("journal_is_oa"),
+                        "publisher": unpaywall_metadata.get("publisher"),
+                        "title": unpaywall_metadata.get("title"),
+                        "year": unpaywall_metadata.get("year"),
+                        "pdf_urls": unpaywall_metadata.get("pdf_urls", []),
+                        "best_oa_location": unpaywall_metadata.get("best_oa_location"),
+                    }
+
+                    paper_metadata["open_access_summary"] = {
+                        "is_open_access": unpaywall_metadata.get("is_oa", False),
+                        "oa_date": unpaywall_metadata.get("oa_date"),
+                        "pdf_available": bool(unpaywall_metadata.get("pdf_urls")),
+                        "pdf_count": len(unpaywall_metadata.get("pdf_urls", [])),
+                    }
+
+                    # Add suggested PDF filename if we have PDF URLs
+                    if unpaywall_metadata.get("pdf_urls"):
+                        if "full_text" not in paper_metadata:
+                            paper_metadata["full_text"] = {
+                                "status": "not_available",
+                                "file_path": None,
+                                "content_length": 0,
+                                "retrieval_method": None,
+                            }
+                        paper_metadata["full_text"]["suggested_pdf_filename"] = (
+                            generate_pdf_filename(
+                                {
+                                    "doi": clean_doi,
+                                }
+                            )
+                        )
+
+            except Exception:
+                pass  # Metadata retrieval failed
 
 
 def _process_publication_doi(doi_entry: Dict[str, Any], email: str) -> Dict[str, Any]:

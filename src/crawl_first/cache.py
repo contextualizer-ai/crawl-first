@@ -29,6 +29,43 @@ def cache_key(data: Dict[str, Any]) -> str:
     return hashlib.md5(json.dumps(data, sort_keys=True).encode()).hexdigest()
 
 
+def generate_pdf_filename(identifiers: Dict[str, str]) -> str:
+    """Generate a suggested PDF filename using the same convention as save_pdf_to_file.
+
+    Args:
+        identifiers: Dictionary with doi, pmid, pmcid for filename generation
+
+    Returns:
+        Suggested filename for PDF (e.g., "doi_10_1029_2022JG006889_pmid_12345.pdf")
+    """
+    # Generate filename from identifiers (same logic as save_pdf_to_file)
+    filename_parts = []
+    if identifiers.get("doi"):
+        # Clean DOI for filename
+        clean_doi = (
+            identifiers["doi"].replace("/", "_").replace(":", "_").replace(".", "_")
+        )
+        filename_parts.append(f"doi_{clean_doi}")
+    if identifiers.get("pmid"):
+        filename_parts.append(f"pmid_{identifiers['pmid']}")
+    if identifiers.get("pmcid"):
+        filename_parts.append(f"pmcid_{identifiers['pmcid']}")
+
+    if not filename_parts:
+        # Fallback to hash if no identifiers
+        filename_parts = [cache_key(identifiers)]
+
+    # Ensure filename_parts is not empty and does not contain only empty strings
+    if not filename_parts or all(not part for part in filename_parts):
+        filename_parts = ["default"]
+
+    filename = (
+        "_".join(filename_parts[:2]) + ".pdf"
+    )  # Limit to 2 parts to avoid overly long names
+
+    return filename
+
+
 def get_cache(cache_type: str, key: str) -> Optional[Dict[str, Any]]:
     """Get data from cache."""
     logger = logging.getLogger("crawl_first.cache")
