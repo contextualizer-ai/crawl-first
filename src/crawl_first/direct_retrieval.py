@@ -342,7 +342,7 @@ def get_pmid_from_pmcid(pmcid: str) -> Optional[str]:
 
 
 def get_unpaywall_info(doi: str, email: str) -> Optional[Dict[str, Any]]:
-    """Get Unpaywall information with proper email handling."""
+    """Get comprehensive Unpaywall information with proper email handling."""
     try:
         base_url = f"https://api.unpaywall.org/v2/{doi}"
         headers = DEFAULT_HEADERS
@@ -351,14 +351,56 @@ def get_unpaywall_info(doi: str, email: str) -> Optional[Dict[str, Any]]:
         )
         response.raise_for_status()
         data = response.json()
-        return data if isinstance(data, dict) else None
+        if isinstance(data, dict):
+            # Extract and structure comprehensive metadata
+            metadata = {
+                "doi": data.get("doi"),
+                "is_oa": data.get("is_oa", False),
+                "oa_date": data.get("oa_date"),
+                "genre": data.get("genre"),
+                "journal_is_oa": data.get("journal_is_oa"),
+                "journal_is_in_doaj": data.get("journal_is_in_doaj"),
+                "journal_issns": data.get("journal_issns"),
+                "journal_issn_l": data.get("journal_issn_l"),
+                "journal_name": data.get("journal_name"),
+                "publisher": data.get("publisher"),
+                "published_date": data.get("published_date"),
+                "title": data.get("title"),
+                "year": data.get("year"),
+                "updated": data.get("updated"),
+                "data_standard": data.get("data_standard"),
+                "has_repository_copy": data.get("has_repository_copy"),
+                "best_oa_location": data.get("best_oa_location"),
+                "oa_locations": data.get("oa_locations", []),
+                "oa_locations_embargoed": data.get("oa_locations_embargoed", []),
+                "first_oa_location": data.get("first_oa_location"),
+                "z_authors": data.get("z_authors"),
+                "source": "unpaywall",
+                "raw_metadata": data,  # Include full metadata for completeness
+            }
+            # Extract PDF URLs for easy access
+            pdf_urls = []
+            if metadata["best_oa_location"] and metadata["best_oa_location"].get(
+                "url_for_pdf"
+            ):
+                pdf_urls.append(metadata["best_oa_location"]["url_for_pdf"])
+            for location in metadata["oa_locations"]:
+                if (
+                    location.get("url_for_pdf")
+                    and location["url_for_pdf"] not in pdf_urls
+                ):
+                    pdf_urls.append(location["url_for_pdf"])
+            metadata["pdf_urls"] = pdf_urls
+
+            return metadata
+        return None
     except Exception as e:
         logger.warning(f"Error fetching Unpaywall info for DOI {doi}: {e}")
         return None
 
 
 def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
-    """Get metadata from CrossRef API."""
+    """Get comprehensive metadata from CrossRef API."""
     try:
         base_url = "https://api.crossref.org/works/"
         headers = {
@@ -370,7 +412,48 @@ def get_crossref_metadata(doi: str) -> Optional[Dict[str, Any]]:
         data = response.json()
         if isinstance(data, dict) and "message" in data:
             message = data["message"]
-            return message if isinstance(message, dict) else None
+            if isinstance(message, dict):
+                # Extract and structure comprehensive metadata
+                metadata = {
+                    "doi": message.get("DOI"),
+                    "title": (
+                        message.get("title", [None])[0]
+                        if message.get("title")
+                        else None
+                    ),
+                    "abstract": message.get("abstract"),
+                    "publisher": message.get("publisher"),
+                    "container_title": (
+                        message.get("container-title", [None])[0]
+                        if message.get("container-title")
+                        else None
+                    ),
+                    "published_date": message.get(
+                        "published-print", message.get("published-online")
+                    ),
+                    "type": message.get("type"),
+                    "subject": message.get("subject"),
+                    "issn": message.get("ISSN"),
+                    "isbn": message.get("ISBN"),
+                    "license": message.get("license"),
+                    "link": message.get("link"),
+                    "url": message.get("URL"),
+                    "page": message.get("page"),
+                    "volume": message.get("volume"),
+                    "issue": message.get("issue"),
+                    "author": message.get("author"),
+                    "language": message.get("language"),
+                    "funder": message.get("funder"),
+                    "update_to": message.get("update-to"),
+                    "relation": message.get("relation"),
+                    "assertion": message.get("assertion"),
+                    "reference_count": message.get("reference-count"),
+                    "is_referenced_by_count": message.get("is-referenced-by-count"),
+                    "member": message.get("member"),
+                    "source": "crossref",
+                    "raw_metadata": message,  # Include full metadata for completeness
+                }
+                return metadata
         return None
     except requests.RequestException as e:
         logger.warning(f"Network error fetching CrossRef metadata for DOI {doi}: {e}")
