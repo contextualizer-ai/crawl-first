@@ -145,8 +145,33 @@ Lower scores indicate more problems. Higher scores indicate good data quality.""
 
 
 # Global variables - will be set in main()
-validation_agent = None
-nmdc_schema = None
+class ValidationService:
+    """Manages the validation agent and NMDC schema state."""
+
+    def __init__(
+        self,
+        model_name: str,
+        base_url: Optional[str] = None,
+        api_key: Optional[str] = None,
+    ):
+        self.agent = create_validation_agent(model_name, base_url, api_key)
+        self.nmdc_schema: Optional[Dict[str, Any]] = None
+
+    async def load_nmdc_schema(self) -> None:
+        """Load the NMDC schema asynchronously."""
+        self.nmdc_schema = await fetch_nmdc_schema()
+
+    def get_agent(self) -> Agent:
+        """Get the validation agent."""
+        return self.agent
+
+    def get_schema(self) -> Optional[Dict[str, Any]]:
+        """Get the NMDC schema."""
+        return self.nmdc_schema
+
+
+# Global validation service instance
+validation_service: Optional[ValidationService] = None
 
 
 async def fetch_nmdc_schema() -> Dict[str, Any]:
@@ -198,32 +223,31 @@ def extract_relevant_slot_definitions(
     relevant_slots = []
     slots = schema.get("slots", {})
 
-    for field_name in field_names:
-        if field_name in slots:
-            slot_def = slots[field_name]
-            slot_info = f"**{field_name}**:\n"
+    # Use set intersection for better performance with many fields
+    matching_fields = field_names & slots.keys()
 
-            # Add description
-            if "description" in slot_def:
-                slot_info += f"  Description: {slot_def['description']}\n"
+    for field_name in matching_fields:
+        slot_def = slots[field_name]
+        slot_info = f"**{field_name}**:\n"
 
-            # Add expected value pattern
-            if (
-                "annotations" in slot_def
-                and "expected_value" in slot_def["annotations"]
-            ):
-                expected = slot_def["annotations"]["expected_value"].get("value", "")
-                slot_info += f"  Expected format: {expected}\n"
+        # Add description
+        if "description" in slot_def:
+            slot_info += f"  Description: {slot_def['description']}\n"
 
-            # Add pattern if available
-            if "pattern" in slot_def:
-                slot_info += f"  Pattern: {slot_def['pattern']}\n"
+        # Add expected value pattern
+        if "annotations" in slot_def and "expected_value" in slot_def["annotations"]:
+            expected = slot_def["annotations"]["expected_value"].get("value", "")
+            slot_info += f"  Expected format: {expected}\n"
 
-            # Add range/type info
-            if "range" in slot_def:
-                slot_info += f"  Type: {slot_def['range']}\n"
+        # Add pattern if available
+        if "pattern" in slot_def:
+            slot_info += f"  Pattern: {slot_def['pattern']}\n"
 
-            relevant_slots.append(slot_info)
+        # Add range/type info
+        if "range" in slot_def:
+            slot_info += f"  Type: {slot_def['range']}\n"
+
+        relevant_slots.append(slot_info)
 
     if relevant_slots:
         return "\n## NMDC Schema Definitions:\n" + "\n".join(relevant_slots) + "\n"
@@ -343,7 +367,16 @@ async def analyze_coordinate_consistency(
     if geo_loc_name:
         geo_consistency_score = 0.8  # Default assume reasonable
 
-        # Simple heuristics for major geographic mismatches
+        # FIXME: Replace hardcoded geographic bounds with discovery-based approach
+        # TODO: Use geographic APIs (e.g., Natural Earth, OpenStreetMap) to dynamically
+        # determine country/region boundaries rather than hardcoding coordinates.
+        # Current approach fails for territories (Hawaii, Alaska, French Guiana, etc.)
+        # and is politically sensitive. Consider using:
+        # - Reverse geocoding APIs to validate country claims
+        # - Statistical analysis of existing sample coordinates by country
+        # - Machine learning to identify geographic outliers in the dataset
+
+        # TEMPORARY: Simple heuristics for major geographic mismatches (NEEDS REPLACEMENT)
         if "USA" in geo_loc_name and not (
             -180 <= asserted_lon <= -60 and 20 <= asserted_lat <= 72
         ):
@@ -564,14 +597,16 @@ async def calculate_enrichment_coverage(
     }
 
 
-async def validate_biosample(biosample_data: Dict[str, Any]) -> ValidationResult:
+async def validate_biosample(
+    biosample_data: Dict[str, Any], results_dir: Optional[Path] = None
+) -> ValidationResult:
     """
     AI-powered biosample validation using LLM for semantic analysis.
     """
-    global validation_agent
+    global validation_service
 
-    if validation_agent is None:
-        raise RuntimeError("Validation agent not initialized. Call main() first.")
+    if validation_service is None:
+        raise RuntimeError("Validation service not initialized. Call main() first.")
 
     biosample_id = biosample_data.get("asserted", {}).get("id", "unknown")
     asserted = biosample_data.get("asserted", {})
@@ -583,12 +618,11 @@ async def validate_biosample(biosample_data: Dict[str, Any]) -> ValidationResult
 
     # Use LLM for all semantic analysis
     try:
-        # Get results directory from global context (we'll pass it through the validation function)
-        results_dir = Path(
-            "archives/data/outputs/crawl-first/test-results/"
-        )  # Default path
+        # Use provided results directory or default fallback
+        if results_dir is None:
+            results_dir = Path("archives/data/outputs/crawl-first/test-results/")
         validation_result = await run_llm_validation(
-            validation_agent, biosample_data, results_dir
+            validation_service.get_agent(), biosample_data, results_dir
         )
 
         # Combine rule-based scores with LLM analysis
@@ -603,7 +637,12 @@ async def validate_biosample(biosample_data: Dict[str, Any]) -> ValidationResult
         return ValidationResult(
             biosample_id=biosample_id,
             overall_score=0.5,
+            coordinate_consistency=None,
             elevation_plausibility=elevation_score,
+            env_triad_coherence=None,
+            land_cover_soil_consistency=None,
+            ecosystem_alignment=None,
+            date_season_consistency=None,
             enrichment_coverage=enrichment_coverage,
             issues=[f"LLM validation failed: {str(e)}"],
             recommendations=["Check LLM configuration and try again"],
@@ -615,14 +654,15 @@ async def run_llm_validation(
     agent: Agent, biosample_data: Dict[str, Any], results_dir: Path
 ) -> ValidationResult:
     """Use LLM to perform semantic validation of biosample data with dynamic context."""
-    global nmdc_schema
+    global validation_service
 
     biosample_id = biosample_data.get("asserted", {}).get("id", "unknown")
 
     # Build dynamic context sections
+    schema = validation_service.get_schema() if validation_service else None
     schema_context = (
-        extract_relevant_slot_definitions(biosample_data, nmdc_schema)
-        if nmdc_schema
+        extract_relevant_slot_definitions(biosample_data, schema)
+        if schema is not None
         else ""
     )
     study_context = get_study_context(biosample_data, results_dir)
@@ -751,12 +791,19 @@ async def validate_directory(
             biosample_id = result_file.stem.replace("validation_", "")
             existing_results.add(biosample_id)
 
-        # Filter yaml_files to only include unprocessed samples
+        def extract_biosample_id_from_yaml(yaml_path: Path) -> str:
+            """Extract biosample ID from YAML filename.
+
+            Assumes biosample ID is the stem, possibly with a prefix like 'nmdc:bsm-11-abc123.yaml'
+            """
+            return yaml_path.stem
+
+        # Filter yaml_files to only include unprocessed samples using set-based approach
         original_count = len(yaml_files)
         yaml_files = [
             f
             for f in yaml_files
-            if not any(biosample_id in str(f) for biosample_id in existing_results)
+            if extract_biosample_id_from_yaml(f) not in existing_results
         ]
         skipped_count = original_count - len(yaml_files)
 
@@ -783,7 +830,7 @@ async def validate_directory(
             with open(yaml_file, "r") as f:
                 biosample_data = yaml.safe_load(f)
 
-            result = await validate_biosample(biosample_data)
+            result = await validate_biosample(biosample_data, results_dir)
             validation_results.append(result)
 
             # Stream individual result to file immediately
@@ -899,20 +946,21 @@ def main(
         stream_path = Path(stream_dir)
 
     async def async_main() -> Union[int, List[ValidationResult]]:
-        # Initialize global variables
-        global validation_agent, nmdc_schema
+        # Initialize validation service
+        global validation_service
 
-        # Create validation agent with specified configuration
-        validation_agent = create_validation_agent(model, base_url, api_key)
+        # Create validation service with specified configuration
+        validation_service = ValidationService(model, base_url, api_key)
 
         # Fetch NMDC schema for dynamic validation
         start_time = datetime.now()
         click.echo(f"[{start_time.strftime('%H:%M:%S')}] 🔄 Fetching NMDC schema...")
-        nmdc_schema = await fetch_nmdc_schema()
-        if nmdc_schema:
+        await validation_service.load_nmdc_schema()
+        schema = validation_service.get_schema()
+        if schema:
             schema_time = datetime.now()
             click.echo(
-                f"[{schema_time.strftime('%H:%M:%S')}] ✅ NMDC schema loaded ({len(nmdc_schema.get('slots', {}))} slots)"
+                f"[{schema_time.strftime('%H:%M:%S')}] ✅ NMDC schema loaded ({len(schema.get('slots', {}))} slots)"
             )
         else:
             click.echo(
