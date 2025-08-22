@@ -1,0 +1,26 @@
+{
+  "biosample_id": "nmdc:bsm-11-zy2p7j24",
+  "overall_score": 0.82,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.75,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 1.16 km distance between asserted coordinates (39.103068, -96.563925) and geocoded location (39.1002012, -96.576798)",
+    "Environmental hierarchy inconsistency: env_local_scale 'area of scrub' conflicts with inferred dominant land cover 'grassland area'",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "Elevation difference: 3.3m between asserted (405.7m) and geospatial lookup (409.0m)",
+    "Land cover data shows grassland dominance but asserted env_local_scale indicates scrubland"
+  ],
+  "recommendations": [
+    "Verify and update coordinates to match the intended sampling location at Konza Prairie Biological Station",
+    "Review env_local_scale classification - consider changing from 'area of scrub' to 'grassland area' to match land cover data",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with study design",
+    "Consider updating elevation to geospatially-derived value (409.0m) for better accuracy",
+    "Cross-reference sampling location description with field notes to resolve grassland vs. scrub classification"
+  ],
+  "validation_timestamp": "2025-08-21T17:33:06.952226"
+}

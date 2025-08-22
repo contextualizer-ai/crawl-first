@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-gdgxby24",
+  "overall_score": 0.4,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.4,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 182.53 km between asserted coordinates (32.523355, -87.814626) and geocoded location from 'Dead Lake, Alabama' (30.8887396, -87.9914339)",
+    "Environmental hierarchy inconsistency: env_local_scale 'area of woody wetland' conflicts with inferred land cover showing deciduous broadleaf forest (>60% tree cover)",
+    "Location context mismatch: asserted coordinates place sample near Demopolis Plant (industrial area) while geo_loc_name indicates Dead Lake (water body)",
+    "Semantic conflict: 'area of woody wetland' (wetland) vs 'soil' medium in forest environment - wetland soils have different characteristics",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "Elevation discrepancy: 2.8m difference between asserted (27.2m) and geospatial lookup (30.0m)",
+    "Inconsistent environmental context: sample from 'woody wetland' but land cover shows dense deciduous forest"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - use GPS coordinates from actual sampling location or confirm Dead Lake coordinates",
+    "Reassess env_local_scale classification: if in forest area, consider 'forest floor' or 'woodland' instead of 'woody wetland'",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with study design",
+    "Clarify sampling location: specify if sample was taken from wetland area within broader forest landscape",
+    "Review soil horizon classification (M horizon) in context of wetland vs forest environment",
+    "Consider adding specific_ecosystem field to clarify wetland vs forest classification",
+    "Validate collection coordinates with field notes or GPS logs from sampling date",
+    "Update geo_loc_name to be more specific about exact sampling location within Dead Lake area"
+  ],
+  "validation_timestamp": "2025-08-21T17:05:09.162184"
+}

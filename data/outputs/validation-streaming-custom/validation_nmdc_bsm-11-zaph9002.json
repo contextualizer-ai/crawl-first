@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-zaph9002",
+  "overall_score": 0.3,
+  "coordinate_consistency": 0.1,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.8,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.2,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 310.29 km distance between asserted coordinates (46.1214, -123.2694) and geocoded location (43.9792797, -120.737257) for Oregon",
+    "Semantic conflict: Asserted 'botanical garden' ecosystem subtype conflicts with inferred grassland land cover classification",
+    "Environmental inconsistency: Asserted 'garden' environment contradicts inferred natural grassland/wetland ecosystem with waterways and ditches",
+    "Location specificity mismatch: Asserted coordinates point to specific location near Clatskanie but geocoded Oregon center coordinates lack precision",
+    "Ecosystem classification conflict: Bulk soil from botanical garden vs. natural grassland area classification",
+    "Study context inconsistency: This sample differs from other study samples which are primarily host-associated plant samples"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate data - check if coordinates should be (46.1214, -123.2694) near Clatskanie or if location should match Oregon state center",
+    "Resolve ecosystem classification - clarify if sample is from managed botanical garden or natural grassland environment",
+    "Update env_local_scale to reflect actual sampling environment - consider terms like 'managed garden area' if truly from botanical garden",
+    "Add more specific location details to geo_loc_name field following NMDC format (e.g., 'USA: Oregon: Columbia County: Clatskanie')",
+    "Cross-validate with other study samples to ensure consistent metadata practices",
+    "Consider updating ecosystem_subtype if location is actually natural grassland rather than botanical garden",
+    "Verify elevation data consistency between asserted (1.0m) and geospatial lookup (4.0m) values"
+  ],
+  "validation_timestamp": "2025-08-21T17:41:53.106994"
+}

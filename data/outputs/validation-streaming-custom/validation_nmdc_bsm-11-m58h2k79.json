@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-m58h2k79",
+  "overall_score": 0.81,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 4.99 km distance between asserted coordinates (32.575696, -106.803388) and geocoded location (32.6089832, -106.7677302)",
+    "Asserted coordinates place sample on County Road E085 while geo_loc_name indicates Jornada Experimental Range",
+    "Land cover classification shows evergreen needleleaf vegetation and shrublands which partially conflicts with 'area of scrub' local scale",
+    "Ecosystem_subtype is 'Unclassified' which lacks specificity for a well-characterized research site",
+    "Missing ENVO ontology terms for all land cover classifications",
+    "Environmental features query returned 0 results, suggesting possible coordinate accuracy issues"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - consider using the geocoded coordinates (32.6089832, -106.7677302) if they better represent the actual sampling location within Jornada Experimental Range",
+    "Update ecosystem_subtype from 'Unclassified' to a more specific term like 'desert scrub' or 'arid shrubland' to match the environmental context",
+    "Reconcile env_local_scale term - consider using 'shrubland' (ENVO:00000300) instead of 'area of scrub' to better align with land cover data showing shrubland dominance",
+    "Add missing ENVO ontology mappings for land cover classifications to improve semantic interoperability",
+    "Consider adding more environmental context fields like 'climate type' or 'vegetation type' to better characterize this arid ecosystem",
+    "Validate sampling coordinates against official NEON site boundaries and update if necessary"
+  ],
+  "validation_timestamp": "2025-08-21T18:23:01.706009"
+}

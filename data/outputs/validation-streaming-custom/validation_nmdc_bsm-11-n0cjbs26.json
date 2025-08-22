@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-n0cjbs26",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.3,
+  "ecosystem_alignment": 0.45,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: Asserted 'temperate woodland biome' vs inferred 'urban biome' from land cover data",
+    "Soil type mismatch: Forest soil metadata vs Acriosols classification and urban land cover",
+    "Environmental context inconsistency: Edge of deciduous forest description conflicts with urban/built-up land classification",
+    "Current vegetation 'Edge of decidious forest' has spelling error ('decidious' should be 'deciduous')",
+    "Elevation difference of 7m between asserted (44.0m) and geospatial lookup (51.0m)",
+    "Schema compliance: geo_loc_name format should follow 'country: region, specific location' pattern more clearly"
+  ],
+  "recommendations": [
+    "Verify actual sampling location - reconcile forest vs urban environment discrepancy through field validation",
+    "Re-examine land cover classification or sampling coordinates for accuracy",
+    "Correct spelling error in cur_vegetation field ('decidious' \u2192 'deciduous')",
+    "Standardize geo_loc_name format to 'USA: Maryland, Prince George's County, Northwest Baltimore Base of Slope Adelphi'",
+    "Update elevation value to match geospatial data (51.0m) if coordinates are correct",
+    "Review and potentially update ecosystem classification to match actual environmental context",
+    "Consider adding quality flags for conflicting environmental classifications",
+    "Validate that 'forest soil' designation is appropriate given urban land cover context"
+  ],
+  "validation_timestamp": "2025-08-21T16:57:27.266964"
+}

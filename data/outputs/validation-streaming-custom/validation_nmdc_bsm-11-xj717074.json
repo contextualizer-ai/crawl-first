@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-xj717074",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": 0.95,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 5.32 km difference between asserted coordinates and geocoded location name",
+    "Environmental semantic conflict: Asserted 'area of deciduous forest' vs inferred 'Mixed Forests' from multiple land cover systems",
+    "Missing GOLD ecosystem/ecosystem_category fields that are present in other study samples",
+    "County mismatch: Asserted coordinates place sample in Hale County while geocoded location is in Bibb County",
+    "Elevation discrepancy: Multiple elevation values (asserted: 83.9m, geospatial lookup: 81.0m, geocoded: 143.0m)",
+    "Land cover classification inconsistency across different systems (deciduous vs mixed forest)"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate accuracy - recommend using geocoded coordinates (32.9349471, -87.3948069) which better match the stated location",
+    "Clarify forest type classification - update env_local_scale to reflect mixed forest characteristics if that better represents the actual sampling site",
+    "Add missing ecosystem fields (ecosystem: 'Environmental', ecosystem_category: 'Terrestrial') for consistency with study design",
+    "Validate sampling location within Talladega National Forest boundaries and confirm correct county",
+    "Consider elevation measurement methodology and select most accurate elevation value",
+    "Review and standardize environmental classification to resolve deciduous vs mixed forest discrepancy",
+    "Consider adding more specific local environmental descriptors based on the proximity to water features (3 streams within 1000m)"
+  ],
+  "validation_timestamp": "2025-08-21T17:30:16.319258"
+}

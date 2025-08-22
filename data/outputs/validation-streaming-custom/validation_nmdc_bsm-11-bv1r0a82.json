@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-bv1r0a82",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.75,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 12.13 km distance between asserted coordinates (63.8798, -149.21539) and geocoded location from 'USA: Alaska, Healy' (63.950262, -149.0258707)",
+    "Missing env_broad_scale term name - only ID ENVO:00000446 provided without human-readable label",
+    "Missing elevation data in asserted metadata despite being relevant for permafrost research context",
+    "Inconsistent environment classification between asserted 'area of dwarf scrub' and inferred 'Open Shrublands/Deciduous Broadleaf Vegetation'",
+    "Sample collection site 'HEAL' appears to be NEON site code but lacks full site identification",
+    "Geo_loc_name format 'USA: Alaska, Healy' should follow INSDC format more precisely"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - investigate which location is correct: asserted coordinates or geocoded 'Healy' location",
+    "Add missing term name for env_broad_scale ENVO:00000446 to improve data interpretability",
+    "Include elevation data in metadata as it's critical for permafrost studies and site characterization",
+    "Clarify vegetation classification discrepancy between 'dwarf scrub' and inferred land cover types",
+    "Expand sample_collection_site to full NEON site name (e.g., 'Healy NEON Site - HEAL') for better identification",
+    "Standardize geo_loc_name format to 'USA: Alaska, Healy' or provide more specific region information per INSDC guidelines",
+    "Consider adding ecosystem, ecosystem_category, and ecosystem_type fields for better environmental context",
+    "Cross-reference coordinates with other samples in study to ensure spatial consistency"
+  ],
+  "validation_timestamp": "2025-08-21T17:08:59.483127"
+}

@@ -1,0 +1,24 @@
+{
+  "biosample_id": "nmdc:bsm-11-2ggfq219",
+  "overall_score": 0.92,
+  "coordinate_consistency": 0.95,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Minor inconsistency: env_medium is 'organic material' while sample is from coral tissue/reef environment - expected 'seawater' or 'coral tissue'",
+    "geo_loc_name format could be more specific: 'Panama: Gulf of Panama, Saboga' lacks specific location details for a coral reef site",
+    "Land cover classification shows 'Water Bodies' but sample is specifically from coral reef habitat - may reflect spatial resolution limitations"
+  ],
+  "recommendations": [
+    "Consider updating env_medium to ENVO:00002149 (seawater) or ENVO:02000047 (coral tissue) for better semantic accuracy",
+    "Enhance geo_loc_name with more specific reef location details, e.g., 'Panama: Gulf of Panama, Saboga Island, coral reef site'",
+    "Add depth measurement context - 3.8m depth is consistent with coral reef sampling but could specify if this is water depth or substrate depth",
+    "Consider adding more specific habitat descriptors for the coral reef microenvironment",
+    "Validate that 'organic material' env_medium is intentional for this coral microbiome study design"
+  ],
+  "validation_timestamp": "2025-08-21T17:00:20.798219"
+}

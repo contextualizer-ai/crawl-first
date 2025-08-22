@@ -1,0 +1,26 @@
+{
+  "biosample_id": "nmdc:bsm-11-cavfsx23",
+  "overall_score": 0.25,
+  "coordinate_consistency": 0.1,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Critical coordinate inconsistency: Asserted coordinates (43.0995, -89.4045) for Lake Mendota are 149.79 km away from geocoded Wisconsin center (44.4308975, -89.6884637)",
+    "Asserted coordinates place sample in Madison/Lake Mendota area while geo_loc_name only specifies 'USA: Wisconsin' - insufficient geographic precision",
+    "Land cover classification shows 'water body' which is consistent but uses generic ENVO terms rather than lake-specific terms",
+    "Date collection (August 23, 2013) is reasonable for lake sampling but weather data shows it was during late summer conditions",
+    "Schema compliance issue: geo_loc_name format 'USA: Wisconsin' lacks the specific region detail recommended by NMDC schema"
+  ],
+  "recommendations": [
+    "CRITICAL: Verify and correct coordinates - current asserted coordinates (43.0995, -89.4045) appear to be accurate for Lake Mendota, but geo_loc_name should be updated to 'USA: Wisconsin, Lake Mendota' or 'USA: Wisconsin, Madison'",
+    "Update geo_loc_name to include specific lake/region information to match NMDC schema requirements and improve geographic precision",
+    "Consider adding more specific ENVO terms for lake water environment to better align with the detailed environmental ontology hierarchy",
+    "Validate that the sample is indeed from Lake Mendota as indicated by coordinates, and ensure consistency with study design",
+    "Add lake-specific environmental descriptors to better characterize the freshwater lake ecosystem context"
+  ],
+  "validation_timestamp": "2025-08-21T18:03:35.307553"
+}

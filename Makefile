@@ -218,3 +218,53 @@ archives/logs.tar.gz: logs | archives
 # Compress all archives
 compress-all: archives/cache.tar.gz archives/data.tar.gz archives/logs.tar.gz
 	@echo "📦 All directories compressed: $^"
+
+# Validate biosample enrichment data with AI - generates JSON output file (with streaming)
+data/outputs/validation-results.json: archives/data/outputs/crawl-first/test-results/
+	@echo "🔬 Running biosample validation with CBORG AI (streaming mode)..."
+	@echo "📝 Output will be saved to: $@"
+	@echo "💾 Individual results will be streamed to: data/outputs/validation-streaming/"
+	@if [ -z "$$OPENAI_API_KEY" ]; then echo "❌ Error: OPENAI_API_KEY not set"; exit 1; fi
+	@mkdir -p $(dir $@)
+	@mkdir -p data/outputs/validation-streaming/
+	uv run python src/crawl_first/validation_agent.py \
+		--results-dir $< \
+		--max-samples 5 \
+		--model "anthropic/claude-sonnet" \
+		--base-url https://api.cborg.lbl.gov/v1 \
+		--stream-dir data/outputs/validation-streaming/ \
+		--output $@
+
+# Custom validation with configurable parameters (with streaming)
+data/outputs/validation-results-custom.json: archives/data/outputs/crawl-first/test-results/
+	@echo "🔬 Running custom biosample validation (streaming mode)..."
+	@echo "📝 Output will be saved to: $@"
+	@echo "💾 Individual results will be streamed to: data/outputs/validation-streaming-custom/"
+	@echo "💡 Usage: make $@ MODEL='model-name' MAX_SAMPLES=10 BASE_URL='https://api.example.com/v1'"
+	@if [ -z "$$OPENAI_API_KEY" ]; then echo "❌ Error: OPENAI_API_KEY not set"; exit 1; fi
+	@mkdir -p $(dir $@)
+	@mkdir -p data/outputs/validation-streaming-custom/
+	uv run python src/crawl_first/validation_agent.py \
+		--results-dir $< \
+		--max-samples $(or $(MAX_SAMPLES),5) \
+		--model "$(or $(MODEL),anthropic/claude-sonnet)" \
+		--base-url $(or $(BASE_URL),https://api.cborg.lbl.gov/v1) \
+		--stream-dir data/outputs/validation-streaming-custom/ \
+		--output $@
+
+# Resume interrupted validation
+resume-validation: archives/data/outputs/crawl-first/test-results/
+	@echo "🔄 Resuming validation from streaming directory..."
+	@if [ -z "$$OPENAI_API_KEY" ]; then echo "❌ Error: OPENAI_API_KEY not set"; exit 1; fi
+	uv run python src/crawl_first/validation_agent.py \
+		--results-dir $< \
+		--max-samples $(or $(MAX_SAMPLES),50) \
+		--model "$(or $(MODEL),anthropic/claude-sonnet)" \
+		--base-url $(or $(BASE_URL),https://api.cborg.lbl.gov/v1) \
+		--stream-dir data/outputs/validation-streaming/ \
+		--resume \
+		--output data/outputs/validation-results-resumed.json
+
+# Convenience aliases for backward compatibility
+validate-biosamples: data/outputs/validation-results.json
+validate-biosamples-custom: data/outputs/validation-results-custom.json

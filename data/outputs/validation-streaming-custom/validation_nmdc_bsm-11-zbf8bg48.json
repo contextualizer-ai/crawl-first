@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-zbf8bg48",
+  "overall_score": 0.62,
+  "coordinate_consistency": 0.45,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.75,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 4.44 km difference between asserted coords (42.476365, -85.451887) and geocoded location from 'USA: Michigan, Delton'",
+    "Major elevation discrepancy: 206m difference between asserted (500m) vs geospatial lookup (294m)",
+    "Critical ecosystem conflict: Asserted 'temperate woodland biome' and 'agricultural field' contradict inferred 'Woody Savannas/Open Forests' land cover",
+    "Environment hierarchy inconsistency: 'temperate woodland biome' \u2192 'agricultural field' \u2192 'farm soil' lacks logical coherence",
+    "Land cover mismatch: All inferred systems indicate woody/forest vegetation but asserted data claims agricultural field with switchgrass",
+    "Seasonal collection timing: August 2018 collection may not align with dominant deciduous vegetation patterns",
+    "Study context deviation: Sample shows different environmental characteristics compared to other study samples from same location"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - use either asserted coords or geocoded coords consistently, not both conflicting values",
+    "Re-validate elevation measurement - significant 206m discrepancy suggests measurement or transcription error",
+    "Reconcile ecosystem classification: If truly agricultural, land cover should show cropland/grassland, not woody vegetation",
+    "Revise env_broad_scale: Consider 'agricultural biome' or 'grassland biome' instead of 'temperate woodland biome' if site is agricultural",
+    "Clarify land use history: Site may be transitional agricultural-to-forest or forest-edge agricultural requiring more specific classification",
+    "Add temporal context: Specify if switchgrass is monoculture crop or part of restoration/mixed system",
+    "Cross-validate with other study samples: Ensure consistent methodology and classification across study",
+    "Consider using 'agricultural ecosystem' or 'managed grassland' terms that better reflect switchgrass cultivation context"
+  ],
+  "validation_timestamp": "2025-08-21T18:09:13.414865"
+}

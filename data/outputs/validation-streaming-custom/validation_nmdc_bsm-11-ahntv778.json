@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-ahntv778",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.8,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.65,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Geographic coordinate discrepancy: 4.02 km difference between asserted coords (38.5326, -121.783) and geocoded location for 'USA: California, Davis' (38.5435526, -121.739005)",
+    "Study location inconsistency: Study title mentions Berkeley but sample location is Davis - possible data entry error",
+    "Ecosystem classification conflict: Asserted as 'Host-associated' but inferred land cover shows 'Croplands' and 'Grasslands' suggesting environmental rather than plant-host sample",
+    "env_medium 'rhizosphere' vs land cover 'croplands' - inconsistent with controlled experimental setting described in study",
+    "Elevation discrepancy: 2m difference between asserted (16m) and geospatial lookup (18m)",
+    "Schema compliance: geo_loc_name format should follow 'country: region, specific location' pattern more precisely"
+  ],
+  "recommendations": [
+    "Verify coordinates: Check if coordinates (38.5326, -121.783) represent actual sampling location or if geocoded Davis coordinates (38.5435526, -121.739005) are more accurate",
+    "Clarify study location: Resolve discrepancy between study title mentioning Berkeley and sample location being Davis",
+    "Review ecosystem classification: Consider if this should be 'Environmental/Terrestrial' rather than 'Host-associated/Plants' based on cropland land cover data",
+    "Validate experimental design: Confirm if samples were collected from controlled growth chamber (as per study title) or field conditions (as per growth_facil field)",
+    "Standardize geo_loc_name format: Use 'USA: California, Davis' format consistently with NMDC schema",
+    "Cross-validate with study protocol: Ensure sample metadata aligns with published methodology and other samples in study",
+    "Consider ecosystem hierarchy: If this is rhizosphere sampling, ensure land cover data reflects the experimental setup rather than broader agricultural context"
+  ],
+  "validation_timestamp": "2025-08-21T17:50:59.594906"
+}

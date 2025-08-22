@@ -1,0 +1,25 @@
+{
+  "biosample_id": "nmdc:bsm-11-af88zh71",
+  "overall_score": 0.73,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.3,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 5.13 km distance between asserted coordinates (35.964792, -84.278894) and geocoded Oak Ridge location (36.0103562, -84.2696449)",
+    "Soil type mismatch: Asserted soil medium conflicts with inferred Acriosols soil type from geospatial data",
+    "Missing GOLD ecosystem fields: ecosystem and ecosystem_category not populated (inconsistent with some other study samples)",
+    "Elevation difference: 7.4m variance between asserted (315.6m) and geospatial lookup (323.0m)"
+  ],
+  "recommendations": [
+    "Verify coordinate accuracy - current coordinates may be from field GPS readings while 'Oak Ridge' refers to broader municipal area. Consider adding more specific location description.",
+    "Cross-validate soil classification - reconcile asserted 'soil' env_medium with inferred 'Acriosols' soil type through additional soil analysis",
+    "Populate missing ecosystem fields for consistency with study design - add ecosystem='Environmental' and ecosystem_category='Terrestrial' based on other study samples",
+    "Consider coordinate precision - the 5.13km difference suggests coordinates may be plot-specific while geo_loc_name refers to general municipality",
+    "Add soil_type field to complement existing soil_horizon data for better soil characterization"
+  ],
+  "validation_timestamp": "2025-08-21T17:45:29.324403"
+}

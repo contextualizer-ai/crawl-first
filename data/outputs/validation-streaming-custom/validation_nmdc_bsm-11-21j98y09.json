@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-21j98y09",
+  "overall_score": 0.82,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 5.36 km difference between asserted coordinates and geocoded location name",
+    "Missing ecosystem and ecosystem_category fields (common in other study samples)",
+    "Soil type (Podzols) has moderate consistency with wetland environment but could be better aligned",
+    "Collection date format includes seconds precision which may be excessive for soil sampling",
+    "Some inferred land cover classifications show mixed savanna/forest types indicating transitional ecosystem"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate discrepancy - determine if asserted coordinates or location name is more accurate",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with study design",
+    "Consider adding soil classification details that better reflect wetland characteristics",
+    "Standardize collection date format to appropriate precision for sampling method",
+    "Add environmental context notes about transitional savanna-wetland ecosystem characteristics",
+    "Validate soil horizon designation 'M horizon' as this is non-standard terminology",
+    "Consider adding water table depth measurements given wetland context"
+  ],
+  "validation_timestamp": "2025-08-21T18:08:15.748072"
+}

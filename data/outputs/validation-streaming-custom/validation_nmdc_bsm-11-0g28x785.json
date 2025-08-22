@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-0g28x785",
+  "overall_score": 0.88,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.95,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Elevation discrepancy: 8.6m difference between asserted (172.4m) and geospatial lookup (181.0m)",
+    "geo_loc_name format not fully INSDC compliant - should be 'United States: Puerto Rico, Guanica Forest'",
+    "Missing ecosystem and ecosystem_category fields that are present in some other study samples",
+    "Collection location shows 'area of evergreen forest' but enriched data indicates 'Evergreen Broadleaf Forests' - minor terminology difference",
+    "Limited environmental features detected in geospatial lookup (only paths/trails)",
+    "pH value of 7.59 is relatively high for typical forest soil"
+  ],
+  "recommendations": [
+    "Update geo_loc_name to follow INSDC format: 'United States: Puerto Rico, Guanica Forest'",
+    "Verify elevation measurement or update to match geospatial reference (181.0m)",
+    "Consider adding ecosystem='Environmental' and ecosystem_category='Terrestrial' for consistency with other study samples",
+    "Validate pH measurement - 7.59 seems high for forest soil (typically 4.5-6.5)",
+    "Enhance geospatial enrichment to capture more detailed environmental features around the collection site",
+    "Cross-reference elevation with multiple sources to ensure accuracy",
+    "Consider standardizing environment terminology between asserted and inferred data sources"
+  ],
+  "validation_timestamp": "2025-08-21T17:20:32.161708"
+}

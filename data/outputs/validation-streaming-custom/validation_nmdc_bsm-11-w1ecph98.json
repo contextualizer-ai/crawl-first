@@ -1,0 +1,25 @@
+{
+  "biosample_id": "nmdc:bsm-11-w1ecph98",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.6,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": 0.95,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Semantic conflict: asserted env_local_scale 'area of evergreen forest' conflicts with inferred land cover showing mixed/deciduous forest dominance",
+    "Missing ecosystem and ecosystem_category fields (present in some other study samples)",
+    "Minor elevation discrepancy: 12.1m difference between asserted (361.9m) and geospatial (374.0m)",
+    "Inconsistent study metadata: some samples have ecosystem fields populated while others don't"
+  ],
+  "recommendations": [
+    "Update env_local_scale from 'area of evergreen forest' to 'area of mixed forest' or 'area of deciduous forest' to match inferred land cover data",
+    "Populate missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with other study samples",
+    "Verify elevation measurement or accept 12.1m geospatial difference as reasonable for forest sampling",
+    "Standardize ecosystem field population across all study samples",
+    "Consider adding more specific env_local_scale terms that better reflect the mixed forest environment"
+  ],
+  "validation_timestamp": "2025-08-21T17:02:13.546562"
+}

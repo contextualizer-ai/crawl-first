@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-2v8trb06",
+  "overall_score": 0.3,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.3,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate mismatch: 37.45 km difference between asserted coordinates and geocoded location from geo_loc_name",
+    "Environmental hierarchy conflict: env_local_scale 'evergreen forest' conflicts with inferred land cover showing 'savannas' and sparse/open forests (10-30% tree cover)",
+    "Semantic inconsistency: Asserted 'area of evergreen forest' vs inferred 'Evergreen Needleleaf Trees' with only 10-30% tree cover suggests more open woodland/savanna than dense forest",
+    "Location context mismatch: Asserted coordinates place sample near Garnet Hill with bare rock/scree features, inconsistent with dense evergreen forest classification",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "Elevation discrepancy: 518m difference between asserted coordinates (1901m) and geocoded location (2419m)",
+    "OSM features show natural:bare_rock and natural:scree as nearest features, contradicting forest environment classification"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - 37.45km discrepancy suggests data entry error or coordinate system confusion",
+    "Reassess env_local_scale classification - consider 'sparse forest', 'woodland', or 'montane grassland' instead of 'evergreen forest' based on 10-30% tree cover",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with study design",
+    "Review sample collection location - GPS coordinates may be incorrect given mismatch with Yellowstone Park centroid",
+    "Consider updating env_local_scale to better reflect the rocky, mountainous terrain indicated by OSM features (bare rock, scree)",
+    "Validate collection methodology - ensure coordinates represent actual sampling location rather than general area reference",
+    "Cross-reference with field notes to determine if sample was collected in forest patch within broader savanna/woodland landscape"
+  ],
+  "validation_timestamp": "2025-08-21T18:00:07.237227"
+}

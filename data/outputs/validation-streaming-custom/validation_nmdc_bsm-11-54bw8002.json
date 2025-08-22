@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-54bw8002",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.5,
+  "land_cover_soil_consistency": 0.3,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: Asserted 'temperate woodland biome' conflicts with 'agricultural field' and 'farm soil' - woodland biomes are not typically agricultural",
+    "Land cover data shows savanna/woodland (30-60% tree cover) conflicts with asserted agricultural field designation",
+    "4.4km coordinate discrepancy between asserted coordinates and geocoded location name",
+    "Environmental triad incoherent: woodland biome \u2192 agricultural field \u2192 farm soil creates logical inconsistency",
+    "Asserted ecosystem fields (Agricultural land, Soil) conflict with woodland biome designation",
+    "Current vegetation 'Switchgrass' and fertilizer application support agricultural context but conflict with woodland biome"
+  ],
+  "recommendations": [
+    "Update env_broad_scale from 'temperate woodland biome' to 'agricultural biome' or 'temperate grassland biome' to match agricultural context",
+    "Verify coordinate accuracy - 4.4km discrepancy suggests potential data entry error",
+    "Consider updating ecosystem fields to be internally consistent - either all agricultural or all woodland",
+    "Review land cover classification - savanna designation may indicate mixed agricultural-natural landscape",
+    "Validate sample location with field records to resolve coordinate vs. location name discrepancy",
+    "Ensure environmental triad follows logical hierarchy: biome \u2192 local environment \u2192 immediate medium"
+  ],
+  "validation_timestamp": "2025-08-21T17:04:07.682197"
+}

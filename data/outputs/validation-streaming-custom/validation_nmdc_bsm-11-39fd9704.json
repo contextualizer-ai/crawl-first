@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-39fd9704",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.9,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.9,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 1.46 km distance between asserted coords (39.088076, -96.570347) and geocoded location (39.1002012, -96.576798)",
+    "Minor elevation difference: 3.8m between asserted (404.2m) and geospatial lookup (408.0m)",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "env_local_scale term 'area of gramanoid or herbaceous vegetation' has typo - should be 'graminoid'",
+    "Schema compliance: geo_loc_name format follows NMDC schema correctly",
+    "Collection date (July 2018) aligns well with growing season for grassland sampling"
+  ],
+  "recommendations": [
+    "Verify coordinate accuracy - the 1.46 km discrepancy suggests possible GPS error during field sampling",
+    "Add missing ecosystem='Environmental' and ecosystem_category='Terrestrial' fields for consistency with other study samples",
+    "Correct spelling in env_local_scale term from 'gramanoid' to 'graminoid'",
+    "Consider adding ecosystem_type field to match study design patterns",
+    "Validate field sampling coordinates against official NEON site boundaries",
+    "Cross-reference with NEON site documentation to confirm exact sampling plot location"
+  ],
+  "validation_timestamp": "2025-08-21T17:52:44.866350"
+}

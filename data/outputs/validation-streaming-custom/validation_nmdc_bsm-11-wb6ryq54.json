@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-wb6ryq54",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.75,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate discrepancy: 9.74 km difference between asserted coordinates (45.763274, -87.187681) and geocoded location from Escanaba, MI (45.7455707, -87.0647434)",
+    "Large elevation difference: 285m between asserted elevation (500m) and geospatially inferred elevation (215m)",
+    "Semantic conflict: env_broad_scale 'temperate woodland biome' conflicts with inferred land cover dominated by 'grassland area' and 'herbaceous annuals'",
+    "Ecosystem inconsistency: ecosystem_subtype 'Agricultural land' matches inferred grassland/herbaceous systems, but env_broad_scale suggests woodland",
+    "Environmental contradiction: cur_vegetation 'Undisturbed Control' and experimental_factor_other 'Undisturbed Control' conflict with env_local_scale 'agricultural field' and agrochem_addition 'Fertilized'",
+    "Treatment designation unclear: sample marked as both 'Undisturbed Control' and 'Fertilized', creating logical contradiction"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - the 9.74 km discrepancy suggests potential data entry error or wrong coordinate system",
+    "Re-examine elevation data - 285m difference indicates possible coordinate or elevation recording error",
+    "Reconcile env_broad_scale with land cover data - consider changing from 'temperate woodland biome' to 'grassland biome' or 'agricultural biome' to match inferred grassland systems",
+    "Clarify treatment designation - resolve contradiction between 'Undisturbed Control' and 'Fertilized' status",
+    "Review env_broad_scale selection - ensure it accurately reflects the agricultural/grassland context rather than woodland",
+    "Validate sample classification within study design - confirm if this sample represents control or treatment condition",
+    "Consider updating cur_vegetation to reflect actual agricultural/grassland context rather than generic 'Undisturbed Control'",
+    "Cross-reference with other study samples to ensure consistent environmental terminology and treatment labeling"
+  ],
+  "validation_timestamp": "2025-08-21T18:27:46.444029"
+}

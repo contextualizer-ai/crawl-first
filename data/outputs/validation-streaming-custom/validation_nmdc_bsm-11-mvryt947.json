@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-mvryt947",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.3,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate discrepancy: 63.24 km distance between asserted coordinates (32.96142, -87.40828) and geocoded Alabama center (33.2588817, -86.8295337)",
+    "Major semantic conflict: River sediment sample has land cover classified as broadleaf forest/deciduous trees, not aquatic/riverine environment",
+    "env_broad_scale field is missing (ENVO_01000253 term name not provided) while other study samples have 'freshwater river biome'",
+    "Terrestrial forest land cover (>60% tree cover) contradicts aquatic freshwater ecosystem classification",
+    "Sample collection from river sediment but surrounding area shows dense deciduous broadleaf forest rather than riparian or aquatic vegetation",
+    "geo_loc_name format potentially non-compliant - should follow 'country: region, specific location' pattern but lacks specific location detail"
+  ],
+  "recommendations": [
+    "Verify and correct the latitude/longitude coordinates - current coordinates may be inaccurate given 63km discrepancy with Alabama geocoding",
+    "Add the missing env_broad_scale term name (likely 'freshwater river biome' based on other study samples)",
+    "Investigate the land cover classification - river sediment samples should show riparian or aquatic vegetation, not dense forest",
+    "Consider if coordinates should be adjusted to match actual Mayfield Creek location or if land cover data needs re-evaluation",
+    "Enhance geo_loc_name with more specific location information following NMDC schema format: 'USA: Alabama, Bibb County' or include creek name",
+    "Cross-validate with other WHONDRS samples to ensure coordinate accuracy and environmental consistency",
+    "Review collection methodology to confirm sample was actually taken from riverine environment given terrestrial forest classification"
+  ],
+  "validation_timestamp": "2025-08-21T18:11:57.320010"
+}

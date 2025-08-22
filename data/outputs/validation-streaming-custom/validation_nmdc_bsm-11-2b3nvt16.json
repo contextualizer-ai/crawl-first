@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-2b3nvt16",
+  "overall_score": 0.3,
+  "coordinate_consistency": 0.9,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.2,
+  "land_cover_soil_consistency": 0.3,
+  "ecosystem_alignment": 0.1,
+  "date_season_consistency": 0.8,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: Asserted 'evergreen forest' environment vs inferred grassland land cover data",
+    "Environmental hierarchy inconsistency: terrestrial biome \u2192 evergreen forest \u2192 soil does not match grassland reality",
+    "Land cover data shows 'Grasslands' across all classification systems, contradicting forest assertion",
+    "Ecosystem fields missing (ecosystem and ecosystem_category are null) preventing proper classification",
+    "Soil type 'Acriosols' has no ontology match, suggesting data quality issues",
+    "Study consistency problem: Other samples have populated ecosystem fields while this one is missing them",
+    "Collection device 'auger' appropriate for soil but environmental context mismatch remains"
+  ],
+  "recommendations": [
+    "CRITICAL: Re-examine and correct env_local_scale - change from 'evergreen forest' to grassland-appropriate term like ENVO:00000106 (grassland area)",
+    "Populate missing ecosystem and ecosystem_category fields - suggest 'Environmental' and 'Terrestrial' based on study pattern",
+    "Verify soil classification - Acriosols may be incorrect for this location and should be validated",
+    "Cross-reference with field notes to confirm actual vegetation type at collection site",
+    "Consider seasonal variation - February collection in California grassland is appropriate timing",
+    "Validate collection protocol - ensure auger sampling method aligns with grassland soil collection standards",
+    "Update metadata to reflect actual grassland ecosystem rather than forest environment"
+  ],
+  "validation_timestamp": "2025-08-21T17:26:27.660868"
+}

@@ -1,0 +1,33 @@
+{
+  "biosample_id": "nmdc:bsm-13-2fc16720",
+  "overall_score": 0.4,
+  "coordinate_consistency": 0.9,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.2,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Critical: env_broad_scale term ENVO:01000174 appears to be invalid/unresolvable",
+    "Critical: env_local_scale term ENVO:00000044 appears to be invalid/unresolvable",
+    "Critical: env_medium term ENVO:00005774 appears to be invalid/unresolvable",
+    "Major semantic conflict: Asserted peatland/wetland ecosystem vs inferred forest land cover data",
+    "Study inconsistency: Missing env_broad_scale like other samples in study",
+    "Soil type mismatch: Podzoluvisols (inferred) not typical for peatlands",
+    "Environmental hierarchy broken: Cannot validate triad due to invalid ENVO terms",
+    "Ecosystem classification conflict: Peat subtype vs Mixed/Deciduous forest land cover"
+  ],
+  "recommendations": [
+    "URGENT: Validate and correct all ENVO ontology terms in environmental triad",
+    "Add valid env_broad_scale term (suggest ENVO:01000253 'freshwater wetland biome' or ENVO:01000449 'peatland')",
+    "Replace invalid env_local_scale with appropriate peatland-specific term",
+    "Replace invalid env_medium with appropriate peat/organic soil term",
+    "Investigate coordinate accuracy - location may not represent true peatland environment",
+    "Cross-reference with study site documentation to verify environmental context",
+    "Consider reclassifying ecosystem fields to match actual land cover data",
+    "Add elevation data to asserted fields (428m available from inference)",
+    "Verify sample collection coordinates against Marcel Experimental Forest boundaries"
+  ],
+  "validation_timestamp": "2025-08-21T17:03:10.923481"
+}

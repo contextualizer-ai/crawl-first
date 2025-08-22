@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-22ykdz88",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.8,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.5,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 5.02 km distance between asserted coordinates (42.966111, -89.35611) and geocoded location name coordinates (42.9259657, -89.3842779)",
+    "Schema format violation: geo_loc_name 'USA: Wisconsin, Oregon' should follow format 'country: region, specific location' but Oregon is a town, not a region",
+    "Ecosystem classification conflict: Asserted 'Agricultural land' ecosystem subtype conflicts with current vegetation 'Restored Prairie' and experimental factor 'Restored Prairie'",
+    "Environmental context mismatch: Asserted 'temperate woodland biome' and 'agricultural field' don't align well with inferred land cover showing 'Cropland/Natural Vegetation Mosaics' and 'Deciduous Broadleaf Vegetation'",
+    "Vegetation inconsistency: 'Restored Prairie' vegetation conflicts with woodland biome classification and deciduous broadleaf tree dominance in land cover data",
+    "Fertilization context unclear: Sample marked as 'Fertilized' but described as 'Restored Prairie' which typically wouldn't be fertilized",
+    "Environmental triad spatial scale issues: Transition from 'temperate woodland biome' to 'agricultural field' to 'farm soil' doesn't logically support restored prairie ecosystem"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - determine if asserted coordinates or geo_loc_name location is accurate, as 5km distance is significant for ecosystem characterization",
+    "Standardize geo_loc_name format to 'USA: Wisconsin, Dane County' to comply with NMDC schema requirements",
+    "Resolve ecosystem classification: If this is truly a restored prairie site, update env_broad_scale to 'grassland biome' [ENVO:01000177] and env_local_scale to 'grassland' [ENVO:00000114]",
+    "Clarify vegetation and management history: Provide clearer description of whether this is agricultural land converted to prairie or native prairie, and explain fertilization context",
+    "Update ecosystem_subtype from 'Agricultural land' to more appropriate classification like 'Grassland' if this is restored prairie",
+    "Consider using 'prairie soil' [ENVO:00005783] instead of 'farm soil' for env_medium if this is truly restored prairie",
+    "Add temporal context to cur_vegetation field indicating when prairie restoration occurred relative to sample collection",
+    "Verify elevation measurement against multiple sources given 4m difference between asserted and geospatial lookup values"
+  ],
+  "validation_timestamp": "2025-08-21T17:16:53.890038"
+}

@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-10cg0s25",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.95,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Small coordinate discrepancy: 340m difference between asserted and geocoded coordinates",
+    "Elevation mismatch: 4.7m difference between asserted (336.7m) and geospatial lookup (332.0m)",
+    "Soil type 'Acriosols' from soil database may not align perfectly with deciduous forest context",
+    "Water content field uses non-standard format '0.214 g of water/g of dry soil' instead of QuantityValue",
+    "Minor inconsistency: asserted M horizon vs typically expected O/A horizons for deciduous forest surface soil"
+  ],
+  "recommendations": [
+    "Verify coordinates using high-precision GPS to resolve 340m discrepancy with geocoded location",
+    "Cross-check elevation measurement against multiple sources given 4.7m difference",
+    "Standardize water_content field to use proper QuantityValue format with numeric value and unit",
+    "Consider validating soil horizon designation - M horizon is uncommon for deciduous forest surface samples",
+    "Add soil texture/classification data to better contextualize Acriosols designation in deciduous forest environment",
+    "Include more detailed location description to specify exact sampling location within SCBI facility"
+  ],
+  "validation_timestamp": "2025-08-21T18:23:52.906403"
+}

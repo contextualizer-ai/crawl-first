@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-anzgdj82",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.6,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.7,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.5,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate mismatch: 37.19 km distance between asserted coordinates (44.954277, -110.541571) and geocoded coordinates from location name (44.6200885, -110.5606893)",
+    "Environmental context conflict: Asserted env_local_scale 'area of scrub' (ENVO:01000869) conflicts with inferred land cover showing grassland/herbaceous vegetation dominance",
+    "Coordinate precision issue: Asserted coordinates resolve to 'Blacktail Plateau Drive' rather than the broader 'Yellowstone National Park' location",
+    "Land cover mismatch: All inferred land cover systems indicate grassland/herbaceous vegetation, but asserted local scale indicates scrub area",
+    "Study inconsistency: Some samples in study have missing ecosystem/ecosystem_category fields while this sample has complete GOLD pathway"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - 37km discrepancy is substantial and may indicate data entry error",
+    "Re-evaluate env_local_scale assignment - consider 'grassland area' (ENVO:00000106) instead of 'area of scrub' based on land cover data",
+    "Add coordinate validation step to ensure asserted coordinates match intended sampling location within Yellowstone",
+    "Cross-reference with field sampling records to confirm actual vegetation type at sampling location",
+    "Standardize ecosystem field completion across all study samples for consistency",
+    "Consider adding soil type validation against inferred luvisol classification"
+  ],
+  "validation_timestamp": "2025-08-21T17:38:04.314559"
+}

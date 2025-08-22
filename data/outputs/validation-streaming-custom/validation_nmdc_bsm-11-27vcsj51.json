@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-27vcsj51",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.4,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.8,
+  "land_cover_soil_consistency": 0.5,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate discrepancy: 4.44 km difference between asserted coords and geocoded location",
+    "Major elevation inconsistency: 206m difference (asserted 500m vs geospatial 294m)",
+    "Environmental type conflict: Agricultural field (asserted) vs Savanna/Deciduous Forest (inferred land cover)",
+    "Ecosystem hierarchy mismatch: temperate woodland biome claimed but coordinates indicate savanna/sparse forest",
+    "Land cover data suggests natural woodland/savanna, contradicts agricultural field designation",
+    "Soil type (Luvisols) not typical for actively managed agricultural fields",
+    "Switchgrass cultivation location questionable given land cover classification"
+  ],
+  "recommendations": [
+    "Verify and correct GPS coordinates - current coordinates may be incorrect for the intended agricultural field location",
+    "Re-examine elevation measurement - 206m discrepancy suggests potential coordinate error",
+    "Clarify land use classification - determine if site is truly an agricultural field or natural/semi-natural area",
+    "Consider updating env_broad_scale to match actual land cover (savanna biome rather than woodland)",
+    "Validate sample collection location against study protocol - ensure sample was collected from intended agricultural field",
+    "Cross-reference with field notes and photos to confirm agricultural vs natural land use",
+    "Consider using geocoded coordinates (42.4997581, -85.4080641) which align better with Delton, Michigan location"
+  ],
+  "validation_timestamp": "2025-08-21T18:01:51.560506"
+}

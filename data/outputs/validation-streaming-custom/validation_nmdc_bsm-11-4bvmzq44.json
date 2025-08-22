@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-4bvmzq44",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.6,
+  "land_cover_soil_consistency": 0.4,
+  "ecosystem_alignment": 0.5,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 7.48 km distance between asserted coordinates and geocoded location from geo_loc_name",
+    "Major ecosystem conflict: asserted 'pastureland/hayfields' environment vs inferred 'deciduous broadleaf forest' land cover",
+    "Soil type mismatch: env_local_scale indicates agricultural land but soil classification is Acriosols (tropical weathered soils)",
+    "Inconsistent environmental context: pastureland assertion conflicts with dense forest land cover data",
+    "Potential coordinate error: asserted location appears to be in forested area rather than agricultural pasture",
+    "Missing ecosystem_subtype specification (marked as 'Unclassified')",
+    "No soil ontology matches found for inferred Acriosols soil type"
+  ],
+  "recommendations": [
+    "Verify coordinate accuracy - investigate 7.48km discrepancy between asserted coords and Oak Ridge geocoded location",
+    "Re-examine env_local_scale classification - confirm if sampling site is actually pastureland/hayfields or if coordinates point to forested area",
+    "Cross-reference with field notes to determine correct environmental context (agricultural vs forest)",
+    "Consider updating coordinates if sample was actually collected in deciduous forest environment",
+    "Add proper ecosystem_subtype classification to replace 'Unclassified'",
+    "Validate soil type classification - Acriosols may not be appropriate for Tennessee temperate climate",
+    "Review sampling protocol documentation to ensure environmental descriptors match actual collection site",
+    "Consider adding land cover validation step to NEON sampling workflow"
+  ],
+  "validation_timestamp": "2025-08-21T18:12:59.945860"
+}

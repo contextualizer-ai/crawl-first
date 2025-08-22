@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-btm3zf82",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.9,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.3,
+  "land_cover_soil_consistency": 0.4,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "env_local_scale and env_broad_scale use identical ENVO term (ENVO:01001442) - phyllosphere should not equal agricultural biome",
+    "Severe semantic conflict: asserted 'agricultural biome' vs inferred 'savanna/woodland' land cover",
+    "env_triad hierarchy broken: agricultural biome \u2192 phyllosphere biome \u2192 plant-associated biome lacks logical progression",
+    "Land cover shows 30-60% tree cover (woody savannas/open forests) inconsistent with typical agricultural fields",
+    "Schema violation: geo_loc_name format should follow 'country: region, specific location' pattern",
+    "Host plant (switchgrass) and agricultural context conflicts with inferred woodland/savanna environment"
+  ],
+  "recommendations": [
+    "Fix env_local_scale to use correct phyllosphere term (ENVO:00002121 'phyllosphere' not ENVO:01001442)",
+    "Verify coordinates and land cover classification - agricultural vs woodland discrepancy needs resolution",
+    "Correct geo_loc_name format to 'USA: Michigan, Kellogg Biological Station' following NMDC schema",
+    "Reconsider env_broad_scale if sample truly from woodland/savanna rather than agricultural field",
+    "Add more specific location context to resolve agricultural vs natural vegetation conflict",
+    "Cross-reference with study methodology to confirm sampling environment classification",
+    "Consider using more specific agricultural ecosystem terms if confirmed as farmland sample"
+  ],
+  "validation_timestamp": "2025-08-21T18:06:23.049125"
+}

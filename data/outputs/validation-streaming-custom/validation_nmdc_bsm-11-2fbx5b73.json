@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-2fbx5b73",
+  "overall_score": 0.78,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.65,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 4.53 km distance between asserted coords (44.296098, -85.199612) and geocoded location for Lake City, Michigan",
+    "Land cover conflict: Asserted 'temperate woodland biome' vs inferred mixed agricultural/forest systems with 10-60% tree cover",
+    "Ecosystem mismatch: Agricultural field designation conflicts with inferred deciduous forest and savanna characteristics",
+    "Environmental hierarchy inconsistency: Woodland biome \u2192 agricultural field \u2192 farm soil sequence doesn't align with natural forest indicators from land cover data",
+    "Schema format issue: geo_loc_name format 'USA: Michigan, Lake City' should follow 'country: region, specific location' pattern more precisely"
+  ],
+  "recommendations": [
+    "Verify coordinates against Lake City, Michigan boundaries - current coords may be in rural agricultural area outside city limits",
+    "Reconcile woodland biome classification with agricultural ecosystem designation - consider using agricultural biome term or mixed land use biome",
+    "Update env_broad_scale to reflect actual land use - consider 'anthropogenic terrestrial biome' or 'agricultural biome' terms",
+    "Validate sample location using field notes or GPS data from collection to resolve coordinate uncertainty",
+    "Consider adding land use history context to experimental_factor_other field to explain woodland-to-agriculture transition",
+    "Review geo_loc_name format to ensure INSDC compliance - consider 'USA: Michigan, Missaukee County' based on geocoding results",
+    "Add temporal context about land conversion from natural woodland to agricultural use if applicable"
+  ],
+  "validation_timestamp": "2025-08-21T17:35:09.594298"
+}

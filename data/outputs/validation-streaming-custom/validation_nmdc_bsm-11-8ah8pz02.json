@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-8ah8pz02",
+  "overall_score": 0.35,
+  "coordinate_consistency": 0.15,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.3,
+  "ecosystem_alignment": 0.25,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: Major coordinate discrepancy - 310km distance between asserted coordinates (46.121, -123.2707) and geocoded location (43.9792797, -120.737257) from 'USA: Oregon'",
+    "MAJOR: Severe ecosystem alignment mismatch - asserted rhizosphere/soil environment conflicts with inferred grassland land cover data",
+    "MODERATE: Asserted coords map to wetland/waterway area (13 water features, 2 wetlands within 1km) but sample describes rhizosphere soil",
+    "MODERATE: Land cover data shows grassland systems which don't align with poplar rhizosphere research context",
+    "MINOR: Elevation difference of 3m between asserted (1.0m) and geospatial lookup (4.0m)",
+    "SCHEMA: geo_loc_name format 'USA: Oregon' is too broad - should include specific region name per NMDC schema"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinates - current coordinates appear to be incorrect for Clatskanie, Oregon poplar site",
+    "Validate sample collection location against study design - coordinates should match poplar common garden site in Clatskanie",
+    "Update geo_loc_name to include specific region (e.g., 'USA: Oregon: Columbia County' or 'USA: Oregon: Clatskanie')",
+    "Cross-reference coordinates with other samples from same study site to ensure consistency",
+    "Consider updating ecosystem metadata if land cover data suggests different environmental context than described",
+    "Verify elevation measurements against known topography of collection site"
+  ],
+  "validation_timestamp": "2025-08-21T17:39:04.199756"
+}

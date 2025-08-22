@@ -1,0 +1,26 @@
+{
+  "biosample_id": "nmdc:bsm-11-geecaz29",
+  "overall_score": 0.9,
+  "coordinate_consistency": 0.95,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.92,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": 0.88,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Minor typo in env_local_scale term name: 'gramanoid' should be 'graminoid'",
+    "Missing ecosystem and ecosystem_category fields that are present in some other study samples",
+    "geo_loc_name could be more specific following NMDC schema format guidelines",
+    "Elevation difference of 4m between asserted and geospatial lookup (minor discrepancy)"
+  ],
+  "recommendations": [
+    "Correct the spelling in env_local_scale from 'gramanoid' to 'graminoid' for the herbaceous vegetation term",
+    "Consider adding ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with other study samples",
+    "Enhance geo_loc_name specificity following format 'country: state, specific location' more precisely",
+    "Consider using geospatially-derived elevation (1656m) if more accurate than asserted value (1652m)",
+    "Add more specific soil classification terms based on the kastanozem/phaeozem inferred soil types",
+    "Consider adding land cover classification terms from the rich inferred grassland data"
+  ],
+  "validation_timestamp": "2025-08-21T18:00:59.673094"
+}

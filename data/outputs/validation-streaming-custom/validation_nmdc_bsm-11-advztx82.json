@@ -1,0 +1,32 @@
+{
+  "biosample_id": "nmdc:bsm-11-advztx82",
+  "overall_score": 0.45,
+  "coordinate_consistency": 0.6,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.4,
+  "land_cover_soil_consistency": 0.2,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 4.44km distance between asserted coordinates (42.476365, -85.451887) and geocoded location name (42.4997581, -85.4080641)",
+    "Significant elevation mismatch: 206m difference between asserted (500m) and geospatial lookup (294m)",
+    "Critical semantic conflict: Asserted 'temperate woodland biome' env_broad_scale contradicts inferred 'agricultural field' local scale and land cover data showing savannas/woody vegetation",
+    "Environment hierarchy inconsistency: 'temperate woodland biome' \u2192 'agricultural field' \u2192 'farm soil' lacks logical progression from natural biome to agricultural context",
+    "Land cover contradiction: Inferred land cover shows deciduous broadleaf vegetation, savannas, and woody areas (10-60% tree cover) which conflicts with asserted agricultural field context",
+    "Ecosystem misalignment: Asserted 'Agricultural land' ecosystem subtype conflicts with inferred natural woodland/savanna environment",
+    "Schema format issue: geo_loc_name uses comma separator instead of colon as specified in NMDC schema",
+    "Environmental context mismatch: Sample described as fertilized switchgrass agricultural field but inferred data indicates natural woodland/savanna ecosystem"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - either update lat_lon field to match Delton, Michigan geocoded coordinates (42.4997581, -85.4080641) or update geo_loc_name to reflect actual sampling location",
+    "Reconcile elevation data - field validate the 500m elevation claim or update to geospatially-consistent 294m elevation",
+    "Resolve env_broad_scale conflict - if sampling occurred in an agricultural field within a temperate region, consider using 'temperate grassland biome' [ENVO:01000193] or 'anthropogenic terrestrial biome' [ENVO:01000219] instead of 'temperate woodland biome'",
+    "Update environment hierarchy for consistency - ensure env_broad_scale \u2192 env_local_scale \u2192 env_medium follows logical progression (e.g., anthropogenic biome \u2192 agricultural field \u2192 farm soil)",
+    "Clarify sampling context - determine if sample was taken from: (1) agricultural switchgrass field, (2) natural grassland/savanna, or (3) agricultural field adjacent to woodland",
+    "Fix geo_loc_name format - change 'USA: Michigan, Delton' to 'USA:Michigan:Delton' to comply with NMDC schema requirements",
+    "Ground-truth land cover classification - field validate whether location is agricultural or natural ecosystem to resolve semantic conflicts",
+    "Consider sample location precision - if sampling occurred at field edge or transitional zone, metadata should reflect this context"
+  ],
+  "validation_timestamp": "2025-08-21T17:56:22.282239"
+}

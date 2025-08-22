@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-g7by3f28",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 8.65 km distance between asserted coordinates and geocoded location",
+    "Semantic conflict: Desert ecosystem subtype doesn't align with shrubland land cover classifications",
+    "Land cover inconsistency: Multiple systems classify location as shrublands/open shrublands, not desert",
+    "Ecosystem classification ambiguity: 'Desert' vs 'area of scrub' environmental descriptions don't align well",
+    "Elevation discrepancy: 5.6m difference between asserted (993.4m) and geospatial lookup (999.0m)",
+    "Missing soil type ontology match in inferred data despite having Yermosols classification"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - consider using geocoded coordinates (31.8334182, -110.8528643) if more accurate",
+    "Reassess ecosystem_subtype classification - consider changing from 'Desert' to 'Shrubland' or 'Scrubland' based on land cover data",
+    "Review env_local_scale term - 'area of scrub' (ENVO:01000869) better aligns with land cover than desert classification",
+    "Update elevation to geospatially-derived value (999.0m) for better accuracy",
+    "Add soil type ontology mapping for Yermosols to improve semantic consistency",
+    "Consider adding land cover classification terms to metadata for better environmental context"
+  ],
+  "validation_timestamp": "2025-08-21T18:10:58.958346"
+}

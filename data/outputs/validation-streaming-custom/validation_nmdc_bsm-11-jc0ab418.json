@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-jc0ab418",
+  "overall_score": 0.15,
+  "coordinate_consistency": 0.0,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": null,
+  "enrichment_coverage": 0.75,
+  "issues": [
+    "CRITICAL: Massive coordinate discrepancy - asserted coords (88.077, 27.260) place sample in Central Arctic Ocean, but geocoded coords (22.285, 114.155) place it in Hong Kong, China - 7,519 km difference",
+    "CRITICAL: Geocoding error - location 'Central Arctic Ocean' incorrectly resolved to Hong Kong fast food restaurant",
+    "Schema violation: geo_loc_name format 'Central Arctic Ocean' does not follow INSDC/GAZ standard format 'country/sea: region, specific location'",
+    "Temperature (-1.81\u00b0C) is inconsistent with Hong Kong location but consistent with Arctic Ocean",
+    "Chemical parameters (nutrients, conductivity) are consistent with Arctic marine environment, not Hong Kong waters",
+    "Study context indicates Arctic Ocean sampling but coordinates suggest tropical/subtropical location",
+    "Depth of 51m is plausible for both locations but environmental chemistry strongly suggests Arctic origin"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinate data - coordinates appear to be incorrectly transcribed or swapped",
+    "Update geo_loc_name to proper INSDC format: 'Arctic Ocean: Central Arctic Ocean, [specific site name if available]'",
+    "Cross-reference with original field notes/GPS logs to confirm correct sampling coordinates",
+    "Validate all coordinates in this study dataset for similar transcription errors",
+    "Consider adding elevation data for marine samples (should be ~0m for sea surface)",
+    "Add quality control checks for coordinate-location name consistency in data pipeline",
+    "Implement geocoding validation that flags large discrepancies between asserted and resolved coordinates",
+    "Review other samples in study nmdc:sty-11-h1m9nj62 for similar coordinate errors"
+  ],
+  "validation_timestamp": "2025-08-21T16:59:25.715087"
+}

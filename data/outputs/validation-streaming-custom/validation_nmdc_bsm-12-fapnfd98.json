@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-12-fapnfd98",
+  "overall_score": 0.82,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 2.45 km difference between asserted coordinates (35.690428, -83.50379) and geocoded location name coordinates (35.707747, -83.5205215)",
+    "Land cover conflict: Asserted 'freshwater river biome' vs inferred 'broadleaf forest' from multiple land cover systems (IGBP, LAI, LCCS1, UMD)",
+    "Environmental context mismatch: Sample from aquatic epilithon but coordinates place it in forested terrestrial environment",
+    "Minor elevation difference: 9m variance between asserted (579m) and geospatial lookup (570m)",
+    "Potential aquatic vs terrestrial habitat confusion affecting sample context interpretation"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - consider using GPS coordinates from actual sampling location rather than general area coordinates",
+    "Cross-validate epilithon sampling location with actual stream coordinates - epilithon samples should be from stream bed, not forest canopy",
+    "Review field sampling protocols to ensure coordinates are recorded at the precise aquatic sampling point (stream bed) rather than access road or parking area",
+    "Consider adding env_medium validation against coordinate-based land cover data to flag potential terrestrial/aquatic mismatches",
+    "Update coordinates to reflect actual stream location where epilithon was collected, likely closer to Le Conte Creek waterway",
+    "Implement coordinate validation workflow that checks aquatic samples against nearby water features from OSM data"
+  ],
+  "validation_timestamp": "2025-08-21T17:50:01.917921"
+}

@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-7mnq9s32",
+  "overall_score": 0.8,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 1.23 km distance between asserted coordinates and geocoded location",
+    "Missing ecosystem and ecosystem_category fields - inconsistent with some other study samples",
+    "Soil type 'Acriosols' from geospatial lookup has no ENVO ontology match",
+    "Elevation difference of 6.6m between asserted (399.4m) and geospatial lookup (406.0m)",
+    "env_local_scale term 'area of gramanoid or herbaceous vegetation' has potential typo (gramanoid vs graminoid)",
+    "geo_loc_name format may not fully comply with NMDC schema - missing specific location details"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate accuracy - investigate which coordinates are correct for the intended sampling location",
+    "Add missing ecosystem (Environmental) and ecosystem_category (Terrestrial) fields to match study pattern",
+    "Validate soil horizon classification and consider adding more detailed soil characterization",
+    "Review env_local_scale term spelling - should likely be 'graminoid' not 'gramanoid'",
+    "Enhance geo_loc_name with more specific location details following NMDC format guidelines",
+    "Consider adding ecosystem classification to improve metadata completeness and study consistency",
+    "Verify elevation measurement against multiple geospatial sources to resolve discrepancy"
+  ],
+  "validation_timestamp": "2025-08-21T18:22:08.252775"
+}

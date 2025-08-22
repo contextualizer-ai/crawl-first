@@ -1,0 +1,25 @@
+{
+  "biosample_id": "nmdc:bsm-11-4y0frx96",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 3.96 km distance between asserted (50.91020354498825, 6.414313738007794) and geocoded coordinates (50.9220931, 6.3611015) from location name 'Germany: Nordrhein-Westfalen, Julich'",
+    "Land cover inconsistency: Inferred land cover shows 'Woody Savannas' and 'Open Forests' but sample is from controlled laboratory greenhouse environment at Forschungszentrum J\u00fclich",
+    "Elevation mismatch: 8.0m difference between asserted elevation (100.0m) and geospatial lookup (92.0m)",
+    "Environmental context mismatch: Asserted plant-associated/rhizosphere environment conflicts with inferred savanna/woodland land cover classifications"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate precision - the 3.96 km discrepancy suggests potential coordinate entry error or imprecise geocoding",
+    "Add metadata field to clearly distinguish laboratory/greenhouse samples from field samples to avoid land cover misinterpretation",
+    "Consider using building-specific coordinates for Forschungszentrum J\u00fclich greenhouse facilities rather than general campus coordinates",
+    "Include facility-specific environmental descriptors (e.g., 'controlled environment', 'greenhouse') in environmental metadata to clarify sampling context",
+    "Cross-validate elevation data with facility specifications or use higher-resolution elevation datasets for research campus locations"
+  ],
+  "validation_timestamp": "2025-08-21T18:13:56.490565"
+}

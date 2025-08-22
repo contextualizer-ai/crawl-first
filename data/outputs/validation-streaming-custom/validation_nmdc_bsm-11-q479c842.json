@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-q479c842",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.9,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 10.52 km distance between asserted coordinates (42.013, -93.743) and geocoded location from 'USA: Iowa, Ames' (42.0267567, -93.6170448)",
+    "Location mismatch: Asserted coordinates place sample in Boone County, but geocoded Ames location is in Story County",
+    "Elevation variance: 39m difference between asserted elevation at coordinates (324m) and geocoded Ames elevation (286m)",
+    "Schema format compliance: geo_loc_name format 'USA: Iowa, Ames' follows expected pattern but coordinates don't match this location",
+    "Environmental context discrepancy: Asserted coordinates show cemetery and fence features rather than active agricultural land"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - confirm whether sample was collected at (42.013, -93.743) in Boone County or near Ames in Story County",
+    "If coordinates are correct, update geo_loc_name to reflect actual county (Boone County) rather than Ames",
+    "If Ames location is correct, update coordinates to match Story County location near Iowa State University research facilities",
+    "Cross-reference with field collection logs and other samples from the same study to verify sampling locations",
+    "Consider adding more specific location descriptors in geo_loc_name for agricultural research sites",
+    "Validate elevation data against topographic maps for the confirmed location"
+  ],
+  "validation_timestamp": "2025-08-21T17:48:13.701013"
+}

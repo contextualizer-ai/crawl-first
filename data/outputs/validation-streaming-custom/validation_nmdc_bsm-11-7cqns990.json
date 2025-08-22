@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-7cqns990",
+  "overall_score": 0.6,
+  "coordinate_consistency": 0.3,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 200.33 km distance between asserted coordinates (38.9468, -96.4438) and geocoded location from 'USA: Kansas' (38.27312, -98.5821872)",
+    "Land cover mismatch: Asserted as freshwater river sample but coordinates map to grassland area according to all land cover classification systems (IGBP, LCCS, UMD, etc.)",
+    "Environmental context conflict: Sample described as river surface water but nearest water feature is 706.9 meters away from asserted coordinates",
+    "Potential sample location error: Coordinates appear to be in terrestrial grassland rather than aquatic environment",
+    "Schema format issue: geo_loc_name 'USA: Kansas' is too broad - should include specific region/locality for a river sample"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - either update to actual river sampling location or confirm if coordinates represent nearby land reference point",
+    "Update geo_loc_name to include specific river name and locality (e.g., 'USA: Kansas, [County Name], [River Name]') following NMDC schema expectations",
+    "Add specific sampling site details to clarify exact location within river system",
+    "Cross-reference with field notes to resolve coordinate vs. environmental description discrepancy",
+    "Consider adding elevation data to asserted metadata for better geographic context",
+    "Validate coordinates against other samples from same study to check for systematic location errors"
+  ],
+  "validation_timestamp": "2025-08-21T18:02:42.712536"
+}

@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-hh96gz10",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.8,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.55,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 4.44 km difference between asserted coordinates (42.476365, -85.451887) and geocoded location (42.4997581, -85.4080641)",
+    "Elevation inconsistency: 206m difference between asserted elevation (500m) and geospatial lookup (294m)",
+    "Semantic mismatch: Asserted 'temperate woodland biome' conflicts with inferred savanna land cover classification",
+    "Agricultural context conflict: Sample described as 'agricultural field' and 'farm soil' but land cover data indicates woodland/savanna vegetation",
+    "Environmental triad inconsistency: Woodland biome \u2192 agricultural field \u2192 farm soil hierarchy doesn't align with inferred savanna ecosystem",
+    "Land cover contradiction: Multiple systems classify location as savanna/deciduous woodland, conflicting with agricultural designation"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - consider using geocoded coordinates (42.4997581, -85.4080641) if location name is accurate",
+    "Update elevation to 294m based on geospatial lookup, or verify field measurement if 500m is correct",
+    "Reconcile env_broad_scale with land cover data - consider 'agricultural ecosystem' or 'managed grassland' instead of 'temperate woodland biome'",
+    "Review environmental triad: woodland biome \u2192 agricultural field \u2192 farm soil may not be appropriate for a switchgrass research site",
+    "Consider updating env_broad_scale to match actual land use: 'anthropogenic terrestrial biome' or 'agricultural ecosystem'",
+    "Validate sample collection location - ensure coordinates correspond to actual switchgrass field rather than nearby natural area",
+    "Cross-reference with other study samples to ensure consistent environmental classification across the research project"
+  ],
+  "validation_timestamp": "2025-08-21T17:51:54.017040"
+}

@@ -1,0 +1,32 @@
+{
+  "biosample_id": "nmdc:bsm-11-9cj63327",
+  "overall_score": 0.4,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.1,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 236 km difference between asserted coordinates (38.4897, -87.55) and geocoded location 'USA: Indiana' (40.3270127, -86.1746933)",
+    "Severe semantic conflict: Sample is described as freshwater river environment but located in agricultural cropland according to land cover data",
+    "Location mismatch: Asserted coordinates point to Hazleton, Gibson County while geo_loc_name suggests central Indiana",
+    "Environmental context contradiction: River biome sample in area dominated by cultivated cropland (60%+ coverage)",
+    "Land cover types (Croplands, Herbaceous Croplands, Cereal Croplands) fundamentally incompatible with freshwater river sampling",
+    "OSM data confirms White River monitoring station only 8m away but coordinates don't match geocoded state location",
+    "Study consistency issue: Other samples show similar coordinate/geo_loc_name patterns suggesting systematic data quality problems"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - determine if (38.4897, -87.55) or geocoded Indiana location is accurate",
+    "If coordinates are correct, update geo_loc_name to 'USA: Gibson County, Indiana' or 'USA: Hazleton, Indiana' for specificity",
+    "Validate sample collection site - confirm if sample was actually collected from White River or if coordinates are incorrect",
+    "Cross-reference with field notes and original sampling records to resolve location discrepancy",
+    "Review land cover interpretation - river samples may appear in agricultural areas but should reflect aquatic environment",
+    "Consider updating geo_loc_name format to include county/locality for better precision following INSDC guidelines",
+    "Implement coordinate validation checks across the entire study dataset",
+    "Add quality control flags for samples with coordinate/location mismatches",
+    "Verify collection methodology matches study description of river microbiome sampling"
+  ],
+  "validation_timestamp": "2025-08-21T18:25:46.357281"
+}

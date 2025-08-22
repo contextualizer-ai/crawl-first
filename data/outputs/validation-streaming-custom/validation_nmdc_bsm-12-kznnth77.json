@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-12-kznnth77",
+  "overall_score": 0.7,
+  "coordinate_consistency": 0.6,
+  "elevation_plausibility": 0.6,
+  "env_triad_coherence": 0.8,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 1.31 km distance between asserted coordinates and geocoded location from McRae Creek name",
+    "Major semantic conflict: Asserted freshwater river biome (epilithon on step pool) vs inferred evergreen needleleaf forest land cover",
+    "Elevation mismatch: 32m difference between asserted (876m) and geospatial lookup (908m)",
+    "Conflicting environmental context: Sample claims aquatic freshwater environment but coordinates place it in dense forest with no water features nearby",
+    "Missing ecosystem and ecosystem_category fields reduce study consistency",
+    "No water features detected within 1000m radius contradicts freshwater river biome assertion"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - 1.31km discrepancy suggests potential data entry error",
+    "Re-examine sample location context - coordinates indicate forest environment inconsistent with aquatic freshwater claims",
+    "Cross-validate with field collection notes to resolve forest vs river environment conflict",
+    "Consider if sample was collected from a small stream not detected by satellite data",
+    "Add missing ecosystem and ecosystem_category fields for GOLD pathway consistency",
+    "Validate elevation measurement against topographic data (32m difference)",
+    "Include water feature detection in quality control pipeline for aquatic samples",
+    "Implement coordinate validation against stated location names during data submission"
+  ],
+  "validation_timestamp": "2025-08-21T17:19:34.353188"
+}

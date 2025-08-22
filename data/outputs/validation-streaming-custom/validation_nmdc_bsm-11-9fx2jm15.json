@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-9fx2jm15",
+  "overall_score": 0.68,
+  "coordinate_consistency": 0.72,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.55,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major elevation discrepancy: asserted 241.8m vs. inferred 0.0m (wetland-level elevation)",
+    "Semantic conflict: Asserted 'evergreen forest' vs. inferred 'savanna/woody savanna' land cover types",
+    "Inconsistent vegetation description: 'area of evergreen forest' vs. multiple land cover classifications suggesting open woodland/savanna",
+    "Soil type mismatch: Inferred 'Gleysols' (wetland soils) conflicts with asserted terrestrial forest environment",
+    "Potential geographic misalignment: Forest environment claimed but proximity to stream and wetland characteristics suggested",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "Land cover classification uncertainty with multiple conflicting systems (evergreen vs. savanna vs. woody savanna)"
+  ],
+  "recommendations": [
+    "Verify elevation measurement - significant discrepancy suggests potential coordinate or measurement error",
+    "Re-examine environmental classification - reconcile 'evergreen forest' assertion with savanna land cover inferences",
+    "Consider wetland influence in environmental description given Gleysols soil type and stream proximity",
+    "Add missing ecosystem and ecosystem_category fields for consistency with study design",
+    "Validate coordinates against known sampling locations in Caribou-Poker Creeks Research Watershed",
+    "Review land cover classification methodology to resolve conflicting vegetation type descriptions",
+    "Consider environmental gradient description rather than single forest type given mixed land cover signals"
+  ],
+  "validation_timestamp": "2025-08-21T18:19:26.974579"
+}

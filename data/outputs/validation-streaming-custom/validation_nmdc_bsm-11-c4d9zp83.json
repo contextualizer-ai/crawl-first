@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-c4d9zp83",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.95,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.62,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Land cover data shows dominant terrestrial vegetation (deciduous broadleaf trees, woody savannas) which conflicts with lake water sampling location",
+    "QA land cover classification identifies location as 'Classified water' but other classification systems show terrestrial vegetation",
+    "Inferred land cover suggests savanna/forest environment which is inconsistent with freshwater lake ecosystem",
+    "Collection date (July 7, 2016) shows summer sampling but no seasonal context validation possible",
+    "Multiple conflicting land cover classifications reduce confidence in environmental context"
+  ],
+  "recommendations": [
+    "Verify that coordinates (46.008, -89.701) accurately represent the lake water sampling location rather than nearby terrestrial areas",
+    "Cross-reference land cover data sources to resolve conflicting classifications between 'Classified water' and terrestrial vegetation systems",
+    "Consider updating coordinates to be more precisely located over the water body if sampling was conducted from the lake center",
+    "Add elevation context relative to lake surface for depth measurements",
+    "Include seasonal context information to support July collection timing",
+    "Validate that the 4-meter depth measurement is appropriate for the specific lake location"
+  ],
+  "validation_timestamp": "2025-08-21T17:24:29.481235"
+}

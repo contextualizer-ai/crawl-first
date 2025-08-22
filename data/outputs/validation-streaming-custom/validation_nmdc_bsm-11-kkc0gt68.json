@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-kkc0gt68",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 10.52 km distance between asserted coordinates (42.013, -93.743) and geocoded location from 'USA: Iowa, Ames' (42.0267567, -93.6170448)",
+    "County mismatch: Asserted coordinates resolve to Boone County while geocoded location is in Story County",
+    "Limited environmental features detected near coordinates (only cemetery and fence within 1000m)",
+    "Minor elevation difference: 1m between asserted (325m) and geospatial lookup (324m)",
+    "geo_loc_name format deviation: Uses 'USA: Iowa, Ames' instead of standard 'United States: Iowa, Ames' format"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate discrepancy - determine if sample was collected at asserted coordinates or near Ames city center",
+    "Standardize geo_loc_name format to follow INSDC guidelines: 'United States: Iowa, Ames'",
+    "Add more specific location information to geo_loc_name (e.g., farm name or research station)",
+    "Consider adding nearest landmark or research facility name for better geographic context",
+    "Validate coordinates against study site locations mentioned in associated research",
+    "Cross-reference with other samples in the study to ensure consistent coordinate reporting"
+  ],
+  "validation_timestamp": "2025-08-21T18:15:48.529665"
+}

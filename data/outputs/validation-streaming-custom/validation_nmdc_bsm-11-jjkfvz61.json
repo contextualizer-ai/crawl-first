@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-jjkfvz61",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.68,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.65,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 5.18 km distance between asserted coordinates and geocoded location from geo_loc_name",
+    "Elevation discrepancy: 13.4m difference between asserted (38.6m) and geospatial lookup (52.0m)",
+    "Land cover conflict: Inferred savanna/sparse forest conflicts with asserted deciduous forest environment",
+    "Environmental context mismatch: Limited environmental features at coordinates vs. expected forest ecosystem",
+    "Ecosystem subtype 'Unclassified' lacks specificity for data interpretation",
+    "Temperature measurement lacks decimal precision for scientific accuracy"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - use geocoded coordinates (31.2408992, -84.4775134) if sampling occurred at The Jones Center",
+    "Update elevation to 52.0m based on geospatial lookup or verify original measurement",
+    "Reconcile environmental classification - determine if site is deciduous forest or savanna/sparse woodland",
+    "Specify ecosystem_subtype beyond 'Unclassified' to improve data utility",
+    "Add decimal precision to temperature measurement (e.g., 27.0\u00b0C instead of 27\u00b0C)",
+    "Consider adding environmental context fields like vegetation density or forest structure",
+    "Validate sampling location within The Jones Center boundaries",
+    "Review collection protocol to ensure consistent coordinate recording"
+  ],
+  "validation_timestamp": "2025-08-21T17:31:13.645195"
+}
