@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-12-4mqybj78",
+  "overall_score": 0.62,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.6,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: Sample asserted as stream water but coordinates locate it in deciduous broadleaf forest biome",
+    "Elevation discrepancy: 23.1m difference between asserted (271.9m) and geospatial (295.0m)",
+    "Environmental context mismatch: Stream sample metadata vs forest land cover classification",
+    "Missing ecosystem and ecosystem_category fields for GOLD pathway classification",
+    "Nearest water feature (Leach Run) is 147.4m away, raising questions about sample origin"
+  ],
+  "recommendations": [
+    "Verify sample collection coordinates - current coordinates appear to be in forested area rather than stream",
+    "Cross-reference field notes to confirm sample was collected from Posey Creek vs nearby Leach Run",
+    "Consider updating coordinates to reflect actual stream sampling location",
+    "Add ecosystem and ecosystem_category fields to complete GOLD pathway metadata",
+    "Validate elevation measurement against topographic maps for the actual sampling site",
+    "Include distance to nearest water body in metadata to clarify spatial context"
+  ],
+  "validation_timestamp": "2025-08-21T18:30:16.319505"
+}

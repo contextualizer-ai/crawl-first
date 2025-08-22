@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-n3bytv20",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.55,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.45,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 4.44 km distance between asserted coords and geocoded location",
+    "Major semantic conflict: asserted agricultural land vs inferred woodland/savanna ecosystem",
+    "Elevation discrepancy: 206m difference between asserted (500m) and geospatial (294m)",
+    "Environmental contradiction: agricultural field descriptor conflicts with deciduous woodland land cover",
+    "Inconsistent vegetation description: 'Undisturbed Control' conflicts with 'Fertilized' agrochem addition",
+    "Ecosystem classification mismatch: Agricultural land vs woodland biome characteristics"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate precision - consider using geocoded coordinates (42.4997581, -85.4080641) which better match Delton, MI",
+    "Reconcile ecosystem classification - if truly agricultural, update env_broad_scale from woodland to agricultural biome",
+    "Clarify experimental design - resolve contradiction between 'Undisturbed Control' and 'Fertilized' treatments",
+    "Update elevation to geospatially-derived value (294m) for better accuracy",
+    "Review land cover interpretation - if sample is from agricultural field within woodland matrix, specify this clearly",
+    "Standardize vegetation classification to match actual land use and experimental treatment"
+  ],
+  "validation_timestamp": "2025-08-21T17:55:22.894955"
+}

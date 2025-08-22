@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-12-3s93zg37",
+  "overall_score": 0.6,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant ecosystem mismatch: Asserted 'freshwater river biome' with 'epipelon' environment conflicts with inferred 'broadleaf forest' land cover across all classification systems",
+    "Elevation discrepancy: 19.2m difference between asserted (275.8m) and geospatial lookup (295.0m)",
+    "Environmental context conflict: Sample claims to be from stream pool epipelon but coordinates indicate forested terrestrial location",
+    "Missing critical ecosystem metadata: ecosystem, ecosystem_category, and ecosystem_type fields are not populated",
+    "Potential coordinate error: Forest location inconsistent with aquatic sampling methodology described in study"
+  ],
+  "recommendations": [
+    "Verify coordinates accuracy - current location (38.89431, -78.147258) appears to be in forested area rather than aquatic environment",
+    "Cross-reference with field notes to confirm if sampling occurred in nearby Leach Run (60.8m away) rather than at exact coordinates",
+    "Populate missing ecosystem hierarchy fields (ecosystem, ecosystem_category, ecosystem_type) for GOLD compliance",
+    "Consider updating coordinates to reflect actual aquatic sampling location if field sampling occurred in stream",
+    "Add quality flag noting potential coordinate-environment mismatch for downstream analysis consideration",
+    "Review other NEON benthic samples from this site to identify systematic coordinate issues"
+  ],
+  "validation_timestamp": "2025-08-21T17:27:24.266725"
+}

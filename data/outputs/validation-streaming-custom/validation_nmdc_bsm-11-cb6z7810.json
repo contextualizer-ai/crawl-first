@@ -1,0 +1,25 @@
+{
+  "biosample_id": "nmdc:bsm-11-cb6z7810",
+  "overall_score": 0.8,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 4.61 km distance between asserted coordinates (45.850153, -121.989672) and geocoded location from geo_loc_name",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "Soil type classification 'Xerosols' from coordinates does not align with expected Pacific Northwest forest soils",
+    "Collection temperature (10.1\u00b0C) is significantly lower than weather station data (15.5\u00b0C average) for same date"
+  ],
+  "recommendations": [
+    "Verify coordinate accuracy - consider using geocoded coordinates (45.8090043, -121.9823059) which align better with Wind River Experimental Forest",
+    "Add missing ecosystem='Environmental' and ecosystem_category='Terrestrial' fields for consistency with other study samples",
+    "Review soil classification - Xerosols are typically arid climate soils, inconsistent with Pacific Northwest evergreen forest environment",
+    "Cross-validate temperature measurements with local weather conditions and sampling methodology",
+    "Consider adding more specific location details within Wind River Experimental Forest for better spatial resolution"
+  ],
+  "validation_timestamp": "2025-08-21T17:29:17.251222"
+}

@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-h9643g57",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.4,
+  "land_cover_soil_consistency": 0.5,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 4.53km difference between asserted coordinates and geocoded location for 'USA: Michigan, Lake City'",
+    "Major semantic conflict: env_broad_scale claims 'temperate woodland biome' but sample is from agricultural switchgrass field with fertilization",
+    "Environmental hierarchy mismatch: woodland biome \u2192 agricultural field \u2192 farm soil creates logical inconsistency",
+    "Land cover conflict: Inferred land cover shows forest/woodland systems (deciduous broadleaf, savannas) conflicting with asserted agricultural ecosystem",
+    "Elevation discrepancy: 129m difference between asserted (500m) and geospatial lookup (371m)",
+    "Ecosystem classification inconsistency: Claims 'temperate woodland biome' but describes fertilized switchgrass agricultural system",
+    "Soil type mismatch: Inferred podzol soil type doesn't align well with typical agricultural farm soil expectations"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - either use geocoded coordinates (44.335287, -85.215046) for Lake City center or update geo_loc_name to reflect actual sampling location",
+    "Correct env_broad_scale to agricultural biome or cropland biome (e.g., ENVO:01000245 'anthropogenic terrestrial biome') to match the fertilized switchgrass agricultural context",
+    "Update environmental hierarchy for consistency: agricultural biome \u2192 agricultural field \u2192 farm soil makes logical sense",
+    "Verify elevation measurement - confirm if 500m is correct for this location or use geospatial-derived 371m",
+    "Consider adding more specific location details to geo_loc_name if coordinates represent a specific field rather than Lake City center",
+    "Validate soil classification - confirm if podzol is appropriate for this agricultural setting or if different soil characterization is needed",
+    "Review study methodology to ensure environmental classification aligns with actual sampling from fertilized agricultural switchgrass plots"
+  ],
+  "validation_timestamp": "2025-08-21T18:26:44.246835"
+}

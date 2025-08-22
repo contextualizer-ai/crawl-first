@@ -1,0 +1,25 @@
+{
+  "biosample_id": "nmdc:bsm-11-4jp9g708",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.95,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 2.94 km difference between asserted (18.321, -65.8172) and geocoded coordinates (18.3474409, -65.8163814) from geo_loc_name",
+    "geo_loc_name format deviation: Uses 'Puerto Rico: Rio Grande' instead of recommended country:region format",
+    "Missing elevation data in asserted fields despite availability from geocoding",
+    "Inconsistent elevation between sources: asserted coords suggest 370m vs geocoded 63m"
+  ],
+  "recommendations": [
+    "Verify and update coordinates to match the intended sampling location in El Verde, Luquillo Experimental Forest",
+    "Update geo_loc_name to follow INSDC format: 'Puerto Rico: El Verde, Luquillo Experimental Forest'",
+    "Add elevation field with verified value from field measurements",
+    "Cross-reference coordinates with other samples from same study site for consistency",
+    "Consider adding more specific location description to distinguish from other forest plots"
+  ],
+  "validation_timestamp": "2025-08-21T17:49:05.459441"
+}

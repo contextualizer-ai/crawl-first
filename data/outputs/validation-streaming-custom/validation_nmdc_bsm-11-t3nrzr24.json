@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-t3nrzr24",
+  "overall_score": 0.4,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.7,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: Major coordinate discrepancy - 183.21 km distance between asserted coordinates (32.529789, -87.818194) and geocoded location of 'Dead Lake' (30.8887396, -87.9914339)",
+    "Semantic conflict: Asserted env_local_scale 'area of evergreen forest' (ENVO:01000843) conflicts with inferred land cover showing 'Deciduous Broadleaf Forests' across all classification systems",
+    "Geographic mismatch: Asserted coordinates place sample in Greene County, but geocoded 'Dead Lake' location is in Mobile County",
+    "Environmental inconsistency: Asserted 'evergreen forest' vs inferred 'deciduous broadleaf forest' represents opposite forest types",
+    "Collection context unclear: Sample collected at 'Dead Lake' but coordinates point to terrestrial forest location 183km away"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinate data - either update coordinates to match Dead Lake location or update geo_loc_name to match asserted coordinates",
+    "Update env_local_scale from 'area of evergreen forest' to 'deciduous broadleaf forest' or similar term matching land cover data",
+    "Clarify sampling location: If collected near Dead Lake, use geocoded coordinates; if collected at forest site, update geo_loc_name",
+    "Add quality flag indicating coordinate uncertainty until verification is complete",
+    "Cross-reference with field notes or original sampling records to determine correct location",
+    "Consider adding site description field to clarify relationship between water body name and terrestrial sampling location"
+  ],
+  "validation_timestamp": "2025-08-21T18:18:26.863047"
+}

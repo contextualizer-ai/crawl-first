@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-cr1k9n55",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.6,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.4,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: env_broad_scale 'temperate woodland biome' contradicts ecosystem_subtype 'Agricultural land' and agricultural context",
+    "Coordinate mismatch: 4.44 km distance between asserted coordinates and geocoded location from geo_loc_name",
+    "Environmental hierarchy inconsistent: woodland biome \u2192 agricultural field \u2192 farm soil creates logical disconnect",
+    "Land cover data shows 'Woody Savannas' and 'Deciduous Broadleaf' which conflicts with agricultural field designation",
+    "env_broad_scale (woodland biome) does not align with study focus on agricultural switchgrass systems",
+    "Current vegetation 'Switchgrass' and fertilization status suggest active agriculture, not woodland"
+  ],
+  "recommendations": [
+    "Update env_broad_scale to agricultural biome or temperate grassland biome to match agricultural context",
+    "Verify and correct coordinates - use either asserted coords (42.476365, -85.451887) or geocoded coords (42.4997581, -85.4080641) consistently",
+    "Revise environmental hierarchy to: agricultural biome \u2192 agricultural field \u2192 farm soil for logical consistency",
+    "Confirm land use classification - if truly agricultural, land cover data may be outdated or misclassified",
+    "Consider using 'temperate broadleaf and mixed forest biome' if site is transitioning from forest to agriculture",
+    "Add temporal context to clarify if this is converted forest land now used for agriculture"
+  ],
+  "validation_timestamp": "2025-08-21T17:28:22.624691"
+}

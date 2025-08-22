@@ -1,0 +1,26 @@
+{
+  "biosample_id": "nmdc:bsm-11-ybjmrs89",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.3,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate mismatch: 149.79 km distance between asserted coords (43.0995, -89.4045) and geocoded location for Wisconsin (44.4308975, -89.6884637)",
+    "Coordinates point to Madison area but description specifies Lake Mendota specifically - need lake-specific coordinates",
+    "Luvisol soil type from coordinate lookup is not typical for lake environments - indicates coordinate accuracy issues",
+    "Sample name suggests Lake Mendota but coordinates are generic Madison location",
+    "geo_loc_name format 'USA: Wisconsin' is too broad for specific lake sampling site"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates to Lake Mendota-specific location (should be approximately 43.1056, -89.4053 for Lake Mendota)",
+    "Update geo_loc_name to include specific lake name: 'USA: Wisconsin, Lake Mendota'",
+    "Add more specific sample_collection_site description beyond 'lake surface water'",
+    "Cross-reference coordinates with other Lake Mendota samples in the study for consistency",
+    "Consider adding depth information if surface water sampling location varied"
+  ],
+  "validation_timestamp": "2025-08-21T16:58:25.032490"
+}

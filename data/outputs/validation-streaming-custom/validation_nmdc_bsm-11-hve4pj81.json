@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-hve4pj81",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 10.52 km difference between asserted coordinates (42.013, -93.743) and geocoded location from 'USA: Iowa, Ames' (42.0267567, -93.6170448)",
+    "Administrative inconsistency: Asserted coordinates place sample in Boone County, but geocoded Ames location is in Story County",
+    "Minor elevation discrepancy: 39m difference between asserted elevation (325m) and geocoded elevation (286m) from location name",
+    "Limited environmental features detected at asserted coordinates - only cemetery and fence within 1000m radius",
+    "Study design note: Sample appears to be from controlled agricultural field experiment but coordinates may not precisely locate the specific experimental plot"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - use GPS coordinates from actual sampling location rather than general area coordinates",
+    "Clarify administrative location - confirm whether sample is from Boone County (asserted coords) or Story County (Ames city limits)",
+    "Consider using more precise field/plot-level coordinates for agricultural research sites",
+    "Add experimental plot identifier or field station details to improve spatial precision",
+    "Cross-reference coordinates with other samples from same study to ensure spatial consistency within the experimental design",
+    "Update geo_loc_name to be more specific (e.g., 'USA: Iowa, Boone County' if asserted coordinates are correct)"
+  ],
+  "validation_timestamp": "2025-08-21T18:10:05.521538"
+}

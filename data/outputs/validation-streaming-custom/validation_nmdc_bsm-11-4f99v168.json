@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-4f99v168",
+  "overall_score": 0.3,
+  "coordinate_consistency": 0.3,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.6,
+  "land_cover_soil_consistency": 0.1,
+  "ecosystem_alignment": 0.2,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinates mismatch: 4.44 km difference between asserted coords and geocoded location",
+    "Major elevation discrepancy: 206m difference between asserted (500m) and geospatial lookup (294m)",
+    "Severe ecosystem type conflict: Asserted 'temperate woodland biome' vs inferred land cover showing 'woody savannas/open forests'",
+    "Agricultural field contradiction: Asserted agricultural field but inferred land cover shows deciduous woodland/savanna ecosystem",
+    "Land use inconsistency: Sample claims agricultural field with switchgrass but land cover data indicates natural woodland ecosystem",
+    "Environmental context mismatch: Farm soil designation conflicts with woodland/savanna land cover classifications",
+    "Study design inconsistency: Other samples in same study from same location may have similar coordinate issues"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - geocoded location for Delton, MI suggests coordinates should be closer to 42.4998, -85.4081",
+    "Validate elevation measurement - 500m appears too high for this region of Michigan (should be ~290m)",
+    "Reassess env_broad_scale classification - land cover data suggests woodland/savanna rather than agricultural biome",
+    "Clarify land use history - determine if site was converted from natural woodland to agricultural use",
+    "Review ecosystem classification hierarchy - current classification may not accurately reflect actual site conditions",
+    "Cross-validate with other study samples - check if similar coordinate/elevation issues exist in related samples",
+    "Consider updating env_broad_scale to better reflect mixed woodland-agricultural landscape",
+    "Add temporal context - specify when agricultural conversion occurred if applicable"
+  ],
+  "validation_timestamp": "2025-08-21T17:36:07.380833"
+}

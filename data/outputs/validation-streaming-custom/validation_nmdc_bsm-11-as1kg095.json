@@ -1,0 +1,33 @@
+{
+  "biosample_id": "nmdc:bsm-11-as1kg095",
+  "overall_score": 0.3,
+  "coordinate_consistency": 0.1,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.0,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": 0.8,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: 195.85 km distance between asserted coordinates (68.627175, -149.590514) and geocoded coordinates (69.5335129, -153.8220681)",
+    "CRITICAL: env_broad_scale field uses unresolved ENVO:00000446 term without descriptive name",
+    "CRITICAL: env_local_scale field uses unresolved ENVO:01000861 term without descriptive name",
+    "MAJOR: Missing ecosystem, ecosystem_category, and ecosystem_type fields",
+    "MAJOR: Collection date only provides month precision (2015-03), missing specific date",
+    "MODERATE: Asserted coordinates point to Toolik Field Station research facility, but geocoded location points to general North Slope Borough",
+    "MODERATE: Land cover data shows tundra environment consistent with North Slope location, but conflicts with precise research station coordinates",
+    "MINOR: Temperature data shows extreme cold (-30.6\u00b0C average) appropriate for March in Arctic Alaska",
+    "MINOR: Elevation data shows 0 meters, which may be placeholder value"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinate accuracy - 195 km discrepancy suggests major geolocation error",
+    "HIGH PRIORITY: Resolve ENVO ontology terms for env_broad_scale (ENVO:00000446) and env_local_scale (ENVO:01000861) to include proper names and descriptions",
+    "HIGH PRIORITY: Add missing ecosystem fields (ecosystem, ecosystem_category, ecosystem_type) to match study design for permafrost soil research",
+    "MEDIUM PRIORITY: Improve collection date precision from month-only to specific date format",
+    "MEDIUM PRIORITY: Verify if coordinates should point to exact Toolik Field Station location or broader North Slope region",
+    "MEDIUM PRIORITY: Cross-reference coordinates with other TOOL site samples in the study for consistency",
+    "LOW PRIORITY: Verify elevation measurement or replace placeholder 0m value with actual elevation",
+    "LOW PRIORITY: Consider adding more specific location descriptors beyond 'USA: AK, North Slope' format"
+  ],
+  "validation_timestamp": "2025-08-21T17:44:34.529455"
+}

@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-gcm30p21",
+  "overall_score": 0.5,
+  "coordinate_consistency": 0.1,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": null,
+  "enrichment_coverage": 0.75,
+  "issues": [
+    "CRITICAL: Massive coordinate discrepancy - asserted coords (86.18\u00b0N, 15.52\u00b0E) in Arctic vs geocoded coords (22.29\u00b0N, 114.15\u00b0E) in Hong Kong, distance: 7,599 km",
+    "Geographic inconsistency: Asserted coords place sample in Arctic Ocean but geocoded location shows Hong Kong",
+    "Environmental mismatch: Geocoded location shows 'Des Voeux Road Central' which is urban Hong Kong, not Arctic Ocean",
+    "Ecosystem inconsistency: Sea ice ecosystem claimed but geocoded coordinates show tropical/subtropical location",
+    "Temperature anomaly: -12.2\u00b0C claimed for Hong Kong coordinates which would be implausible",
+    "Elevation issue: Sea level (0m) from asserted coords vs 24m from geocoded location",
+    "Place type error: Geocoded result shows 'fast_food' place type instead of oceanic environment"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinate data - either fix lat_lon field to match Arctic location or update geo_loc_name",
+    "Cross-check sample collection records with field notes to determine correct coordinates",
+    "Validate all coordinate data for this study as similar issues may affect other samples",
+    "Consider using more specific geo_loc_name format following NMDC schema (e.g., 'Arctic Ocean: Central Arctic Ocean, specific ice station')",
+    "Add quality control checks for coordinate-location name consistency in data pipeline",
+    "Include elevation data in original metadata to improve validation",
+    "Review geocoding service configuration to handle polar coordinates correctly"
+  ],
+  "validation_timestamp": "2025-08-21T17:34:07.125110"
+}

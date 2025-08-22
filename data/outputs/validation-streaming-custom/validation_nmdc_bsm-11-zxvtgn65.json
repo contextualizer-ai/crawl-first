@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-zxvtgn65",
+  "overall_score": 0.79,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.6,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.75,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: asserted env_local_scale 'area of evergreen forest' contradicts all inferred land cover data showing 'deciduous broadleaf forest'",
+    "Environmental triad inconsistency: evergreen forest claim not supported by remote sensing data from multiple classification systems",
+    "Coordinate discrepancy: 0.68 km distance between asserted coordinates and geocoded location name",
+    "Temperature-season mismatch: 14.7\u00b0C in July seems unusually cool for Wisconsin summer",
+    "Soil type mismatch: inferred Podzols vs typical deciduous forest soils",
+    "Collection date temporal mismatch with available land cover data (2017 collection vs 2018 land cover)"
+  ],
+  "recommendations": [
+    "CRITICAL: Verify env_local_scale classification - field observation needed to confirm forest type (evergreen vs deciduous)",
+    "Cross-validate coordinates with field notes - choose between asserted coordinates or location name geocoding",
+    "Validate temperature measurement - 14.7\u00b0C in July Wisconsin seems low for surface soil",
+    "Consider updating land cover data source to match collection year (2017)",
+    "Add forest composition metadata to clarify mixed vs pure forest stands",
+    "Include field photos or vegetation survey data to support environmental classifications",
+    "Verify sampling depth consistency with soil horizon designation (O horizon at 0-0.039m)",
+    "Add coordinate precision metadata to indicate GPS accuracy"
+  ],
+  "validation_timestamp": "2025-08-21T17:46:24.293071"
+}

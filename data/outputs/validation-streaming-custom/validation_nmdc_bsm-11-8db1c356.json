@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-8db1c356",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.4,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.65,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: env_local_scale claims 'evergreen forest' but all land cover data indicates grassland ecosystem",
+    "Coordinate displacement: 4.49 km distance between asserted coordinates and geocoded location from 'USA: Utah, Onaqui'",
+    "Environmental hierarchy inconsistency: terrestrial biome \u2192 evergreen forest \u2192 soil does not align with grassland land cover",
+    "Missing ecosystem_subtype value (currently 'Unclassified') despite rich environmental context available",
+    "Land cover data shows consistent grassland classification across multiple systems but conflicts with asserted forest environment",
+    "Collection date (2016-07-28) in summer aligns well with temperature (29\u00b0C) and dry conditions (4.8% water content)",
+    "Elevation discrepancy: 10m difference between asserted (1886m) and geospatial lookup (1896m) is acceptable"
+  ],
+  "recommendations": [
+    "CRITICAL: Verify and correct env_local_scale - change from 'evergreen forest' to grassland-appropriate term like ENVO:00000106 (grassland area)",
+    "Review coordinate accuracy - consider using geocoded coordinates (40.2106006, -112.5610339) if more representative of actual sampling location",
+    "Update ecosystem_subtype from 'Unclassified' to more specific term like 'Grassland' or 'Semi-arid grassland'",
+    "Cross-reference sampling protocols to confirm environmental context - was sample actually from forest edge transitioning to grassland?",
+    "Consider adding land_use or habitat_description field to capture the grassland nature of the sampling site",
+    "Validate env_local_scale against field notes or site photos to resolve forest vs grassland discrepancy",
+    "Use regosol soil type information from enrichment to enhance soil characterization fields"
+  ],
+  "validation_timestamp": "2025-08-21T17:13:52.689446"
+}

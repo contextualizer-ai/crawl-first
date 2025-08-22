@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-r7wtw645",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.75,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 5.32 km distance between asserted coordinates (32.974426, -87.42694) and geocoded location from geo_loc_name",
+    "Administrative inconsistency: Asserted coordinates place sample in Hale County, but geo_loc_name suggests Talladega National Forest which is primarily in Talladega County",
+    "Elevation discrepancy: 62m difference between geocoded elevation (143.0m) and asserted elevation (83.9m) suggests potential coordinate error",
+    "Forest type inconsistency: Asserted env_local_scale is 'area of deciduous forest' but inferred land cover shows 'Mixed Forests' and 'area of mixed forest'",
+    "Missing ecosystem/ecosystem_category fields that are present in many other study samples",
+    "Soil type mismatch potential: Cambisol soil type from geospatial data may not align with M horizon designation"
+  ],
+  "recommendations": [
+    "Verify coordinates against field collection records - current coordinates may be incorrect given large distance from expected Talladega National Forest location",
+    "Cross-reference sample collection location with NEON site documentation to confirm correct coordinates and administrative boundaries",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with other study samples",
+    "Reconcile forest type classification - consider updating env_local_scale to 'area of mixed forest' based on multiple land cover datasets",
+    "Validate elevation measurement against topographic data for the corrected location",
+    "Review soil horizon designation (M horizon) for consistency with cambisol soil classification",
+    "Consider adding more specific location descriptor within Talladega National Forest for better geographic precision"
+  ],
+  "validation_timestamp": "2025-08-21T17:54:31.425244"
+}

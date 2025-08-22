@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-paqq7a65",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.6,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.9,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": 0.8,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate discrepancy: 10.52 km distance between asserted coordinates (42.013, -93.743) and geocoded location for 'USA: Iowa, Ames' (42.0267567, -93.6170448)",
+    "Asserted coordinates place sample in Boone County, while geocoded location is in Story County - potential county-level geographic mismatch",
+    "Study mentions Miscanthus \u00d7 giganteus research but sample metadata indicates corn ('other_treatment: Corn') - potential crop type inconsistency",
+    "High nitrogen fertilization rate (300 kg/ha) may not align with typical agricultural practices for the claimed crop type",
+    "Limited environmental features found near asserted coordinates (only cemetery and fence within 1000m) - may indicate rural/isolated location inconsistent with intensive agricultural research site"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - recommend using precise field GPS coordinates rather than general city geocoding",
+    "Clarify county location (Boone vs Story County) and ensure coordinates match actual sampling location",
+    "Reconcile apparent discrepancy between study focus on Miscanthus \u00d7 giganteus and sample metadata indicating corn crop",
+    "Validate that nitrogen fertilization rate (300 kg/ha) is appropriate for the actual crop type and experimental design",
+    "Add more specific geographic descriptors to geo_loc_name field to better specify the exact research facility location within Ames area",
+    "Consider adding site-specific environmental context descriptors to better characterize the agricultural research facility",
+    "Cross-reference with other samples in the study to ensure consistent coordinate and location reporting"
+  ],
+  "validation_timestamp": "2025-08-21T17:37:06.845115"
+}

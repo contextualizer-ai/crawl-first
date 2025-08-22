@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-y9jpfv77",
+  "overall_score": 0.35,
+  "coordinate_consistency": 0.15,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.25,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: Major coordinate mismatch - 716km distance between asserted coordinates (61.9333, -162.8666) and geocoded location (64.4459613, -149.680909) from geo_loc_name",
+    "MAJOR: Ecosystem alignment conflict - asserted freshwater river environment vs inferred savanna/sparse forest land cover types",
+    "MODERATE: No water features detected within 1000m of asserted coordinates despite claiming river surface water sample",
+    "MODERATE: Weather station used for inference is 139km away, reducing reliability of environmental context",
+    "MINOR: Sample collection site 'river surface water' is descriptive but could be more specific",
+    "MINOR: Gleysol soil type (wetland soil) partially supports aquatic environment but conflicts with savanna land cover"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinates - either update lat_lon field to match Yukon River location or clarify geo_loc_name to match actual sampling coordinates",
+    "Cross-reference with field notes or GPS data from original sampling to determine correct coordinates",
+    "If coordinates are correct, investigate why land cover shows savanna instead of aquatic environment - may indicate seasonal variation or data resolution issues",
+    "Add more specific location details to geo_loc_name field following NMDC schema format: 'country: region, specific location'",
+    "Consider adding elevation data to support coordinate validation",
+    "Validate sample collection methodology description against study protocol to ensure consistency",
+    "Review other Yukon River samples in the study for coordinate consistency patterns"
+  ],
+  "validation_timestamp": "2025-08-21T17:58:09.196894"
+}

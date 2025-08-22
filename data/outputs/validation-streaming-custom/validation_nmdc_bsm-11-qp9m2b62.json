@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-qp9m2b62",
+  "overall_score": 0.7,
+  "coordinate_consistency": 0.6,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.8,
+  "land_cover_soil_consistency": 0.3,
+  "ecosystem_alignment": 0.4,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Geographic coordinate mismatch: 19.16 km distance between asserted coordinates (42.06, -71.37761) and geocoded location (42.1538607, -71.1828015)",
+    "Major ecosystem conflict: Asserted lake sediment sample vs inferred deciduous broadleaf forest land cover at coordinates",
+    "Environmental context contradiction: Sample claims aquatic/lake environment but coordinates point to terrestrial forest area",
+    "Land cover inconsistency: All land cover systems (IGBP, LCCS, UMD) indicate deciduous broadleaf forest, not aquatic environment",
+    "Elevation discrepancy: Asserted depth 0.42m vs inferred elevation 110m above sea level at coordinates",
+    "Location precision issue: Coordinates appear to be in Franklin, MA rather than a lake in Norfolk County",
+    "Soil type mismatch: Podzol soil type typical of forested areas, inconsistent with lake sediment sample"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - current coordinates (42.06, -71.37761) appear to point to a terrestrial forest location rather than a lake",
+    "If coordinates are correct, reassess sample type and ecosystem classification - appears to be terrestrial forest sample, not lake sediment",
+    "If sample is truly lake sediment, provide coordinates that point to an actual water body in Norfolk County, MA",
+    "Cross-reference with original field notes and GPS data to resolve coordinate accuracy",
+    "Consider using more precise geocoding for Norfolk County lakes to identify correct sampling location",
+    "Update depth measurement to reflect actual sampling depth in lake water column if aquatic sample",
+    "Validate ecosystem fields against actual sampling environment - current classification conflicts with coordinate-based inference",
+    "Review sample collection methodology described in EMP protocols to ensure consistent metadata reporting"
+  ],
+  "validation_timestamp": "2025-08-21T17:57:17.166520"
+}

@@ -1,0 +1,32 @@
+{
+  "biosample_id": "nmdc:bsm-11-05yzsw39",
+  "overall_score": 0.45,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.5,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: 50 km discrepancy between asserted coordinates (64.8558, -147.8335) and geocoded location (64.8649039, -146.7751619) from geo_loc_name",
+    "Major semantic conflict: env_broad_scale (ENVO:00000446 - terrestrial biome) vs inferred land cover (grassland) inconsistent with permafrost study context",
+    "Environmental hierarchy incomplete: Missing specific ENVO IDs for env_broad_scale and env_local_scale terms in metadata",
+    "Ecosystem fields completely missing despite being part of structured permafrost ecosystem study",
+    "Land cover classification as 'grassland' conflicts with expected boreal forest/tundra environment for Fairbanks permafrost research",
+    "Collection site 'Dalton Highway, Alaska' suggests remote location but coordinates place sample at University of Alaska Fairbanks campus",
+    "Study context indicates permafrost sampling but inferred soil type (Gleysols - wetland soils) doesn't align with typical permafrost soils"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinate data - 50km discrepancy suggests data entry error or coordinate system confusion",
+    "Cross-reference sample collection site description with actual GPS coordinates used in field work",
+    "Add missing ecosystem, ecosystem_category, and ecosystem_type fields appropriate for Alaska permafrost environments",
+    "Verify env_broad_scale and env_local_scale ENVO term selections - current terms may not accurately represent permafrost study environment",
+    "Review land cover interpretation - university campus location conflicts with expected remote permafrost sampling site",
+    "Consider adding elevation data to support coordinate validation",
+    "Validate that sample metadata aligns with published study methodology focusing on permafrost landscapes",
+    "Standardize geo_loc_name format to follow NMDC schema requirements more precisely",
+    "Review other samples in study (nmdc:sty-11-db67n062) for consistent geographic and environmental metadata patterns"
+  ],
+  "validation_timestamp": "2025-08-21T17:40:59.741958"
+}

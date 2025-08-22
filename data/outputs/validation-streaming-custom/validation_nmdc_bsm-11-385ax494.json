@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-385ax494",
+  "overall_score": 0.8,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 2.24 km distance between asserted coordinates and geocoded location from geo_loc_name",
+    "Soil type (Acriosols) has no ontology mapping available",
+    "Missing ecosystem and ecosystem_category fields that are present in other study samples",
+    "Elevation discrepancy: 4m difference between asserted (566m) and geospatial lookup (570m)",
+    "geo_loc_name format not fully NMDC compliant - missing specific location detail after region"
+  ],
+  "recommendations": [
+    "Verify coordinate accuracy - consider using geocoded coordinates (38.8847957, -78.1461968) which are closer to the named location",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with other study samples",
+    "Improve geo_loc_name format to: 'USA: Virginia, Warren County, Smithsonian Conservation Biology Institute' for better NMDC compliance",
+    "Validate and update elevation value using geospatial data (570m appears more accurate)",
+    "Add ontology mapping for Acriosols soil type to improve data interoperability",
+    "Consider adding more specific environmental context fields based on the rich inferred land cover data available"
+  ],
+  "validation_timestamp": "2025-08-21T17:42:44.236719"
+}

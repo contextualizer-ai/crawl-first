@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-8xbvzk86",
+  "overall_score": 0.82,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 10.52 km distance between asserted coordinates (42.013, -93.743) and geocoded location 'USA: Iowa, Ames' (42.0267567, -93.6170448)",
+    "Geographic inconsistency: Asserted coordinates place sample in Boone County (Colfax Township) while geo_loc_name indicates Ames (Story County)",
+    "Administrative mismatch: Sample appears to be in a different county (Boone vs Story) than the named location suggests",
+    "Elevation variation: 39m difference between asserted coordinates elevation (324m) and geocoded Ames elevation (286m)",
+    "Limited nearby environmental features: Only cemetery and fence features found within 1km radius, suggesting rural/agricultural setting consistent with farm designation"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - consider re-geocoding the actual sampling location or updating geo_loc_name to reflect Boone County location",
+    "Clarify geographic context: If sample is from Ames area research station, ensure coordinates reflect the actual field site location",
+    "Consider updating geo_loc_name to be more specific: 'USA: Iowa, Boone County' or include research station/farm name if applicable",
+    "Add sampling location metadata: Include facility name or research station identifier if this is from an institutional research farm",
+    "Cross-reference with study protocol: Verify coordinates against published methodology for the Miscanthus research sites",
+    "Consider adding nearest landmark or research facility identifier to misc_param field for better geographic context"
+  ],
+  "validation_timestamp": "2025-08-21T17:01:19.573065"
+}

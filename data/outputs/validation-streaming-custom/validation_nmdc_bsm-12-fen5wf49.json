@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-12-fen5wf49",
+  "overall_score": 0.45,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.2,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: env_medium 'epixylon' (wood surface) contradicts freshwater river biome and riffle environment",
+    "Environmental hierarchy mismatch: riffle (rocky stream bed) incompatible with epixylon (wood substrate)",
+    "Land cover shows deciduous broadleaf forest but sample is from aquatic riffle environment",
+    "Coordinate discrepancy: 0.6km difference between asserted coords and geocoded location",
+    "Elevation difference: 12.3m between asserted (76.7m) and geospatial (89.0m)",
+    "Env_package 'water' doesn't align with epixylon substrate sampling",
+    "Sample name suggests epixylon but environmental context indicates aquatic riffle"
+  ],
+  "recommendations": [
+    "CRITICAL: Verify env_medium - should be aquatic substrate (e.g., ENVO:00002007 'sediment') not epixylon for riffle sampling",
+    "Review sampling methodology - clarify if sampling wood surfaces in stream or stream bed substrate",
+    "Validate coordinates against Mayfield Creek location - consider using geocoded coordinates (32.9550101, -87.4082325)",
+    "Update elevation to geospatially-derived value (89.0m) for better accuracy",
+    "Ensure env_medium matches the actual substrate being sampled in the riffle environment",
+    "Consider env_medium alternatives: streambed sediment, benthic material, or aquatic substrate",
+    "Verify sample collection protocol aligns with metadata - riffle sampling typically targets sediment/biofilm, not wood"
+  ],
+  "validation_timestamp": "2025-08-21T17:40:00.897614"
+}

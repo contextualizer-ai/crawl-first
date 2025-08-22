@@ -1,0 +1,23 @@
+{
+  "biosample_id": "nmdc:bsm-11-zb285164",
+  "overall_score": 0.8,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 7.34 km distance between asserted coordinates (40.041058, -105.547043) and geocoded location from geo_loc_name (40.0564693, -105.6308551)",
+    "Missing ecosystem and ecosystem_category fields while other study samples have these populated",
+    "Small elevation discrepancy: 2.4m difference between asserted (3059.6m) and geospatial lookup (3062.0m)"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate accuracy - check if asserted coordinates represent precise sampling location vs. general area reference",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields to match study design patterns",
+    "Consider adding ecosystem_type field for completeness based on study context",
+    "Validate coordinate precision requirements for the specific sampling methodology used"
+  ],
+  "validation_timestamp": "2025-08-21T17:17:50.401637"
+}

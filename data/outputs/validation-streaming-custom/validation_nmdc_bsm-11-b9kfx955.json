@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-b9kfx955",
+  "overall_score": 0.7,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.95,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: Major coordinate discrepancy - 149.79 km difference between asserted coordinates (43.0995, -89.4045) and geocoded location (44.4308975, -89.6884637)",
+    "Asserted coordinates place sample in Madison area (Dane County) while geo_loc_name suggests broader Wisconsin state",
+    "Inferred soil type (Luvisols) not typical for aquatic lake water samples - indicates potential georeferencing issue",
+    "Weather data sourced from distant station (31.7 km away) reduces confidence in environmental context",
+    "Sample collection site 'lake surface water' lacks specificity for depth or exact sampling location within the lake"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinate accuracy - check if coordinates (43.0995, -89.4045) actually correspond to Lake Mendota sampling location",
+    "Cross-reference coordinates with study documentation and other Lake Mendota samples to ensure consistency",
+    "Consider updating geo_loc_name to be more specific (e.g., 'USA: Wisconsin, Lake Mendota, Madison') to better match coordinates",
+    "Add sampling depth information to sample_collection_site field for better context",
+    "Validate coordinates against known Lake Mendota location (approximately 43.1\u00b0N, 89.4\u00b0W)",
+    "Review other samples from this study to check for similar coordinate inconsistencies"
+  ],
+  "validation_timestamp": "2025-08-21T17:32:11.513296"
+}

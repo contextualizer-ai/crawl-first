@@ -1,0 +1,25 @@
+{
+  "biosample_id": "nmdc:bsm-11-e54m2368",
+  "overall_score": 0.82,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.6,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.88,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 1.71 km difference between asserted coordinates and geocoded location from Talladega National Forest",
+    "Elevation discrepancy: 30.2m difference between asserted (116.8m) and geospatial lookup (147.0m)",
+    "Missing ecosystem/ecosystem_category fields in some study samples suggests potential data inconsistency",
+    "Collection temperature (22.4\u00b0C) is cooler than weather station data (25.7\u00b0C average) - may indicate sampling depth effect or temporal variation"
+  ],
+  "recommendations": [
+    "Verify coordinate accuracy - consider using geocoded coordinates (32.9349471, -87.3948069) if they better represent the actual sampling location within Talladega National Forest",
+    "Cross-reference elevation with topographic maps or GPS readings to determine which value is more accurate",
+    "Ensure consistent ecosystem field population across all study samples for better data completeness",
+    "Document any factors affecting temperature measurements (soil depth, time of day, microclimate effects)",
+    "Consider adding coordinate precision/uncertainty metadata to indicate measurement confidence"
+  ],
+  "validation_timestamp": "2025-08-21T18:17:35.367890"
+}

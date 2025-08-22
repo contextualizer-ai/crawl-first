@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-vaxrgq33",
+  "overall_score": 0.35,
+  "coordinate_consistency": 0.2,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.6,
+  "land_cover_soil_consistency": 0.2,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate discrepancy: 11.57 km distance between asserted coordinates and geocoded location",
+    "Major semantic conflict: asserted environment is 'sedge- and forb-dominated herbaceous vegetation' but land cover data shows grassland classification",
+    "Elevation mismatch: asserted 6.3m vs geospatial lookup 0.0m elevation",
+    "Location appears to be near water features (784m from water) which conflicts with terrestrial soil sampling expectation",
+    "Arctic location (71.24\u00b0N) classified as grassland in global land cover data - likely classification error for tundra environment",
+    "Asserted coordinates place sample in different administrative area than geocoded location name"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - reconcile the 11.57 km discrepancy between asserted coordinates (71.241422, -156.502856) and geocoded Utqiagvik location (71.2905366, -156.78844)",
+    "Review land cover classification - Arctic tundra environment is incorrectly classified as grassland in global datasets; consider using Arctic-specific classification systems",
+    "Validate elevation data - investigate 6.3m difference between asserted and geospatial elevations",
+    "Clarify environmental context - reconcile 'sedge- and forb-dominated herbaceous vegetation' with proximity to water features",
+    "Consider updating env_local_scale to Arctic-specific terms like 'arctic tundra' or 'permafrost-affected soil' instead of generic herbaceous vegetation",
+    "Add metadata notes explaining Arctic sampling context and potential limitations of global land cover classifications"
+  ],
+  "validation_timestamp": "2025-08-21T18:14:53.692874"
+}

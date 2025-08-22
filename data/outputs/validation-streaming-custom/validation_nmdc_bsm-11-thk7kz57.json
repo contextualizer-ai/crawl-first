@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-thk7kz57",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.5,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 4.44 km distance between asserted coordinates (42.476365, -85.451887) and geocoded location from 'USA: Michigan, Delton' (42.4997581, -85.4080641)",
+    "Land cover conflict: Asserted 'agricultural field' with 'farm soil' conflicts with inferred land cover showing savanna/woodland characteristics (10-30% tree cover)",
+    "Environmental hierarchy inconsistency: env_broad_scale 'temperate woodland biome' does not align well with asserted agricultural context",
+    "Semantic conflict: Sample claimed as 'agricultural field' but inferred land cover suggests savanna/sparse forest ecosystem",
+    "Geographic inconsistency: Asserted coordinates place sample in Prairieville, but geo_loc_name indicates Delton (4.44 km apart)"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - determine if coordinates should match Delton (42.4997581, -85.4080641) or if location name should be updated to Prairieville",
+    "Re-examine environmental classification: if truly agricultural, consider env_broad_scale terms like 'anthropogenic terrestrial biome' rather than 'temperate woodland biome'",
+    "Cross-validate land cover data with field observations - agricultural switchgrass fields should not show 10-30% tree cover",
+    "Update ecosystem hierarchy to be internally consistent: agricultural field \u2192 crop field \u2192 farm soil is more appropriate than woodland \u2192 agricultural \u2192 farm",
+    "Consider temporal aspects: verify if land use changed between 2017 collection and 2018 land cover data",
+    "Standardize coordinate precision and validate against known field site locations within the study"
+  ],
+  "validation_timestamp": "2025-08-21T17:53:38.010155"
+}

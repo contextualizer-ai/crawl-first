@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-zcw3sn86",
+  "overall_score": 0.7,
+  "coordinate_consistency": 0.3,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.2,
+  "ecosystem_alignment": 0.9,
+  "date_season_consistency": 0.8,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 149.79 km distance between asserted coordinates (43.0995, -89.4045) and geocoded location from geo_loc_name (44.4308975, -89.6884637)",
+    "Low land cover-soil consistency: Aquatic sample shows 'Luvisols' soil type which is terrestrial, inconsistent with lake water environment",
+    "Asserted coordinates point to Lake Mendota specifically, but geo_loc_name 'USA: Wisconsin' is too broad and geocodes to state center",
+    "Environmental features lookup found no water features within 1000m of asserted coordinates, raising questions about coordinate accuracy",
+    "Soil type classification inappropriate for aquatic sample - should be sediment classification instead"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - asserted coordinates (43.0995, -89.4045) appear to be correct for Lake Mendota, but geo_loc_name should be more specific",
+    "Update geo_loc_name to 'USA: Wisconsin, Lake Mendota' or 'USA: Wisconsin, Madison' to better match coordinates",
+    "Replace soil type classification with lake sediment or bottom substrate classification appropriate for aquatic environments",
+    "Consider adding water body identifier or lake-specific metadata fields",
+    "Validate coordinate precision against known Lake Mendota boundaries",
+    "Review environmental feature detection methodology for aquatic sampling sites"
+  ],
+  "validation_timestamp": "2025-08-21T18:05:28.205939"
+}

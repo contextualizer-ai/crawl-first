@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-1pbfcc79",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.85,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.65,
+  "land_cover_soil_consistency": 0.85,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Semantic conflict: asserted 'area of evergreen forest' but inferred land cover shows 'Deciduous Broadleaf Forests' consistently across all systems",
+    "Elevation discrepancy: 16.4m difference between asserted (184.6m) and geospatial lookup (201.0m)",
+    "Environmental triad inconsistency: 'area of evergreen forest' (local scale) conflicts with deciduous broadleaf forest land cover",
+    "geo_loc_name format deviation: uses '&' instead of standard comma separation for multiple locations",
+    "Missing ecosystem fields in some study samples suggests inconsistent data collection"
+  ],
+  "recommendations": [
+    "Verify and correct env_local_scale term - should be 'area of deciduous forest' or similar to match deciduous broadleaf forest land cover",
+    "Validate elevation measurement or update with geospatially-derived value (201.0m)",
+    "Standardize geo_loc_name format to 'USA: Massachusetts, Harvard Forest, Quabbin Watershed' for consistency",
+    "Review field collection protocols to ensure accurate forest type identification",
+    "Cross-validate env_local_scale terms with actual vegetation surveys or remote sensing data",
+    "Consider adding vegetation survey metadata to support environmental ontology term selection"
+  ],
+  "validation_timestamp": "2025-08-21T18:29:28.090686"
+}

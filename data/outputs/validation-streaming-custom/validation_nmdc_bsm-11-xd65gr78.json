@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-xd65gr78",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.9,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.85,
+  "land_cover_soil_consistency": 0.88,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Minor elevation discrepancy: 4.8m difference between asserted (514.2m) and geospatial (519.0m)",
+    "env_local_scale term has slight semantic imprecision - 'area of gramanoid or herbaceous vegetation' has a spelling error ('gramanoid' should be 'graminoid')",
+    "Collection happened in August but seasonal context not explicitly validated against typical growing season patterns",
+    "Soil horizon 'M horizon' is uncommon - typically O, A, E, B, C horizons are standard",
+    "ecosystem_subtype is 'Unclassified' indicating incomplete characterization"
+  ],
+  "recommendations": [
+    "Verify elevation measurement or accept 4.8m difference as within acceptable range for GPS accuracy",
+    "Correct the spelling in env_local_scale term from 'gramanoid' to 'graminoid' if possible",
+    "Consider adding more specific ecosystem_subtype classification beyond 'Unclassified'",
+    "Validate that 'M horizon' designation is appropriate for this soil context",
+    "Consider enriching with seasonal vegetation patterns since collection was during peak growing season",
+    "Add more specific geographic descriptors to complement the research station location"
+  ],
+  "validation_timestamp": "2025-08-21T17:21:29.866072"
+}

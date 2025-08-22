@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-ag9hbz42",
+  "overall_score": 0.35,
+  "coordinate_consistency": 0.15,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": 0.2,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "CRITICAL: Major coordinate discrepancy - 140.82 km distance between asserted coords (31.6679, -81.8403) and geocoded location for Georgia",
+    "CRITICAL: Semantic conflict - Sample described as river/freshwater but asserted coordinates are in terrestrial deciduous broadleaf forest",
+    "MAJOR: Asserted coordinates show terrestrial forest ecosystem while sample claims aquatic freshwater environment",
+    "MAJOR: Land cover data shows 60%+ tree cover (deciduous broadleaf forest) inconsistent with surface water collection",
+    "MODERATE: Sample collection site 'river surface water' not supported by coordinate-based environmental analysis",
+    "MODERATE: Elevation at asserted coords (11m) vs geocoded coords (112m) shows 101m difference",
+    "MINOR: No elevation field in asserted data despite NMDC schema recommendation"
+  ],
+  "recommendations": [
+    "URGENT: Verify and correct coordinates - use GPS coordinates from actual sampling location rather than approximate regional coordinates",
+    "Validate sample collection site against actual coordinates to ensure aquatic environment",
+    "Consider using geocoded coordinates (32.3293809, -83.1137366) if they better represent the actual sampling location",
+    "Add elevation field to asserted data for better geographic context",
+    "Cross-reference with field notes or GPS logs to identify correct sampling coordinates",
+    "Implement coordinate validation checks during data submission to prevent large discrepancies",
+    "Consider adding buffer zone analysis around coordinates to verify environmental context matches sample type"
+  ],
+  "validation_timestamp": "2025-08-21T17:25:29.547342"
+}

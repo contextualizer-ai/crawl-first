@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-fs5xxr20",
+  "overall_score": 0.86,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.9,
+  "ecosystem_alignment": 0.95,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate discrepancy: 5.25 km difference between asserted coordinates (35.965252, -84.286859) and geocoded location from geo_loc_name (36.0103562, -84.2696449)",
+    "Elevation inconsistency: 18m difference between asserted elevation (316m) and geospatial lookup (334m)",
+    "Missing ecosystem and ecosystem_category fields - 60% of other study samples have these populated",
+    "Land cover shows deciduous broadleaf forest but OSM data indicates significant industrial land use nearby (Environmental Management Waste Management Facility)",
+    "Collection location appears to be near industrial/landfill areas which may affect soil sample interpretation"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate accuracy - investigate which coordinate pair is correct for the actual sampling location",
+    "Cross-reference elevation measurement with field collection protocols to determine source of discrepancy",
+    "Populate missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields to match study pattern",
+    "Review sampling protocol to ensure soil samples from this location are representative of intended ecosystem type given proximity to industrial areas",
+    "Consider adding environmental context notes about nearby industrial facilities that may influence soil chemistry",
+    "Validate that Bear Creek Road location aligns with NEON sampling design for Oak Ridge site"
+  ],
+  "validation_timestamp": "2025-08-21T17:12:51.760071"
+}

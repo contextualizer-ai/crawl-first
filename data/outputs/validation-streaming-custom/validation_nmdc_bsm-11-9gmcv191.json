@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-9gmcv191",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.3,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.8,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major coordinate discrepancy: 310.23 km distance between asserted coordinates (46.1208, -123.2691) and geocoded Oregon coordinates (43.9792797, -120.737257)",
+    "Asserted coordinates place sample near Clatskanie, Columbia County while geocoded coordinates point to central Oregon",
+    "geo_loc_name format 'USA: Oregon' is too broad - should specify region/county for proper NMDC compliance",
+    "Host-associated ecosystem classification may not fully capture rhizosphere complexity - soil environment is equally important",
+    "Land cover shows deciduous broadleaf forest which partially conflicts with poplar common garden experimental setting"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - use Clatskanie, Oregon coordinates if that's the actual collection site",
+    "Update geo_loc_name to 'USA: Oregon, Columbia County' or 'USA: Oregon, Clatskanie' for better specificity",
+    "Consider dual ecosystem classification to capture both host-associated and soil environmental aspects",
+    "Validate land cover interpretation against experimental common garden setup",
+    "Cross-reference coordinates with other samples from the same study site for consistency",
+    "Add more specific location metadata to distinguish from natural forest environments"
+  ],
+  "validation_timestamp": "2025-08-21T17:06:05.409290"
+}

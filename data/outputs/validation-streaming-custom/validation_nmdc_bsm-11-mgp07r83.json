@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-mgp07r83",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 0.2,
+  "env_triad_coherence": 0.7,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 4.53 km distance between asserted coords and geocoded location",
+    "Elevation discrepancy: 129m difference between asserted (500m) and geospatial lookup (371m)",
+    "Environment triad semantic conflict: temperate woodland biome vs agricultural field and farm soil",
+    "Land cover data shows forest/cropland mosaics and deciduous broadleaf vegetation, inconsistent with pure agricultural classification",
+    "Asserted ecosystem_subtype 'Agricultural land' conflicts with env_broad_scale 'temperate woodland biome'",
+    "Mixed environmental signals suggest transition zone between forest and agricultural areas"
+  ],
+  "recommendations": [
+    "Verify coordinates through field GPS measurements or cross-reference with detailed site maps",
+    "Reconcile elevation data by checking against multiple elevation databases or field measurements",
+    "Revise env_broad_scale to better reflect agricultural context, consider 'agricultural ecosystem' or 'anthropogenic terrestrial biome'",
+    "Update ecosystem_subtype to reflect mixed forest-agricultural nature if applicable",
+    "Consider using more specific env_broad_scale term like 'agricultural ecosystem' [ENVO:01000179]",
+    "Add site description notes explaining the transition zone between woodland and agricultural areas",
+    "Cross-validate coordinates with other samples from the same study location"
+  ],
+  "validation_timestamp": "2025-08-21T17:15:48.882310"
+}

@@ -1,0 +1,26 @@
+{
+  "biosample_id": "nmdc:bsm-11-eztc1c19",
+  "overall_score": 0.72,
+  "coordinate_consistency": 0.65,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.75,
+  "land_cover_soil_consistency": 0.7,
+  "ecosystem_alignment": 0.6,
+  "date_season_consistency": 0.85,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Significant coordinate discrepancy: 35.23 km difference between asserted coordinates and geocoded location",
+    "Environmental type mismatch: Asserted 'area of scrub' (ENVO:01000869) conflicts with inferred land cover showing evergreen needleleaf trees and savannas",
+    "Scrubland assertion contradicts observed forest/woodland vegetation patterns",
+    "Missing ecosystem and ecosystem_category fields present in other study samples",
+    "Collection depth (0-0.32m) may be inconsistent with M horizon specification"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - consider using geocoded coordinates (44.6200885, -110.5606893) if location name is accurate",
+    "Review env_local_scale classification: 'area of scrub' appears inconsistent with inferred evergreen needleleaf forest/savanna ecosystem",
+    "Add missing ecosystem ('Environmental') and ecosystem_category ('Terrestrial') fields for consistency with study pattern",
+    "Clarify soil horizon designation - M horizon at 0-0.32m depth needs verification",
+    "Consider updating environmental ontology terms to better reflect the mixed forest-savanna ecosystem indicated by land cover data"
+  ],
+  "validation_timestamp": "2025-08-21T17:23:30.036542"
+}

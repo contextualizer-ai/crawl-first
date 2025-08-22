@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-7px1xy20",
+  "overall_score": 0.88,
+  "coordinate_consistency": 0.95,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.92,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Missing ecosystem and ecosystem_category fields present in other study samples",
+    "geo_loc_name format not following INSDC standard (missing state code)",
+    "samp_collec_device 'brownie cutter' not found in ENVO terms",
+    "Soil type (Podzol) and O horizon potentially inconsistent - O horizon typically organic layer above mineral soil",
+    "Weather station 9km away may introduce temperature measurement uncertainty"
+  ],
+  "recommendations": [
+    "Add ecosystem='Environmental' and ecosystem_category='Terrestrial' for consistency with study samples",
+    "Reformat geo_loc_name to 'USA: MA, Harvard Forest & Quabbin Watershed' following INSDC country:region format",
+    "Replace 'brownie cutter' with standardized ENVO term like 'soil corer' (ENVO:02000036)",
+    "Verify soil horizon classification - confirm if O horizon sample is appropriate for podzol soil type",
+    "Consider elevation uncertainty (\u00b11.2m difference) in data interpretation",
+    "Add missing enrichment fields for complete metadata coverage"
+  ],
+  "validation_timestamp": "2025-08-21T18:07:18.311864"
+}

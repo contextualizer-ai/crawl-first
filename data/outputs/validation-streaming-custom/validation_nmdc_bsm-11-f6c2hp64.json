@@ -1,0 +1,29 @@
+{
+  "biosample_id": "nmdc:bsm-11-f6c2hp64",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.8,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.6,
+  "land_cover_soil_consistency": 0.65,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Major semantic conflict: Asserted 'temperate woodland biome' vs inferred land cover showing 'Deciduous Broadleaf Vegetation' and 'Woody Savannas' - these are inconsistent with the stated agricultural field context",
+    "Environmental hierarchy inconsistency: temperate woodland biome \u2192 agricultural field \u2192 farm soil creates a logical conflict where woodland biome doesn't align with agricultural land use",
+    "Coordinate discrepancy: 4.53km distance between asserted coordinates (44.296098, -85.199612) and geocoded location for 'Lake City, Michigan' (44.335287, -85.215046)",
+    "Land cover mismatch: All inferred land cover systems show forest/woodland/savanna vegetation, conflicting with the agricultural field designation and switchgrass cultivation",
+    "Ecosystem designation conflict: Sample classified as 'Agricultural land' but environmental context suggests forested/woodland area with streams and wetlands nearby",
+    "Temporal inconsistency: Inferred land cover data from 2016 shows woody vegetation, but sample collected from switchgrass agricultural field - suggests land use change not captured in remote sensing data"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - consider using GPS coordinates from actual sampling location rather than general town coordinates",
+    "Re-evaluate env_broad_scale assignment - if sample is truly from agricultural field, consider 'anthropogenic terrestrial biome' [ENVO:01000219] instead of 'temperate woodland biome'",
+    "Add temporal land use context to metadata - note if agricultural conversion occurred recently (post-2016) which would explain land cover/vegetation discrepancy",
+    "Include more precise geo_loc_name with field/farm identifier to distinguish from general Lake City coordinates",
+    "Consider adding land_use_history field to capture recent conversion from woodland to agricultural use",
+    "Validate env_broad_scale against actual field conditions at time of sampling rather than relying on broad regional biome classification",
+    "Cross-reference coordinates with other samples from same study to ensure geographic consistency within the research design"
+  ],
+  "validation_timestamp": "2025-08-21T18:21:17.052907"
+}

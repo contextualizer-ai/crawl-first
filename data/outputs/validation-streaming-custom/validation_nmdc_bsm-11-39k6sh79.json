@@ -1,0 +1,28 @@
+{
+  "biosample_id": "nmdc:bsm-11-39k6sh79",
+  "overall_score": 0.8,
+  "coordinate_consistency": 0.9,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.7,
+  "date_season_consistency": 0.9,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Semantic conflict: Asserted freshwater/river environment vs inferred terrestrial savanna/forest land cover",
+    "Land cover classification shows savanna/forest (10-30% tree cover) which conflicts with expected riparian vegetation for river surface water sampling",
+    "No water features detected within 1000m radius despite being a river surface water sample",
+    "Soil type (Phaeozems - wet grassland/forest soils) somewhat inconsistent with expected aquatic sediment context",
+    "Geographic enrichment shows residential area classification rather than natural water body",
+    "Missing elevation data in asserted fields despite availability in enriched data"
+  ],
+  "recommendations": [
+    "Verify sampling coordinates - consider if sample was taken from river channel vs riparian zone",
+    "Add elevation field (297m available from enrichment) to improve geographic context",
+    "Clarify land cover context - river sampling in forested/savanna watershed is plausible but should be documented",
+    "Consider adding water body identification fields to distinguish aquatic sampling sites",
+    "Review coordinate precision - may need more specific location within river system",
+    "Add habitat description clarifying relationship between terrestrial land cover and aquatic sampling environment"
+  ],
+  "validation_timestamp": "2025-08-21T17:07:55.576973"
+}

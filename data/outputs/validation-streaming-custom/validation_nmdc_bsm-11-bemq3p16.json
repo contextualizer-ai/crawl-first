@@ -1,0 +1,30 @@
+{
+  "biosample_id": "nmdc:bsm-11-bemq3p16",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.4,
+  "elevation_plausibility": null,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.1,
+  "ecosystem_alignment": 0.3,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 26.11 km difference between asserted coords (35.9076, -79.0506) and geocoded location (35.6729639, -79.0392919)",
+    "Major elevation discrepancy: asserted 0.0m vs inferred 140.0m (difference of 140m)",
+    "Ecosystem conflict: Host-associated plant rhizosphere sample located in urban biome environment",
+    "Land cover contradiction: All land cover systems classify location as 'Urban and Built-up Lands' but sample is from Arabidopsis rhizosphere",
+    "Geographic context mismatch: Sample coordinates place it at UNC Chapel Hill campus, not typical agricultural/natural Arabidopsis habitat",
+    "Zero elevation claim implausible for inland North Carolina location",
+    "Urban university setting inconsistent with plant rhizosphere microbiome study design"
+  ],
+  "recommendations": [
+    "Verify and correct coordinate accuracy - current coords appear to be at UNC Chapel Hill rather than actual sampling site",
+    "Update elevation to realistic value for inland North Carolina (should be ~140m based on geospatial data)",
+    "Clarify sampling context: if this was a controlled greenhouse/growth chamber study at UNC, update ecosystem fields accordingly",
+    "Consider adding 'controlled environment' or 'laboratory' qualifiers to ecosystem classification",
+    "Validate geo_loc_name format - should include more specific location detail beyond state level",
+    "Review other samples in study for similar coordinate/location inconsistencies",
+    "Add protocol documentation explaining if samples were collected from natural vs controlled environments"
+  ],
+  "validation_timestamp": "2025-08-21T17:10:58.637573"
+}

@@ -1,0 +1,18 @@
+{
+  "biosample_id": "nmdc:bsm-11-4ycxmk54",
+  "overall_score": 0.5,
+  "coordinate_consistency": null,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": null,
+  "land_cover_soil_consistency": null,
+  "ecosystem_alignment": null,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "LLM validation failed: status_code: 502, model_name: anthropic/claude-sonnet, body: <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.24.0 (Ubuntu)</center>\r\n</body>\r\n</html>"
+  ],
+  "recommendations": [
+    "Check LLM configuration and try again"
+  ],
+  "validation_timestamp": "2025-08-21T17:18:35.367171"
+}

@@ -1,0 +1,31 @@
+{
+  "biosample_id": "nmdc:bsm-11-8nreet90",
+  "overall_score": 0.65,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 0.95,
+  "land_cover_soil_consistency": 0.25,
+  "ecosystem_alignment": 0.45,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Geographic coordinate mismatch: 2.85 km difference between asserted coordinates and geocoded location for Berkeley, CA",
+    "Major ecosystem conflict: Asserted 'Host-associated/Plants/Rhizosphere' environment conflicts with inferred 'Urban biome' land cover classification",
+    "Soil type inconsistency: Phaeozem soil type (forest/grassland) incompatible with urban industrial location",
+    "Location inconsistency: Coordinates point to industrial area near warehouses/factories, not typical plant growth environment",
+    "Elevation discrepancy: 6m difference between asserted (13.0m) and geospatial (7.0m) elevation",
+    "Environmental context mismatch: OSM features show industrial/warehouse area inconsistent with rhizosphere research setting",
+    "Study design inconsistency: Other Berkeley samples in study show same coordinate/ecosystem conflicts suggesting systematic location error"
+  ],
+  "recommendations": [
+    "Verify and correct geographic coordinates - current coordinates (37.851667, -122.294444) appear to point to wrong location",
+    "Confirm actual sampling location - was this really an industrial warehouse area or a controlled growth chamber/greenhouse?",
+    "Update geo_loc_name to be more specific about actual sampling facility (e.g., 'USA: California, Berkeley, LBNL growth chamber')",
+    "Reconcile ecosystem classification with actual sampling environment - if from growth chamber, consider updating ecosystem fields",
+    "Cross-reference with other Berkeley samples in study to ensure coordinate consistency",
+    "Add facility-specific location details to distinguish controlled environment from field sampling",
+    "Consider adding env_package value specific to controlled environment if applicable",
+    "Verify elevation measurement or use geospatial lookup value (7.0m) if more accurate"
+  ],
+  "validation_timestamp": "2025-08-21T17:09:59.076815"
+}

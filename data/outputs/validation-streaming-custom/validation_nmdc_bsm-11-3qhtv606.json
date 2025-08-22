@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-3qhtv606",
+  "overall_score": 0.75,
+  "coordinate_consistency": 0.7,
+  "elevation_plausibility": 1.0,
+  "env_triad_coherence": 0.9,
+  "land_cover_soil_consistency": 0.8,
+  "ecosystem_alignment": 0.85,
+  "date_season_consistency": null,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 2.54 km distance between asserted coordinates (46.254613, -89.512657) and geocoded location coordinates (46.232455, -89.5204851)",
+    "Environmental complexity: Multiple conflicting land cover classifications (deciduous vs mixed forest) from different systems",
+    "Missing ecosystem/ecosystem_category fields while other study samples have these populated",
+    "Schema compliance: geo_loc_name format follows expected pattern but coordinate discrepancy suggests potential location uncertainty",
+    "Soil type classification shows podzol which is appropriate for northern temperate forest but conflicts with M horizon designation typically associated with organic layers"
+  ],
+  "recommendations": [
+    "Verify and reconcile coordinate discrepancy - determine which coordinates are more accurate (asserted vs geocoded)",
+    "Standardize land cover classification by selecting the most appropriate single system rather than conflicting multiple classifications",
+    "Populate missing ecosystem and ecosystem_category fields for consistency with study design (suggest 'Environmental' and 'Terrestrial' based on other samples)",
+    "Consider updating soil horizon classification to align with podzol soil type identification",
+    "Add quality flags to indicate coordinate uncertainty and multiple land cover interpretations",
+    "Cross-reference with NEON site documentation to validate exact sampling coordinates"
+  ],
+  "validation_timestamp": "2025-08-21T17:22:30.282957"
+}

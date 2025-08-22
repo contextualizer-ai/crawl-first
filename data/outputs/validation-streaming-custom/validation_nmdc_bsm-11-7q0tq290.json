@@ -1,0 +1,27 @@
+{
+  "biosample_id": "nmdc:bsm-11-7q0tq290",
+  "overall_score": 0.85,
+  "coordinate_consistency": 0.75,
+  "elevation_plausibility": 0.8,
+  "env_triad_coherence": 1.0,
+  "land_cover_soil_consistency": 0.6,
+  "ecosystem_alignment": 0.65,
+  "date_season_consistency": 0.95,
+  "enrichment_coverage": 1.0,
+  "issues": [
+    "Coordinate mismatch: 3.96 km distance between asserted coordinates and geocoded location",
+    "Land cover conflict: Inferred woody/savanna environment conflicts with controlled laboratory greenhouse setting",
+    "Ecosystem type mismatch: Asserted 'Roots' ecosystem type doesn't align with inferred savanna/woodland environment",
+    "Missing specific ecosystem value (marked as 'Unclassified')",
+    "geo_loc_name format deviation from NMDC standard (missing space after colon)"
+  ],
+  "recommendations": [
+    "Verify and correct coordinates - consider using coordinates from greenhouse facility location",
+    "Clarify ecosystem classification for controlled laboratory environments in GOLD schema",
+    "Standardize geo_loc_name format to 'Germany: Nordrhein-Westfalen, Julich' (add space after colon)",
+    "Add specific_ecosystem value appropriate for greenhouse/laboratory setting",
+    "Consider adding facility-specific metadata fields for controlled environment studies",
+    "Validate that host plant data aligns with laboratory growth conditions rather than natural environment"
+  ],
+  "validation_timestamp": "2025-08-21T18:20:18.991192"
+}
