@@ -422,6 +422,7 @@ name = "crawl-first"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "aiohttp" },
     { name = "artl-mcp" },
     { name = "beautifulsoup4" },
     { name = "click" },
@@ -430,6 +431,7 @@ dependencies = [
     { name = "nmdc-mcp" },
     { name = "ols-mcp" },
     { name = "psutil" },
+    { name = "pydantic" },
     { name = "pydantic-ai" },
     { name = "pyyaml" },
     { name = "requests" },
@@ -458,6 +460,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "aiohttp", specifier = ">=3.8.0" },
     { name = "artl-mcp", specifier = ">=0.18.1" },
     { name = "beautifulsoup4", specifier = ">=4.12.0" },
     { name = "black", marker = "extra == 'dev'", specifier = ">=23.0.0" },
@@ -469,6 +472,7 @@ requires-dist = [
     { name = "nmdc-mcp", specifier = ">=0.3.1" },
     { name = "ols-mcp", specifier = ">=0.1.5" },
     { name = "psutil", specifier = ">=5.9.0" },
+    { name = "pydantic", specifier = ">=2.0.0" },
     { name = "pydantic-ai", specifier = ">=0.7.4" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "pyyaml", specifier = ">=6.0.2" },
