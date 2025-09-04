@@ -1,0 +1,578 @@
+{
+  "San Francisco Bay Area": {
+    "original_coordinates": {
+      "latitude": 37.7749,
+      "longitude": -122.4194
+    },
+    "collection_date": "2020-06-15",
+    "enrichment_timestamp": "2025-09-04 21:07:16 UTC",
+    "elevation": {
+      "elevation_meters": 16.0,
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "data_source": "Open Elevation API",
+      "success": true
+    },
+    "weather": {
+      "date": "2020-06-15",
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "weather_data": {
+        "temperature_2m_max": 18.1,
+        "temperature_2m_min": 14.9,
+        "temperature_2m_mean": 16.5,
+        "precipitation_sum": 0.0,
+        "wind_speed_10m_max": 38.4,
+        "relative_humidity_2m_mean": 76
+      },
+      "data_source": "Open-Meteo Historical Weather API",
+      "success": true
+    },
+    "location_context": {
+      "display_name": "South Van Ness Avenue, Hayes Valley, San Francisco, California, 94103, United States",
+      "place_type": "waste_basket",
+      "osm_type": "node",
+      "country": "United States",
+      "country_code": "us",
+      "state": "California",
+      "county": null,
+      "city": "San Francisco",
+      "postcode": "94103",
+      "latitude": 37.7748559,
+      "longitude": -122.4193609,
+      "data_source": "OpenStreetMap Nominatim",
+      "success": true
+    },
+    "nearby_features": {
+      "latitude": 37.7749,
+      "longitude": -122.4194,
+      "radius_km": 1.0,
+      "features_found": 10,
+      "features": [
+        {
+          "type": "way",
+          "id": 35111899,
+          "tags": {
+            "addr:city": "San Francisco",
+            "addr:housenumber": "30",
+            "addr:street": "Van Ness Avenue",
+            "height": "23",
+            "landuse": "construction",
+            "name": "Hayes Point"
+          },
+          "natural": null,
+          "landuse": "construction",
+          "water": null,
+          "name": "Hayes Point"
+        },
+        {
+          "type": "way",
+          "id": 35112006,
+          "tags": {
+            "addr:city": "San Francisco",
+            "addr:housename": "Marye Building",
+            "addr:housenumber": "1200",
+            "addr:postcode": "94102",
+            "addr:state": "CA",
+            "addr:street": "Market Street",
+            "building": "yes",
+            "check_date": "2023-05-29",
+            "height": "11",
+            "landuse": "construction"
+          },
+          "natural": null,
+          "landuse": "construction",
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 36326856,
+          "tags": {
+            "gnis:feature_id": "1655577",
+            "landuse": "residential",
+            "name": "Valencia Gardens"
+          },
+          "natural": null,
+          "landuse": "residential",
+          "water": null,
+          "name": "Valencia Gardens"
+        },
+        {
+          "type": "way",
+          "id": 37354152,
+          "tags": {
+            "landuse": "retail"
+          },
+          "natural": null,
+          "landuse": "retail",
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 104441119,
+          "tags": {
+            "addr:city": "San Francisco",
+            "addr:postcode": "94103",
+            "addr:street": "10th Street",
+            "landuse": "residential",
+            "name": "NEMA",
+            "website": "https://www.rentnema.com/"
+          },
+          "natural": null,
+          "landuse": "residential",
+          "water": null,
+          "name": "NEMA"
+        },
+        {
+          "type": "way",
+          "id": 128534062,
+          "tags": {
+            "landuse": "grass"
+          },
+          "natural": null,
+          "landuse": "grass",
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 128534068,
+          "tags": {
+            "landuse": "grass"
+          },
+          "natural": null,
+          "landuse": "grass",
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 128534079,
+          "tags": {
+            "landuse": "grass"
+          },
+          "natural": null,
+          "landuse": "grass",
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 128534081,
+          "tags": {
+            "landuse": "grass"
+          },
+          "natural": null,
+          "landuse": "grass",
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 128534091,
+          "tags": {
+            "natural": "sand"
+          },
+          "natural": "sand",
+          "landuse": null,
+          "water": null,
+          "name": null
+        }
+      ],
+      "data_source": "OpenStreetMap Overpass API",
+      "success": true
+    },
+    "enrichment_summary": {
+      "successful_enrichments": [
+        "elevation",
+        "weather",
+        "location_context",
+        "nearby_features"
+      ],
+      "total_enrichments": 4,
+      "apis_used": [
+        "Open Elevation API",
+        "USGS Elevation Point Query Service",
+        "Open-Meteo Historical Weather API",
+        "OpenStreetMap Nominatim",
+        "OpenStreetMap Overpass API"
+      ]
+    }
+  },
+  "Yellowstone National Park": {
+    "original_coordinates": {
+      "latitude": 44.428,
+      "longitude": -110.5885
+    },
+    "collection_date": "2021-08-20",
+    "enrichment_timestamp": "2025-09-04 21:07:20 UTC",
+    "elevation": {
+      "elevation_meters": 2460.0,
+      "latitude": 44.428,
+      "longitude": -110.5885,
+      "data_source": "Open Elevation API",
+      "success": true
+    },
+    "weather": {
+      "date": "2021-08-20",
+      "latitude": 44.428,
+      "longitude": -110.5885,
+      "weather_data": {
+        "temperature_2m_max": 12.5,
+        "temperature_2m_min": 3.2,
+        "temperature_2m_mean": 6.7,
+        "precipitation_sum": 6.6,
+        "wind_speed_10m_max": 19.3,
+        "relative_humidity_2m_mean": 86
+      },
+      "data_source": "Open-Meteo Historical Weather API",
+      "success": true
+    },
+    "location_context": {
+      "display_name": "Grand Loop Road, Teton County, Wyoming, United States",
+      "place_type": "secondary",
+      "osm_type": "way",
+      "country": "United States",
+      "country_code": "us",
+      "state": "Wyoming",
+      "county": "Teton County",
+      "city": null,
+      "postcode": null,
+      "latitude": 44.4298593,
+      "longitude": -110.584779,
+      "data_source": "OpenStreetMap Nominatim",
+      "success": true
+    },
+    "nearby_features": {
+      "latitude": 44.428,
+      "longitude": -110.5885,
+      "radius_km": 1.0,
+      "features_found": 10,
+      "features": [
+        {
+          "type": "way",
+          "id": 184990805,
+          "tags": {
+            "name": "Duck Lake",
+            "natural": "water",
+            "water": "lake"
+          },
+          "natural": "water",
+          "landuse": null,
+          "water": "lake",
+          "name": "Duck Lake"
+        },
+        {
+          "type": "way",
+          "id": 905632504,
+          "tags": {
+            "natural": "wood"
+          },
+          "natural": "wood",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 905632505,
+          "tags": {
+            "natural": "wood"
+          },
+          "natural": "wood",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 905633797,
+          "tags": {
+            "natural": "grassland"
+          },
+          "natural": "grassland",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 905633798,
+          "tags": {
+            "natural": "grassland"
+          },
+          "natural": "grassland",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 923210944,
+          "tags": {
+            "natural": "grassland"
+          },
+          "natural": "grassland",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 923210945,
+          "tags": {
+            "natural": "grassland"
+          },
+          "natural": "grassland",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 1295789413,
+          "tags": {
+            "natural": "hot_spring"
+          },
+          "natural": "hot_spring",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 1295790154,
+          "tags": {
+            "natural": "hot_spring"
+          },
+          "natural": "hot_spring",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 1313849127,
+          "tags": {
+            "natural": "hot_spring"
+          },
+          "natural": "hot_spring",
+          "landuse": null,
+          "water": null,
+          "name": null
+        }
+      ],
+      "data_source": "OpenStreetMap Overpass API",
+      "success": true
+    },
+    "enrichment_summary": {
+      "successful_enrichments": [
+        "elevation",
+        "weather",
+        "location_context",
+        "nearby_features"
+      ],
+      "total_enrichments": 4,
+      "apis_used": [
+        "Open Elevation API",
+        "USGS Elevation Point Query Service",
+        "Open-Meteo Historical Weather API",
+        "OpenStreetMap Nominatim",
+        "OpenStreetMap Overpass API"
+      ]
+    }
+  },
+  "Florida Everglades": {
+    "original_coordinates": {
+      "latitude": 25.2866,
+      "longitude": -80.8987
+    },
+    "collection_date": "2019-03-10",
+    "enrichment_timestamp": "2025-09-04 21:07:20 UTC",
+    "elevation": {
+      "elevation_meters": 4.0,
+      "latitude": 25.2866,
+      "longitude": -80.8987,
+      "data_source": "Open Elevation API",
+      "success": true
+    },
+    "weather": {
+      "date": "2019-03-10",
+      "latitude": 25.2866,
+      "longitude": -80.8987,
+      "weather_data": {
+        "temperature_2m_max": 29.0,
+        "temperature_2m_min": 22.1,
+        "temperature_2m_mean": 24.8,
+        "precipitation_sum": 0.3,
+        "wind_speed_10m_max": 18.5,
+        "relative_humidity_2m_mean": 78
+      },
+      "data_source": "Open-Meteo Historical Weather API",
+      "success": true
+    },
+    "location_context": {
+      "display_name": "Lane Bay Chickee, Monroe County, Florida, United States",
+      "place_type": "camp_site",
+      "osm_type": "node",
+      "country": "United States",
+      "country_code": "us",
+      "state": "Florida",
+      "county": "Monroe County",
+      "city": null,
+      "postcode": null,
+      "latitude": 25.2843468,
+      "longitude": -80.8937433,
+      "data_source": "OpenStreetMap Nominatim",
+      "success": true
+    },
+    "nearby_features": {
+      "latitude": 25.2866,
+      "longitude": -80.8987,
+      "radius_km": 1.0,
+      "features_found": 10,
+      "features": [
+        {
+          "type": "way",
+          "id": 30326912,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498524,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498533,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498547,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498588,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498597,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498620,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498637,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498653,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        },
+        {
+          "type": "way",
+          "id": 30498661,
+          "tags": {
+            "created_by": "Potlatch 0.10f",
+            "natural": "coastline"
+          },
+          "natural": "coastline",
+          "landuse": null,
+          "water": null,
+          "name": null
+        }
+      ],
+      "data_source": "OpenStreetMap Overpass API",
+      "success": true
+    },
+    "enrichment_summary": {
+      "successful_enrichments": [
+        "elevation",
+        "weather",
+        "location_context",
+        "nearby_features"
+      ],
+      "total_enrichments": 4,
+      "apis_used": [
+        "Open Elevation API",
+        "USGS Elevation Point Query Service",
+        "Open-Meteo Historical Weather API",
+        "OpenStreetMap Nominatim",
+        "OpenStreetMap Overpass API"
+      ]
+    }
+  }
+}
