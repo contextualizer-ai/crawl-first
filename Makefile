@@ -1,8 +1,12 @@
 # Makefile for crawl-first development and quality control
-.PHONY: all install clean format lint typecheck deps-check test test-verbose security build dev ci setup-dirs squeaky-clean full-test test-mcp compress-all
+.PHONY: all all-unified install clean format lint typecheck deps-check test test-verbose security build dev dev-unified ci setup-dirs squeaky-clean full-test test-mcp compress-all enrich-unified-test download-envo generate-mappings compile-crosswalks analyze-schemas clean-schema help
 
 # Default target - runs all quality checks and tests
 all: install format lint typecheck deps-check test
+
+# Complete workflow - quality + schema analysis + unified enrichment  
+all-unified: all analyze-schemas generate-mappings enrich-unified-test
+	@echo "🎯 Complete unified workflow - code quality + schema analysis + mappings + geospatial enrichment"
 
 # Install dependencies and package in development mode
 install:
@@ -93,6 +97,149 @@ dev: format lint test
 # Full CI simulation - everything that runs in GitHub Actions
 ci: all test-coverage security
 	@echo "🎯 CI simulation complete"
+
+# =============================================================================
+# GOLD-NMDC UNIFIED ENRICHMENT TARGETS
+# =============================================================================
+
+# Run unified geospatial enrichment (from src)
+enrich-unified-test:
+	@echo "🌍 Running unified geospatial enrichment test..."
+	uv run python -m crawl_first.unified_enrichment \
+		--lat 44.428 \
+		--lon -110.5885 \
+		--date 2021-08-20 \
+		--output data/outputs/unified_test.json \
+		--enable-crosswalks \
+		--verbose \
+		--pretty
+	@echo "✅ Unified enrichment test complete - results in data/outputs/unified_test.json"
+
+# Download ENVO ontology
+download-envo:
+	@echo "🌱 Downloading ENVO ontology..."
+	@mkdir -p data/envo
+	curl -L http://purl.obolibrary.org/obo/envo.owl -o data/envo/envo.owl
+	@echo "✅ ENVO downloaded to data/envo/envo.owl"
+
+# Generate mappings and crosswalks
+generate-mappings:
+	@echo "🗺️ Generating ontology mappings and crosswalks..."
+	uv run python -m crawl_first.generate_mappings
+	@echo "✅ Mappings generated"
+
+# Compile crosswalks to SSSOM format
+compile-crosswalks:
+	@echo "📋 Compiling crosswalks to SSSOM format..."
+	uv run python -m crawl_first.compile_crosswalks
+	@echo "✅ SSSOM crosswalks compiled"
+
+# =============================================================================
+# SCHEMA ANALYSIS TARGETS  
+# =============================================================================
+
+# Environment variables with defaults
+MONGO_URI ?= mongodb://ncbi_reader:register_manatee_coach78@localhost:27778/?directConnection=true&authMechanism=DEFAULT&authSource=admin
+GOLD_DB ?= gold_metadata
+GOLD_COLL ?= biosamples
+SAMPLE_SIZE ?= 50000
+NMDC_SCHEMA_URL ?= https://raw.githubusercontent.com/microbiomedata/nmdc-schema/refs/heads/main/nmdc_schema/nmdc_materialized_patterns.yaml
+
+# Create output directory for schema work
+data/outputs/schema:
+	@mkdir -p $@
+
+# Fetch NMDC schema from GitHub using curl
+data/outputs/schema/nmdc_schema.yaml: | data/outputs/schema
+	@echo "📥 Fetching NMDC schema to $@..."
+	curl -s $(NMDC_SCHEMA_URL) -o $@
+
+# Extract NMDC Biosample slots using LinkML induction
+data/outputs/schema/nmdc_biosample_slots.json: data/outputs/schema/nmdc_schema.yaml
+	@echo "🔬 Extracting NMDC Biosample slots from $< to $@..."
+	uv run python -m crawl_first.extract_nmdc_biosample_slots \
+		--schema-path $< \
+		--output $@
+
+# Infer NMDC biosample schema from MongoDB data
+data/outputs/schema/nmdc_biosample_schema.json: | data/outputs/schema
+	@echo "🔬 Inferring NMDC biosample schema from data to $@..."
+	uv run python -m crawl_first.infer_schema \
+		--mongo-uri "$(MONGO_URI)" \
+		--db "nmdc" \
+		--coll "biosample_set" \
+		--sample-size $(SAMPLE_SIZE) \
+		--out-json-schema $@
+
+# Infer GOLD schema from MongoDB using genson  
+data/outputs/schema/gold_biosample_schema.json: | data/outputs/schema
+	@echo "🏆 Inferring GOLD schema to $@..."
+	uv run python -m crawl_first.infer_schema \
+		--mongo-uri "$(MONGO_URI)" \
+		--db "$(GOLD_DB)" \
+		--coll "$(GOLD_COLL)" \
+		--sample-size $(SAMPLE_SIZE) \
+		--out-json-schema $@
+
+# Generate GOLD field statistics (Compass-like)
+data/outputs/schema/gold_biosample_stats.csv data/outputs/schema/gold_biosample_stats.md: | data/outputs/schema
+	@echo "📊 Generating GOLD field statistics..."
+	uv run python -m crawl_first.infer_stats \
+		--mongo-uri "$(MONGO_URI)" \
+		--db "$(GOLD_DB)" \
+		--coll "$(GOLD_COLL)" \
+		--sample-size $(SAMPLE_SIZE) \
+		--out-csv data/outputs/schema/gold_biosample_stats.csv \
+		--out-md data/outputs/schema/gold_biosample_stats.md
+
+# Generate NMDC biosample field statistics from actual data
+data/outputs/schema/nmdc_biosample_stats.csv data/outputs/schema/nmdc_biosample_stats.md: | data/outputs/schema
+	@echo "📊 Generating NMDC biosample field statistics..."
+	uv run python -m crawl_first.infer_stats \
+		--mongo-uri "$(MONGO_URI)" \
+		--db "nmdc" \
+		--coll "biosample_set" \
+		--sample-size $(SAMPLE_SIZE) \
+		--out-csv data/outputs/schema/nmdc_biosample_stats.csv \
+		--out-md data/outputs/schema/nmdc_biosample_stats.md
+
+# Get raw Claude Code response for schema comparison
+data/outputs/schema/schema_comparison_raw.json: data/outputs/schema/nmdc_biosample_slots.json data/outputs/schema/gold_biosample_schema.json prompts/schema-comparison-prompt.txt empty-mcp-config.json
+	@echo "🤖 Getting raw Claude response to $@..."
+	claude --print --output-format json --strict-mcp-config --mcp-config empty-mcp-config.json < prompts/schema-comparison-prompt.txt > $@
+
+# Extract clean JSON from raw Claude response
+data/outputs/schema/schema_comparison.json: data/outputs/schema/schema_comparison_raw.json
+	@echo "📄 Extracting clean JSON from $< to $@..."
+	jq -r '.result' $< | sed 's/^```json//' | sed 's/```$$//' > $@
+
+# Get raw enrichment analysis using Claude Code
+data/outputs/schema/enrichment_analysis_raw.json: data/outputs/schema/nmdc_biosample_stats.csv data/outputs/schema/gold_biosample_stats.csv data/outputs/schema/schema_comparison.json prompts/enrichment-analysis-prompt.txt empty-mcp-config.json
+	@echo "🔍 Getting enrichment analysis to $@..."
+	claude --print --output-format json --strict-mcp-config --mcp-config empty-mcp-config.json < prompts/enrichment-analysis-prompt.txt > $@
+
+# Extract clean enrichment analysis JSON
+data/outputs/schema/enrichment_analysis.json: data/outputs/schema/enrichment_analysis_raw.json
+	@echo "📄 Extracting enrichment analysis from $< to $@..."
+	jq -r '.result' $< | sed 's/^```json//' | sed 's/```$$//' > $@
+
+# Clean schema analysis outputs
+clean-schema:
+	@echo "🧹 Cleaning schema analysis outputs..."
+	rm -rf data/outputs/schema/
+	@echo "✅ Schema analysis outputs cleaned"
+
+# Complete schema analysis workflow - meta-target that does everything
+analyze-schemas: data/outputs/schema/nmdc_biosample_slots.json data/outputs/schema/nmdc_biosample_schema.json data/outputs/schema/gold_biosample_schema.json data/outputs/schema/nmdc_biosample_stats.csv data/outputs/schema/gold_biosample_stats.csv data/outputs/schema/schema_comparison.json data/outputs/schema/enrichment_analysis.json
+	@echo "✅ Complete schema analysis workflow finished"
+	@echo "📁 Results available in data/outputs/schema/"
+	@echo "📊 Schema files: $(word 1,$^) $(word 2,$^) $(word 3,$^)"
+	@echo "📈 Statistics: $(word 4,$^) $(word 5,$^)"  
+	@echo "🤖 Analysis: $(word 6,$^) $(word 7,$^)"
+
+# Unified development workflow - combines root dev + enrichment
+dev-unified: dev enrich-unified-test
+	@echo "🚀 Unified development cycle complete - code quality + enrichment tested"
 
 # Check if CLI works
 check-cli:
@@ -268,3 +415,48 @@ resume-validation: archives/data/outputs/crawl-first/test-results/
 # Convenience aliases for backward compatibility
 validate-biosamples: data/outputs/validation-results.json
 validate-biosamples-custom: data/outputs/validation-results-custom.json
+
+# =============================================================================
+# HELP TARGET
+# =============================================================================
+
+help:
+	@echo "Crawl-First Development & Unified Enrichment Pipeline"
+	@echo "======================================================"
+	@echo ""
+	@echo "Core Development Targets:"
+	@echo "  all              - Run all quality checks and tests"
+	@echo "  all-unified      - Complete workflow: quality + schema analysis + geospatial enrichment"
+	@echo "  install          - Install dependencies in development mode"
+	@echo "  format           - Format code with black"
+	@echo "  lint             - Lint code with ruff"
+	@echo "  typecheck        - Type checking with mypy"
+	@echo "  test             - Run tests with pytest"
+	@echo "  dev              - Quick development cycle (format, lint, test)"
+	@echo "  dev-unified      - Unified dev cycle (dev + enrichment test)"
+	@echo "  ci               - Full CI simulation"
+	@echo ""
+	@echo "Schema Analysis Targets:"
+	@echo "  analyze-schemas      - Complete NMDC vs GOLD schema analysis workflow"
+	@echo "  clean-schema         - Clean all schema analysis outputs"
+	@echo "  data/outputs/schema/nmdc_schema.yaml - Fetch NMDC schema from GitHub"
+	@echo "  data/outputs/schema/nmdc_biosample_schema.json - Infer NMDC schema from MongoDB"
+	@echo "  data/outputs/schema/gold_biosample_schema.json - Infer GOLD schema from MongoDB"
+	@echo "  data/outputs/schema/schema_comparison.json - Compare schemas with Claude"
+	@echo ""
+	@echo "Unified Enrichment Targets:"
+	@echo "  enrich-unified-test  - Run unified geospatial enrichment test"
+	@echo "  download-envo        - Download ENVO ontology"
+	@echo "  generate-mappings    - Generate ontology mappings and crosswalks"
+	@echo "  compile-crosswalks   - Compile crosswalks to SSSOM format"
+	@echo ""
+	@echo "Data & Testing Targets:"
+	@echo "  setup-dirs           - Create directory structure"
+	@echo "  full-test            - Complete test suite (code + data + application)"
+	@echo "  test-mcp             - MCP diagnostic tests with Claude"
+	@echo "  check-cli            - Test CLI functionality"
+	@echo ""
+	@echo "Maintenance Targets:"
+	@echo "  clean                - Clean build artifacts and caches"
+	@echo "  squeaky-clean        - Remove all generated files"
+	@echo "  compress-all         - Compress data directories to archives"

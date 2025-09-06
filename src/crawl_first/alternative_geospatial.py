@@ -23,7 +23,7 @@ from urllib3.util.retry import Retry
 
 def load_mapping_file(mapping_name: str) -> Dict[str, Any]:
     """Load ENVO mapping from external JSON file."""
-    mapping_file = Path(__file__).parent / "mappings" / f"{mapping_name}.json"
+    mapping_file = Path(__file__).parent.parent / "mappings" / f"{mapping_name}.json"
     
     if mapping_file.exists():
         try:
@@ -46,7 +46,7 @@ SOILGRIDS_FAO_TO_ENVO = load_mapping_file("soilgrids_fao_to_envo")
 class GeospatialDataCache:
     """Simple file-based cache for geospatial API responses."""
     
-    def __init__(self, cache_dir: str = "cache/geospatial"):
+    def __init__(self, cache_dir: str = "../cache/geospatial"):
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         

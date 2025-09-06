@@ -1,0 +1,1923 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "analysis_type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "collection_date": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "depth": {
+      "type": "object",
+      "properties": {
+        "has_maximum_numeric_value": {
+          "type": "number"
+        },
+        "has_minimum_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "elev": {
+      "type": "number"
+    },
+    "env_broad_scale": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "term",
+        "type"
+      ]
+    },
+    "env_local_scale": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "term",
+        "type"
+      ]
+    },
+    "env_medium": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "term",
+        "type"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "ph": {
+      "type": "number"
+    },
+    "samp_collec_device": {
+      "type": "string"
+    },
+    "soil_horizon": {
+      "type": "string"
+    },
+    "temp": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "type": {
+      "type": "string"
+    },
+    "water_content": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "geo_loc_name": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "biosample_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lat_lon": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "latitude",
+        "longitude",
+        "type"
+      ]
+    },
+    "gold_biosample_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "associated_studies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "host_taxid": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "term",
+        "type"
+      ]
+    },
+    "img_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "samp_name": {
+      "type": "string"
+    },
+    "insdc_biosample_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ecosystem": {
+      "type": "string"
+    },
+    "ecosystem_category": {
+      "type": "string"
+    },
+    "ecosystem_subtype": {
+      "type": "string"
+    },
+    "ecosystem_type": {
+      "type": "string"
+    },
+    "samp_taxon_id": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "term",
+        "type"
+      ]
+    },
+    "specific_ecosystem": {
+      "type": "string"
+    },
+    "add_date": {
+      "type": "string"
+    },
+    "habitat": {
+      "type": "string"
+    },
+    "host_name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "mod_date": {
+      "type": "string"
+    },
+    "ncbi_taxonomy_name": {
+      "type": "string"
+    },
+    "sample_collection_site": {
+      "type": "string"
+    },
+    "agrochem_addition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "has_raw_value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "type"
+        ]
+      }
+    },
+    "cur_vegetation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "env_package": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "growth_facil": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        },
+        "term": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "samp_store_temp": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "sieving": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "source_mat_id": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "store_cond": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "experimental_factor_other": {
+      "type": "string"
+    },
+    "collected_from": {
+      "type": "string"
+    },
+    "experimental_factor": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        },
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "emsl_biosample_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "carb_nitro_ratio": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "micro_biomass_meth": {
+      "type": "string"
+    },
+    "samp_collec_method": {
+      "type": "string"
+    },
+    "tot_phosp": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "collection_time": {
+      "type": "string"
+    },
+    "ammonium_nitrogen": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "nitro": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "org_carb": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "tot_nitro_content": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "ances_data": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "biotic_regm": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "cult_root_med": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "host_age": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "host_common_name": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "host_life_stage": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "perturbation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "has_raw_value": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "type"
+        ]
+      }
+    },
+    "plant_struc": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "term",
+        "type"
+      ]
+    },
+    "samp_size": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "misc_param": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "has_raw_value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "type"
+        ]
+      }
+    },
+    "other_treatment": {
+      "type": "string"
+    },
+    "chlorophyll": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "diss_oxygen": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "abs_air_humidity": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "avg_temp": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "fertilizer_regm": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "has_raw_value": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "type"
+        ]
+      }
+    },
+    "host_dry_mass": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "host_height": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "humidity": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "photon_flux": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "solar_irradiance": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "tot_carb": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "wind_direction": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "wind_speed": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "diss_inorg_carb": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "diss_org_carb": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "tot_org_carb": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "ammonium": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "soluble_react_phosp": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "diss_inorg_nitro": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "samp_store_loc": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "community": {
+      "type": "string"
+    },
+    "alternative_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "soil_texture_meth": {
+      "type": "string"
+    },
+    "soil_type": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "soil_type_meth": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "watering_regm": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "has_raw_value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "type"
+        ]
+      }
+    },
+    "sample_link": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "nitrate": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "salinity": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "conduc": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "chem_administration": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "has_raw_value": {
+            "type": "string"
+          },
+          "term": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "type"
+            ]
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "term",
+          "type"
+        ]
+      }
+    },
+    "gravidity": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "host_body_habitat": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "host_body_site": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "term": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "type"
+          ]
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "term",
+        "type"
+      ]
+    },
+    "host_diet": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "has_raw_value": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "has_raw_value",
+          "type"
+        ]
+      }
+    },
+    "host_genotype": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "host_sex": {
+      "type": "string"
+    },
+    "calcium": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "magnesium": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "potassium": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "tot_nitro": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "lbc_thirty": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "lbceq": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "manganese": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "zinc": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "nitrate_nitrogen": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "nitrite_nitrogen": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "igsn_biosample_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "samp_mat_process": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "has_raw_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_raw_value",
+        "type"
+      ]
+    },
+    "chloride": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "sulfate": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "sodium": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "diss_iron": {
+      "type": "object",
+      "properties": {
+        "has_numeric_value": {
+          "type": "number"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_unit",
+        "type"
+      ]
+    },
+    "subsurface_depth": {
+      "type": "object",
+      "properties": {
+        "has_raw_value": {
+          "type": "string"
+        },
+        "has_numeric_value": {
+          "type": "integer"
+        },
+        "has_unit": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "has_numeric_value",
+        "has_raw_value",
+        "has_unit",
+        "type"
+      ]
+    }
+  },
+  "required": [
+    "_id",
+    "associated_studies",
+    "env_broad_scale",
+    "env_local_scale",
+    "env_medium",
+    "id",
+    "lat_lon",
+    "name",
+    "type"
+  ]
+}

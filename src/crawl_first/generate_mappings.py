@@ -456,7 +456,7 @@ def main():
     
     parser = argparse.ArgumentParser(description="Generate ENVO ontology mappings")
     parser.add_argument('--no-ai', action='store_true', help='Skip AI-assisted mappings')
-    parser.add_argument('--mappings-dir', default='mappings', help='Output directory for mappings')
+    parser.add_argument('--mappings-dir', default='../mappings', help='Output directory for mappings')
     
     args = parser.parse_args()
     
