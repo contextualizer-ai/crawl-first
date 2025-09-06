@@ -30,6 +30,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# Local environment files (contains actual API keys)
+local/.env
+
 # IDE
 .vscode/
 .idea/
