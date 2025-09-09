@@ -9,7 +9,7 @@ biosample example using the new modular architecture.
 import sys
 from pathlib import Path
 
-# Add src to path for imports
+# Add src to path for imports  
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from crawl_first.unified_enrichment import enrich_biosample_unified, load_enrichment_config

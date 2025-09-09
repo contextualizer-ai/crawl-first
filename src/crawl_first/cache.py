@@ -19,7 +19,7 @@ from .logging_utils import (
 
 T = TypeVar("T")
 
-# Global cache directory - project root
+# Global cache directory - project root (flat structure)
 CACHE_DIR = Path(__file__).resolve().parent.parent.parent / "cache"
 FULL_TEXT_DIR = CACHE_DIR / "full_text_files"
 
@@ -69,7 +69,7 @@ def generate_pdf_filename(identifiers: Dict[str, str]) -> str:
 def get_cache(cache_type: str, key: str) -> Optional[Dict[str, Any]]:
     """Get data from cache."""
     logger = logging.getLogger("crawl_first.cache")
-    cache_file = CACHE_DIR / cache_type / f"{key}.json"
+    cache_file = CACHE_DIR / f"{cache_type}_{key}.json"
 
     if cache_file.exists():
         try:
@@ -105,9 +105,8 @@ def get_cache(cache_type: str, key: str) -> Optional[Dict[str, Any]]:
 def save_cache(cache_type: str, key: str, data: Dict[str, Any]) -> None:
     """Save data to cache."""
     logger = logging.getLogger("crawl_first.cache")
-    cache_dir = CACHE_DIR / cache_type
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    cache_file = cache_dir / f"{key}.json"
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_file = CACHE_DIR / f"{cache_type}_{key}.json"
 
     try:
         serialized_data = json.dumps(data, indent=2)

@@ -32,70 +32,105 @@ def connect_to_mongodb():
         return None
 
 
-def extract_nmdc_biosamples(client, limit=3):
-    """Extract real NMDC biosamples with coordinates."""
+def extract_nmdc_biosamples(client, limit=100):
+    """Extract real NMDC biosamples with coordinates and study associations."""
     print("🧬 Extracting NMDC biosamples...")
     
     db = client["nmdc"]
-    collection = db["biosample_set"]
+    biosample_collection = db["biosample_set"]
+    study_collection = db["study_set"]
     
-    # Query for biosamples with coordinates and good metadata
-    query = {
-        "$or": [
-            {"lat_lon": {"$exists": True, "$ne": None}},
-            {
-                "latitude": {"$exists": True, "$ne": None},
-                "longitude": {"$exists": True, "$ne": None}
-            }
-        ],
-        "collection_date": {"$exists": True, "$ne": None},
-        "geo_loc_name": {"$exists": True, "$ne": None}
-    }
+    # Query for intact biosamples (no filtering requirements)
+    query = {}
     
     # Get biosamples with good data
-    cursor = collection.find(query).limit(limit * 3)  # Get extra in case some are bad
+    cursor = biosample_collection.find(query).limit(limit * 2)  # Get extra in case some are bad
     
     biosamples = []
+    study_cache = {}
+    
     for doc in cursor:
         # Clean up the document for JSON serialization
         doc.pop("_id", None)  # Remove ObjectId which isn't JSON serializable
+        
+        # Try to find associated study
+        study_info = None
+        if "associated_studies" in doc and doc["associated_studies"]:
+            study_id = doc["associated_studies"][0]  # Take first study
+            
+            # Check cache first
+            if study_id in study_cache:
+                study_info = study_cache[study_id]
+            else:
+                # Query study collection
+                study_doc = study_collection.find_one({"id": study_id})
+                if study_doc:
+                    study_doc.pop("_id", None)
+                    study_info = study_doc
+                    study_cache[study_id] = study_info
+        
+        # Add study info to biosample
+        if study_info:
+            doc["study_info"] = study_info
+        
         biosamples.append(doc)
         
         if len(biosamples) >= limit:
             break
     
     print(f"Found {len(biosamples)} NMDC biosamples")
+    print(f"With study associations: {len([b for b in biosamples if 'study_info' in b])}")
     return biosamples
 
 
-def extract_gold_biosamples(client, limit=3):
-    """Extract real GOLD biosamples with coordinates."""
+def extract_gold_biosamples(client, limit=100):
+    """Extract real GOLD biosamples with coordinates and study associations via seq_projects."""
     print("🏅 Extracting GOLD biosamples...")
     
     db = client["gold_metadata"] 
-    collection = db["biosamples"]
+    biosample_collection = db["biosamples"]
+    seq_projects_collection = db["seq_projects"]
     
-    # Query for biosamples with coordinates and good metadata
-    query = {
-        "latitude": {"$exists": True, "$ne": None, "$ne": ""},
-        "longitude": {"$exists": True, "$ne": None, "$ne": ""},
-        "dateCollected": {"$exists": True, "$ne": None},
-        "geoLocation": {"$exists": True, "$ne": None, "$ne": ""}
-    }
+    # Query for intact biosamples (no filtering requirements)
+    query = {}
     
     # Get biosamples with good data
-    cursor = collection.find(query).limit(limit * 3)  # Get extra in case some are bad
+    cursor = biosample_collection.find(query).limit(limit * 2)  # Get extra in case some are bad
     
     biosamples = []
+    study_cache = {}
+    
     for doc in cursor:
         # Clean up the document for JSON serialization
         doc.pop("_id", None)  # Remove ObjectId which isn't JSON serializable
+        
+        # Find associated studies via seq_projects (following biosample_adapters.py pattern)
+        study_ids = []
+        biosample_id = doc.get("biosampleGoldId")
+        
+        if biosample_id:
+            # Query seq_projects collection for matching biosampleGoldId
+            seq_projects_cursor = seq_projects_collection.find({"biosampleGoldId": biosample_id})
+            
+            for project in seq_projects_cursor:
+                study_gold_id = project.get("studyGoldId")
+                if study_gold_id:
+                    study_ids.append(str(study_gold_id))
+            
+            # Remove duplicates
+            study_ids = list(set(study_ids))
+        
+        # Add study associations to biosample
+        if study_ids:
+            doc["associated_studies"] = study_ids
+        
         biosamples.append(doc)
         
         if len(biosamples) >= limit:
             break
     
     print(f"Found {len(biosamples)} GOLD biosamples")
+    print(f"With study associations: {len([b for b in biosamples if 'associated_studies' in b])}")
     return biosamples
 
 
@@ -137,8 +172,15 @@ def extract_sample_seq_projects(client, gold_biosamples, limit=5):
 
 def main():
     """Extract real biosamples and save to test file."""
-    print("Extracting Real NMDC and GOLD Biosamples from MongoDB")
-    print("=" * 60)
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Extract intact biosamples from MongoDB")
+    parser.add_argument("--limit", type=int, default=100, help="Number of biosamples to extract from each database")
+    parser.add_argument("--output", type=str, help="Output JSON file path (if not specified, prints to stdout)")
+    args = parser.parse_args()
+    
+    print(f"Extracting {args.limit} Real NMDC and GOLD Biosamples from MongoDB", file=sys.stderr)
+    print("=" * 60, file=sys.stderr)
     
     # Connect to MongoDB
     client = connect_to_mongodb()
@@ -147,9 +189,9 @@ def main():
     
     try:
         # Extract real biosamples
-        nmdc_samples = extract_nmdc_biosamples(client, limit=3)
-        gold_samples = extract_gold_biosamples(client, limit=3)
-        seq_projects = extract_sample_seq_projects(client, gold_samples, limit=10)
+        nmdc_samples = extract_nmdc_biosamples(client, limit=args.limit)
+        gold_samples = extract_gold_biosamples(client, limit=args.limit)
+        seq_projects = extract_sample_seq_projects(client, gold_samples, limit=args.limit//2)
         
         # Create the test data structure
         test_data = {
@@ -159,9 +201,16 @@ def main():
         }
         
         # Output JSON
-        print(json.dumps(test_data, indent=2, default=str))
+        json_output = json.dumps(test_data, indent=2, default=str)
         
-        print(f"\n✅ Extraction complete!", file=sys.stderr)
+        if args.output:
+            with open(args.output, 'w') as f:
+                f.write(json_output)
+            print(f"✅ JSON written to: {args.output}", file=sys.stderr)
+        else:
+            print(json_output)
+        
+        print(f"✅ Extraction complete!", file=sys.stderr)
         print(f"📊 Summary:", file=sys.stderr)
         print(f"  NMDC biosamples: {len(nmdc_samples)}", file=sys.stderr)
         print(f"  GOLD biosamples: {len(gold_samples)}", file=sys.stderr)

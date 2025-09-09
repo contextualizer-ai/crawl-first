@@ -6,12 +6,20 @@ results with proper provenance tracking following the unified schema.
 """
 
 import json
+import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 import click
 
 from .cache import cache_key, get_cache, save_cache
+from .marine_enrichment import get_marine_enrichment_multi_provider
+
+logger = logging.getLogger(__name__)
+
+def _log_step(message: str):
+    """Log enrichment step with proper CLI output handling."""
+    click.echo(message)
 
 def _clean_result_for_cache(result: Dict[str, Any]) -> Dict[str, Any]:
     """Clean result for JSON serialization by converting DataFrames to strings."""
@@ -26,6 +34,13 @@ def _clean_result_for_cache(result: Dict[str, Any]) -> Dict[str, Any]:
                 if "hourly_df" in provider_data and provider_data["hourly_df"] is not None:
                     # Convert DataFrame to string representation
                     cleaned_result["weather"]["daily"]["all_providers"][provider_name]["hourly_df"] = str(provider_data["hourly_df"])
+    
+    # Clean marine data DataFrames
+    if "marine" in cleaned_result and "all_providers" in cleaned_result["marine"]:
+        for provider_name, provider_data in cleaned_result["marine"]["all_providers"].items():
+            if "hourly_df" in provider_data and provider_data["hourly_df"] is not None:
+                # Convert DataFrame to string representation
+                cleaned_result["marine"]["all_providers"][provider_name]["hourly_df"] = str(provider_data["hourly_df"])
     
     return cleaned_result
 
@@ -204,15 +219,19 @@ def enrich_biosample_unified(
     enrichment_errors = []
     
     # 1. Site typing (terrestrial/aquatic/marine classification)
+    _log_step(f"    🏔️  Step 1/10: Site typing...")
     try:
         site_config = config.get("site_typing", {})
         site_result = classify_site(lat, lon, site_config)
         result["site_type"] = site_result
+        _log_step(f"        ✅ Site type: {result['site_type'].get('type', 'unknown')}")
     except Exception as e:
         enrichment_errors.append(f"Site typing failed: {e}")
         result["site_type"] = {"error": str(e)}
+        _log_step(f"        ❌ Site typing failed: {e}")
     
     # 2. Elevation data (multi-provider: Local DEM + USGS + Google)
+    _log_step(f"    🏔️  Step 2/10: Elevation data...")
     try:
         elevation_sources = {}
         
@@ -253,18 +272,24 @@ def enrich_biosample_unified(
             pass
         
         result["elevation"] = elevation_sources
+        _log_step(f"        ✅ Elevation: {len(elevation_sources)} sources")
         
     except Exception as e:
         enrichment_errors.append(f"Elevation enrichment failed: {e}")
         result["elevation"] = {"error": str(e)}
+        _log_step(f"        ❌ Elevation failed: {e}")
     
     # 3. Administrative boundaries (multi-provider: Nominatim + Google)
+    _log_step(f"    🌐 Step 3/10: Administrative boundaries...")
     try:
         admin_result = get_reverse_geocoding_multi(lat, lon)
         result["administrative"] = admin_result
+        provider = admin_result.get("primary_provider", "none")
+        _log_step(f"        ✅ Admin: {provider}")
     except Exception as e:
         enrichment_errors.append(f"Administrative boundary enrichment failed: {e}")
         result["administrative"] = {"error": str(e)}
+        _log_step(f"        ❌ Admin failed: {e}")
     
     # 4. Forward geocoding (if place name provided)
     if place:
@@ -277,20 +302,30 @@ def enrich_biosample_unified(
     
     # 5. Weather data (if collection date provided)
     if collection_date:
+        _log_step(f"    🌤️  Step 4/10: Weather data for {collection_date}...")
         try:
             weather_result = weather_daily(lat, lon, collection_date)
             result["weather"]["daily"] = weather_result
+            provider = weather_result.get("primary_provider", "none")
+            _log_step(f"        ✅ Weather: {provider}")
         except Exception as e:
             enrichment_errors.append(f"Weather enrichment failed: {e}")
             result["weather"] = {"error": str(e)}
+            _log_step(f"        ❌ Weather failed: {e}")
+    else:
+        _log_step(f"    🌤️  Step 4/10: Weather data skipped (no date)")
     
     # 4. Land cover (multi-provider: ESA WorldCover + NLCD for US + Local files)
+    _log_step(f"    🌿 Step 5/10: Land cover...")
     try:
         land_cover_result = get_land_cover_multi(lat, lon, 2021)
         result["land_cover"] = land_cover_result
+        success = "✅" if land_cover_result.get("success") else "❌"
+        _log_step(f"        {success} Land cover")
     except Exception as e:
         enrichment_errors.append(f"Land cover enrichment failed: {e}")
         result["land_cover"] = {"error": str(e)}
+        _log_step(f"        ❌ Land cover failed: {e}")
     
     # 5. Soil properties (try MCP soil service if local files unavailable)
     try:
@@ -461,13 +496,47 @@ def enrich_biosample_unified(
         enrichment_errors.append(f"Google Places enrichment failed: {e}")
         result["places"] = {"error": str(e)}
     
-    # 9. Air quality enrichment (multi-provider: Google + EPA + OpenWeatherMap)
-    try:
-        air_quality_result = get_air_quality_multi(lat, lon, collection_date)
-        result["air_quality"] = air_quality_result
-    except Exception as e:
-        enrichment_errors.append(f"Air quality enrichment failed: {e}")
-        result["air_quality"] = {"error": str(e)}
+    # 9. Air quality enrichment (DISABLED - consistently failing due to API key requirements)
+    # TODO: Re-enable when API keys are available or alternative providers found
+    result["air_quality"] = {
+        "success": False,
+        "disabled": True,
+        "reason": "Air quality enrichment disabled - requires API keys and has limited historical data availability"
+    }
+    # try:
+    #     air_quality_result = get_air_quality_multi(lat, lon, collection_date)
+    #     result["air_quality"] = air_quality_result
+    # except Exception as e:
+    #     enrichment_errors.append(f"Air quality enrichment failed: {e}")
+    #     result["air_quality"] = {"error": str(e)}
+    
+    # 10. Marine/oceanographic enrichment (PHASE 1 IMPLEMENTATION)
+    site_type = result.get("site_type", {}).get("type")
+    if site_type == "open_ocean":
+        _log_step(f"    🌊 Step 10/10: Marine enrichment (Phase 1)...")
+        try:
+            from .marine_enrichment_phase1 import get_marine_enrichment_phase1
+            marine_result = get_marine_enrichment_phase1(lat, lon, collection_date, timeout=60)
+            result["marine"] = marine_result
+            success_rate = marine_result.get('success_rate', 0)
+            _log_step(f"        ✅ Marine: {success_rate:.1%} success rate")
+            logger.info(f"Marine enrichment completed: {success_rate:.1%} success rate")
+        except Exception as e:
+            result["marine"] = {
+                "success": False,
+                "error": f"Marine enrichment failed: {str(e)}",
+                "note": "Phase 1 marine enrichment (SST, chlorophyll, bathymetry) via ERDDAP/WMS"
+            }
+            _log_step(f"        ❌ Marine failed: {e}")
+            logger.error(f"Marine enrichment error: {e}")
+    else:
+        _log_step(f"    🌊 Step 10/10: Marine enrichment skipped (site type: {site_type})")
+        result["marine"] = {
+            "success": False,
+            "disabled": True,
+            "reason": f"Marine enrichment skipped - site type is '{site_type}', not 'open_ocean'",
+            "note": "Marine APIs only triggered for open ocean samples to avoid unnecessary API calls"
+        }
     
     # Add distance calculations to coastlines and major features
     try:
@@ -477,9 +546,13 @@ def enrich_biosample_unified(
         enrichment_errors.append(f"Distance calculations failed: {e}")
     
     # Add error summary if there were any errors
+    # Count total enrichment categories: site_type, elevation, admin, weather, land_cover, 
+    # soils, ecoregion, osm, places, marine (10 total, but some are conditional)
+    total_enrichment_types = 10
+    
     if enrichment_errors:
         result["enrichment_errors"] = enrichment_errors
-        result["enrichment_success_rate"] = 1.0 - (len(enrichment_errors) / 9)  # 9 main enrichment types
+        result["enrichment_success_rate"] = max(0.0, 1.0 - (len(enrichment_errors) / total_enrichment_types))
     else:
         result["enrichment_success_rate"] = 1.0
     
@@ -555,7 +628,7 @@ def batch_enrich_biosamples(
     Batch enrichment for multiple biosamples.
     
     Args:
-        biosamples: List of dicts with id, lat, lon, collection_date
+        biosamples: List of dicts with id/sample_id, lat/latitude, lon/longitude, collection_date
         config: Configuration dict
         
     Returns:
@@ -565,22 +638,43 @@ def batch_enrich_biosamples(
         config = load_enrichment_config()
     
     results = []
+    total_samples = len(biosamples)
     
-    for biosample in biosamples:
+    for i, biosample in enumerate(biosamples, 1):
         try:
+            # Handle both formats - normalized and plain
+            biosample_id = biosample.get("id") or biosample.get("sample_id")
+            lat = biosample.get("lat") or biosample.get("latitude")
+            lon = biosample.get("lon") or biosample.get("longitude")
+            
+            if not biosample_id or lat is None or lon is None:
+                raise ValueError(f"Missing required fields in biosample: {biosample}")
+            
+            _log_step(f"🧬 [{i}/{total_samples}] Processing {biosample_id} at ({lat:.4f}, {lon:.4f})")
+            
             result = enrich_biosample_unified(
-                biosample_id=biosample["id"],
-                lat=biosample["lat"], 
-                lon=biosample["lon"],
+                biosample_id=biosample_id,
+                lat=lat, 
+                lon=lon,
                 collection_date=biosample.get("collection_date"),
                 config=config
             )
+            
+            # Log site classification result
+            site_type = result.get("site_type", {}).get("type", "unknown")
+            success_rate = result.get("enrichment_success_rate", 0)
+            _log_step(f"✅ [{i}/{total_samples}] {biosample_id}: {site_type} site, {success_rate:.1%} success")
+            
             results.append(result)
         except Exception as e:
             # Create error result for failed enrichment
+            biosample_id = biosample.get("id") or biosample.get("sample_id", "unknown")
+            lat = biosample.get("lat") or biosample.get("latitude", 0)
+            lon = biosample.get("lon") or biosample.get("longitude", 0)
+            
             error_result = {
-                "id": biosample["id"],
-                "point": {"lat": biosample["lat"], "lon": biosample["lon"]},
+                "id": biosample_id,
+                "point": {"lat": lat, "lon": lon},
                 "enrichment_error": str(e),
                 "enrichment_success_rate": 0.0,
                 "provenance": {
@@ -990,584 +1084,6 @@ def get_places_google(lat: float, lon: float, radius: int = 1000) -> Dict[str, A
         }
 
 
-def get_air_quality_google(lat: float, lon: float, date: Optional[str] = None) -> Dict[str, Any]:
-    """Google Air Quality API for comprehensive air pollution data."""
-    import requests
-    import os
-    from pathlib import Path
-    
-    # Load local environment variables
-    env_file = Path(__file__).parent.parent.parent / "local" / ".env"
-    if env_file.exists():
-        with open(env_file) as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#") and "=" in line:
-                    key, value = line.split("=", 1)
-                    os.environ[key.strip()] = value.strip()
-    
-    api_key = os.environ.get("GOOGLE_ELEVATION_API_KEY")  # Same key for all Google APIs
-    if not api_key:
-        return {
-            "provider": "google_air_quality",
-            "success": False,
-            "error": "GOOGLE_ELEVATION_API_KEY not set"
-        }
-    
-    # Use historical endpoint if date provided, otherwise current conditions
-    if date:
-        url = "https://airquality.googleapis.com/v1/history:lookup"
-        # Calculate next day for endTime (API expects date range, not single day)
-        from datetime import datetime, timedelta
-        start_date = datetime.strptime(date, "%Y-%m-%d")
-        end_date = start_date + timedelta(days=1)
-        
-        request_body = {
-            "location": {
-                "latitude": lat,
-                "longitude": lon
-            },
-            "period": {
-                "startTime": start_date.strftime("%Y-%m-%dT00:00:00Z"),
-                "endTime": end_date.strftime("%Y-%m-%dT00:00:00Z")
-            },
-            "pageSize": 24  # Request 24 hours of data
-        }
-    else:
-        url = "https://airquality.googleapis.com/v1/currentConditions:lookup" 
-        request_body = {
-            "location": {
-                "latitude": lat,
-                "longitude": lon
-            },
-            "includeLocalAqi": True,
-            "includeHealthSuggestions": True,
-            "includeDominantPollutant": True,
-            "includeAdditionalPollutantInfo": True
-        }
-    
-    headers = {
-        "Content-Type": "application/json"
-    }
-    
-    try:
-        response = requests.post(f"{url}?key={api_key}", 
-                               json=request_body, 
-                               headers=headers, 
-                               timeout=30)
-        
-        # Debug: Log request details for troubleshooting
-        if response.status_code != 200:
-            error_details = {
-                "status_code": response.status_code,
-                "url": url,
-                "request_body": request_body,
-                "response_text": response.text[:500] if response.text else None
-            }
-            
-            # Special handling for historical data limitations
-            if date and "time period is not supported" in response.text:
-                return {
-                    "provider": "google_air_quality",
-                    "success": False,
-                    "error": f"Google Air Quality historical data not available for {date}. API may have limited historical coverage or require special permissions.",
-                    "limitation": "Google Air Quality API historical data access appears limited. Consider alternative sources for historical air quality data.",
-                    "debug_info": error_details
-                }
-            
-            return {
-                "provider": "google_air_quality",
-                "success": False,
-                "error": f"HTTP {response.status_code}: {response.text[:200] if response.text else 'No response body'}",
-                "debug_info": error_details
-            }
-        
-        response.raise_for_status()
-        data = response.json()
-        
-        # Handle both current conditions and historical data responses
-        if "indexes" in data:
-            # Current conditions response
-            indexes = data.get("indexes", [])
-            pollutants = data.get("pollutants", [])
-            
-            # Find universal AQI
-            universal_aqi = None
-            local_aqi = None
-            for index in indexes:
-                if index.get("code") == "uaqi":
-                    universal_aqi = index
-                elif index.get("code") == "usa_epa":
-                    local_aqi = index
-            
-            # Process pollutant concentrations
-            pollutant_data = {}
-            for pollutant in pollutants:
-                code = pollutant.get("code")
-                concentration = pollutant.get("concentration", {})
-                pollutant_data[code] = {
-                    "value": concentration.get("value"),
-                    "units": concentration.get("units"),
-                    "full_name": pollutant.get("fullName"),
-                    "additional_info": pollutant.get("additionalInfo", {})
-                }
-            
-            return {
-                "provider": "google_air_quality",
-                "success": True,
-                "data_source": "Google Air Quality API",
-                "query_type": "historical" if date else "current",
-                "query_date": date,
-                "universal_aqi": {
-                    "aqi": universal_aqi.get("aqi") if universal_aqi else None,
-                    "category": universal_aqi.get("category") if universal_aqi else None,
-                    "dominant_pollutant": universal_aqi.get("dominantPollutant") if universal_aqi else None
-                },
-                "local_aqi": {
-                    "aqi": local_aqi.get("aqi") if local_aqi else None,
-                    "category": local_aqi.get("category") if local_aqi else None
-                } if local_aqi else None,
-                "pollutants": pollutant_data,
-                "health_recommendations": data.get("healthRecommendations", {}),
-                "datetime_utc": data.get("dateTime")
-            }
-            
-        elif "hoursInfo" in data:
-            # Historical data response - aggregate daily values
-            hours_info = data.get("hoursInfo", [])
-            
-            if not hours_info:
-                return {
-                    "provider": "google_air_quality",
-                    "success": False,
-                    "error": f"No historical air quality data available for {date}"
-                }
-            
-            # Aggregate hourly data to daily statistics
-            daily_pollutants = {}
-            daily_aqi_values = []
-            
-            for hour_data in hours_info:
-                # Collect AQI values
-                for index in hour_data.get("indexes", []):
-                    if index.get("code") == "uaqi":
-                        aqi_val = index.get("aqi")
-                        if aqi_val:
-                            daily_aqi_values.append(aqi_val)
-                
-                # Collect pollutant concentrations
-                for pollutant in hour_data.get("pollutants", []):
-                    code = pollutant.get("code")
-                    concentration = pollutant.get("concentration", {})
-                    value = concentration.get("value")
-                    
-                    if value and code:
-                        if code not in daily_pollutants:
-                            daily_pollutants[code] = {
-                                "values": [],
-                                "units": concentration.get("units"),
-                                "full_name": pollutant.get("fullName")
-                            }
-                        daily_pollutants[code]["values"].append(value)
-            
-            # Calculate daily statistics
-            aqi_stats = {}
-            if daily_aqi_values:
-                aqi_stats = {
-                    "min": min(daily_aqi_values),
-                    "max": max(daily_aqi_values),
-                    "avg": round(sum(daily_aqi_values) / len(daily_aqi_values), 1),
-                    "hours_available": len(daily_aqi_values)
-                }
-            
-            pollutant_stats = {}
-            for code, poll_data in daily_pollutants.items():
-                values = poll_data["values"]
-                pollutant_stats[code] = {
-                    "min": round(min(values), 3),
-                    "max": round(max(values), 3), 
-                    "avg": round(sum(values) / len(values), 3),
-                    "units": poll_data["units"],
-                    "full_name": poll_data["full_name"],
-                    "hours_available": len(values)
-                }
-            
-            return {
-                "provider": "google_air_quality",
-                "success": True,
-                "data_source": "Google Air Quality API",
-                "query_type": "historical",
-                "query_date": date,
-                "universal_aqi_daily": aqi_stats,
-                "pollutants_daily": pollutant_stats,
-                "total_hours": len(hours_info),
-                "coverage": "complete" if len(hours_info) >= 20 else "partial"  # 20+ hours = good coverage
-            }
-        else:
-            return {
-                "provider": "google_air_quality",
-                "success": False,
-                "error": "Unexpected response format from Google Air Quality API"
-            }
-            
-    except Exception as e:
-        return {
-            "provider": "google_air_quality",
-            "success": False,
-            "error": str(e)
-        }
-
-
-def get_air_quality_epa_airnow(lat: float, lon: float) -> Dict[str, Any]:
-    """EPA AirNow API for official US government air quality data."""
-    import requests
-    import os
-    from pathlib import Path
-    
-    # Load local environment variables for EPA API key
-    env_file = Path(__file__).parent.parent.parent / "local" / ".env"
-    if env_file.exists():
-        with open(env_file) as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#") and "=" in line:
-                    key, value = line.split("=", 1)
-                    os.environ[key.strip()] = value.strip()
-    
-    api_key = os.environ.get("EPA_AIRNOW_API_KEY")
-    if not api_key:
-        return {
-            "provider": "epa_airnow",
-            "success": False,
-            "error": "EPA_AIRNOW_API_KEY not set (US only - free registration at airnowapi.org)"
-        }
-    
-    # Check if location is within US bounds
-    if not (-170 <= lon <= -60 and 15 <= lat <= 75):
-        return {
-            "provider": "epa_airnow",
-            "success": False,
-            "error": "EPA AirNow only covers US locations"
-        }
-    
-    url = "https://www.airnowapi.org/aq/observation/latLong/current/"
-    params = {
-        "format": "application/json",
-        "latitude": lat,
-        "longitude": lon,
-        "distance": 25,  # Search within 25 miles
-        "API_KEY": api_key
-    }
-    
-    try:
-        response = requests.get(url, params=params, timeout=30)
-        response.raise_for_status()
-        data = response.json()
-        
-        if data and len(data) > 0:
-            # Process EPA AirNow data
-            observations = {}
-            for obs in data:
-                parameter = obs.get("ParameterName", "").lower().replace(".", "")
-                observations[parameter] = {
-                    "aqi": obs.get("AQI"),
-                    "category": obs.get("Category", {}).get("Name"),
-                    "category_number": obs.get("Category", {}).get("Number"),
-                    "site_name": obs.get("ReportingArea"),
-                    "state_code": obs.get("StateCode"),
-                    "date_observed": obs.get("DateObserved"),
-                    "hour_observed": obs.get("HourObserved"),
-                    "local_time_zone": obs.get("LocalTimeZone")
-                }
-            
-            return {
-                "provider": "epa_airnow",
-                "success": True,
-                "data_source": "EPA AirNow",
-                "observations": observations,
-                "coverage": "US only - official government data"
-            }
-        else:
-            return {
-                "provider": "epa_airnow",
-                "success": False,
-                "error": "No air quality stations found within 25 miles"
-            }
-            
-    except Exception as e:
-        return {
-            "provider": "epa_airnow",
-            "success": False,
-            "error": str(e)
-        }
-
-
-def get_air_quality_openaq(lat: float, lon: float, date: Optional[str] = None) -> Dict[str, Any]:
-    """OpenAQ API for global historical air quality data (no API key required)."""
-    import requests
-    from datetime import datetime, timedelta
-    
-    # Try v3 API first, then v2 if needed
-    base_url = "https://api.openaq.org/v3/measurements"
-    
-    # If no date provided, get recent data
-    if date:
-        # Get data for the specific date
-        start_date = datetime.strptime(date, "%Y-%m-%d")
-        end_date = start_date + timedelta(days=1)
-        date_from = start_date.strftime("%Y-%m-%d")
-        date_to = end_date.strftime("%Y-%m-%d")
-    else:
-        # Get recent data (last 7 days)
-        end_date = datetime.utcnow()
-        start_date = end_date - timedelta(days=7)
-        date_from = start_date.strftime("%Y-%m-%d")
-        date_to = end_date.strftime("%Y-%m-%d")
-    
-    # Parameters for OpenAQ v3 API
-    params = {
-        "coordinates": f"{lat},{lon}",
-        "radius": 25000,  # 25km radius in meters
-        "datetime_from": f"{date_from}T00:00:00Z",
-        "datetime_to": f"{date_to}T00:00:00Z",
-        "limit": 1000,
-        "sort": "desc"
-    }
-    
-    try:
-        response = requests.get(base_url, params=params, timeout=30)
-        response.raise_for_status()
-        data = response.json()
-        
-        results = data.get("results", [])
-        if not results:
-            return {
-                "provider": "openaq",
-                "success": False,
-                "error": f"No air quality measurements found within 25km of coordinates for {date if date else 'recent period'}"
-            }
-        
-        # Group measurements by parameter and calculate daily statistics
-        pollutants = {}
-        locations = set()
-        
-        for measurement in results:
-            parameter = measurement.get("parameter")
-            value = measurement.get("value")
-            unit = measurement.get("unit")
-            location = measurement.get("location")
-            
-            if parameter and value is not None:
-                if parameter not in pollutants:
-                    pollutants[parameter] = {
-                        "values": [],
-                        "unit": unit,
-                        "measurements_count": 0
-                    }
-                
-                pollutants[parameter]["values"].append(value)
-                pollutants[parameter]["measurements_count"] += 1
-                
-                if location:
-                    locations.add(location)
-        
-        # Calculate statistics for each pollutant
-        pollutant_stats = {}
-        for param, data in pollutants.items():
-            values = data["values"]
-            pollutant_stats[param] = {
-                "min": round(min(values), 3),
-                "max": round(max(values), 3),
-                "avg": round(sum(values) / len(values), 3),
-                "unit": data["unit"],
-                "measurements_count": data["measurements_count"]
-            }
-        
-        return {
-            "provider": "openaq",
-            "success": True,
-            "data_source": "OpenAQ - Open Air Quality Data",
-            "query_date": date,
-            "query_period": f"{date_from} to {date_to}",
-            "search_radius_km": 25,
-            "total_measurements": len(results),
-            "unique_locations": len(locations),
-            "pollutants": pollutant_stats,
-            "coverage": "Global - community and governmental monitoring stations",
-            "api_url": f"{base_url}?{requests.compat.urlencode(params)}"
-        }
-        
-    except Exception as e:
-        return {
-            "provider": "openaq",
-            "success": False,
-            "error": str(e)
-        }
-
-
-def get_air_quality_openweather(lat: float, lon: float) -> Dict[str, Any]:
-    """OpenWeatherMap Air Quality API for global air pollution data."""
-    import requests
-    import os
-    from pathlib import Path
-    
-    # Load local environment variables
-    env_file = Path(__file__).parent.parent.parent / "local" / ".env"
-    if env_file.exists():
-        with open(env_file) as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#") and "=" in line:
-                    key, value = line.split("=", 1)
-                    os.environ[key.strip()] = value.strip()
-    
-    api_key = os.environ.get("OPENWEATHER_API_KEY")
-    if not api_key:
-        return {
-            "provider": "openweather_aq",
-            "success": False,
-            "error": "OPENWEATHER_API_KEY not set"
-        }
-    
-    url = "http://api.openweathermap.org/data/2.5/air_pollution"
-    params = {
-        "lat": lat,
-        "lon": lon,
-        "appid": api_key
-    }
-    
-    try:
-        response = requests.get(url, params=params, timeout=30)
-        response.raise_for_status()
-        data = response.json()
-        
-        if "list" in data and len(data["list"]) > 0:
-            air_data = data["list"][0]
-            main = air_data.get("main", {})
-            components = air_data.get("components", {})
-            
-            return {
-                "provider": "openweather_aq",
-                "success": True,
-                "data_source": "OpenWeatherMap Air Quality",
-                "aqi": main.get("aqi"),
-                "aqi_description": {
-                    1: "Good",
-                    2: "Fair", 
-                    3: "Moderate",
-                    4: "Poor",
-                    5: "Very Poor"
-                }.get(main.get("aqi"), "Unknown"),
-                "pollutants": {
-                    "co": components.get("co"),      # Carbon monoxide (μg/m³)
-                    "no": components.get("no"),      # Nitrogen monoxide (μg/m³)
-                    "no2": components.get("no2"),    # Nitrogen dioxide (μg/m³)
-                    "o3": components.get("o3"),      # Ozone (μg/m³)
-                    "so2": components.get("so2"),    # Sulphur dioxide (μg/m³)
-                    "pm2_5": components.get("pm2_5"), # PM2.5 (μg/m³)
-                    "pm10": components.get("pm10"),   # PM10 (μg/m³)
-                    "nh3": components.get("nh3")      # Ammonia (μg/m³)
-                },
-                "units": "μg/m³",
-                "datetime_utc": air_data.get("dt"),
-                "coverage": "Global"
-            }
-        else:
-            return {
-                "provider": "openweather_aq",
-                "success": False,
-                "error": "No air quality data available"
-            }
-            
-    except Exception as e:
-        return {
-            "provider": "openweather_aq",
-            "success": False,
-            "error": str(e)
-        }
-
-
-def get_air_quality_multi(lat: float, lon: float, date: Optional[str] = None) -> Dict[str, Any]:
-    """
-    Multi-provider air quality that queries ALL providers and saves all responses.
-    
-    Queries: Google Air Quality + EPA AirNow (US only) + OpenWeatherMap
-    Returns comprehensive air pollution data for microbiome research.
-    
-    Args:
-        lat: Latitude
-        lon: Longitude  
-        date: Optional collection date in YYYY-MM-DD format for historical data
-    """
-    providers = [
-        ("google_air_quality", lambda lat, lon: get_air_quality_google(lat, lon, date)),
-        ("openaq", lambda lat, lon: get_air_quality_openaq(lat, lon, date)),
-        ("openweather_aq", get_air_quality_openweather)
-    ]
-    
-    # Add EPA AirNow for US locations only
-    if -170 <= lon <= -60 and 15 <= lat <= 75:  # US bounds
-        providers.insert(1, ("epa_airnow", get_air_quality_epa_airnow))
-    
-    all_results = {}
-    successful_results = []
-    
-    # Query ALL providers
-    for provider_name, provider_func in providers:
-        try:
-            result = provider_func(lat, lon)
-            all_results[provider_name] = result
-            
-            if result.get("success"):
-                successful_results.append((provider_name, result))
-                
-        except Exception as e:
-            all_results[provider_name] = {
-                "provider": provider_name,
-                "success": False,
-                "error": str(e)
-            }
-    
-    # Determine primary result (prefer EPA for US, Google for global)
-    primary_result = None
-    primary_provider = None
-    
-    if successful_results:
-        # Prefer EPA AirNow for US locations (highest quality government data)
-        for provider_name, result in successful_results:
-            if provider_name == "epa_airnow" and -170 <= lon <= -60 and 15 <= lat <= 75:
-                primary_result = result
-                primary_provider = provider_name
-                break
-            elif provider_name == "google_air_quality":
-                primary_result = result
-                primary_provider = provider_name
-        
-        # If no preferred result, use first successful
-        if not primary_result:
-            primary_provider, primary_result = successful_results[0]
-    
-    # Build comprehensive response
-    if primary_result:
-        # Return primary result with all provider data included
-        response = primary_result.copy()
-        response["all_providers"] = all_results
-        response["providers_queried"] = list(all_results.keys())
-        response["successful_providers"] = [p for p, r in successful_results]
-        response["primary_provider"] = primary_provider
-        return response
-    else:
-        # All providers failed
-        return {
-            "error": "All air quality providers failed",
-            "success": False,
-            "all_providers": all_results,
-            "providers_queried": list(all_results.keys()),
-            "successful_providers": [],
-            "provider_errors": {k: v.get("error", "Unknown error") for k, v in all_results.items()}
-        }
-
-
 def get_land_cover_multi(lat: float, lon: float, year: int = 2021) -> Dict[str, Any]:
     """
     Multi-provider land cover that queries ALL providers and saves all responses.
@@ -1905,7 +1421,9 @@ def batch(input_file, output, config_path, max_samples, verbose, pretty):
     """
     Run batch enrichment for multiple biosamples from input file.
     
-    Input file should contain JSON array with objects having: id, lat, lon, collection_date (optional)
+    Input file can be either:
+    1. JSON array with objects having: id, lat, lon, collection_date (optional)
+    2. Normalized biosample format with 'results' array containing: sample_id, latitude, longitude, collection_date
     
     Example:
         enrich-geo batch --input biosamples.json --output enriched.json --max-samples 50 --verbose
@@ -1918,10 +1436,25 @@ def batch(input_file, output, config_path, max_samples, verbose, pretty):
     try:
         # Load input data
         with open(input_file) as f:
-            biosamples = json.load(f)
+            data = json.load(f)
         
-        if not isinstance(biosamples, list):
-            raise ValueError("Input file must contain a JSON array of biosample objects")
+        # Handle normalized biosample format vs plain array
+        if isinstance(data, dict) and "results" in data:
+            # Normalized biosample format
+            biosamples = data["results"]
+            if verbose:
+                metadata = data.get("metadata", {})
+                click.echo(f"📋 Detected normalized biosample format with {len(biosamples)} samples")
+                if "source_metadata" in metadata:
+                    src_meta = metadata["source_metadata"]
+                    click.echo(f"📊 Source: {src_meta.get('description', 'N/A')}")
+        elif isinstance(data, list):
+            # Plain array format
+            biosamples = data
+            if verbose:
+                click.echo(f"📋 Detected plain array format with {len(biosamples)} samples")
+        else:
+            raise ValueError("Input file must contain either a JSON array or normalized biosample format with 'results' array")
         
         # Limit samples
         if len(biosamples) > max_samples:

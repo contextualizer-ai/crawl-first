@@ -30,7 +30,7 @@ This document differentiates between the various enrichment targets available in
   3. Run 19 API functions: `data/outputs/api/enrichment_results.json`
 - **API Coverage**: Elevation (3), Weather (2), Geocoding (2), Land Cover (3), Soil (2), Ecoregions (2), Features (1)
 
-### **`scripts/test_unified_enrichment.py`** (Development Test Script)  
+### **`tests/test_unified_enrichment.py`** (Development Test Script)  
 - **What**: Python test script created for development testing of unified system
 - **Technology**: Same unified system as `enrich-unified-test`
 - **Output**: 

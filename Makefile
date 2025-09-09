@@ -123,18 +123,16 @@ setup-local-data:
 	@echo "✅ Local datasets ready for enrichment"
 
 # Run unified geospatial enrichment (from src) with dependencies
-enrich-unified-test: setup-local-data generate-mappings
-	@echo "🌍 Running unified geospatial enrichment test (with multi-provider Google APIs)..."
-	uv run enrich-geo enrich \
-		--lat 44.428 \
-		--lon -110.5885 \
-		--place "Yellowstone National Park" \
-		--date 2021-08-20 \
+enrich-unified-test: setup-local-data generate-mappings data/outputs/api/normalized_multi_env_biosamples.json
+	@echo "🌍 Running unified geospatial enrichment test with curated multi-environment biosamples..."
+	@echo "📊 Testing with 18 diverse samples (9 NMDC + 9 GOLD) from marine, freshwater, and soil environments"
+	uv run enrich-geo batch \
+		--input data/outputs/api/normalized_multi_env_biosamples.json \
 		--output data/outputs/unified_test.json \
-		--enable-crosswalks \
+		--max-samples 18 \
 		--verbose \
 		--pretty
-	@echo "✅ Unified enrichment test complete - now includes:"
+	@echo "✅ Unified enrichment test complete with real biosample diversity - now includes:"
 	@echo "   🔍 Multi-provider forward geocoding (Google + Nominatim)"
 	@echo "   🏛️ Multi-provider reverse geocoding (Google + Nominatim)" 
 	@echo "   🌦️ Multi-provider weather (Open-Meteo + Meteostat)"
@@ -143,6 +141,8 @@ enrich-unified-test: setup-local-data generate-mappings
 	@echo "   🌱 Multi-provider soil (USDA NRCS + SoilGrids)"
 	@echo "   🏢 Google Places API (business/trail context)"
 	@echo "   🌬️ Multi-provider air quality (Google + EPA + OpenWeather)"
+	@echo "   🌊 Marine enrichment: Sea surface temperature, chlorophyll, Longhurst provinces"
+	@echo "   🏞️ Terrestrial vs marine handling showcased across diverse sample types"
 	@echo "   📊 Results: data/outputs/unified_test.json"
 
 # Download ENVO ontology
@@ -157,6 +157,7 @@ generate-mappings:
 	@echo "🗺️ Generating ALL mappings (unified paradigm)..."
 	uv run python -m crawl_first.generate_mappings --mappings-dir mappings
 	@echo "✅ All mapping files generated (JSON + CSV)"
+
 
 # (Crosswalks now integrated into generate-mappings - no separate target needed)
 
@@ -434,6 +435,19 @@ validate-biosamples: data/outputs/validation-results.json
 validate-biosamples-custom: data/outputs/validation-results-custom.json
 
 # =============================================================================
+# BIOSAMPLE EXTRACTION TARGETS
+# =============================================================================
+
+# Number of biosamples to extract (overrideable)
+N_BIOSAMPLES ?= 100
+
+# Extract raw intact biosamples from MongoDB
+data/inputs/raw_biosamples_native.json: | setup-dirs
+	@echo "🧬 Fetching $(N_BIOSAMPLES) intact NMDC + GOLD biosamples..."
+	uv run extract-biosamples --limit $(N_BIOSAMPLES) --output $@
+	@echo "✅ Created: $@"
+
+# =============================================================================
 # BIOSAMPLE ADAPTER TARGETS
 # =============================================================================
 
@@ -514,11 +528,17 @@ data/inputs/test_biosamples.json: | setup-dirs
 	uv run python -m crawl_first.extract_real_biosamples > $@
 	@echo "✅ Real biosample data extracted to $@"
 
-# Generate normalized biosample data for API enrichment
+# Generate normalized biosample data for API enrichment (legacy test data)
 data/outputs/api/normalized_biosamples.json: data/inputs/test_biosamples.json | data/outputs/api
 	@echo "🧬 Normalizing GOLD and NMDC biosamples for API enrichment..."
-	uv run python -m crawl_first.normalize_biosamples_for_api > $@
+	uv run normalize-biosamples --input $< --output $@ --verbose
 	@echo "✅ Normalized biosamples saved to $@"
+
+# Generate normalized data from curated multi-environment samples
+data/outputs/api/normalized_multi_env_biosamples.json: data/inputs/multi_env_multi_source_biosamples.json | data/outputs/api
+	@echo "🌍 Normalizing curated multi-environment biosamples for API enrichment..."
+	uv run normalize-biosamples --input $< --output $@ --verbose
+	@echo "✅ Normalized curated biosamples saved to $@"
 
 # Run comprehensive geospatial API enrichment (19 API functions including land cover + Meteostat)
 data/outputs/api/enrichment_results.json: data/outputs/api/normalized_biosamples.json
@@ -704,6 +724,10 @@ help:
 	@echo "  full-test            - Complete test suite (code + data + application)"
 	@echo "  test-mcp             - MCP diagnostic tests with Claude"
 	@echo "  check-cli            - Test CLI functionality"
+	@echo ""
+	@echo "Biosample Extraction Targets:"
+	@echo "  data/inputs/raw_biosamples_native.json - Extract raw NMDC + GOLD biosamples from MongoDB"
+	@echo "                       N_BIOSAMPLES=100 (overrideable)"
 	@echo ""
 	@echo "Biosample Adapter Targets:"
 	@echo "  test-adapters        - Test all biosample adapters and save results to files"

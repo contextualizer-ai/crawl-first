@@ -12,6 +12,7 @@ import requests
 import geopandas as gpd
 from shapely.geometry import Point
 from .coast_distance import distance_to_coast_m
+from .simple_marine_detection import classify_environment_fast
 
 
 def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -162,6 +163,52 @@ def _fallback_coast_heuristic(lat: float, lon: float) -> float:
     return min(rough_coast_dist, 2000)
 
 
+def _is_likely_open_ocean(lat: float, lon: float) -> bool:
+    """Detect if coordinates are likely in open ocean based on geographic heuristics."""
+    # Known major ocean regions (rough bounding boxes)
+    ocean_regions = [
+        # Pacific Ocean regions
+        (-60, 60, 120, -70),    # Main Pacific  
+        (10, 60, -180, -120),   # North Pacific
+        (-50, 10, 140, -80),    # South Pacific
+        
+        # Atlantic Ocean regions  
+        (-60, 70, -80, 20),     # Atlantic Ocean
+        
+        # Indian Ocean regions
+        (-50, 30, 20, 120),     # Indian Ocean
+        
+        # Arctic Ocean
+        (65, 90, -180, 180),    # Arctic
+        
+        # Southern Ocean
+        (-90, -50, -180, 180),  # Antarctic
+    ]
+    
+    # Check if point falls in any ocean region
+    for min_lat, max_lat, min_lon, max_lon in ocean_regions:
+        if min_lat <= lat <= max_lat and min_lon <= lon <= max_lon:
+            return True
+    
+    # Additional check: far from any continental landmass
+    continental_centers = [
+        (39.0, -98.0),   # North America
+        (55.0, 100.0),   # Asia  
+        (-25.0, 135.0),  # Australia
+        (0.0, 25.0),     # Africa
+        (-15.0, -60.0),  # South America
+        (55.0, 20.0),    # Europe
+    ]
+    
+    # If >1000km from all continental centers, likely ocean
+    min_dist_to_continent = min(
+        haversine_km(lat, lon, clat, clon) 
+        for clat, clon in continental_centers
+    )
+    
+    return min_dist_to_continent > 1000
+
+
 def classify_site(lat: float, lon: float, config: Dict[str, Any] = None) -> Dict[str, Any]:
     """
     Classify site type using deterministic hierarchical rules.
@@ -221,30 +268,91 @@ def classify_site(lat: float, lon: float, config: Dict[str, Any] = None) -> Dict
                 "name": feature.get("name")
             })
     
-    # Apply hierarchical rules (first match wins)
+    # Apply hierarchical rules using authoritative ENVO classification
     
-    # Rule 1: Open ocean (far from coast with marine indicators)
-    if coast_distance > config["D_open_km"] and marine_features:
-        site_type = "open_ocean"
+    # Rule 1: Use fast marine detection with simple heuristics
+    try:
+        envo_result = classify_environment_fast(lat, lon)
         
-    # Rule 2: Coastal marine (near coast with marine indicators)  
-    elif coast_distance <= config["D_open_km"] and marine_features:
-        site_type = "coastal_marine"
-        
-    # Rule 3: Inland water (within or very near inland water body)
-    elif inland_water_nearby:
-        if any(f["distance_km"] < 0.01 for f in inland_water_nearby):
-            site_type = "inland_water"
-        else:
-            site_type = "near_inland_water"
+        if envo_result["envo_biome"] == "ENVO:00000447":  # Marine biome
+            # Determine if open ocean or coastal based on distance to coast
+            if coast_distance > config["D_open_km"]:
+                site_type = "open_ocean"
+            else:
+                site_type = "coastal_marine"
             
-    # Rule 4: Coastal terrestrial (near coast, no marine/water indicators)
-    elif coast_distance <= config["D_coast_km"]:
-        site_type = "coastal_terrestrial"
+            # Add ENVO evidence to main evidence list
+            evidence.append({
+                "dataset": "ENVO_classification",
+                "relation": "classified_as",
+                "biome": envo_result["biome_label"],
+                "envo_id": envo_result["envo_biome"],
+                "confidence": envo_result["confidence"],
+                "method": envo_result["provenance"]["method"]
+            })
+            
+        elif envo_result["envo_biome"] == "ENVO:00000873":  # Freshwater biome (TODO)
+            site_type = "inland_water"
+            evidence.append({
+                "dataset": "ENVO_classification", 
+                "relation": "classified_as",
+                "biome": envo_result["biome_label"],
+                "envo_id": envo_result["envo_biome"],
+                "confidence": envo_result["confidence"],
+                "method": envo_result["provenance"]["method"]
+            })
+            
+        else:  # ENVO:00000446 - Terrestrial biome
+            # Add ENVO evidence for terrestrial
+            evidence.append({
+                "dataset": "ENVO_classification",
+                "relation": "classified_as", 
+                "biome": envo_result["biome_label"],
+                "envo_id": envo_result["envo_biome"],
+                "confidence": envo_result["confidence"],
+                "method": envo_result["provenance"]["method"]
+            })
+            
+            # Use legacy rules for terrestrial subclassification
+            # Rule 2: Inland water (within or very near inland water body)
+            if inland_water_nearby:
+                if any(f["distance_km"] < 0.01 for f in inland_water_nearby):
+                    site_type = "inland_water"
+                else:
+                    site_type = "near_inland_water"
+                    
+            # Rule 3: Coastal terrestrial (near coast, no marine/water indicators)
+            elif coast_distance <= config["D_coast_km"]:
+                site_type = "coastal_terrestrial"
+                
+            # Rule 4: Terrestrial (default)
+            else:
+                site_type = "terrestrial"
+                
+    except Exception as e:
+        # Fallback to legacy classification if ENVO detection fails
+        logger.warning(f"ENVO classification failed for {lat}, {lon}: {e}")
+        evidence.append({
+            "dataset": "ENVO_classification",
+            "relation": "failed",
+            "error": str(e),
+            "fallback": "legacy_rules"
+        })
         
-    # Rule 5: Terrestrial (default)
-    else:
-        site_type = "terrestrial"
+        # Legacy rules (original logic)
+        if coast_distance > config["D_open_km"] and marine_features:
+            site_type = "open_ocean"
+        elif coast_distance <= config["D_open_km"] and marine_features:
+            site_type = "coastal_marine"
+        elif inland_water_nearby:
+            if any(f["distance_km"] < 0.01 for f in inland_water_nearby):
+                site_type = "inland_water"
+            else:
+                site_type = "near_inland_water"
+        elif coast_distance <= config["D_coast_km"]:
+            site_type = "coastal_terrestrial"
+        else:
+            site_type = "terrestrial"
     
     return {
         "type": site_type,
