@@ -1,18 +1,28 @@
 #!/usr/bin/env python3
-import argparse, json, sys
-from pymongo import MongoClient
+import argparse
+import json
+import sys
+
 from genson import SchemaBuilder
+from pymongo import MongoClient
+
 
 def parse_args():
-    ap = argparse.ArgumentParser(description="Infer JSON Schema from MongoDB collection")
+    ap = argparse.ArgumentParser(
+        description="Infer JSON Schema from MongoDB collection"
+    )
     ap.add_argument("--mongo-uri", required=True)
     ap.add_argument("--db", required=True)
     ap.add_argument("--coll", required=True)
     ap.add_argument("--sample-size", type=int, default=50000)
-    ap.add_argument("--query", default="{}",
-                    help='JSON string filter, e.g. \'{"mixsPackage":"Soil"}\'')
+    ap.add_argument(
+        "--query",
+        default="{}",
+        help='JSON string filter, e.g. \'{"mixsPackage":"Soil"}\'',
+    )
     ap.add_argument("--out-json-schema", required=True)
     return ap.parse_args()
+
 
 def main():
     args = parse_args()
@@ -48,6 +58,7 @@ def main():
         json.dump(schema, f, indent=2, ensure_ascii=False)
 
     print(f"Wrote JSON Schema → {args.out_json_schema}")
+
 
 if __name__ == "__main__":
     main()

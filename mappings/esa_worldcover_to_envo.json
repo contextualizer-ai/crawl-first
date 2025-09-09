@@ -1,0 +1,90 @@
+{
+  "10": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Tree cover'",
+    "id": "ENVO:01001858",
+    "label": "cloud cover",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Tree cover"
+  },
+  "100": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Moss and lichen'",
+    "id": "ENVO:01000949",
+    "label": "lichen woodland",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Moss and lichen"
+  },
+  "20": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Shrubland'",
+    "id": "ENVO:01000176",
+    "label": "shrubland biome",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Shrubland"
+  },
+  "30": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Grassland'",
+    "id": "ENVO:01001206",
+    "label": "grassland ecosystem",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Grassland"
+  },
+  "40": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Cropland'",
+    "id": "ENVO:01000245",
+    "label": "cropland biome",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Cropland"
+  },
+  "50": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Built-up'",
+    "id": "PATO:0000370",
+    "label": "up",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Built-up"
+  },
+  "60": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Bare/sparse vegetation'",
+    "id": "ENVO:01000355",
+    "label": "vegetation layer",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Bare/sparse vegetation"
+  },
+  "70": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Snow and Ice'",
+    "id": "ENVO:01001619",
+    "label": "snow and ice accumulation process",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Snow and Ice"
+  },
+  "80": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Permanent water bodies'",
+    "id": "ENVO:00000063",
+    "label": "water body",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Permanent water bodies"
+  },
+  "90": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Herbaceous wetland'",
+    "id": "ENVO:01000894",
+    "label": "area of emergent herbaceous wetland",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Herbaceous wetland"
+  },
+  "95": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Mangroves'",
+    "id": "ENVO:01001369",
+    "label": "tidal mangrove shrubland",
+    "source": "ESA WorldCover 10m v200",
+    "term": "Mangroves"
+  }
+}

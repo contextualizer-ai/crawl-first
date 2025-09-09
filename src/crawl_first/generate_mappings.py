@@ -1,11 +1,15 @@
 """
-Generate ENVO ontology mappings for geospatial classification systems.
+Generate ALL mappings for geospatial classification systems.
+
+Creates both JSON ontology mappings and CSV data normalization mappings
+to consolidate everything under the unified "mappings" paradigm.
 
 Supports both deterministic and AI-assisted mapping generation:
 - Deterministic: Use known official mappings where available
 - AI-assisted: Use Claude Code or OLS API to find best ENVO matches
 """
 
+import csv
 import json
 import subprocess
 from pathlib import Path
@@ -16,22 +20,22 @@ import requests
 
 class ENVOMappingGenerator:
     """Generate mappings from classification systems to ENVO ontology terms."""
-    
+
     def __init__(self, mappings_dir: str = "mappings"):
         self.mappings_dir = Path(mappings_dir)
         self.mappings_dir.mkdir(exist_ok=True)
-        
+
     def save_mapping(self, name: str, mapping: Dict[str, Any]) -> None:
         """Save mapping to JSON file."""
         output_file = self.mappings_dir / f"{name}.json"
-        with open(output_file, 'w') as f:
+        with open(output_file, "w") as f:
             json.dump(mapping, f, indent=2, sort_keys=True)
         print(f"Saved mapping to {output_file}")
-        
+
     def generate_soilgrids_fao_mapping_deterministic(self) -> Dict[str, Any]:
         """
         Generate FAO soil type to ENVO mapping using known deterministic mappings.
-        
+
         These mappings are based on official FAO classifications and established
         ENVO ontology terms for soil types.
         """
@@ -39,299 +43,375 @@ class ENVOMappingGenerator:
         # These are deterministic mappings based on official classifications
         fao_to_envo = {
             "Acrisols": {
-                "id": "ENVO:00002263", 
-                "label": "acrisol", 
+                "id": "ENVO:00002263",
+                "label": "acrisol",
                 "term": "Acrisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Albeluvisols": {
-                "id": "ENVO:00002275", 
-                "label": "albeluvisol", 
+                "id": "ENVO:00002275",
+                "label": "albeluvisol",
                 "term": "Albeluvisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Alisols": {
-                "id": "ENVO:00002264", 
-                "label": "alisol", 
+                "id": "ENVO:00002264",
+                "label": "alisol",
                 "term": "Alisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Andosols": {
-                "id": "ENVO:00002265", 
-                "label": "andosol", 
+                "id": "ENVO:00002265",
+                "label": "andosol",
                 "term": "Andosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Arenosols": {
-                "id": "ENVO:00002266", 
-                "label": "arenosol", 
+                "id": "ENVO:00002266",
+                "label": "arenosol",
                 "term": "Arenosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Calcisols": {
-                "id": "ENVO:00002267", 
-                "label": "calcisol", 
+                "id": "ENVO:00002267",
+                "label": "calcisol",
                 "term": "Calcisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Cambisols": {
-                "id": "ENVO:00002268", 
-                "label": "cambisol", 
+                "id": "ENVO:00002268",
+                "label": "cambisol",
                 "term": "Cambisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Chernozems": {
-                "id": "ENVO:00002269", 
-                "label": "chernozem", 
+                "id": "ENVO:00002269",
+                "label": "chernozem",
                 "term": "Chernozem",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Cryosols": {
-                "id": "ENVO:00002270", 
-                "label": "cryosol", 
+                "id": "ENVO:00002270",
+                "label": "cryosol",
                 "term": "Cryosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Durisols": {
-                "id": "ENVO:00002271", 
-                "label": "durisol", 
+                "id": "ENVO:00002271",
+                "label": "durisol",
                 "term": "Durisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Ferralsols": {
-                "id": "ENVO:00002272", 
-                "label": "ferralsol", 
+                "id": "ENVO:00002272",
+                "label": "ferralsol",
                 "term": "Ferralsol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Fluvisols": {
-                "id": "ENVO:00002273", 
-                "label": "fluvisol", 
+                "id": "ENVO:00002273",
+                "label": "fluvisol",
                 "term": "Fluvisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Gleysols": {
-                "id": "ENVO:00002274", 
-                "label": "gleysol", 
+                "id": "ENVO:00002274",
+                "label": "gleysol",
                 "term": "Gleysol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Histosols": {
-                "id": "ENVO:00002276", 
-                "label": "histosol", 
+                "id": "ENVO:00002276",
+                "label": "histosol",
                 "term": "Histosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Kastanozems": {
-                "id": "ENVO:00002277", 
-                "label": "kastanozem", 
+                "id": "ENVO:00002277",
+                "label": "kastanozem",
                 "term": "Kastanozem",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Leptosols": {
-                "id": "ENVO:00002278", 
-                "label": "leptosol", 
+                "id": "ENVO:00002278",
+                "label": "leptosol",
                 "term": "Leptosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Lixisols": {
-                "id": "ENVO:00002279", 
-                "label": "lixisol", 
+                "id": "ENVO:00002279",
+                "label": "lixisol",
                 "term": "Lixisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Luvisols": {
-                "id": "ENVO:00002280", 
-                "label": "luvisol", 
+                "id": "ENVO:00002280",
+                "label": "luvisol",
                 "term": "Luvisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Nitisols": {
-                "id": "ENVO:00002281", 
-                "label": "nitisol", 
+                "id": "ENVO:00002281",
+                "label": "nitisol",
                 "term": "Nitisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Phaeozems": {
-                "id": "ENVO:00002282", 
-                "label": "phaeozem", 
+                "id": "ENVO:00002282",
+                "label": "phaeozem",
                 "term": "Phaeozem",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Planosols": {
-                "id": "ENVO:00002283", 
-                "label": "planosol", 
+                "id": "ENVO:00002283",
+                "label": "planosol",
                 "term": "Planosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Plinthosols": {
-                "id": "ENVO:00002284", 
-                "label": "plinthosol", 
+                "id": "ENVO:00002284",
+                "label": "plinthosol",
                 "term": "Plinthosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Podzols": {
-                "id": "ENVO:00002285", 
-                "label": "podzol", 
+                "id": "ENVO:00002285",
+                "label": "podzol",
                 "term": "Podzol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Regosols": {
-                "id": "ENVO:00002286", 
-                "label": "regosol", 
+                "id": "ENVO:00002286",
+                "label": "regosol",
                 "term": "Regosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Solonchaks": {
-                "id": "ENVO:00002287", 
-                "label": "solonchak", 
+                "id": "ENVO:00002287",
+                "label": "solonchak",
                 "term": "Solonchak",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Solonetz": {
-                "id": "ENVO:00002288", 
-                "label": "solonetz", 
+                "id": "ENVO:00002288",
+                "label": "solonetz",
                 "term": "Solonetz",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Stagnosols": {
-                "id": "ENVO:00002289", 
-                "label": "stagnosol", 
+                "id": "ENVO:00002289",
+                "label": "stagnosol",
                 "term": "Stagnosol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Umbrisols": {
-                "id": "ENVO:00002290", 
-                "label": "umbrisol", 
+                "id": "ENVO:00002290",
+                "label": "umbrisol",
                 "term": "Umbrisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
+                "source": "FAO World Reference Base",
             },
             "Vertisols": {
-                "id": "ENVO:00002291", 
-                "label": "vertisol", 
+                "id": "ENVO:00002291",
+                "label": "vertisol",
                 "term": "Vertisol",
                 "confidence": "deterministic",
-                "source": "FAO World Reference Base"
-            }
+                "source": "FAO World Reference Base",
+            },
         }
-        
+
         return fao_to_envo
-    
+
     def generate_esa_worldcover_mapping_with_ai(self) -> Dict[str, Any]:
         """
         Generate ESA WorldCover to ENVO mapping using AI assistance.
-        
+
         Uses Claude Code to analyze WorldCover classes and find best ENVO matches.
         """
         # ESA WorldCover classes with descriptions
         worldcover_classes = {
-            "10": {"label": "Tree cover", "description": "All types of forest and woodland"},
-            "20": {"label": "Shrubland", "description": "Shrub and scrub habitats"}, 
-            "30": {"label": "Grassland", "description": "Natural and semi-natural grasslands"},
-            "40": {"label": "Cropland", "description": "Agricultural and cultivated areas"},
+            "10": {
+                "label": "Tree cover",
+                "description": "All types of forest and woodland",
+            },
+            "20": {"label": "Shrubland", "description": "Shrub and scrub habitats"},
+            "30": {
+                "label": "Grassland",
+                "description": "Natural and semi-natural grasslands",
+            },
+            "40": {
+                "label": "Cropland",
+                "description": "Agricultural and cultivated areas",
+            },
             "50": {"label": "Built-up", "description": "Urban and built-up areas"},
-            "60": {"label": "Bare/sparse vegetation", "description": "Areas with little to no vegetation"},
+            "60": {
+                "label": "Bare/sparse vegetation",
+                "description": "Areas with little to no vegetation",
+            },
             "70": {"label": "Snow and Ice", "description": "Permanent snow and ice"},
-            "80": {"label": "Permanent water bodies", "description": "Rivers, lakes, coastal waters"},
-            "90": {"label": "Herbaceous wetland", "description": "Wetland areas with herbaceous cover"},
+            "80": {
+                "label": "Permanent water bodies",
+                "description": "Rivers, lakes, coastal waters",
+            },
+            "90": {
+                "label": "Herbaceous wetland",
+                "description": "Wetland areas with herbaceous cover",
+            },
             "95": {"label": "Mangroves", "description": "Mangrove ecosystems"},
-            "100": {"label": "Moss and lichen", "description": "Moss and lichen dominated areas"}
+            "100": {
+                "label": "Moss and lichen",
+                "description": "Moss and lichen dominated areas",
+            },
         }
-        
+
         mapping = {}
-        
+
         # Use AI to find best ENVO matches
         for class_id, class_info in worldcover_classes.items():
             envo_match = self._find_envo_match_with_ai(
-                class_info["label"], 
-                class_info["description"],
-                "land cover"
+                class_info["label"], class_info["description"], "land cover"
             )
-            
+
             if envo_match:
                 mapping[class_id] = {
                     **envo_match,
                     "term": class_info["label"],
                     "confidence": "ai_assisted",
-                    "source": "ESA WorldCover 10m v200"
+                    "source": "ESA WorldCover 10m v200",
                 }
-                
+
         return mapping
-    
+
     def generate_nlcd_mapping_with_ai(self) -> Dict[str, Any]:
         """Generate NLCD to ENVO mapping using AI assistance."""
-        # NLCD classes 
+        # NLCD classes
         nlcd_classes = {
-            "11": {"label": "Open Water", "description": "All areas of open water with less than 25% vegetation"},
-            "12": {"label": "Perennial Ice/Snow", "description": "All areas with perennial ice and snow"},
-            "21": {"label": "Developed, Open Space", "description": "Mixture of vegetation and constructed materials, mostly vegetation"},
-            "22": {"label": "Developed, Low Intensity", "description": "Mixture of constructed materials and vegetation, 20-49% constructed"},
-            "23": {"label": "Developed, Medium Intensity", "description": "Mixture of constructed materials and vegetation, 50-79% constructed"},
-            "24": {"label": "Developed, High Intensity", "description": "Highly developed areas, 80-100% constructed materials"},
-            "31": {"label": "Barren Land", "description": "Rock, sand, clay, or other earthen material with little to no vegetation"},
-            "41": {"label": "Deciduous Forest", "description": "Dominated by trees with more than 75% deciduous species"},
-            "42": {"label": "Evergreen Forest", "description": "Dominated by trees with more than 75% evergreen species"},
-            "43": {"label": "Mixed Forest", "description": "Dominated by trees with neither deciduous nor evergreen species > 75%"},
-            "51": {"label": "Dwarf Scrub", "description": "Alaska only - shrubs less than 20 cm tall"},
-            "52": {"label": "Shrub/Scrub", "description": "Dominated by shrubs less than 5 meters tall"},
-            "71": {"label": "Grassland/Herbaceous", "description": "Dominated by gramanoid or herbaceous vegetation"},
-            "72": {"label": "Sedge/Herbaceous", "description": "Alaska only - dominated by sedges and forbs"},
-            "73": {"label": "Lichens", "description": "Alaska only - dominated by fruticose or foliose lichens"},
+            "11": {
+                "label": "Open Water",
+                "description": "All areas of open water with less than 25% vegetation",
+            },
+            "12": {
+                "label": "Perennial Ice/Snow",
+                "description": "All areas with perennial ice and snow",
+            },
+            "21": {
+                "label": "Developed, Open Space",
+                "description": "Mixture of vegetation and constructed materials, mostly vegetation",
+            },
+            "22": {
+                "label": "Developed, Low Intensity",
+                "description": "Mixture of constructed materials and vegetation, 20-49% constructed",
+            },
+            "23": {
+                "label": "Developed, Medium Intensity",
+                "description": "Mixture of constructed materials and vegetation, 50-79% constructed",
+            },
+            "24": {
+                "label": "Developed, High Intensity",
+                "description": "Highly developed areas, 80-100% constructed materials",
+            },
+            "31": {
+                "label": "Barren Land",
+                "description": "Rock, sand, clay, or other earthen material with little to no vegetation",
+            },
+            "41": {
+                "label": "Deciduous Forest",
+                "description": "Dominated by trees with more than 75% deciduous species",
+            },
+            "42": {
+                "label": "Evergreen Forest",
+                "description": "Dominated by trees with more than 75% evergreen species",
+            },
+            "43": {
+                "label": "Mixed Forest",
+                "description": "Dominated by trees with neither deciduous nor evergreen species > 75%",
+            },
+            "51": {
+                "label": "Dwarf Scrub",
+                "description": "Alaska only - shrubs less than 20 cm tall",
+            },
+            "52": {
+                "label": "Shrub/Scrub",
+                "description": "Dominated by shrubs less than 5 meters tall",
+            },
+            "71": {
+                "label": "Grassland/Herbaceous",
+                "description": "Dominated by gramanoid or herbaceous vegetation",
+            },
+            "72": {
+                "label": "Sedge/Herbaceous",
+                "description": "Alaska only - dominated by sedges and forbs",
+            },
+            "73": {
+                "label": "Lichens",
+                "description": "Alaska only - dominated by fruticose or foliose lichens",
+            },
             "74": {"label": "Moss", "description": "Alaska only - dominated by mosses"},
-            "81": {"label": "Pasture/Hay", "description": "Grasses, legumes, or other herbaceous plants for livestock grazing"},
-            "82": {"label": "Cultivated Crops", "description": "Areas used for production of annual crops"},
-            "90": {"label": "Woody Wetlands", "description": "Forest or shrub wetlands where water is present"},
-            "95": {"label": "Emergent Herbaceous Wetlands", "description": "Perennial herbaceous wetlands"}
+            "81": {
+                "label": "Pasture/Hay",
+                "description": "Grasses, legumes, or other herbaceous plants for livestock grazing",
+            },
+            "82": {
+                "label": "Cultivated Crops",
+                "description": "Areas used for production of annual crops",
+            },
+            "90": {
+                "label": "Woody Wetlands",
+                "description": "Forest or shrub wetlands where water is present",
+            },
+            "95": {
+                "label": "Emergent Herbaceous Wetlands",
+                "description": "Perennial herbaceous wetlands",
+            },
         }
-        
+
         mapping = {}
-        
+
         for class_id, class_info in nlcd_classes.items():
             envo_match = self._find_envo_match_with_ai(
-                class_info["label"], 
-                class_info["description"],
-                "land cover"
+                class_info["label"], class_info["description"], "land cover"
             )
-            
+
             if envo_match:
                 mapping[class_id] = {
                     **envo_match,
                     "term": class_info["label"],
                     "confidence": "ai_assisted",
-                    "source": "USGS NLCD"
+                    "source": "USGS NLCD",
                 }
-                
+
         return mapping
-    
-    def _find_envo_match_with_ai(self, term: str, description: str, context: str) -> Optional[Dict[str, Any]]:
+
+    def _find_envo_match_with_ai(
+        self, term: str, description: str, context: str
+    ) -> Optional[Dict[str, Any]]:
         """Find best ENVO match using AI assistance."""
         prompt = f"""
         Find the best ENVO (Environmental Ontology) term match for this {context} classification:
@@ -351,115 +431,337 @@ class ENVOMappingGenerator:
         Label: [term label]
         Explanation: [brief explanation]
         """
-        
+
         try:
             # Try using Claude Code CLI if available
-            result = subprocess.run([
-                'claude', '--print', '--no-mcp'
-            ], 
-            input=prompt, 
-            text=True, 
-            capture_output=True, 
-            timeout=60
+            result = subprocess.run(
+                ["claude", "--print", "--no-mcp"],
+                input=prompt,
+                text=True,
+                capture_output=True,
+                timeout=60,
             )
-            
+
             if result.returncode == 0:
                 response = result.stdout.strip()
                 return self._parse_ai_response(response)
-                
+
         except (subprocess.TimeoutExpired, FileNotFoundError):
             pass
-            
+
         # Fallback to OLS API search
         return self._find_envo_match_with_ols(term, description)
-    
-    def _find_envo_match_with_ols(self, term: str, description: str) -> Optional[Dict[str, Any]]:
+
+    def _find_envo_match_with_ols(
+        self, term: str, description: str
+    ) -> Optional[Dict[str, Any]]:
         """Find ENVO match using OLS API as fallback."""
         try:
             # Search ENVO ontology using OLS API
             url = "https://www.ebi.ac.uk/ols/api/search"
-            params = {
-                'q': term,
-                'ontology': 'envo',
-                'rows': 3,
-                'exact': 'false'
-            }
-            
+            params = {"q": term, "ontology": "envo", "rows": 3, "exact": "false"}
+
             response = requests.get(url, params=params, timeout=30)
             response.raise_for_status()
-            
+
             data = response.json()
-            docs = data.get('response', {}).get('docs', [])
-            
+            docs = data.get("response", {}).get("docs", [])
+
             if docs:
                 # Take the best match
                 best_match = docs[0]
-                
+
                 return {
-                    "id": best_match.get('obo_id', ''),
-                    "label": best_match.get('label', ''),
-                    "explanation": f"Best match from OLS API search for '{term}'"
+                    "id": best_match.get("obo_id", ""),
+                    "label": best_match.get("label", ""),
+                    "explanation": f"Best match from OLS API search for '{term}'",
                 }
-                
+
         except requests.RequestException:
             pass
-            
+
         return None
-    
+
     def _parse_ai_response(self, response: str) -> Optional[Dict[str, Any]]:
         """Parse AI response to extract ENVO ID, label, and explanation."""
-        lines = response.split('\n')
+        lines = response.split("\n")
         envo_data = {}
-        
+
         for line in lines:
             line = line.strip()
-            if line.startswith('ID:'):
-                envo_data['id'] = line.replace('ID:', '').strip()
-            elif line.startswith('Label:'):
-                envo_data['label'] = line.replace('Label:', '').strip()
-            elif line.startswith('Explanation:'):
-                envo_data['explanation'] = line.replace('Explanation:', '').strip()
-                
-        if envo_data.get('id') and envo_data.get('label'):
+            if line.startswith("ID:"):
+                envo_data["id"] = line.replace("ID:", "").strip()
+            elif line.startswith("Label:"):
+                envo_data["label"] = line.replace("Label:", "").strip()
+            elif line.startswith("Explanation:"):
+                envo_data["explanation"] = line.replace("Explanation:", "").strip()
+
+        if envo_data.get("id") and envo_data.get("label"):
             return envo_data
-            
+
         return None
-    
+
+    def save_csv_mapping(self, name: str, mappings: List[Dict[str, str]]) -> None:
+        """Save mapping to CSV file in crosswalk format."""
+        output_file = self.mappings_dir / f"{name}.csv"
+        
+        # Define CSV columns for crosswalk format
+        fieldnames = ["source_code", "source_label", "envo_curie", "envo_label", "relation", "source_url", "notes"]
+        
+        with open(output_file, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(mappings)
+        
+        print(f"Saved CSV mapping to {output_file}")
+
+    def generate_usda_texture_mapping(self) -> List[Dict[str, str]]:
+        """Generate USDA soil texture classification mapping."""
+        return [
+            {
+                "source_code": "Clay",
+                "source_label": "Clay",
+                "envo_curie": "ENVO:00002982",
+                "envo_label": "clay soil",
+                "relation": "skos:exactMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "USDA soil texture triangle classification"
+            },
+            {
+                "source_code": "Sandy clay",
+                "source_label": "Sandy clay",
+                "envo_curie": "ENVO:00002982",
+                "envo_label": "clay soil",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Sandy clay contains 35-55% clay, 45-65% sand"
+            },
+            {
+                "source_code": "Silty clay",
+                "source_label": "Silty clay",
+                "envo_curie": "ENVO:00002982",
+                "envo_label": "clay soil",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Silty clay contains 40-60% clay, 0-20% sand"
+            },
+            {
+                "source_code": "Clay loam",
+                "source_label": "Clay loam",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "loam",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Clay loam contains 27-40% clay"
+            },
+            {
+                "source_code": "Sandy clay loam",
+                "source_label": "Sandy clay loam",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "loam",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Sandy clay loam contains 20-35% clay, 45-80% sand"
+            },
+            {
+                "source_code": "Silty clay loam",
+                "source_label": "Silty clay loam",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "loam",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Silty clay loam contains 27-40% clay, 0-20% sand"
+            },
+            {
+                "source_code": "Loam",
+                "source_label": "Loam",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "loam",
+                "relation": "skos:exactMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Balanced mixture of sand, silt, and clay"
+            },
+            {
+                "source_code": "Sandy loam",
+                "source_label": "Sandy loam",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "loam",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Sandy loam contains 50-70% sand"
+            },
+            {
+                "source_code": "Silt loam",
+                "source_label": "Silt loam",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "loam",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Silt loam contains 50-80% silt"
+            },
+            {
+                "source_code": "Sand",
+                "source_label": "Sand",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "sandy soil",
+                "relation": "skos:exactMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Contains 85-100% sand"
+            },
+            {
+                "source_code": "Loamy sand",
+                "source_label": "Loamy sand",
+                "envo_curie": "ENVO:00002229",
+                "envo_label": "sandy soil",
+                "relation": "skos:closeMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Contains 70-85% sand"
+            },
+            {
+                "source_code": "Silt",
+                "source_label": "Silt",
+                "envo_curie": "ENVO:00002982",
+                "envo_label": "silty soil",
+                "relation": "skos:exactMatch",
+                "source_url": "https://www.usda.gov/",
+                "notes": "Contains 80-100% silt"
+            }
+        ]
+
+    def generate_osm_natural_mapping(self) -> List[Dict[str, str]]:
+        """Generate OpenStreetMap natural feature mapping."""
+        return [
+            {
+                "source_code": "water",
+                "source_label": "Water",
+                "envo_curie": "ENVO:00002006",
+                "envo_label": "water",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dwater",
+                "notes": "General water bodies"
+            },
+            {
+                "source_code": "wood",
+                "source_label": "Wood",
+                "envo_curie": "ENVO:00000109",
+                "envo_label": "woodland area",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dwood",
+                "notes": "Woodland or forest area"
+            },
+            {
+                "source_code": "grassland",
+                "source_label": "Grassland",
+                "envo_curie": "ENVO:00000106",
+                "envo_label": "grassland area",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dgrassland",
+                "notes": "Natural grassland"
+            },
+            {
+                "source_code": "wetland",
+                "source_label": "Wetland",
+                "envo_curie": "ENVO:00000043",
+                "envo_label": "wetland",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dwetland",
+                "notes": "Wetland area"
+            },
+            {
+                "source_code": "hot_spring",
+                "source_label": "Hot Spring",
+                "envo_curie": "ENVO:00000051",
+                "envo_label": "hot spring",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dhot_spring",
+                "notes": "Natural hot spring"
+            },
+            {
+                "source_code": "beach",
+                "source_label": "Beach",
+                "envo_curie": "ENVO:00000091",
+                "envo_label": "beach",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dbeach",
+                "notes": "Sandy or pebbly shore"
+            },
+            {
+                "source_code": "rock",
+                "source_label": "Rock",
+                "envo_curie": "ENVO:00001995",
+                "envo_label": "rock",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Drock",
+                "notes": "Exposed rock formation"
+            },
+            {
+                "source_code": "sand",
+                "source_label": "Sand",
+                "envo_curie": "ENVO:01000017",
+                "envo_label": "sandy area",
+                "relation": "skos:exactMatch",
+                "source_url": "https://wiki.openstreetmap.org/wiki/Tag:natural%3Dsand",
+                "notes": "Sandy area"
+            }
+        ]
+
     def generate_all_mappings(self, use_ai: bool = True) -> None:
-        """Generate all mapping files."""
-        print("Generating ENVO ontology mappings...")
+        """Generate all mapping files (both JSON and CSV formats)."""
+        print("Generating ALL mappings for unified paradigm...")
+
+        # Generate JSON ontology mappings
+        print("\n=== JSON ONTOLOGY MAPPINGS ===")
         
         # Generate SoilGrids FAO mapping (deterministic)
-        print("\n1. Generating SoilGrids FAO to ENVO mapping (deterministic)...")
+        print("1. Generating SoilGrids FAO to ENVO mapping (deterministic)...")
         soilgrids_mapping = self.generate_soilgrids_fao_mapping_deterministic()
         self.save_mapping("soilgrids_fao_to_envo", soilgrids_mapping)
-        
+
         if use_ai:
             # Generate ESA WorldCover mapping (AI-assisted)
-            print("\n2. Generating ESA WorldCover to ENVO mapping (AI-assisted)...")
+            print("2. Generating ESA WorldCover to ENVO mapping (AI-assisted)...")
             esa_mapping = self.generate_esa_worldcover_mapping_with_ai()
             self.save_mapping("esa_worldcover_to_envo", esa_mapping)
-            
-            # Generate NLCD mapping (AI-assisted)  
-            print("\n3. Generating NLCD to ENVO mapping (AI-assisted)...")
+
+            # Generate NLCD mapping (AI-assisted)
+            print("3. Generating NLCD to ENVO mapping (AI-assisted)...")
             nlcd_mapping = self.generate_nlcd_mapping_with_ai()
             self.save_mapping("nlcd_to_envo", nlcd_mapping)
         else:
-            print("\n2-3. Skipping AI-assisted mappings (use_ai=False)")
-            
-        print("\nMapping generation complete!")
+            print("2-3. Skipping AI-assisted mappings (use_ai=False)")
+
+        # Generate CSV normalization mappings
+        print("\n=== CSV NORMALIZATION MAPPINGS ===")
+        
+        # Generate USDA texture mapping
+        print("4. Generating USDA texture classification mapping...")
+        usda_mapping = self.generate_usda_texture_mapping()
+        self.save_csv_mapping("usda_texture_12", usda_mapping)
+        
+        # Generate OSM natural features mapping
+        print("5. Generating OpenStreetMap natural features mapping...")
+        osm_mapping = self.generate_osm_natural_mapping()
+        self.save_csv_mapping("osm_natural", osm_mapping)
+
+        print("\n✅ All mapping files generated successfully!")
+        print("   📁 JSON ontology mappings: soilgrids_fao_to_envo.json, esa_worldcover_to_envo.json, nlcd_to_envo.json")
+        print("   📁 CSV normalization mappings: usda_texture_12.csv, osm_natural.csv")
 
 
 def main():
     """Main function to generate all mappings."""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="Generate ENVO ontology mappings")
-    parser.add_argument('--no-ai', action='store_true', help='Skip AI-assisted mappings')
-    parser.add_argument('--mappings-dir', default='../mappings', help='Output directory for mappings')
-    
+    parser.add_argument(
+        "--no-ai", action="store_true", help="Skip AI-assisted mappings"
+    )
+    parser.add_argument(
+        "--mappings-dir", default="../mappings", help="Output directory for mappings"
+    )
+
     args = parser.parse_args()
-    
+
     generator = ENVOMappingGenerator(args.mappings_dir)
     generator.generate_all_mappings(use_ai=not args.no_ai)
 

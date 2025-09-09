@@ -1,0 +1,1086 @@
+{
+  "id": "test_sample",
+  "point": {
+    "lat": 44.428,
+    "lon": -110.5885
+  },
+  "collection_date": "2021-08-20",
+  "site_type": {
+    "type": "terrestrial",
+    "evidence": [
+      {
+        "dataset": "osm_coastlines",
+        "relation": "nearest",
+        "distance_km": 1359.3,
+        "note": "Accurate OSM-based coastline distance using AEQD projection"
+      }
+    ],
+    "params": {
+      "D_open_km": 20,
+      "D_inland_km": 0.2,
+      "D_coast_km": 2,
+      "osm_water_radius_m": 1000
+    },
+    "osm_water_features": 10,
+    "provenance": {
+      "method": "hierarchical_rules_v1",
+      "datasets": [
+        "OSM_water",
+        "osm_coastlines"
+      ],
+      "note": "Production-ready implementation using OSM water features and robust coastline distance calculation"
+    }
+  },
+  "elevation": {
+    "usgs_point": {
+      "elev_m": 2457.0,
+      "distance_km": 0.0,
+      "source": "usgs_point_service",
+      "units": "meters"
+    },
+    "google_elevation": {
+      "provider": "google_elevation",
+      "success": true,
+      "elev_m": 2456.8,
+      "distance_km": 0.0,
+      "resolution": 19.08790397644043,
+      "source": "google_elevation_api",
+      "data_source": "Google Elevation API",
+      "location": {
+        "lat": 44.428,
+        "lon": -110.5885
+      }
+    }
+  },
+  "administrative": {
+    "provider": "google",
+    "country": "United States",
+    "country_code": "US",
+    "state_province": "Wyoming",
+    "county_region": "Park County",
+    "city": "Yellowstone National Park",
+    "postcode": "82190",
+    "display_name": "CCH6+5J Yellowstone National Park, WY, USA",
+    "place_type": "plus_code",
+    "coordinates": {
+      "lat": 44.428,
+      "lon": -110.5885
+    },
+    "distance_km": 0.0,
+    "data_source": "Google Geocoding API",
+    "success": true,
+    "all_providers": {
+      "nominatim": {
+        "display_name": "Grand Loop Road, Teton County, Wyoming, United States",
+        "place_type": "secondary",
+        "osm_type": "way",
+        "country": "United States",
+        "country_code": "us",
+        "state": "Wyoming",
+        "county": "Teton County",
+        "city": null,
+        "postcode": null,
+        "latitude": 44.4298593,
+        "longitude": -110.584779,
+        "data_source": "OpenStreetMap Nominatim",
+        "success": true
+      },
+      "google": {
+        "provider": "google",
+        "success": true,
+        "country": "United States",
+        "country_code": "US",
+        "state": "Wyoming",
+        "county": "Park County",
+        "city": "Yellowstone National Park",
+        "postcode": "82190",
+        "display_name": "CCH6+5J Yellowstone National Park, WY, USA",
+        "place_type": "plus_code",
+        "place_id": "GhIJEFg5tMg2RkARi2zn-6mlW8A",
+        "latitude": 44.428,
+        "longitude": -110.5885,
+        "data_source": "Google Geocoding API"
+      }
+    },
+    "providers_queried": [
+      "nominatim",
+      "google"
+    ],
+    "successful_providers": [
+      "nominatim",
+      "google"
+    ],
+    "primary_provider": "google"
+  },
+  "forward_geocoding": {},
+  "weather": {
+    "daily": {
+      "provider": "open_meteo",
+      "date": "2021-08-20",
+      "point": {
+        "lat": 44.393673,
+        "lon": -110.535995
+      },
+      "sample_point_distance_km": 5.653554806934681,
+      "spatial_resolution": "0.1\u00b0 (~11km)",
+      "coverage": "complete",
+      "method": "hourly_agg",
+      "provenance": {
+        "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=44.428&longitude=-110.5885&start_date=2021-08-20&end_date=2021-08-20",
+        "model_or_network": "ERA5-Land",
+        "variables_requested": 26,
+        "variables_received": 20
+      },
+      "temperaturec": {
+        "min": 3.2,
+        "max": 12.5,
+        "avg": 6.708333333333333
+      },
+      "precip_mm": {
+        "sum": 6.6
+      },
+      "rain_mm": {
+        "sum": 6.6
+      },
+      "snow_mm": {
+        "sum": 0.0
+      },
+      "shortwave_mj_m2": {
+        "sum": 0.003836
+      },
+      "wind_ms": {
+        "min": 13.0,
+        "max": 19.3,
+        "avg": 16.5625
+      },
+      "wind_dir_deg": {
+        "vector_mean": 252.6454811957911
+      },
+      "direct_mj_m2": {
+        "sum": 0.001933
+      },
+      "diffuse_mj_m2": {
+        "sum": 0.001903
+      },
+      "rh_pct": {
+        "avg": 85.54166666666667
+      },
+      "dewpointc": {
+        "avg": 4.141666666666667
+      },
+      "sfc_pressure_hpa": {
+        "avg": 756.7208333333333
+      },
+      "cloudcover_pct": {
+        "avg": 89.79166666666667
+      },
+      "et0_mm": {
+        "sum": 2.0200000000000005
+      },
+      "vpd_kpa": {
+        "avg": 0.17333333333333334
+      },
+      "sunshine_hours": {
+        "avg": 988.11
+      },
+      "weather_code": {
+        "avg": 43.5
+      },
+      "daylight_hours": {
+        "avg": 0.5833333333333334
+      },
+      "all_providers": {
+        "open_meteo": {
+          "success": true,
+          "provider": "open_meteo",
+          "hourly_df": "                     temperature_2m  relative_humidity_2m  ...  weather_code  is_day\ntime                                                       ...                      \n2021-08-20 00:00:00             8.2                    85  ...             3       1\n2021-08-20 01:00:00             7.2                    87  ...             3       1\n2021-08-20 02:00:00             6.2                    91  ...             3       1\n2021-08-20 03:00:00             6.0                    91  ...            51       0\n2021-08-20 04:00:00             5.6                    91  ...             3       0\n2021-08-20 05:00:00             5.3                    91  ...            51       0\n2021-08-20 06:00:00             4.9                    91  ...            51       0\n2021-08-20 07:00:00             4.5                    94  ...            51       0\n2021-08-20 08:00:00             3.8                   100  ...            53       0\n2021-08-20 09:00:00             3.4                   100  ...            53       0\n2021-08-20 10:00:00             3.2                   100  ...            55       0\n2021-08-20 11:00:00             3.3                    99  ...            55       0\n2021-08-20 12:00:00             4.9                    88  ...            51       0\n2021-08-20 13:00:00             4.9                    94  ...            51       1\n2021-08-20 14:00:00             5.5                    92  ...            51       1\n2021-08-20 15:00:00             6.2                    92  ...            51       1\n2021-08-20 16:00:00             6.4                    94  ...            51       1\n2021-08-20 17:00:00             6.9                    92  ...            51       1\n2021-08-20 18:00:00             8.5                    85  ...            51       1\n2021-08-20 19:00:00             9.8                    76  ...            51       1\n2021-08-20 20:00:00            10.3                    73  ...            51       1\n2021-08-20 21:00:00            11.3                    55  ...            51       1\n2021-08-20 22:00:00            12.5                    45  ...            51       1\n2021-08-20 23:00:00            12.2                    47  ...            51       1\n\n[24 rows x 20 columns]",
+          "point": {
+            "lat": 44.393673,
+            "lon": -110.535995
+          },
+          "sample_point_distance_km": 5.653554806934681,
+          "spatial_resolution": "0.1\u00b0 (~11km)",
+          "elevation_m": 2476.0,
+          "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=44.428&longitude=-110.5885&start_date=2021-08-20&end_date=2021-08-20",
+          "model_or_network": "ERA5-Land",
+          "variables_requested": 26,
+          "variables_received": 20,
+          "multi_pass_results": [
+            {
+              "pass_name": "Core Atmospheric",
+              "requested_params": 9,
+              "successful_params": 9,
+              "success": true
+            },
+            {
+              "pass_name": "Wind & Solar",
+              "requested_params": 7,
+              "successful_params": 7,
+              "success": true
+            },
+            {
+              "pass_name": "Advanced Environmental",
+              "requested_params": 6,
+              "successful_params": 4,
+              "success": true
+            },
+            {
+              "pass_name": "Soil Microbiome",
+              "requested_params": 4,
+              "successful_params": 0,
+              "success": true
+            }
+          ],
+          "successful_passes": 4,
+          "total_passes": 4
+        },
+        "meteostat": {
+          "success": true,
+          "provider": "meteostat",
+          "hourly_df": "            temp  dwpt  rhum  prcp  snow   wdir  wspd  wpgt    pres  tsun  coco\ntime                                                                           \n2021-08-20   8.9   7.8  93.0   0.3  <NA>  263.0   5.4  <NA>  1013.1  <NA>  <NA>",
+          "point": {
+            "lat": 44.428,
+            "lon": -110.5885
+          },
+          "sample_point_distance_km": 19.23,
+          "spatial_resolution": "station",
+          "source_url": "https://meteostat.net/",
+          "model_or_network": "station",
+          "station_ids": [
+            {
+              "id": "KP600",
+              "name": "Yellowstone / Lake",
+              "lat": 44.55,
+              "lon": -110.4167,
+              "distance_km": 19.23,
+              "elevation_m": 2368.0,
+              "weight": 0.049434107951608824
+            },
+            {
+              "id": "KWYS0",
+              "name": "West Yellowstone",
+              "lat": 44.6884,
+              "lon": -111.1176,
+              "distance_km": 50.95,
+              "elevation_m": 2027.0,
+              "weight": 0.019249843593865834
+            },
+            {
+              "id": "KDIJ0",
+              "name": "Driggs",
+              "lat": 43.7424,
+              "lon": -111.0975,
+              "distance_km": 86.4,
+              "elevation_m": 1899.0,
+              "weight": 0.011441959956524604
+            },
+            {
+              "id": "72577",
+              "name": "Jackson Hole / Moose",
+              "lat": 43.6073,
+              "lon": -110.7378,
+              "distance_km": 92.04,
+              "elevation_m": 1966.0,
+              "weight": 0.010748617466643722
+            },
+            {
+              "id": "KRXE0",
+              "name": "Rexburg",
+              "lat": 43.8339,
+              "lon": -111.8051,
+              "distance_km": 117.44,
+              "elevation_m": 1482.0,
+              "weight": 0.008443325071781058
+            }
+          ],
+          "primary_station": {
+            "id": "KP600",
+            "name": "Yellowstone / Lake",
+            "lat": 44.55,
+            "lon": -110.4167,
+            "distance_km": 19.23,
+            "elevation_m": 2368.0,
+            "weight": 0.049434107951608824
+          }
+        }
+      },
+      "providers_queried": [
+        "open_meteo",
+        "meteostat"
+      ],
+      "successful_providers": [
+        "open_meteo",
+        "meteostat"
+      ],
+      "primary_provider": "open_meteo"
+    }
+  },
+  "land_cover": {
+    "provider": "esa_worldcover",
+    "success": true,
+    "land_cover_class": 10,
+    "class_name": "Tree cover",
+    "envo_terms": [
+      "ENVO:00000028"
+    ],
+    "confidence": 0.8,
+    "source": "osm_inference",
+    "resolution": null,
+    "year": 2021,
+    "data_source": null,
+    "all_providers": {
+      "esa_worldcover": {
+        "land_cover_class": 10,
+        "class_name": "Tree cover",
+        "confidence": 0.8,
+        "envo_terms": [
+          "ENVO:00000028"
+        ],
+        "source": "osm_inference",
+        "method": "natural_tag_analysis",
+        "success": true
+      },
+      "nlcd": {
+        "land_cover_class": null,
+        "envo_terms": [],
+        "error": "No land cover data found or mapping not available",
+        "success": false
+      }
+    },
+    "providers_queried": [
+      "esa_worldcover",
+      "nlcd"
+    ],
+    "successful_providers": [
+      "esa_worldcover"
+    ],
+    "primary_provider": "esa_worldcover"
+  },
+  "soils": {
+    "usda_nrcs_sda": {
+      "mukey": "3056505",
+      "component_name": "Kegsprings",
+      "component_percent": "55",
+      "taxonomic_class": "Loamy-skeletal, mixed, superactive Typic Haplocryepts",
+      "full_taxonomy": "Inceptisols > Cryepts > Typic Haplocryepts",
+      "tax_order": "Inceptisols",
+      "tax_suborder": "Cryepts",
+      "tax_great_group": "Haplocryepts",
+      "tax_subgroup": "Typic Haplocryepts",
+      "drainage_class": "Well drained",
+      "hydrologic_group": "B",
+      "mapunit_name": "Kegsprings-Targhee families-Rock outcrop, complex",
+      "data_source": "USDA NRCS SDA",
+      "method": "soil_data_access_api",
+      "success": true,
+      "coverage": "US only - high quality soil taxonomy"
+    },
+    "soilgrids_classification": {
+      "fao_soil_type": "Cambisols",
+      "confidence": "high",
+      "alternatives": {},
+      "data_source": "ISRIC SoilGrids v2.0 REST",
+      "method": "soilgrids_rest_api",
+      "success": true,
+      "coverage": "Global - 250m resolution"
+    },
+    "soilgrids_properties": {
+      "soil_properties": {
+        "phh2o": {
+          "value": 5.5,
+          "unit": "pH",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "soc": {
+          "value": 36.6,
+          "unit": "dg/kg",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "nitrogen": {
+          "value": 2.57,
+          "unit": "cg/kg",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "cec": {
+          "value": 184.0,
+          "unit": "mmol(c)/kg",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "clay": {
+          "value": 7.3,
+          "unit": "g/kg",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "sand": {
+          "value": 48.6,
+          "unit": "g/kg",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "silt": {
+          "value": 37.6,
+          "unit": "g/kg",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "bdod": {
+          "value": 1.06,
+          "unit": "cg/cm\u00b3",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        },
+        "cfvo": {
+          "value": 100.0,
+          "unit": "cm\u00b3/dm\u00b3",
+          "depth": "0-5cm",
+          "stat": "Q0.5",
+          "distance_m": 93.6
+        }
+      },
+      "usda_texture_class": "Loam",
+      "data_source": "ISRIC SoilGrids WCS",
+      "method": "wcs_raster_sampling",
+      "resolution": "250m",
+      "success": true,
+      "coverage": "Global - quantitative properties"
+    },
+    "local_context": {
+      "land_use_indicators": [
+        "no_indicators_found"
+      ],
+      "method": "osm_landuse_inference",
+      "radius_m": 500
+    },
+    "strategy": "US locations: USDA NRCS SDA primary, SoilGrids secondary. Global: SoilGrids primary."
+  },
+  "ecoregion": {
+    "teow_2017": {
+      "eco_name": "South Central Rockies forests",
+      "biome": "Temperate Conifer Forests",
+      "realm": "Nearctic",
+      "distance_km": 0.0,
+      "source": "local_teow_shapefile"
+    }
+  },
+  "osm": {
+    "query": {
+      "radius_m": 1000,
+      "timeout_s": 180,
+      "center": {
+        "lat": 44.428,
+        "lon": -110.5885
+      }
+    },
+    "named_features": [
+      {
+        "osm_type": "way",
+        "osm_id": 104836107,
+        "name": "Grand Loop Road",
+        "tags": {
+          "hgv": "no",
+          "highway": "secondary",
+          "maxspeed": "45 mph",
+          "name": "Grand Loop Road",
+          "nps:route_desc": "PRIMARY ROUTE",
+          "source": "National Park Service",
+          "unsigned_ref": "US 14;US 16;US 20 Alt;US 89 Alt"
+        },
+        "centroid": {
+          "lat": 44.47095578004072,
+          "lon": -110.50408825824843
+        },
+        "distance_km": 0.356,
+        "category": "highway",
+        "subcategory": "secondary"
+      },
+      {
+        "osm_type": "way",
+        "osm_id": 104932485,
+        "name": "Grand Loop Road",
+        "tags": {
+          "hgv": "no",
+          "highway": "secondary",
+          "lanes": "2",
+          "maxspeed": "45 mph",
+          "name": "Grand Loop Road",
+          "nps:route_desc": "PRIMARY ROUTE",
+          "shoulder": "yes",
+          "source": "National Park Service",
+          "surface": "asphalt",
+          "unsigned_ref": "US 20 Alt;US 89;US 191;US 287"
+        },
+        "centroid": {
+          "lat": 44.434793954362426,
+          "lon": -110.65375282841167
+        },
+        "distance_km": 0.48,
+        "category": "highway",
+        "subcategory": "secondary"
+      },
+      {
+        "osm_type": "way",
+        "osm_id": 184990805,
+        "name": "Duck Lake",
+        "tags": {
+          "name": "Duck Lake",
+          "natural": "water",
+          "water": "lake"
+        },
+        "centroid": {
+          "lat": 44.420534688,
+          "lon": -110.58041504399996
+        },
+        "distance_km": 0.854,
+        "category": "natural",
+        "subcategory": "water"
+      },
+      {
+        "osm_type": "way",
+        "osm_id": 1277922766,
+        "name": "Little Thumb Creek",
+        "tags": {
+          "NHD:ComID": "2966464",
+          "NHD:FCode": "46003",
+          "NHD:FType": "StreamRiver",
+          "NHD:ReachCode": "10070001001061",
+          "NHD:way_id": "2966464",
+          "attribution": "NHD",
+          "gnis:feature_id": "1590887",
+          "name": "Little Thumb Creek",
+          "source": "NHD_import_v0.3_20090818122332",
+          "waterway": "stream",
+          "wikidata": "Q49947068"
+        },
+        "centroid": {
+          "lat": 44.433378521621634,
+          "lon": -110.59251308918923
+        },
+        "distance_km": 0.854,
+        "category": "waterway",
+        "subcategory": "stream"
+      },
+      {
+        "osm_type": "relation",
+        "osm_id": 207316,
+        "name": "Yellowstone Lake",
+        "tags": {
+          "boat": "permit",
+          "canoe": "permit",
+          "intermittent": "no",
+          "name": "Yellowstone Lake",
+          "name:br": "Lenn Yellowstone",
+          "name:fr": "Lac Yellowstone",
+          "natural": "water",
+          "salt": "no",
+          "tidal": "no",
+          "type": "multipolygon",
+          "water": "lake",
+          "wikidata": "Q923693",
+          "wikipedia": "en:Yellowstone Lake"
+        },
+        "centroid": {
+          "lat": 44.420495135115246,
+          "lon": -110.37048540938217
+        },
+        "distance_km": 17.333,
+        "category": "natural",
+        "subcategory": "water"
+      }
+    ],
+    "unnamed_counts": {
+      "material": {
+        "_total": 4,
+        "wood": {
+          "node": 4,
+          "way": 0,
+          "relation": 0
+        }
+      },
+      "power": {
+        "_total": 5,
+        "pole": {
+          "node": 4,
+          "way": 0,
+          "relation": 0
+        },
+        "line": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "amenity": {
+        "_total": 2,
+        "parking": {
+          "node": 2,
+          "way": 0,
+          "relation": 0
+        }
+      },
+      "natural": {
+        "_total": 288,
+        "geyser": {
+          "node": 112,
+          "way": 0,
+          "relation": 0
+        },
+        "hot_spring": {
+          "node": 15,
+          "way": 149,
+          "relation": 0
+        },
+        "wood": {
+          "node": 0,
+          "way": 2,
+          "relation": 2
+        },
+        "grassland": {
+          "node": 0,
+          "way": 4,
+          "relation": 0
+        },
+        "water": {
+          "node": 0,
+          "way": 4,
+          "relation": 0
+        }
+      },
+      "cables": {
+        "_total": 1,
+        "3": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "voltage": {
+        "_total": 1,
+        "69000": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "source": {
+        "_total": 1,
+        "NAIP": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "water": {
+        "_total": 4,
+        "pond": {
+          "node": 0,
+          "way": 3,
+          "relation": 0
+        },
+        "lake": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "highway": {
+        "_total": 1,
+        "service": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "intermittent": {
+        "_total": 1,
+        "yes": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "waterway": {
+        "_total": 1,
+        "stream": {
+          "node": 0,
+          "way": 1,
+          "relation": 0
+        }
+      },
+      "type": {
+        "_total": 2,
+        "multipolygon": {
+          "node": 0,
+          "way": 0,
+          "relation": 2
+        }
+      }
+    },
+    "summary": {
+      "total_elements": 2209,
+      "named_features": 5,
+      "unnamed_categories": 12,
+      "total_unnamed": 311
+    },
+    "provenance": {
+      "data_source": "OpenStreetMap Overpass API",
+      "query_timestamp": "Tue, 09 Sep 2025 03:40:01 GMT",
+      "query_url": "https://overpass-api.de/api/interpreter",
+      "method": "comprehensive_single_query"
+    }
+  },
+  "nearby": {
+    "nearest_water_features_km": 0.854,
+    "avg_water_features_km": 6.347,
+    "water_features_within_1km": 2,
+    "nearest_transport_features_km": 0.356,
+    "avg_transport_features_km": 0.418,
+    "transport_features_within_1km": 2,
+    "nearest_natural_features_km": null,
+    "natural_features_within_1km": 0,
+    "nearest_amenities_km": null,
+    "amenities_within_1km": 0,
+    "nearest_buildings_km": null,
+    "buildings_within_1km": 0,
+    "unnamed_natural_features_in_radius": 284,
+    "unnamed_natural_types": [
+      "geyser(112)",
+      "hot_spring(164)",
+      "wood(4)",
+      "grassland(4)"
+    ],
+    "distance_to_coast_km": 1359.27,
+    "settlement_population_within_10km": null
+  },
+  "provenance": {
+    "run_id": "enrichment_20250909_033945",
+    "created_at": "2025-09-09T03:39:45.247811Z",
+    "software": "crawl_first unified_enrichment v1.0",
+    "config_version": "1.0"
+  },
+  "places": {
+    "provider": "google_places",
+    "success": true,
+    "total_places": 20,
+    "radius_m": 1000,
+    "place_types": {
+      "locality": 1,
+      "political": 1,
+      "point_of_interest": 19,
+      "establishment": 19,
+      "park": 18
+    },
+    "notable_places": [
+      {
+        "name": "Yellowstone National Park",
+        "types": [
+          "locality",
+          "political"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJxbVfgaQfTlMRa-n8WQ9rYlU",
+        "distance_km": 0.005
+      },
+      {
+        "name": "National Park Service",
+        "types": [
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": 4.7,
+        "user_ratings_total": 15,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJEREJ9V36UVMR1Ce_EIRu-4c",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Clear Lake Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": 5,
+        "user_ratings_total": 2,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJAXZacLP7UVMRLHrrfUCXaco",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Lost Lake Loop Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJTSpvaBb7UVMRjTqsfTg-4f4",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Solfatara Creek North Trailhead 1K7",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJS9ncT137UVMRuQlWjZmpIhY",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Pebble Creek Trailhead 3K2",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJMYKAlpb7UVMR-BPXL9jfpvI",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Snow Pass Trailhead 1K2",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJxbj9Ai77UVMRMZkRruUfgag",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Hellroaring Patrol Cabin",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": 4,
+        "user_ratings_total": 1,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJ8Wu6tp77UVMRvkFNG1ssIok",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Pitchstone Plateau Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJOQGQELj7UVMReSKTkMme6ew",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Spring Creek Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJy0t-hrj7UVMRsnMTp96sHJs",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Mary Mountain West Trailhead OK7",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJx_jWh5_7UVMR-JFJ9rPw7G8",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Nine Mile Post Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJLXHuq5H7UVMRKsrq19ah65A",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Mount Washburn North Trailhead 2K6",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJ1VoQFiz7UVMRzDIG1nCCDN4",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Cygnet ,Lakes Trailhead 4N3",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJszqetg37UVMRVl68FSFNpf8",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Bechler Ranger Station Trailhead 9K1",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJGZzkW_z7UVMRulkk4zLgl84",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Mallard Lake Trailhead OK3",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": 4,
+        "user_ratings_total": 1,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJwx_mNzj7UVMRj6gBD2XBt4s",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Wolf Lake Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJB-imr1P7UVMRWiHLHyQJM0c",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Lamar River Stock Trailhead 3K1",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJc8mgEzD7UVMRCcFdsZGvnP8",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Specimen Ridge Trailhead East 2K4",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJF3ANQgD7UVMRqLN2OreEa1E",
+        "distance_km": 0.005
+      },
+      {
+        "name": "Tower Creek Trailhead",
+        "types": [
+          "park",
+          "point_of_interest",
+          "establishment"
+        ],
+        "rating": null,
+        "user_ratings_total": null,
+        "vicinity": "Yellowstone National Park",
+        "place_id": "ChIJea246an7UVMRIMPTCzKZbo8",
+        "distance_km": 0.005
+      }
+    ],
+    "data_source": "Google Places API",
+    "environmental_context": {
+      "has_natural_features": true,
+      "has_industrial": false,
+      "has_agriculture": false,
+      "human_activity_level": 4.0
+    }
+  },
+  "air_quality": {
+    "error": "All air quality providers failed",
+    "success": false,
+    "all_providers": {
+      "google_air_quality": {
+        "provider": "google_air_quality",
+        "success": false,
+        "error": "403 Client Error: Forbidden for url: https://airquality.googleapis.com/v1/currentConditions:lookup?key=AIzaSyDobykt5XGvScGaLXojw-OUexaK2NBfO98"
+      },
+      "epa_airnow": {
+        "provider": "epa_airnow",
+        "success": false,
+        "error": "EPA_AIRNOW_API_KEY not set (US only - free registration at airnowapi.org)"
+      },
+      "openweather_aq": {
+        "provider": "openweather_aq",
+        "success": false,
+        "error": "OPENWEATHER_API_KEY not set"
+      }
+    },
+    "providers_queried": [
+      "google_air_quality",
+      "epa_airnow",
+      "openweather_aq"
+    ],
+    "successful_providers": [],
+    "provider_errors": {
+      "google_air_quality": "403 Client Error: Forbidden for url: https://airquality.googleapis.com/v1/currentConditions:lookup?key=AIzaSyDobykt5XGvScGaLXojw-OUexaK2NBfO98",
+      "epa_airnow": "EPA_AIRNOW_API_KEY not set (US only - free registration at airnowapi.org)",
+      "openweather_aq": "OPENWEATHER_API_KEY not set"
+    }
+  },
+  "enrichment_success_rate": 1.0
+}

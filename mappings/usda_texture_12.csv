@@ -1,0 +1,13 @@
+source_code,source_label,envo_curie,envo_label,relation,source_url,notes
+Clay,Clay,ENVO:00002982,clay soil,skos:exactMatch,https://www.usda.gov/,USDA soil texture triangle classification
+Sandy clay,Sandy clay,ENVO:00002982,clay soil,skos:closeMatch,https://www.usda.gov/,"Sandy clay contains 35-55% clay, 45-65% sand"
+Silty clay,Silty clay,ENVO:00002982,clay soil,skos:closeMatch,https://www.usda.gov/,"Silty clay contains 40-60% clay, 0-20% sand"
+Clay loam,Clay loam,ENVO:00002229,loam,skos:closeMatch,https://www.usda.gov/,Clay loam contains 27-40% clay
+Sandy clay loam,Sandy clay loam,ENVO:00002229,loam,skos:closeMatch,https://www.usda.gov/,"Sandy clay loam contains 20-35% clay, 45-80% sand"
+Silty clay loam,Silty clay loam,ENVO:00002229,loam,skos:closeMatch,https://www.usda.gov/,"Silty clay loam contains 27-40% clay, 0-20% sand"
+Loam,Loam,ENVO:00002229,loam,skos:exactMatch,https://www.usda.gov/,"Balanced mixture of sand, silt, and clay"
+Sandy loam,Sandy loam,ENVO:00002229,loam,skos:closeMatch,https://www.usda.gov/,Sandy loam contains 50-70% sand
+Silt loam,Silt loam,ENVO:00002229,loam,skos:closeMatch,https://www.usda.gov/,Silt loam contains 50-80% silt
+Sand,Sand,ENVO:00002229,sandy soil,skos:exactMatch,https://www.usda.gov/,Contains 85-100% sand
+Loamy sand,Loamy sand,ENVO:00002229,sandy soil,skos:closeMatch,https://www.usda.gov/,Contains 70-85% sand
+Silt,Silt,ENVO:00002982,silty soil,skos:exactMatch,https://www.usda.gov/,Contains 80-100% silt

@@ -1,0 +1,742 @@
+{
+  "nmdc_samples": [
+    {
+      "id": "nmdc:bsm-13-amrnys72",
+      "name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T4_25-Nov-14",
+      "description": "Sterilized sand packs were incubated back in the ground and collected at time point T4.",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO:01000253",
+        "term": {
+          "id": "ENVO:01000253",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO:01000621",
+        "term": {
+          "id": "ENVO:01000621",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO:01000017",
+        "term": {
+          "id": "ENVO:01000017",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "type": "nmdc:Biosample",
+      "collection_date": {
+        "has_raw_value": "2014-11-25",
+        "type": "nmdc:TimestampValue"
+      },
+      "depth": {
+        "has_raw_value": "0.5",
+        "has_numeric_value": 0.5,
+        "has_unit": "m",
+        "type": "nmdc:QuantityValue"
+      },
+      "geo_loc_name": {
+        "has_raw_value": "USA: Columbia River, Washington",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "46.37228379 -119.2717467",
+        "latitude": 46.37228379,
+        "longitude": -119.2717467,
+        "type": "nmdc:GeolocationValue"
+      },
+      "ecosystem": "Engineered",
+      "ecosystem_category": "Artificial ecosystem",
+      "ecosystem_type": "Sand microcosm",
+      "ecosystem_subtype": "Unclassified",
+      "specific_ecosystem": "Unclassified",
+      "add_date": "2015-05-28",
+      "community": "microbial communities",
+      "habitat": "sand microcosm",
+      "location": "groundwater-surface water interaction zone in Washington, USA",
+      "mod_date": "2021-06-17",
+      "ncbi_taxonomy_name": "sediment metagenome",
+      "sample_collection_site": "sand microcosm",
+      "alternative_identifiers": [
+        "img.taxon:3300042754"
+      ],
+      "insdc_biosample_identifiers": [
+        "biosample:SAMN06343877"
+      ],
+      "samp_name": "GW-RW T4_25-Nov-14",
+      "gold_biosample_identifiers": [
+        "gold:Gb0115231"
+      ],
+      "associated_studies": [
+        "nmdc:sty-11-aygzgv51"
+      ]
+    },
+    {
+      "id": "nmdc:bsm-13-4jtymw61",
+      "name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T3_23-Sept-14",
+      "description": "Sterilized sand packs were incubated back in the ground and collected at time point T3.",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO:01000253",
+        "term": {
+          "id": "ENVO:01000253",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO:01000621",
+        "term": {
+          "id": "ENVO:01000621",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO:01000017",
+        "term": {
+          "id": "ENVO:01000017",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "type": "nmdc:Biosample",
+      "collection_date": {
+        "has_raw_value": "2014-09-23",
+        "type": "nmdc:TimestampValue"
+      },
+      "depth": {
+        "has_raw_value": "0.5",
+        "has_numeric_value": 0.5,
+        "has_unit": "m",
+        "type": "nmdc:QuantityValue"
+      },
+      "geo_loc_name": {
+        "has_raw_value": "USA: Columbia River, Washington",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "46.37228379 -119.2717467",
+        "latitude": 46.37228379,
+        "longitude": -119.2717467,
+        "type": "nmdc:GeolocationValue"
+      },
+      "ecosystem": "Engineered",
+      "ecosystem_category": "Artificial ecosystem",
+      "ecosystem_type": "Sand microcosm",
+      "ecosystem_subtype": "Unclassified",
+      "specific_ecosystem": "Unclassified",
+      "add_date": "2015-05-28",
+      "community": "microbial communities",
+      "habitat": "sand microcosm",
+      "location": "groundwater-surface water interaction zone in Washington, USA",
+      "mod_date": "2021-06-17",
+      "ncbi_taxonomy_name": "sediment metagenome",
+      "sample_collection_site": "sand microcosm",
+      "alternative_identifiers": [
+        "img.taxon:3300042744"
+      ],
+      "insdc_biosample_identifiers": [
+        "biosample:SAMN06343866"
+      ],
+      "samp_name": "GW-RW T3_23-Sept-14",
+      "gold_biosample_identifiers": [
+        "gold:Gb0115220"
+      ],
+      "associated_studies": [
+        "nmdc:sty-11-aygzgv51"
+      ]
+    },
+    {
+      "id": "nmdc:bsm-13-99ey0251",
+      "name": "Sand microcosm microbial communities from a hyporheic zone in Columbia River, Washington, USA - GW-RW T3_25-Nov-14",
+      "description": "Sterilized sand packs were incubated back in the ground and collected at time point T3.",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO:01000253",
+        "term": {
+          "id": "ENVO:01000253",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO:01000621",
+        "term": {
+          "id": "ENVO:01000621",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO:01000017",
+        "term": {
+          "id": "ENVO:01000017",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "type": "nmdc:Biosample",
+      "collection_date": {
+        "has_raw_value": "2014-11-25",
+        "type": "nmdc:TimestampValue"
+      },
+      "depth": {
+        "has_raw_value": "0.5",
+        "has_numeric_value": 0.5,
+        "has_unit": "m",
+        "type": "nmdc:QuantityValue"
+      },
+      "geo_loc_name": {
+        "has_raw_value": "USA: Columbia River, Washington",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "46.37228379 -119.2717467",
+        "latitude": 46.37228379,
+        "longitude": -119.2717467,
+        "type": "nmdc:GeolocationValue"
+      },
+      "ecosystem": "Engineered",
+      "ecosystem_category": "Artificial ecosystem",
+      "ecosystem_type": "Sand microcosm",
+      "ecosystem_subtype": "Unclassified",
+      "specific_ecosystem": "Unclassified",
+      "add_date": "2015-05-28",
+      "community": "microbial communities",
+      "habitat": "sand microcosm",
+      "location": "groundwater-surface water interaction zone in Washington, USA",
+      "mod_date": "2021-06-17",
+      "ncbi_taxonomy_name": "sediment metagenome",
+      "sample_collection_site": "sand microcosm",
+      "alternative_identifiers": [
+        "img.taxon:3300042791"
+      ],
+      "insdc_biosample_identifiers": [
+        "biosample:SAMN06343867"
+      ],
+      "samp_name": "GW-RW T3_25-Nov-14",
+      "gold_biosample_identifiers": [
+        "gold:Gb0115221"
+      ],
+      "associated_studies": [
+        "nmdc:sty-11-aygzgv51"
+      ]
+    }
+  ],
+  "gold_samples": [
+    {
+      "biosampleGoldId": "Gb0188393",
+      "biosampleName": "Contaminated culture fungal communities from Oregon State University - Chaetocladium jonesii NRRL 2343",
+      "ncbiTaxId": 1670606,
+      "ncbiTaxName": "fungus metagenome",
+      "sampleCollectionSite": "culture",
+      "geographicLocation": "USA: Oregon",
+      "latitude": 44.564,
+      "longitude": -123.279,
+      "ecosystemPathId": 4463,
+      "ecosystem": "Host-associated",
+      "ecosystemCategory": "Fungi",
+      "ecosystemType": "Mycelium",
+      "ecosystemSubtype": "Unclassified",
+      "specificEcosystem": "Unclassified",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "1901-01-01",
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Contaminated culture fungal communities from Oregon State University",
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "USA: Oregon",
+      "habitat": "defined medium",
+      "hostGender": null,
+      "hostName": "Fungi",
+      "hostNcbiTaxid": 4751,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": null,
+      "envoLocalScale": null,
+      "envoMedium": null,
+      "modDate": "2022-09-05",
+      "addDate": "2018-05-18",
+      "contacts": [
+        {
+          "name": "Harris Lewin",
+          "email": "lewin@ucdavis.edu",
+          "jgiSsoId": "52758",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Ying Chang",
+          "email": "y.chang@nus.edu.sg",
+          "jgiSsoId": "27857",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Doina Ciobanu",
+          "email": "dgciobanu@lbl.gov",
+          "jgiSsoId": "5666",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Danny Haelewaters",
+          "email": "dhaelewaters@fas.harvard.edu",
+          "jgiSsoId": "16278",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Kurt LaButti",
+          "email": "klabutti@lbl.gov",
+          "jgiSsoId": "2537",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gillian Turgeon",
+          "email": "bgt1@cornell.edu",
+          "jgiSsoId": "155",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "David E. Culley",
+          "email": "david.culley@pnl.gov",
+          "jgiSsoId": "3816",
+          "roles": [
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Minou Nowrousian",
+          "email": "minou.nowrousian@rub.de",
+          "jgiSsoId": "7572",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Martha Powell",
+          "email": "mpowell@bama.ua.edu",
+          "jgiSsoId": "8876",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Thomas D. Bruns",
+          "email": "pogon@berkeley.edu",
+          "jgiSsoId": "5825",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Dirk Hoffmeister",
+          "email": "dirk.hoffmeister@hki-jena.de",
+          "jgiSsoId": "1992",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Kyria Boundy-Mills",
+          "email": "klbmills@ucdavis.edu",
+          "jgiSsoId": "4383",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Shweta Deshpande",
+          "email": "sdeshpande@lbl.gov",
+          "jgiSsoId": "3318",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Catharine Adams",
+          "email": "catadams@berkeley.edu",
+          "jgiSsoId": "22327",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Alexander Idnurm",
+          "email": "alexander.idnurm@unimelb.edu.au",
+          "jgiSsoId": "43862",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Megan Biango-Daniels",
+          "email": "mnd24@cornell.edu",
+          "jgiSsoId": "17876",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Timothy Y. James",
+          "email": "tyjames@umich.edu",
+          "jgiSsoId": "1829",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Joseph Spatafora",
+          "email": "spatafoj@science.oregonstate.edu",
+          "jgiSsoId": "1799",
+          "roles": [
+            "PI"
+          ]
+        },
+        {
+          "name": "Chia Hung",
+          "email": "chia-suei.hung.1.ctr@us.af.mil",
+          "jgiSsoId": "46483",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gail Doehring",
+          "email": "gail.doehring@ars.usda.gov",
+          "jgiSsoId": "37114",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Jerome Collemare",
+          "email": "j.collemare@westerdijkinstitute.nl",
+          "jgiSsoId": "62004",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Brian Fristensky",
+          "email": "brian.fristensky@umanitoba.ca",
+          "jgiSsoId": "53312",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Jason E. Stajich",
+          "email": "jason.stajich@ucr.edu",
+          "jgiSsoId": "2665",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Igor Grigoriev",
+          "email": "ivgrigoriev@lbl.gov",
+          "jgiSsoId": "281",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Andrew Urquhart",
+          "email": "a.urquhart@student.unimelb.edu.au",
+          "jgiSsoId": "55469",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Derreck Carter-House",
+          "email": "dcart001@ucr.edu",
+          "jgiSsoId": "35887",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Joana Daniela Mendes Damas",
+          "email": "jmdamas@ucdavis.edu",
+          "jgiSsoId": "64339",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Irene Fakankun",
+          "email": "irene.fakankun@gmail.com",
+          "jgiSsoId": "36125",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Kerrie Barry",
+          "email": "kwbarry@lbl.gov",
+          "jgiSsoId": "124",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Alisha O. Quandt",
+          "email": "alisha.quandt@colorado.edu",
+          "jgiSsoId": "7119",
+          "roles": [
+            "sample contact",
+            "collaborator"
+          ]
+        }
+      ]
+    },
+    {
+      "biosampleGoldId": "Gb0406933",
+      "biosampleName": "Filamentous fungi mycelium microbial communities from Pacific Northwest National Laboratory, Richland, WA, USA - Aspergillus rubrobrunneus CBS 530.65 Minimal Draft",
+      "ncbiTaxId": 1670606,
+      "ncbiTaxName": "fungus metagenome",
+      "sampleCollectionSite": "Freeze dried biomasse after shake flask cultivation in liquid CYA18 medium",
+      "geographicLocation": "USA: Richland, WA",
+      "latitude": 46.3451404,
+      "longitude": -119.2792298,
+      "ecosystemPathId": 4463,
+      "ecosystem": "Host-associated",
+      "ecosystemCategory": "Fungi",
+      "ecosystemType": "Mycelium",
+      "ecosystemSubtype": "Unclassified",
+      "specificEcosystem": "Unclassified",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "2017-11-30",
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Filamentous fungi mycelium from a culture originally isolated by K.B. Raper in 1965",
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "USA: Richland, WA",
+      "habitat": "Filamentous fungi mycelium",
+      "hostGender": null,
+      "hostName": "Aspergillus rubrobrunneus",
+      "hostNcbiTaxid": 396024,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": null,
+      "envoBroadScale": null,
+      "envoLocalScale": null,
+      "envoMedium": null,
+      "modDate": null,
+      "addDate": "2025-01-30",
+      "contacts": [
+        {
+          "name": "Jon K. Magnuson",
+          "email": "jon.magnuson@pnnl.gov",
+          "jgiSsoId": "13250",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Scott E. Baker",
+          "email": "scott.baker@pnnl.gov",
+          "jgiSsoId": "10587",
+          "roles": [
+            "PI"
+          ]
+        },
+        {
+          "name": "Jon K. Magnuson",
+          "email": "jon.magnuson@pnl.gov",
+          "jgiSsoId": "156",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Mikael R. Andersen",
+          "email": "mr@bio.dtu.dk",
+          "jgiSsoId": "1188",
+          "roles": [
+            "PI",
+            "sample contact",
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Vivian Ng",
+          "email": "vng@lbl.gov",
+          "jgiSsoId": "8268",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Mikael R\u00f8rdam Andersen",
+          "email": "mrra@novozymes.com",
+          "jgiSsoId": "79325",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Martin Kogle",
+          "email": "mek@bio.dtu.dk",
+          "jgiSsoId": "8468",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ]
+    },
+    {
+      "biosampleGoldId": "Gb0035671",
+      "biosampleName": "Compost enrichment cellulose adapted microbial communities from Berkeley, USA - O9",
+      "ncbiTaxId": 702656,
+      "ncbiTaxName": "compost metagenome",
+      "sampleCollectionSite": "single cell",
+      "geographicLocation": "USA: California: Emeryville: Joint Bio-Energy Institute",
+      "latitude": 37.8408,
+      "longitude": -122.2896,
+      "ecosystemPathId": 6039,
+      "ecosystem": "Engineered",
+      "ecosystemCategory": "Solid waste",
+      "ecosystemType": "Green waste",
+      "ecosystemSubtype": "Composting",
+      "specificEcosystem": "Unclassified",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "2012-10-31",
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": null,
+      "hostDiseases": [],
+      "elevationInMeters": 2.39,
+      "elevationInMeters2": null,
+      "geoLocation": "USA: California: Emeryville: Joint Bio-Energy Institute",
+      "habitat": "compost enrichment",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": null,
+      "envoLocalScale": null,
+      "envoMedium": null,
+      "modDate": "2022-09-06",
+      "addDate": "2013-02-21",
+      "contacts": [
+        {
+          "name": "Steven W. Singer",
+          "email": "SWSinger@lbl.gov",
+          "jgiSsoId": "140",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Christa Pennacchio",
+          "email": "CPPennacchio@lbl.gov",
+          "jgiSsoId": "29",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Jennifer Hiras",
+          "email": "jhiras@lbl.gov",
+          "jgiSsoId": "7017",
+          "roles": [
+            "sample contact"
+          ]
+        }
+      ]
+    }
+  ],
+  "sample_seq_projects": [
+    {
+      "biosampleGoldId": "Gb0188393",
+      "studyGoldId": "Gs0000001",
+      "projectGoldId": "Gp0312815",
+      "studyName": "",
+      "projectName": "Contaminated culture fungal communities from Oregon State University - Chaetocladium brefeldii NRRL 2343"
+    },
+    {
+      "biosampleGoldId": "Gb0406933",
+      "studyGoldId": "Gs0000027",
+      "projectGoldId": "Gp0833992",
+      "studyName": "",
+      "projectName": "Filamentous fungi mycelium microbial communities from Pacific Northwest National Laboratory, Richland, WA, USA - Aspergillus rubrobrunneus CBS 530.65 Minimal Draft"
+    },
+    {
+      "biosampleGoldId": "Gb0035671",
+      "studyGoldId": "Gs0000103",
+      "projectGoldId": "Gp0035671",
+      "studyName": "",
+      "projectName": "Compost enrichment cellulose adapted microbial communities from Berkeley, USA - O9"
+    }
+  ]
+}
+

@@ -1,0 +1,9 @@
+source_code,source_label,envo_curie,envo_label,relation,source_url,notes
+water,Water,ENVO:00002006,water,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dwater,General water bodies
+wood,Wood,ENVO:00000109,woodland area,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dwood,Woodland or forest area
+grassland,Grassland,ENVO:00000106,grassland area,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dgrassland,Natural grassland
+wetland,Wetland,ENVO:00000043,wetland,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dwetland,Wetland area
+hot_spring,Hot Spring,ENVO:00000051,hot spring,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dhot_spring,Natural hot spring
+beach,Beach,ENVO:00000091,beach,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dbeach,Sandy or pebbly shore
+rock,Rock,ENVO:00001995,rock,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Drock,Exposed rock formation
+sand,Sand,ENVO:01000017,sandy area,skos:exactMatch,https://wiki.openstreetmap.org/wiki/Tag:natural%3Dsand,Sandy area
