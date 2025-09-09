@@ -1,0 +1,29 @@
+Read schema_analysis/nmdc_biosample_stats.csv, schema_analysis/gold_biosample_stats.csv, and schema_analysis/schema_comparison.json. 
+
+Think step by step and be thorough:
+1. First analyze the coverage patterns in both databases to identify high-coverage vs low-coverage fields
+2. Consider practical constraints: API lookups require latitude/longitude/collection_date as prerequisites
+3. Note ecosystem-specific applicability (e.g., longhurst only for marine/oceanic samples)  
+4. Account for potential sample overlap between NMDC and GOLD databases
+5. Look for patterns where geographic context could infer missing ontological classifications
+6. Consider both direct data enrichment AND ontological inference opportunities
+7. Identify ALL possible lookup opportunities where well-populated fields can serve as keys
+8. For each opportunity, think through complete implementation workflows
+9. Finally explain your reasoning for each enrichment suggestion
+
+Analyze field population patterns to identify environmental data enrichment opportunities. Consider both external API enrichment AND cross-database enrichment (e.g., GOLD lacks weather data that NMDC has, NMDC lacks longhurst data that GOLD has). Focus on environmental/geospatial/climate data rather than taxonomic data.
+
+Examples of good opportunities (be thorough and find similar patterns):
+- If latitude/longitude has 98% coverage but elevation has 2% coverage, suggest using Google Elevation API with coordinates as lookup keys
+- If GOLD has longhurst data (0.4% in NMDC) but lacks weather fields, suggest cross-database enrichment
+- If collection dates are well-populated but climate data is sparse, suggest weather APIs using date+location
+- If ENVO ontology fields (env_broad_scale, env_local_scale, env_medium) have low coverage (~25%), suggest using OpenStreetMap Overpass API to query nearby geographic features within radius, then convert feature types to ENVO ontology terms (e.g., nearby lake → "lake water" ENVO:00002167, forest → "forest biome" ENVO:01000174)
+- Look for ALL similar patterns where geographic context can infer missing classifications or ontological terms
+
+Return JSON with:
+1. "coverage_analysis": Summary of high vs low coverage patterns in both databases
+2. "high_to_low_opportunities": Enrichment suggestions where high coverage fields help populate low coverage environmental fields  
+3. "cross_database_enrichment": Opportunities to enrich one database using the other's strengths
+4. "reasoning": Step-by-step explanation of your analysis approach
+
+For each opportunity, include: source_field, target_field, source_coverage, target_coverage, strategy_type (google_api/free_service/geotiff_lookup/cross_database/ontological_inference), prerequisites (required fields like lat/lon/date), ecosystem_filter (e.g., "marine only" for longhurst), potential_samples (estimate after filtering), implementation_steps (detailed workflow), rationale, and comments field describing the specific method. For external APIs, mention services like Google Maps, USGS, NOAA, NLCD geotiff, OpenStreetMap Overpass API, and MCPs from https://github.com/contextualizer-ai (note: some landuse MCP functions are offline due to ORNL API issues). For ontological inference, provide specific ENVO term mappings and conversion workflows. Include throughput considerations and rate limiting needs. For cross-database enrichment, account for potential sample overlap between NMDC and GOLD databases. Be comprehensive and thorough - identify every viable enrichment opportunity. Prioritize free services, Google APIs (workplace funded), and high-throughput methods.

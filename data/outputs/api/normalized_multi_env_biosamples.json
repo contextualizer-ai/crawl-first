@@ -1,0 +1,462 @@
+{
+  "metadata": {
+    "normalization_timestamp": "2025-09-09T15:45:27.880814",
+    "total_input_samples": 18,
+    "total_output_samples": 18,
+    "nmdc_input": 9,
+    "nmdc_output": 9,
+    "gold_input": 9,
+    "gold_output": 9,
+    "enrichable_only": true,
+    "source_metadata": {
+      "description": "Curated diverse biosamples from NMDC and GOLD for testing enrichment differences",
+      "selection_criteria": "Selected using environmental ontology terms: marine biome, freshwater, and soil environments",
+      "created_at": "2025-09-09T09:38:16.015773",
+      "total_samples": 18,
+      "nmdc_samples": 9,
+      "gold_samples": 9,
+      "environment_distribution": {
+        "marine": 6,
+        "freshwater": 6,
+        "soil": 6
+      }
+    }
+  },
+  "results": [
+    {
+      "latitude": 32.86715,
+      "longitude": -117.2573472,
+      "collection_date": "2013-11-23",
+      "textual_location": "USA: California, Scripps Coastal Reserve",
+      "sample_id": "nmdc:bsm-11-emmkhn09",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880236Z",
+      "coordinate_precision": 5,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-emmkhn09",
+      "gold_biosample_id": "Gb0315645",
+      "alternative_identifiers": null,
+      "external_database_identifiers": [
+        "biosample:SAMEA7723500"
+      ],
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "Fish gut microbial communities from Scripps Coastal Reserve, CA, USA - 13114.sandin.54.s004",
+        "13114.sandin.54.s004"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-547rwq94"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": -18.822567,
+      "longitude": 147.63755,
+      "collection_date": "2015-12-23",
+      "textual_location": "Australia: Queensland, Great Barrier Reef, Davies Reef",
+      "sample_id": "nmdc:bsm-11-2da77e23",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880538Z",
+      "coordinate_precision": 5,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-2da77e23",
+      "gold_biosample_id": "Gb0315810",
+      "alternative_identifiers": null,
+      "external_database_identifiers": [
+        "biosample:SAMEA7723698"
+      ],
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "13114.thomas.18.s015",
+        "Sponge tissue microbial communities from Davies Reef, Great Barrier Reef, Queensland, Australia - 13114.thomas.18.s015"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-547rwq94"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 57.6,
+      "longitude": -133.9,
+      "collection_date": "2009-11-15",
+      "textual_location": "USA: Alaska, Seymour Canal",
+      "sample_id": "nmdc:bsm-11-xftvkt77",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880563Z",
+      "coordinate_precision": 1,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-xftvkt77",
+      "gold_biosample_id": "Gb0315862",
+      "alternative_identifiers": null,
+      "external_database_identifiers": [
+        "biosample:SAMEA7723414"
+      ],
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "13114.girguis.50.s008",
+        "Fecal microbial communities from humpback whale in Seymour Canal, Alaska, USA - 13114.girguis.50.s008"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-547rwq94"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 31.6679,
+      "longitude": -81.8403,
+      "collection_date": "2019-07-31",
+      "textual_location": "USA: Georgia",
+      "sample_id": "nmdc:bsm-11-ag9hbz42",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880584Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-ag9hbz42",
+      "gold_biosample_id": "Gb0258384",
+      "alternative_identifiers": null,
+      "external_database_identifiers": [
+        "biosample:SAMN18248532"
+      ],
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "altamaha_2019_sw_WHONDRS-S19S_0010",
+        "Freshwater microbial communities from Georgia, United States - altamaha_2019_sw_WHONDRS-S19S_0010"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-5tgfr349"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 39.1041,
+      "longitude": -96.6027,
+      "collection_date": "2019-08-12",
+      "textual_location": "USA: Kansas",
+      "sample_id": "nmdc:bsm-11-tkxpgx74",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880604Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-tkxpgx74",
+      "gold_biosample_id": "Gb0258389",
+      "alternative_identifiers": null,
+      "external_database_identifiers": [
+        "biosample:SAMN18247142"
+      ],
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "king_2019_sw_WHONDRS-S19S_0016",
+        "Freshwater microbial communities from Kansas, United States - king_2019_sw_WHONDRS-S19S_0016"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-5tgfr349"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 45.7922,
+      "longitude": -121.9299,
+      "collection_date": "2019-08-13",
+      "textual_location": "USA: Stabler, Washington",
+      "sample_id": "nmdc:bsm-11-q5kbyt21",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880623Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-q5kbyt21",
+      "gold_biosample_id": "Gb0258401",
+      "alternative_identifiers": null,
+      "external_database_identifiers": [
+        "biosample:SAMN18247753"
+      ],
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "marthacreek_2019_sw_WHONDRS-S19S_0030",
+        "Freshwater microbial communities from Martha Creek, Stabler, Washington, USA - marthacreek_2019_sw_WHONDRS-S19S_0030"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-5tgfr349"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 44.5881,
+      "longitude": -123.1926,
+      "collection_date": "2020-09-04",
+      "textual_location": "USA: Oregon",
+      "sample_id": "nmdc:bsm-11-6zd5nb38",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880640Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-6zd5nb38",
+      "gold_biosample_id": "Gb0291773",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "Rhizosphere soil microbial communities from poplar common garden site in Corvallis, Oregon, USA - BESC-904-Co3_16_51 rhizosphere",
+        "BESC-904-Co3_16_51 rhizosphere"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 46.1212,
+      "longitude": -123.2695,
+      "collection_date": "2020-09-07",
+      "textual_location": "USA: Oregon",
+      "sample_id": "nmdc:bsm-11-ahpvvb55",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880667Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-ahpvvb55",
+      "gold_biosample_id": "Gb0291786",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "GW-9591-CL1_34_16 rhizosphere",
+        "Rhizosphere soil microbial communities from poplar common garden site in Clatskanie, Oregon, USA - GW-9591-CL1_34_16 rhizosphere"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 44.5875,
+      "longitude": -123.1933,
+      "collection_date": "2020-09-03",
+      "textual_location": "USA: Oregon",
+      "sample_id": "nmdc:bsm-11-4f4btc22",
+      "database_source": "NMDC",
+      "extraction_timestamp": "2025-09-09T19:45:27.880686Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": "nmdc:bsm-11-4f4btc22",
+      "gold_biosample_id": "Gb0291790",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": [
+        "Rhizosphere soil microbial communities from poplar common garden site in Corvallis, Oregon, USA - GW-9591-Co2_62_24 rhizosphere",
+        "GW-9591-Co2_62_24 rhizosphere"
+      ],
+      "nmdc_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "gold_studies": null
+    },
+    {
+      "latitude": 38.107,
+      "longitude": -121.6475,
+      "collection_date": "2011-08-18",
+      "textual_location": "Twitchell Island, Sacramento and San Joaquin Delta, California, USA",
+      "sample_id": "Gb0056203",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880706Z",
+      "coordinate_precision": 3,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0056203",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 38.1072,
+      "longitude": -121.6485,
+      "collection_date": "2011-08-18",
+      "textual_location": "Sacramento, California, United States",
+      "sample_id": "Gb0056208",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880721Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0056208",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 51.64,
+      "longitude": -9.71,
+      "collection_date": null,
+      "textual_location": "Bantry Bay, Ireland",
+      "sample_id": "Gb0119186",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880735Z",
+      "coordinate_precision": 2,
+      "date_precision": null,
+      "location_completeness": 0.75,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0119186",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 33.537594,
+      "longitude": -116.097748,
+      "collection_date": null,
+      "textual_location": "Kent SeaTech, Salton Sea, California, USA",
+      "sample_id": "Gb0051158",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880748Z",
+      "coordinate_precision": 6,
+      "date_precision": null,
+      "location_completeness": 0.75,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0051158",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 33.537594,
+      "longitude": -116.097748,
+      "collection_date": null,
+      "textual_location": "Kent SeaTech, Salton Sea, California, USA",
+      "sample_id": "Gb0051162",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880759Z",
+      "coordinate_precision": 6,
+      "date_precision": null,
+      "location_completeness": 0.75,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0051162",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 33.537594,
+      "longitude": -116.097748,
+      "collection_date": "2006-05-04",
+      "textual_location": "Kent SeaTech, Salton Sea, California, USA",
+      "sample_id": "Gb0051160",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880770Z",
+      "coordinate_precision": 6,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0051160",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 35.8911,
+      "longitude": -106.2978,
+      "collection_date": "2015-06-23",
+      "textual_location": "USA: New Mexico",
+      "sample_id": "Gb0195976",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880782Z",
+      "coordinate_precision": 4,
+      "date_precision": "day",
+      "location_completeness": 1.0,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0195976",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 40.568168,
+      "longitude": -74.61173,
+      "collection_date": null,
+      "textual_location": "Raritan Valley Community College, Somerville, New Jersey",
+      "sample_id": "Gb0051614",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880798Z",
+      "coordinate_precision": 5,
+      "date_precision": null,
+      "location_completeness": 0.75,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0051614",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    },
+    {
+      "latitude": 18.3,
+      "longitude": -65.833333,
+      "collection_date": null,
+      "textual_location": "Luquillo Rain Forest Puerto Rico",
+      "sample_id": "Gb0051352",
+      "database_source": "GOLD",
+      "extraction_timestamp": "2025-09-09T19:45:27.880809Z",
+      "coordinate_precision": 1,
+      "date_precision": null,
+      "location_completeness": 0.75,
+      "is_enrichable": true,
+      "nmdc_biosample_id": null,
+      "gold_biosample_id": "Gb0051352",
+      "alternative_identifiers": null,
+      "external_database_identifiers": null,
+      "biosample_identifiers": null,
+      "sample_identifiers": null,
+      "nmdc_studies": null,
+      "gold_studies": null
+    }
+  ]
+}

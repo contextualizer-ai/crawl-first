@@ -58,14 +58,51 @@ def calculate_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
     return c * 6371000  # Earth radius in meters
 
 
-def get_elevation(lat: float, lon: float) -> Optional[float]:
-    """Get elevation for coordinates using multiple free APIs with fallbacks."""
+def get_elevation(lat: float, lon: float) -> Dict[str, Any]:
+    """Get elevation for coordinates using multiple APIs with fallbacks."""
+    import os
+    
     key = cache_key({"lat": round(lat, 6), "lon": round(lon, 6)})
     cached = get_cache("elevation", key)
     if cached:
-        return cached.get("elevation")
+        return cached
 
-    elevation = None
+    # Try Google Elevation API first (most reliable, but requires API key)
+    api_key = os.environ.get("GOOGLE_ELEVATION_API_KEY")
+    if api_key:
+        try:
+            url = "https://maps.googleapis.com/maps/api/elevation/json"
+            params = {"locations": f"{lat},{lon}", "key": api_key}
+            response = requests.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data.get("status") == "OK" and data.get("results"):
+                result_data = data["results"][0]
+                result = {
+                    "elevation_meters": result_data.get("elevation"),
+                    "resolution": result_data.get("resolution"),
+                    "latitude": lat,
+                    "longitude": lon,
+                    "data_source": "Google Elevation API",
+                    "success": True,
+                }
+                save_cache("elevation", key, result)
+                return result
+            else:
+                error_msg = data.get("error_message", data.get("status", "Unknown error"))
+                if data.get("status") != "ZERO_RESULTS":  # Don't cache ZERO_RESULTS, try other APIs
+                    result = {
+                        "elevation_meters": None,
+                        "error": error_msg,
+                        "data_source": "Google Elevation API",
+                        "success": False,
+                    }
+                    save_cache("elevation", key, result)
+                    return result
+        except Exception as e:
+            # Don't cache Google API errors, try other APIs
+            pass
 
     # Try Open-Elevation API (free, no rate limits)
     try:
@@ -75,27 +112,50 @@ def get_elevation(lat: float, lon: float) -> Optional[float]:
         response.raise_for_status()
         data = response.json()
         if data.get("results"):
-            elevation = float(data["results"][0]["elevation"])
+            result = {
+                "elevation_meters": float(data["results"][0]["elevation"]),
+                "latitude": lat,
+                "longitude": lon,
+                "data_source": "Open Elevation API",
+                "success": True,
+            }
+            save_cache("elevation", key, result)
+            return result
     except Exception:
         pass
 
     # Fallback to USGS Elevation Point Query Service (US only, but free)
-    if elevation is None:
-        try:
-            url = "https://nationalmap.gov/epqs/pqs.php"
-            params = {"x": str(lon), "y": str(lat), "units": "Meters", "output": "json"}
-            response = requests.get(url, params=params, timeout=10)
-            response.raise_for_status()
-            data = response.json()
-            if "USGS_Elevation_Point_Query_Service" in data:
-                result = data["USGS_Elevation_Point_Query_Service"]["Elevation_Query"]
-                if result.get("Elevation") not in [None, -1000000]:
-                    elevation = float(result["Elevation"])
-        except Exception:
-            pass
+    try:
+        url = "https://epqs.nationalmap.gov/v1/json"
+        params = {"x": lon, "y": lat, "units": "Meters"}
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        
+        elevation_str = data.get("value")
+        if elevation_str and elevation_str != "-1000000":
+            result = {
+                "elevation_meters": float(elevation_str),
+                "latitude": lat,
+                "longitude": lon,
+                "data_source": "USGS Elevation Point Query Service v1",
+                "units": "meters",
+                "success": True,
+            }
+            save_cache("elevation", key, result)
+            return result
+    except Exception:
+        pass
 
-    save_cache("elevation", key, {"elevation": elevation})
-    return elevation
+    # All APIs failed
+    result = {
+        "elevation_meters": None,
+        "error": "All elevation APIs failed",
+        "data_source": "Multiple APIs",
+        "success": False,
+    }
+    save_cache("elevation", key, result)
+    return result
 
 
 def geocode_location_name(location_name: str) -> Dict[str, Any]:
@@ -175,6 +235,8 @@ def reverse_geocode(lat: float, lon: float) -> Dict[str, Any]:
         "address": {},
         "administrative": {},
         "error": None,
+        "data_source": "OpenStreetMap Nominatim (geopy)",
+        "success": False,  # Will be set to True on successful geocoding
     }
 
     try:
@@ -225,6 +287,9 @@ def reverse_geocode(lat: float, lon: float) -> Dict[str, Any]:
                 result["natural"] = location.raw["natural"]
             if "landuse" in location.raw:
                 result["landuse"] = location.raw["landuse"]
+            
+            # Mark as successful
+            result["success"] = True
         else:
             # Explicitly assign string to the error field
             error_msg: Any = "No location found"

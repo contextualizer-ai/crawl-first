@@ -1,0 +1,2786 @@
+{
+  "metadata": {
+    "description": "Curated diverse biosamples from NMDC and GOLD for testing enrichment differences",
+    "selection_criteria": "Selected using environmental ontology terms: marine biome, freshwater, and soil environments",
+    "created_at": "2025-09-09T09:38:16.015773",
+    "total_samples": 18,
+    "nmdc_samples": 9,
+    "gold_samples": 9,
+    "environment_distribution": {
+      "marine": 6,
+      "freshwater": 6,
+      "soil": 6
+    }
+  },
+  "nmdc_samples": [
+    {
+      "add_date": "2022-04-01",
+      "associated_studies": [
+        "nmdc:sty-11-547rwq94"
+      ],
+      "collection_date": {
+        "has_raw_value": "2013-11-23",
+        "type": "nmdc:TimestampValue"
+      },
+      "description": "Fish gut microbial communities from Scripps Coastal Reserve, CA, USA",
+      "ecosystem": "Host-associated",
+      "ecosystem_category": "Fish",
+      "ecosystem_subtype": "Intestine",
+      "ecosystem_type": "Digestive system",
+      "elev": 0,
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_00000447",
+        "term": {
+          "id": "ENVO:00000447",
+          "name": "marine biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_01001002",
+        "term": {
+          "id": "ENVO:01001002",
+          "name": "animal-associated environment",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00002003",
+        "term": {
+          "id": "ENVO:00002003",
+          "name": "fecal material",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "geo_loc_name": {
+        "has_raw_value": "USA: California, Scripps Coastal Reserve",
+        "type": "nmdc:TextValue"
+      },
+      "gold_biosample_identifiers": [
+        "gold:Gb0315645"
+      ],
+      "habitat": "Fish gut",
+      "host_name": "Atherinopsis californiensis",
+      "host_taxid": {
+        "has_raw_value": "NCBITaxon:1311532",
+        "term": {
+          "id": "NCBITaxon:1311532",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "id": "nmdc:bsm-11-emmkhn09",
+      "lat_lon": {
+        "has_raw_value": "32.86715 -117.2573472",
+        "latitude": 32.86715,
+        "longitude": -117.2573472,
+        "type": "nmdc:GeolocationValue"
+      },
+      "location": "USA",
+      "mod_date": "2024-04-17",
+      "name": "Fish gut microbial communities from Scripps Coastal Reserve, CA, USA - 13114.sandin.54.s004",
+      "ncbi_taxonomy_name": "gut metagenome",
+      "samp_name": "13114.sandin.54.s004",
+      "samp_taxon_id": {
+        "has_raw_value": "gut metagenome [NCBITaxon:749906]",
+        "term": {
+          "id": "NCBITaxon:749906",
+          "name": "gut metagenome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "sample_collection_site": "fish gut content",
+      "specific_ecosystem": "Unclassified",
+      "type": "nmdc:Biosample",
+      "insdc_biosample_identifiers": [
+        "biosample:SAMEA7723500"
+      ],
+      "environment_category": "marine"
+    },
+    {
+      "add_date": "2022-04-01",
+      "associated_studies": [
+        "nmdc:sty-11-547rwq94"
+      ],
+      "collection_date": {
+        "has_raw_value": "2015-12-23",
+        "type": "nmdc:TimestampValue"
+      },
+      "description": "Sponge tissue microbial communities from Davies Reef, Great Barrier Reef, Queensland, Australia",
+      "ecosystem": "Host-associated",
+      "ecosystem_category": "Porifera",
+      "ecosystem_subtype": "Tissue",
+      "ecosystem_type": "Sponge",
+      "elev": 0,
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_01000049",
+        "term": {
+          "id": "ENVO:01000049",
+          "name": "marine coral reef biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00000426",
+        "term": {
+          "id": "ENVO:00000426",
+          "name": "ocean floor",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_01000155",
+        "term": {
+          "id": "ENVO:01000155",
+          "name": "organic material",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "geo_loc_name": {
+        "has_raw_value": "Australia: Queensland, Great Barrier Reef, Davies Reef",
+        "type": "nmdc:TextValue"
+      },
+      "gold_biosample_identifiers": [
+        "gold:Gb0315810"
+      ],
+      "habitat": "Sponge tissue",
+      "host_name": "Coscinoderma mathewsi",
+      "host_taxid": {
+        "has_raw_value": "NCBITaxon:2604249",
+        "term": {
+          "id": "NCBITaxon:2604249",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "id": "nmdc:bsm-11-2da77e23",
+      "lat_lon": {
+        "has_raw_value": "-18.822567 147.63755",
+        "latitude": -18.822567,
+        "longitude": 147.63755,
+        "type": "nmdc:GeolocationValue"
+      },
+      "location": "Australia",
+      "mod_date": "2024-04-17",
+      "name": "Sponge tissue microbial communities from Davies Reef, Great Barrier Reef, Queensland, Australia - 13114.thomas.18.s015",
+      "ncbi_taxonomy_name": "sponge metagenome",
+      "samp_name": "13114.thomas.18.s015",
+      "samp_taxon_id": {
+        "has_raw_value": "sponge metagenome [NCBITaxon:1163772]",
+        "term": {
+          "id": "NCBITaxon:1163772",
+          "name": "sponge metagenome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "sample_collection_site": "sponge tissue",
+      "specific_ecosystem": "Unclassified",
+      "type": "nmdc:Biosample",
+      "insdc_biosample_identifiers": [
+        "biosample:SAMEA7723698"
+      ],
+      "environment_category": "marine"
+    },
+    {
+      "add_date": "2022-04-01",
+      "associated_studies": [
+        "nmdc:sty-11-547rwq94"
+      ],
+      "collection_date": {
+        "has_raw_value": "2009-11-15",
+        "type": "nmdc:TimestampValue"
+      },
+      "description": "Fecal microbial communities from humpback whale in Seymour Canal, Alaska, USA",
+      "ecosystem": "Host-associated",
+      "ecosystem_category": "Mammals",
+      "ecosystem_subtype": "Large intestine",
+      "ecosystem_type": "Digestive system",
+      "elev": 0,
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_00000447",
+        "term": {
+          "id": "ENVO:00000447",
+          "name": "marine biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_01001002",
+        "term": {
+          "id": "ENVO:01001002",
+          "name": "animal-associated environment",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00002003",
+        "term": {
+          "id": "ENVO:00002003",
+          "name": "fecal material",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "geo_loc_name": {
+        "has_raw_value": "USA: Alaska, Seymour Canal",
+        "type": "nmdc:TextValue"
+      },
+      "gold_biosample_identifiers": [
+        "gold:Gb0315862"
+      ],
+      "habitat": "Fecal",
+      "host_name": "Megaptera novaeangliae",
+      "host_taxid": {
+        "has_raw_value": "NCBITaxon:9773",
+        "term": {
+          "id": "NCBITaxon:9773",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "id": "nmdc:bsm-11-xftvkt77",
+      "lat_lon": {
+        "has_raw_value": "57.6 -133.9",
+        "latitude": 57.6,
+        "longitude": -133.9,
+        "type": "nmdc:GeolocationValue"
+      },
+      "location": "USA",
+      "mod_date": "2024-04-17",
+      "name": "Fecal microbial communities from humpback whale in Seymour Canal, Alaska, USA - 13114.girguis.50.s008",
+      "ncbi_taxonomy_name": "gut metagenome",
+      "samp_name": "13114.girguis.50.s008",
+      "samp_taxon_id": {
+        "has_raw_value": "gut metagenome [NCBITaxon:749906]",
+        "term": {
+          "id": "NCBITaxon:749906",
+          "name": "gut metagenome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "sample_collection_site": "animal feces",
+      "specific_ecosystem": "Fecal",
+      "type": "nmdc:Biosample",
+      "insdc_biosample_identifiers": [
+        "biosample:SAMEA7723414"
+      ],
+      "environment_category": "marine"
+    },
+    {
+      "id": "nmdc:bsm-11-ag9hbz42",
+      "name": "Freshwater microbial communities from Georgia, United States - altamaha_2019_sw_WHONDRS-S19S_0010",
+      "description": "Freshwater microbial communities from Georgia, United States",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_01000253",
+        "term": {
+          "id": "ENVO:01000253",
+          "name": "freshwater river biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00000022",
+        "term": {
+          "id": "ENVO:00000022",
+          "name": "river",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00002042",
+        "term": {
+          "id": "ENVO:00002042",
+          "name": "surface water",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "type": "nmdc:Biosample",
+      "img_identifiers": [
+        "img.taxon:3300043395",
+        "img.taxon:3300047546"
+      ],
+      "samp_name": "altamaha_2019_sw_WHONDRS-S19S_0010",
+      "gold_biosample_identifiers": [
+        "gold:Gb0258384"
+      ],
+      "insdc_biosample_identifiers": [
+        "biosample:SAMN18248532"
+      ],
+      "geo_loc_name": {
+        "has_raw_value": "USA: Georgia",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "31.6679 -81.8403",
+        "latitude": 31.6679,
+        "longitude": -81.8403,
+        "type": "nmdc:GeolocationValue"
+      },
+      "samp_taxon_id": {
+        "has_raw_value": "freshwater metagenome [NCBITaxon:449393]",
+        "term": {
+          "id": "NCBITaxon:449393",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "ecosystem": "Environmental",
+      "ecosystem_category": "Aquatic",
+      "ecosystem_type": "Freshwater",
+      "ecosystem_subtype": "River",
+      "specific_ecosystem": "Unclassified",
+      "add_date": "2020-08-14T00:00:00",
+      "habitat": "Freshwater",
+      "location": "USA",
+      "mod_date": "2020-08-14T00:00:00",
+      "ncbi_taxonomy_name": "freshwater metagenome",
+      "sample_collection_site": "river surface water",
+      "collection_date": {
+        "has_raw_value": "2019-07-31",
+        "type": "nmdc:TimestampValue"
+      },
+      "associated_studies": [
+        "nmdc:sty-11-5tgfr349"
+      ],
+      "environment_category": "freshwater"
+    },
+    {
+      "id": "nmdc:bsm-11-tkxpgx74",
+      "name": "Freshwater microbial communities from Kansas, United States - king_2019_sw_WHONDRS-S19S_0016",
+      "description": "Freshwater microbial communities from Kansas, United States",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_01000253",
+        "term": {
+          "id": "ENVO:01000253",
+          "name": "freshwater river biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00000022",
+        "term": {
+          "id": "ENVO:00000022",
+          "name": "river",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00002042",
+        "term": {
+          "id": "ENVO:00002042",
+          "name": "surface water",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "type": "nmdc:Biosample",
+      "img_identifiers": [
+        "img.taxon:3300047549",
+        "img.taxon:3300043400"
+      ],
+      "samp_name": "king_2019_sw_WHONDRS-S19S_0016",
+      "gold_biosample_identifiers": [
+        "gold:Gb0258389"
+      ],
+      "insdc_biosample_identifiers": [
+        "biosample:SAMN18247142"
+      ],
+      "geo_loc_name": {
+        "has_raw_value": "USA: Kansas",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "39.1041 -96.6027",
+        "latitude": 39.1041,
+        "longitude": -96.6027,
+        "type": "nmdc:GeolocationValue"
+      },
+      "samp_taxon_id": {
+        "has_raw_value": "freshwater metagenome [NCBITaxon:449393]",
+        "term": {
+          "id": "NCBITaxon:449393",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "ecosystem": "Environmental",
+      "ecosystem_category": "Aquatic",
+      "ecosystem_type": "Freshwater",
+      "ecosystem_subtype": "River",
+      "specific_ecosystem": "Unclassified",
+      "add_date": "2020-08-14T00:00:00",
+      "habitat": "Freshwater",
+      "location": "USA",
+      "mod_date": "2020-08-14T00:00:00",
+      "ncbi_taxonomy_name": "freshwater metagenome",
+      "sample_collection_site": "river surface water",
+      "collection_date": {
+        "has_raw_value": "2019-08-12",
+        "type": "nmdc:TimestampValue"
+      },
+      "biosample_categories": [
+        "NEON"
+      ],
+      "associated_studies": [
+        "nmdc:sty-11-5tgfr349"
+      ],
+      "environment_category": "freshwater"
+    },
+    {
+      "id": "nmdc:bsm-11-q5kbyt21",
+      "name": "Freshwater microbial communities from Martha Creek, Stabler, Washington, USA - marthacreek_2019_sw_WHONDRS-S19S_0030",
+      "description": "Freshwater microbial communities from Washington, United States",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_01000253",
+        "term": {
+          "id": "ENVO:01000253",
+          "name": "freshwater river biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00000022",
+        "term": {
+          "id": "ENVO:00000022",
+          "name": "river",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00002042",
+        "term": {
+          "id": "ENVO:00002042",
+          "name": "surface water",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "type": "nmdc:Biosample",
+      "img_identifiers": [
+        "img.taxon:3300043403"
+      ],
+      "samp_name": "marthacreek_2019_sw_WHONDRS-S19S_0030",
+      "gold_biosample_identifiers": [
+        "gold:Gb0258401"
+      ],
+      "insdc_biosample_identifiers": [
+        "biosample:SAMN18247753"
+      ],
+      "geo_loc_name": {
+        "has_raw_value": "USA: Stabler, Washington",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "45.7922 -121.9299",
+        "latitude": 45.7922,
+        "longitude": -121.9299,
+        "type": "nmdc:GeolocationValue"
+      },
+      "samp_taxon_id": {
+        "has_raw_value": "freshwater metagenome [NCBITaxon:449393]",
+        "term": {
+          "id": "NCBITaxon:449393",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "ecosystem": "Environmental",
+      "ecosystem_category": "Aquatic",
+      "ecosystem_type": "Freshwater",
+      "ecosystem_subtype": "River",
+      "specific_ecosystem": "Unclassified",
+      "add_date": "2020-08-14T00:00:00",
+      "habitat": "Freshwater",
+      "location": "USA",
+      "mod_date": "2020-08-14T00:00:00",
+      "ncbi_taxonomy_name": "freshwater metagenome",
+      "sample_collection_site": "river surface water",
+      "collection_date": {
+        "has_raw_value": "2019-08-13",
+        "type": "nmdc:TimestampValue"
+      },
+      "biosample_categories": [
+        "NEON"
+      ],
+      "associated_studies": [
+        "nmdc:sty-11-5tgfr349"
+      ],
+      "environment_category": "freshwater"
+    },
+    {
+      "id": "nmdc:bsm-11-6zd5nb38",
+      "name": "Rhizosphere soil microbial communities from poplar common garden site in Corvallis, Oregon, USA - BESC-904-Co3_16_51 rhizosphere",
+      "description": "Rhizosphere soil microbial communities from poplar common garden site in Corvallis, Oregon, USA",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_00000446",
+        "term": {
+          "id": "ENVO:00000446",
+          "name": "terrestrial biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00005801",
+        "term": {
+          "id": "ENVO:00005801",
+          "name": "rhizosphere",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00001998",
+        "term": {
+          "id": "ENVO:00001998",
+          "name": "soil",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "host_taxid": {
+        "has_raw_value": "3689",
+        "term": {
+          "id": "NCBITaxon:3689",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "collected_from": "nmdc:frsite-11-xckqtm38",
+      "type": "nmdc:Biosample",
+      "img_identifiers": [
+        "img.taxon:3300046665"
+      ],
+      "samp_name": "BESC-904-Co3_16_51 rhizosphere",
+      "gold_biosample_identifiers": [
+        "gold:Gb0291773"
+      ],
+      "elev": 62.0,
+      "geo_loc_name": {
+        "has_raw_value": "USA: Oregon",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "44.5881 -123.1926",
+        "latitude": 44.5881,
+        "longitude": -123.1926,
+        "type": "nmdc:GeolocationValue"
+      },
+      "samp_taxon_id": {
+        "has_raw_value": "rhizosphere metagenome [NCBITaxon:939928]",
+        "term": {
+          "id": "NCBITaxon:939928",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "ecosystem": "Host-associated",
+      "ecosystem_category": "Plants",
+      "ecosystem_type": "Roots",
+      "ecosystem_subtype": "Rhizosphere",
+      "specific_ecosystem": "Soil",
+      "add_date": "2021-05-03T00:00:00",
+      "habitat": "Rhizosphere soil",
+      "host_name": "Populus",
+      "location": "USA",
+      "mod_date": "2021-05-03T00:00:00",
+      "ncbi_taxonomy_name": "rhizosphere metagenome",
+      "sample_collection_site": "Rhizosphere Soil",
+      "collection_date": {
+        "has_raw_value": "2020-09-04",
+        "type": "nmdc:TimestampValue"
+      },
+      "associated_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "environment_category": "soil"
+    },
+    {
+      "id": "nmdc:bsm-11-ahpvvb55",
+      "name": "Rhizosphere soil microbial communities from poplar common garden site in Clatskanie, Oregon, USA - GW-9591-CL1_34_16 rhizosphere",
+      "description": "Rhizosphere soil microbial communities from poplar common garden site in Clatskanie, Oregon, USA",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_00000446",
+        "term": {
+          "id": "ENVO:00000446",
+          "name": "terrestrial biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00005801",
+        "term": {
+          "id": "ENVO:00005801",
+          "name": "rhizosphere",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00001998",
+        "term": {
+          "id": "ENVO:00001998",
+          "name": "soil",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "host_taxid": {
+        "has_raw_value": "3689",
+        "term": {
+          "id": "NCBITaxon:3689",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "collected_from": "nmdc:frsite-11-mnvq8684",
+      "type": "nmdc:Biosample",
+      "img_identifiers": [
+        "img.taxon:3300047319"
+      ],
+      "samp_name": "GW-9591-CL1_34_16 rhizosphere",
+      "gold_biosample_identifiers": [
+        "gold:Gb0291786"
+      ],
+      "elev": 1.0,
+      "geo_loc_name": {
+        "has_raw_value": "USA: Oregon",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "46.1212 -123.2695",
+        "latitude": 46.1212,
+        "longitude": -123.2695,
+        "type": "nmdc:GeolocationValue"
+      },
+      "samp_taxon_id": {
+        "has_raw_value": "rhizosphere metagenome [NCBITaxon:939928]",
+        "term": {
+          "id": "NCBITaxon:939928",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "ecosystem": "Host-associated",
+      "ecosystem_category": "Plants",
+      "ecosystem_type": "Roots",
+      "ecosystem_subtype": "Rhizosphere",
+      "specific_ecosystem": "Soil",
+      "add_date": "2021-05-03T00:00:00",
+      "habitat": "Rhizosphere soil",
+      "host_name": "Populus",
+      "location": "USA",
+      "mod_date": "2021-05-03T00:00:00",
+      "ncbi_taxonomy_name": "rhizosphere metagenome",
+      "sample_collection_site": "Rhizosphere Soil",
+      "collection_date": {
+        "has_raw_value": "2020-09-07",
+        "type": "nmdc:TimestampValue"
+      },
+      "associated_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "environment_category": "soil"
+    },
+    {
+      "id": "nmdc:bsm-11-4f4btc22",
+      "name": "Rhizosphere soil microbial communities from poplar common garden site in Corvallis, Oregon, USA - GW-9591-Co2_62_24 rhizosphere",
+      "description": "Rhizosphere soil microbial communities from poplar common garden site in Corvallis, Oregon, USA",
+      "env_broad_scale": {
+        "has_raw_value": "ENVO_00000446",
+        "term": {
+          "id": "ENVO:00000446",
+          "name": "terrestrial biome",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_local_scale": {
+        "has_raw_value": "ENVO_00005801",
+        "term": {
+          "id": "ENVO:00005801",
+          "name": "rhizosphere",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "env_medium": {
+        "has_raw_value": "ENVO_00001998",
+        "term": {
+          "id": "ENVO:00001998",
+          "name": "soil",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "host_taxid": {
+        "has_raw_value": "3689",
+        "term": {
+          "id": "NCBITaxon:3689",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "collected_from": "nmdc:frsite-11-11d1jp93",
+      "type": "nmdc:Biosample",
+      "img_identifiers": [
+        "img.taxon:3300049459"
+      ],
+      "samp_name": "GW-9591-Co2_62_24 rhizosphere",
+      "gold_biosample_identifiers": [
+        "gold:Gb0291790"
+      ],
+      "elev": 62.0,
+      "geo_loc_name": {
+        "has_raw_value": "USA: Oregon",
+        "type": "nmdc:TextValue"
+      },
+      "lat_lon": {
+        "has_raw_value": "44.5875 -123.1933",
+        "latitude": 44.5875,
+        "longitude": -123.1933,
+        "type": "nmdc:GeolocationValue"
+      },
+      "samp_taxon_id": {
+        "has_raw_value": "rhizosphere metagenome [NCBITaxon:939928]",
+        "term": {
+          "id": "NCBITaxon:939928",
+          "type": "nmdc:OntologyClass"
+        },
+        "type": "nmdc:ControlledIdentifiedTermValue"
+      },
+      "ecosystem": "Host-associated",
+      "ecosystem_category": "Plants",
+      "ecosystem_type": "Roots",
+      "ecosystem_subtype": "Rhizosphere",
+      "specific_ecosystem": "Soil",
+      "add_date": "2021-05-03T00:00:00",
+      "habitat": "Rhizosphere soil",
+      "host_name": "Populus",
+      "location": "USA",
+      "mod_date": "2021-05-03T00:00:00",
+      "ncbi_taxonomy_name": "rhizosphere metagenome",
+      "sample_collection_site": "Rhizosphere Soil",
+      "collection_date": {
+        "has_raw_value": "2020-09-03",
+        "type": "nmdc:TimestampValue"
+      },
+      "associated_studies": [
+        "nmdc:sty-11-r2h77870"
+      ],
+      "environment_category": "soil"
+    }
+  ],
+  "gold_samples": [
+    {
+      "biosampleGoldId": "Gb0056203",
+      "biosampleName": "Wetland sediment microbial communities from Twitchell Island in the Sacramento Delta, CA, USA - Aug2011 Site A1 Bulk",
+      "ncbiTaxId": 1325974,
+      "ncbiTaxName": "wetland metagenome",
+      "sampleCollectionSite": "Twitchell Island, Sacramento and San Joaquin Delta, California, USA",
+      "geographicLocation": "Twitchell Island, Sacramento and San Joaquin Delta, California, USA",
+      "latitude": 38.107,
+      "longitude": -121.6475,
+      "ecosystemPathId": 4056,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Aquatic",
+      "ecosystemType": "Marine",
+      "ecosystemSubtype": "Wetlands",
+      "specificEcosystem": "Sediment",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "2011-08-18",
+      "depthInMeters": 0,
+      "depthInMeters2": null,
+      "description": null,
+      "hostDiseases": [],
+      "elevationInMeters": 0,
+      "elevationInMeters2": null,
+      "geoLocation": "Twitchell Island, Sacramento and San Joaquin Delta, California, USA",
+      "habitat": "Wetland",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00000447",
+        "label": "marine biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00000240",
+        "label": "saline wetland"
+      },
+      "envoMedium": {
+        "id": "ENVO_00002007",
+        "label": "sediment"
+      },
+      "modDate": "2024-02-29",
+      "addDate": "2013-02-08",
+      "contacts": [
+        {
+          "name": "mark waldrop",
+          "email": "mwaldrop@usgs.gov",
+          "jgiSsoId": "254",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Tijana Glavina del Rio",
+          "email": "tglavina@lbl.gov",
+          "jgiSsoId": "2314",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Susannah Tringe",
+          "email": "sgtringe@lbl.gov",
+          "jgiSsoId": "168",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Tanja Woyke",
+          "email": "twoyke@lbl.gov",
+          "jgiSsoId": "1805",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Lisamarie Windham-Myers",
+          "email": "lwindham@usgs.gov",
+          "jgiSsoId": "55953",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ],
+      "environment_category": "marine"
+    },
+    {
+      "biosampleGoldId": "Gb0056208",
+      "biosampleName": "Wetland sediment microbial communities from Twitchell Island in the Sacramento Delta, CA, USA - Aug2011 Site B2 Bulk",
+      "ncbiTaxId": 410658,
+      "ncbiTaxName": "soil metagenome",
+      "sampleCollectionSite": "Sacramento, California, United States",
+      "geographicLocation": "Sacramento, California, United States",
+      "latitude": 38.1072,
+      "longitude": -121.6485,
+      "ecosystemPathId": 4056,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Aquatic",
+      "ecosystemType": "Marine",
+      "ecosystemSubtype": "Wetlands",
+      "specificEcosystem": "Sediment",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "2011-08-18",
+      "depthInMeters": 0,
+      "depthInMeters2": null,
+      "description": "Wetland surface sediment",
+      "hostDiseases": [],
+      "elevationInMeters": 0,
+      "elevationInMeters2": null,
+      "geoLocation": "Sacramento, California, United States",
+      "habitat": "Wetland",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00000447",
+        "label": "marine biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00000240",
+        "label": "saline wetland"
+      },
+      "envoMedium": {
+        "id": "ENVO_00002007",
+        "label": "sediment"
+      },
+      "modDate": "2024-02-29",
+      "addDate": "2013-02-08",
+      "contacts": [
+        {
+          "name": "Tijana Glavina del Rio",
+          "email": "tglavina@lbl.gov",
+          "jgiSsoId": "2314",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Lisamarie Windham-Myers",
+          "email": "lwindham@usgs.gov",
+          "jgiSsoId": "55953",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Susannah Tringe",
+          "email": "sgtringe@lbl.gov",
+          "jgiSsoId": "168",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "mark waldrop",
+          "email": "mwaldrop@usgs.gov",
+          "jgiSsoId": "254",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Tanja Woyke",
+          "email": "twoyke@lbl.gov",
+          "jgiSsoId": "1805",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ],
+      "environment_category": "marine"
+    },
+    {
+      "biosampleGoldId": "Gb0119186",
+      "biosampleName": "Marine algae microbial communities from Bantry Bay - Bantry Bay, Ireland",
+      "ncbiTaxId": 408172,
+      "ncbiTaxName": "marine metagenome",
+      "sampleCollectionSite": "Porphyra blade from Bantry Bay, Ireland",
+      "geographicLocation": "Bantry Bay, Ireland",
+      "latitude": 51.64,
+      "longitude": -9.71,
+      "ecosystemPathId": 7720,
+      "ecosystem": "Host-associated",
+      "ecosystemCategory": "Algae",
+      "ecosystemType": "Red algae",
+      "ecosystemSubtype": "Blade",
+      "specificEcosystem": "Unclassified",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": null,
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Marine red algae metagenome sample from Porphyra blade",
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "Bantry Bay, Ireland",
+      "habitat": "marine",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "Ireland",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00000447",
+        "label": "marine biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00001999",
+        "label": "marine water body"
+      },
+      "envoMedium": {
+        "id": "ENVO_00002149",
+        "label": "sea water"
+      },
+      "modDate": "2023-01-09",
+      "addDate": "2015-08-10",
+      "contacts": [
+        {
+          "name": "Kerrie Barry",
+          "email": "kwbarry@lbl.gov",
+          "jgiSsoId": "124",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Arthur Grossman",
+          "email": "arthurg@stanford.edu",
+          "jgiSsoId": "378",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Supratim Mukherjee",
+          "email": "supratimmukherjee@lbl.gov",
+          "jgiSsoId": "5631",
+          "roles": [
+            "submitter"
+          ]
+        },
+        {
+          "name": "Ira Levine",
+          "email": "ilevine@usm.maine.edu",
+          "jgiSsoId": "56154",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Juliet Brodie",
+          "email": "j.brodie@nhm.ac.uk",
+          "jgiSsoId": "38034",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Senjie Lin",
+          "email": "senjie.lin@uconn.edu",
+          "jgiSsoId": "2629",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Kirsten Muller",
+          "email": "kmmuller@sciborg.uwaterloo.ca",
+          "jgiSsoId": "56155",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gary Saunders",
+          "email": "gws@unb.ca",
+          "jgiSsoId": "55944",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Charles Yarish",
+          "email": "charles.yarish@uconn.edu",
+          "jgiSsoId": "56157",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gertraud Burger",
+          "email": "gertraud.burger@umontreal.ca",
+          "jgiSsoId": "16617",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "John W. Stiller",
+          "email": "stillerj@mail.ecu.edu",
+          "jgiSsoId": "null",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Susan Brawley",
+          "email": "Brawley@maine.edu",
+          "jgiSsoId": "457",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Sandra Lindstrom",
+          "email": "sandracl@interchange.ubc.ca",
+          "jgiSsoId": "56156",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "B. Franz Lang",
+          "email": "franz.lang@umontreal.ca",
+          "jgiSsoId": "2685",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gantt, Elisabeth",
+          "email": "egantt@umd.edu",
+          "jgiSsoId": "645",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Senjie Lin",
+          "email": "mscadm04@uconnvm.uconn.edu",
+          "jgiSsoId": "null",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Debashish Bhattacharya",
+          "email": "debash.bhattacharya@gmail.com",
+          "jgiSsoId": "15631",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Shan Lu",
+          "email": "shanlu@nju.edu.cn",
+          "jgiSsoId": "56153",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Bhattacharya D",
+          "email": "dbhattac@blue.weeg.uiowa.edu",
+          "jgiSsoId": "null",
+          "roles": [
+            "collaborator"
+          ]
+        }
+      ],
+      "environment_category": "marine"
+    },
+    {
+      "biosampleGoldId": "Gb0051158",
+      "biosampleName": "Tilapia pond freshwater microbial communities from Kent SeaTech - TilPondKentSTMic0806",
+      "ncbiTaxId": 449393,
+      "ncbiTaxName": "freshwater metagenome",
+      "sampleCollectionSite": "Kent SeaTech, Salton Sea, California, USA",
+      "geographicLocation": "Kent SeaTech, Salton Sea, California, USA",
+      "latitude": 33.537594,
+      "longitude": -116.097748,
+      "ecosystemPathId": 4176,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Aquatic",
+      "ecosystemType": "Freshwater",
+      "ecosystemSubtype": "Lentic",
+      "specificEcosystem": "Limnetic zone",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": null,
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Microbial community from Kent SeaTech tilapia pond",
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "Kent SeaTech, Salton Sea, California, USA",
+      "habitat": "Freshwater",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00002030",
+        "label": "aquatic biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00000203",
+        "label": "rift lake"
+      },
+      "envoMedium": {
+        "id": "ENVO_00002011",
+        "label": "fresh water"
+      },
+      "modDate": "2016-08-26",
+      "addDate": "2008-03-23",
+      "contacts": [
+        {
+          "name": "Nikos Kyrpides",
+          "email": "nckyrpides@lbl.gov",
+          "jgiSsoId": "1882",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "environment_category": "freshwater"
+    },
+    {
+      "biosampleGoldId": "Gb0051162",
+      "biosampleName": "Tiapia freshwater pond viral communities from Kent SeaTech, Salton Sea, California, USA - TilPondKentSTVir0806",
+      "ncbiTaxId": 449393,
+      "ncbiTaxName": "freshwater metagenome",
+      "sampleCollectionSite": "Kent SeaTech, Salton Sea, California, USA",
+      "geographicLocation": "Kent SeaTech, Salton Sea, California, USA",
+      "latitude": 33.537594,
+      "longitude": -116.097748,
+      "ecosystemPathId": 4176,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Aquatic",
+      "ecosystemType": "Freshwater",
+      "ecosystemSubtype": "Lentic",
+      "specificEcosystem": "Limnetic zone",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": null,
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Viral community from Kent SeaTech tilapia pond",
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "Kent SeaTech, Salton Sea, California, USA",
+      "habitat": "Freshwater",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00002030",
+        "label": "aquatic biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00000203",
+        "label": "rift lake"
+      },
+      "envoMedium": {
+        "id": "ENVO_04000007",
+        "label": "lake water"
+      },
+      "modDate": "2016-08-26",
+      "addDate": "2008-03-23",
+      "contacts": [
+        {
+          "name": "Nikos Kyrpides",
+          "email": "nckyrpides@lbl.gov",
+          "jgiSsoId": "1882",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "environment_category": "freshwater"
+    },
+    {
+      "biosampleGoldId": "Gb0051160",
+      "biosampleName": "Freshwater viral communities from prebead pond at Kent SeaTech, Salton Sea, California, USA - PrePondKentSTVir050406",
+      "ncbiTaxId": 449393,
+      "ncbiTaxName": "freshwater metagenome",
+      "sampleCollectionSite": "Kent SeaTech, Salton Sea, California, USA",
+      "geographicLocation": "Kent SeaTech, Salton Sea, California, USA",
+      "latitude": 33.537594,
+      "longitude": -116.097748,
+      "ecosystemPathId": 4174,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Aquatic",
+      "ecosystemType": "Freshwater",
+      "ecosystemSubtype": "Lentic",
+      "specificEcosystem": "Unclassified",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "2006-05-04",
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Viral community from Kent SeaTech prebead Pond",
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "Kent SeaTech, Salton Sea, California, USA",
+      "habitat": "Freshwater",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00002030",
+        "label": "aquatic biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00000203",
+        "label": "rift lake"
+      },
+      "envoMedium": {
+        "id": "ENVO_04000007",
+        "label": "lake water"
+      },
+      "modDate": "2016-08-26",
+      "addDate": "2008-03-23",
+      "contacts": [
+        {
+          "name": "Nikos Kyrpides",
+          "email": "nckyrpides@lbl.gov",
+          "jgiSsoId": "1882",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "environment_category": "freshwater"
+    },
+    {
+      "biosampleGoldId": "Gb0195976",
+      "biosampleName": "Forest soil fungal communities from Los Alamos, New Mexico, United States - Jemez Pines Pi 5A",
+      "ncbiTaxId": 410658,
+      "ncbiTaxName": "soil metagenome",
+      "sampleCollectionSite": "Soils from Pinyon trees",
+      "geographicLocation": "USA: New Mexico",
+      "latitude": 35.8911,
+      "longitude": -106.2978,
+      "ecosystemPathId": 6005,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Terrestrial",
+      "ecosystemType": "Soil",
+      "ecosystemSubtype": "Temperate forest",
+      "specificEcosystem": "Bulk soil",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": "2015-06-23",
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Forest soil fungal communities from Los Alamos, New Mexico, United States",
+      "hostDiseases": [],
+      "elevationInMeters": 2441,
+      "elevationInMeters2": null,
+      "geoLocation": "USA: New Mexico",
+      "habitat": "soil",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_01000196",
+        "label": "coniferous forest biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_01001785",
+        "label": "land"
+      },
+      "envoMedium": {
+        "id": "ENVO_00002261",
+        "label": "forest soil"
+      },
+      "modDate": "2022-09-05",
+      "addDate": "2018-10-26",
+      "contacts": [
+        {
+          "name": "Rytas Vilgalys",
+          "email": "fungi@duke.edu",
+          "jgiSsoId": "5119",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Armand Seguin",
+          "email": "armand.seguin@canada.ca",
+          "jgiSsoId": "32302",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Ra\u00fal Castanera",
+          "email": "raul.castanera@unavarra.es",
+          "jgiSsoId": "6482",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Jan Stenlid",
+          "email": "jan.stenlid@slu.se",
+          "jgiSsoId": "null",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Kerrie Barry",
+          "email": "kwbarry@lbl.gov",
+          "jgiSsoId": "124",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Joseph Spatafora",
+          "email": "spatafoj@science.oregonstate.edu",
+          "jgiSsoId": "1799",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Jan Stenlid",
+          "email": "jan.stenlid@mykopat.slu.se",
+          "jgiSsoId": "843",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Daniel Cullen",
+          "email": "dcullen@wisc.edu",
+          "jgiSsoId": "153",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "David S. Hibbett",
+          "email": "dhibbett@clarku.edu",
+          "jgiSsoId": "595",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Bjorn D. Lindahl",
+          "email": "bjorn.lindahl@slu.se",
+          "jgiSsoId": "6323",
+          "roles": [
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Roger Finlay",
+          "email": "roger.finlay@slu.se",
+          "jgiSsoId": "6187",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Francis M. Martin",
+          "email": "fmartin1954@me.com",
+          "jgiSsoId": "122",
+          "roles": [
+            "PI"
+          ]
+        },
+        {
+          "name": "Roland Marmeisse",
+          "email": "roland.marmeisse@univ-lyon1.fr",
+          "jgiSsoId": "1371",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Morie-Josee Morency",
+          "email": "marie-josee.morency@canada.ca",
+          "jgiSsoId": "46159",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Igor Grigoriev",
+          "email": "ivgrigoriev@lbl.gov",
+          "jgiSsoId": "281",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Cheryl Kuske",
+          "email": "kuske@lanl.gov",
+          "jgiSsoId": "2182",
+          "roles": [
+            "sample contact",
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Scott E. Baker",
+          "email": "scott.baker@pnnl.gov",
+          "jgiSsoId": "10587",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Annegret Kohler",
+          "email": "annegret.kohler@inra.fr",
+          "jgiSsoId": "997",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Ake Olson",
+          "email": "ake.olson@slu.se",
+          "jgiSsoId": "10567",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Jill Gaskell",
+          "email": "jgaskell@wisc.edu",
+          "jgiSsoId": "884",
+          "roles": [
+            "sample contact"
+          ]
+        }
+      ],
+      "environment_category": "soil"
+    },
+    {
+      "biosampleGoldId": "Gb0051614",
+      "biosampleName": "Soil ecosystem from Raritan Valley Community College, Somerville, New Jersey, USA",
+      "ncbiTaxId": 410658,
+      "ncbiTaxName": "soil metagenome",
+      "sampleCollectionSite": "Campus of Raritan Valley Community College, Somerville, New Jersey",
+      "geographicLocation": "Raritan Valley Community College, Somerville, New Jersey",
+      "latitude": 40.568168,
+      "longitude": -74.61173,
+      "ecosystemPathId": 4212,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Terrestrial",
+      "ecosystemType": "Soil",
+      "ecosystemSubtype": "Unclassified",
+      "specificEcosystem": "Unclassified",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": null,
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": null,
+      "hostDiseases": [],
+      "elevationInMeters": null,
+      "elevationInMeters2": null,
+      "geoLocation": "Raritan Valley Community College, Somerville, New Jersey",
+      "habitat": "Soil",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": 410658,
+      "isoCountry": "USA",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_00000446",
+        "label": "terrestrial biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_00000467",
+        "label": "university campus"
+      },
+      "envoMedium": {
+        "id": "ENVO_00001998",
+        "label": "soil"
+      },
+      "modDate": "2017-11-15",
+      "addDate": "2010-03-29",
+      "contacts": [
+        {
+          "name": "Xiangzhen Li",
+          "email": "lixz@illinois.edu",
+          "jgiSsoId": "2566",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "environment_category": "soil"
+    },
+    {
+      "biosampleGoldId": "Gb0051352",
+      "biosampleName": "Tropical rainforest soil microbial communities from Luquillo Rain Forest, Puerto Rico - eDNA_4 Anaerobic",
+      "ncbiTaxId": 410658,
+      "ncbiTaxName": "soil metagenome",
+      "sampleCollectionSite": "Puerto Rico",
+      "geographicLocation": "Luquillo Rain Forest Puerto Rico",
+      "latitude": 18.3,
+      "longitude": -65.833333,
+      "ecosystemPathId": 4216,
+      "ecosystem": "Environmental",
+      "ecosystemCategory": "Terrestrial",
+      "ecosystemType": "Soil",
+      "ecosystemSubtype": "Unclassified",
+      "specificEcosystem": "Tropical rainforest",
+      "altitudeInMeters": null,
+      "altitudeInMeters2": null,
+      "dateCollected": null,
+      "depthInMeters": null,
+      "depthInMeters2": null,
+      "description": "Puerto Rican Rain forest soil",
+      "hostDiseases": [],
+      "elevationInMeters": 511,
+      "elevationInMeters2": null,
+      "geoLocation": "Luquillo Rain Forest Puerto Rico",
+      "habitat": "Green-waste compost",
+      "hostGender": null,
+      "hostName": null,
+      "hostNcbiTaxid": null,
+      "isoCountry": "Puerto Rico",
+      "longhurst": null,
+      "nitrateConcentration": null,
+      "oxygenConcentration": null,
+      "ph": null,
+      "pressure": null,
+      "salinity": null,
+      "salinityConcentration": null,
+      "sampleBodySite": null,
+      "sampleBodySubsite": null,
+      "sampleCollectionTemperature": null,
+      "subsurfaceDepthInMeters": null,
+      "subsurfaceDepthInMeters2": null,
+      "visitNum": null,
+      "mixsPackage": "Standard",
+      "envoBroadScale": {
+        "id": "ENVO_01000174",
+        "label": "forest biome"
+      },
+      "envoLocalScale": {
+        "id": "ENVO_01001803",
+        "label": "tropical forest"
+      },
+      "envoMedium": {
+        "id": "ENVO_00002261",
+        "label": "forest soil"
+      },
+      "modDate": "2020-01-08",
+      "addDate": "2008-12-19",
+      "contacts": [
+        {
+          "name": "Martin Allgaier",
+          "email": "mallgaier@igb-berlin.de",
+          "jgiSsoId": "5934",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "environment_category": "soil"
+    }
+  ],
+  "sample_seq_projects": [
+    {
+      "projectGoldId": "Gp0056267",
+      "projectName": "Metatranscriptome of wetland microbial communities from Twitchell Island in the Sacramento Delta, sample from surface sediment Aug2011 Site A1 Bulk Metatranscriptome",
+      "legacyGoldId": "Gs0003500",
+      "studyGoldId": "Gs0017769",
+      "biosampleGoldId": "Gb0056203",
+      "organismGoldId": null,
+      "itsProposalId": 368,
+      "itsSpid": 1015588,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": "PRJNA366370",
+      "ncbiBioSampleAccession": "SAMN06268472",
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": "CSP",
+      "jgiFundingYear": 2011,
+      "jgiAwardDoi": "10.46936/10.25585/60000751",
+      "hmpId": null,
+      "seqMethod": [
+        "Illumina HiSeq 2500"
+      ],
+      "itsSequencingProductName": "Metagenome Metatranscriptome",
+      "contacts": [
+        {
+          "name": "Tijana Glavina del Rio",
+          "email": "tglavina@lbl.gov",
+          "jgiSsoId": "2314",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Tanja Woyke",
+          "email": "twoyke@lbl.gov",
+          "jgiSsoId": "1805",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Susannah Tringe",
+          "email": "sgtringe@lbl.gov",
+          "jgiSsoId": "168",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "mark waldrop",
+          "email": "mwaldrop@usgs.gov",
+          "jgiSsoId": "254",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Lisamarie Windham-Myers",
+          "email": "lwindham@usgs.gov",
+          "jgiSsoId": "55953",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [
+        "SRX3312991"
+      ],
+      "modDate": "2025-03-27",
+      "addDate": "2013-02-08",
+      "sequencingStrategy": "Metatranscriptome"
+    },
+    {
+      "projectGoldId": "Gp0056203",
+      "projectName": "Wetland microbial communities from Twitchell Island in the Sacramento Delta, sample from surface sediment Aug2011 Site A1 Bulk",
+      "legacyGoldId": "Gs0003480",
+      "studyGoldId": "Gs0017769",
+      "biosampleGoldId": "Gb0056203",
+      "organismGoldId": null,
+      "itsProposalId": 368,
+      "itsSpid": 1015561,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": "PRJNA366360",
+      "ncbiBioSampleAccession": "SAMN06268462",
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": "CSP",
+      "jgiFundingYear": 2011,
+      "jgiAwardDoi": "10.46936/10.25585/60000751",
+      "hmpId": null,
+      "seqMethod": [
+        "Illumina HiSeq 2500"
+      ],
+      "itsSequencingProductName": "Metagenome Standard Draft",
+      "contacts": [
+        {
+          "name": "mark waldrop",
+          "email": "mwaldrop@usgs.gov",
+          "jgiSsoId": "254",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Tijana Glavina del Rio",
+          "email": "tglavina@lbl.gov",
+          "jgiSsoId": "2314",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Susannah Tringe",
+          "email": "sgtringe@lbl.gov",
+          "jgiSsoId": "168",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Tanja Woyke",
+          "email": "twoyke@lbl.gov",
+          "jgiSsoId": "1805",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Lisamarie Windham-Myers",
+          "email": "lwindham@usgs.gov",
+          "jgiSsoId": "55953",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [
+        "SRX2553227",
+        "SRX2553225"
+      ],
+      "modDate": "2025-03-27",
+      "addDate": "2013-02-08",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0056208",
+      "projectName": "Wetland sediment microbial communities from Twitchell Island in the Sacramento Delta, sample from surface sediment Aug2011 Site B2 Bulk",
+      "legacyGoldId": "Gs0003483",
+      "studyGoldId": "Gs0017769",
+      "biosampleGoldId": "Gb0056208",
+      "organismGoldId": null,
+      "itsProposalId": 368,
+      "itsSpid": 1015567,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": "PRJNA362960",
+      "ncbiBioSampleAccession": "SAMN06251439",
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": "CSP",
+      "jgiFundingYear": 2011,
+      "jgiAwardDoi": "10.46936/10.25585/60000751",
+      "hmpId": null,
+      "seqMethod": [
+        "Illumina HiSeq 2500-Rapid"
+      ],
+      "itsSequencingProductName": "Metagenome Standard Draft",
+      "contacts": [
+        {
+          "name": "Lisamarie Windham-Myers",
+          "email": "lwindham@usgs.gov",
+          "jgiSsoId": "55953",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Susannah Tringe",
+          "email": "sgtringe@lbl.gov",
+          "jgiSsoId": "168",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Tanja Woyke",
+          "email": "twoyke@lbl.gov",
+          "jgiSsoId": "1805",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "mark waldrop",
+          "email": "mwaldrop@usgs.gov",
+          "jgiSsoId": "254",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Tijana Glavina del Rio",
+          "email": "tglavina@lbl.gov",
+          "jgiSsoId": "2314",
+          "roles": [
+            "PM"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [
+        "SRX2514378",
+        "SRX2514377",
+        "SRX2514379",
+        "SRX2514380"
+      ],
+      "modDate": "2025-03-27",
+      "addDate": "2013-02-08",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0056275",
+      "projectName": "Metatranscriptome of wetland microbial communities from Twitchell Island in the Sacramento Delta, sample from surface sediment Aug2011 Site B2 Bulk Metatranscriptome",
+      "legacyGoldId": "Gs0003508",
+      "studyGoldId": "Gs0017769",
+      "biosampleGoldId": "Gb0056208",
+      "organismGoldId": null,
+      "itsProposalId": 368,
+      "itsSpid": 1015591,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": "PRJNA366371",
+      "ncbiBioSampleAccession": "SAMN06268473",
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": "CSP",
+      "jgiFundingYear": 2011,
+      "jgiAwardDoi": "10.46936/10.25585/60000751",
+      "hmpId": null,
+      "seqMethod": [
+        "Illumina HiSeq 2500"
+      ],
+      "itsSequencingProductName": "Metagenome Metatranscriptome, rRNA Depletion",
+      "contacts": [
+        {
+          "name": "mark waldrop",
+          "email": "mwaldrop@usgs.gov",
+          "jgiSsoId": "254",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Lisamarie Windham-Myers",
+          "email": "lwindham@usgs.gov",
+          "jgiSsoId": "55953",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Susannah Tringe",
+          "email": "sgtringe@lbl.gov",
+          "jgiSsoId": "168",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Tijana Glavina del Rio",
+          "email": "tglavina@lbl.gov",
+          "jgiSsoId": "2314",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Tanja Woyke",
+          "email": "twoyke@lbl.gov",
+          "jgiSsoId": "1805",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [
+        "SRX3313362"
+      ],
+      "modDate": "2025-03-27",
+      "addDate": "2013-02-08",
+      "sequencingStrategy": "Metatranscriptome"
+    },
+    {
+      "projectGoldId": "Gp0119772",
+      "projectName": "Marine algae microbial communities from Bantry Bay - Bantry Bay, Ireland",
+      "legacyGoldId": null,
+      "studyGoldId": "Gs0019863",
+      "biosampleGoldId": "Gb0119186",
+      "organismGoldId": null,
+      "itsProposalId": 946,
+      "itsSpid": 1084458,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": "PRJNA365431",
+      "ncbiBioSampleAccession": "SAMN06266344",
+      "projectStatus": "Permanent Draft",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": "CSP",
+      "jgiFundingYear": 2008,
+      "jgiAwardDoi": "10.46936/10.25585/60001428",
+      "hmpId": null,
+      "seqMethod": [
+        "Illumina HiSeq 2500-1TB"
+      ],
+      "itsSequencingProductName": "Metagenome Standard Draft",
+      "contacts": [
+        {
+          "name": "Shan Lu",
+          "email": "shanlu@nju.edu.cn",
+          "jgiSsoId": "56153",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Debashish Bhattacharya",
+          "email": "debash.bhattacharya@gmail.com",
+          "jgiSsoId": "15631",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Senjie Lin",
+          "email": "mscadm04@uconnvm.uconn.edu",
+          "jgiSsoId": "null",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "B. Franz Lang",
+          "email": "franz.lang@umontreal.ca",
+          "jgiSsoId": "2685",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Senjie Lin",
+          "email": "senjie.lin@uconn.edu",
+          "jgiSsoId": "2629",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Charles Yarish",
+          "email": "charles.yarish@uconn.edu",
+          "jgiSsoId": "56157",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gantt, Elisabeth",
+          "email": "egantt@umd.edu",
+          "jgiSsoId": "645",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Sandra Lindstrom",
+          "email": "sandracl@interchange.ubc.ca",
+          "jgiSsoId": "56156",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Supratim Mukherjee",
+          "email": "supratimmukherjee@lbl.gov",
+          "jgiSsoId": "5631",
+          "roles": [
+            "submitter"
+          ]
+        },
+        {
+          "name": "Susan Brawley",
+          "email": "Brawley@maine.edu",
+          "jgiSsoId": "457",
+          "roles": [
+            "PI",
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Gary Saunders",
+          "email": "gws@unb.ca",
+          "jgiSsoId": "55944",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Kirsten Muller",
+          "email": "kmmuller@sciborg.uwaterloo.ca",
+          "jgiSsoId": "56155",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Gertraud Burger",
+          "email": "gertraud.burger@umontreal.ca",
+          "jgiSsoId": "16617",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Arthur Grossman",
+          "email": "arthurg@stanford.edu",
+          "jgiSsoId": "378",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Bhattacharya D",
+          "email": "dbhattac@blue.weeg.uiowa.edu",
+          "jgiSsoId": "null",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Kerrie Barry",
+          "email": "kwbarry@lbl.gov",
+          "jgiSsoId": "124",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "John W. Stiller",
+          "email": "stillerj@mail.ecu.edu",
+          "jgiSsoId": "null",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Juliet Brodie",
+          "email": "j.brodie@nhm.ac.uk",
+          "jgiSsoId": "38034",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Ira Levine",
+          "email": "ilevine@usm.maine.edu",
+          "jgiSsoId": "56154",
+          "roles": [
+            "collaborator"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [],
+      "modDate": "2025-03-31",
+      "addDate": "2015-08-10",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0051158",
+      "projectName": "Tilapia pond freshwater microbial communities from Kent SeaTech - TilPondKentSTMic0806",
+      "legacyGoldId": "Gs0000327",
+      "studyGoldId": "Gs0045086",
+      "biosampleGoldId": "Gb0051158",
+      "organismGoldId": null,
+      "itsProposalId": null,
+      "itsSpid": null,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": null,
+      "ncbiBioSampleAccession": null,
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "454 Life Sciences"
+      ],
+      "jgiFundingProgram": null,
+      "jgiFundingYear": null,
+      "jgiAwardDoi": null,
+      "hmpId": null,
+      "seqMethod": [
+        "454"
+      ],
+      "itsSequencingProductName": null,
+      "contacts": [
+        {
+          "name": "Dinsdale E",
+          "email": "elizabeth_dinsdale@hotmail.com",
+          "jgiSsoId": "null",
+          "roles": [
+            "other",
+            "PI"
+          ]
+        },
+        {
+          "name": "Nikos Kyrpides",
+          "email": "nckyrpides@lbl.gov",
+          "jgiSsoId": "1882",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "genomePublications": [
+        {
+          "publicationId": 39223,
+          "pubmedId": 18337718,
+          "journalName": "Nature",
+          "volume": "452",
+          "issue": "7187",
+          "page": "629-32",
+          "title": "Functional metagenomic profiling of nine biomes.",
+          "publicationDate": "2008-04-03",
+          "doi": "10.1038/nature06810"
+        }
+      ],
+      "otherPublications": [],
+      "sraExperimentIds": [],
+      "modDate": "2014-12-16",
+      "addDate": "2008-03-23",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0051162",
+      "projectName": "Tiapia freshwater pond viral communities from Kent SeaTech, Salton Sea, California, USA - TilPondKentSTVir0806",
+      "legacyGoldId": "Gs0000331",
+      "studyGoldId": "Gs0045086",
+      "biosampleGoldId": "Gb0051162",
+      "organismGoldId": null,
+      "itsProposalId": null,
+      "itsSpid": null,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": null,
+      "ncbiBioSampleAccession": null,
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "454 Life Sciences"
+      ],
+      "jgiFundingProgram": null,
+      "jgiFundingYear": null,
+      "jgiAwardDoi": null,
+      "hmpId": null,
+      "seqMethod": [
+        "454"
+      ],
+      "itsSequencingProductName": null,
+      "contacts": [
+        {
+          "name": "Nikos Kyrpides",
+          "email": "nckyrpides@lbl.gov",
+          "jgiSsoId": "1882",
+          "roles": [
+            "submitter"
+          ]
+        },
+        {
+          "name": "Dinsdale E",
+          "email": "elizabeth_dinsdale@hotmail.com",
+          "jgiSsoId": "null",
+          "roles": [
+            "other",
+            "PI"
+          ]
+        }
+      ],
+      "genomePublications": [
+        {
+          "publicationId": 39223,
+          "pubmedId": 18337718,
+          "journalName": "Nature",
+          "volume": "452",
+          "issue": "7187",
+          "page": "629-32",
+          "title": "Functional metagenomic profiling of nine biomes.",
+          "publicationDate": "2008-04-03",
+          "doi": "10.1038/nature06810"
+        }
+      ],
+      "otherPublications": [],
+      "sraExperimentIds": [],
+      "modDate": "2014-08-04",
+      "addDate": "2008-03-23",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0051160",
+      "projectName": "Freshwater viral communities from prebead pond at Kent SeaTech, Salton Sea, California, USA - PrePondKentSTVir050406",
+      "legacyGoldId": "Gs0000329",
+      "studyGoldId": "Gs0045086",
+      "biosampleGoldId": "Gb0051160",
+      "organismGoldId": null,
+      "itsProposalId": null,
+      "itsSpid": null,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": null,
+      "ncbiBioSampleAccession": null,
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "454 Life Sciences"
+      ],
+      "jgiFundingProgram": null,
+      "jgiFundingYear": null,
+      "jgiAwardDoi": null,
+      "hmpId": null,
+      "seqMethod": [
+        "454"
+      ],
+      "itsSequencingProductName": null,
+      "contacts": [
+        {
+          "name": "Dinsdale E",
+          "email": "elizabeth_dinsdale@hotmail.com",
+          "jgiSsoId": "null",
+          "roles": [
+            "other",
+            "PI"
+          ]
+        },
+        {
+          "name": "Nikos Kyrpides",
+          "email": "nckyrpides@lbl.gov",
+          "jgiSsoId": "1882",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "genomePublications": [
+        {
+          "publicationId": 39223,
+          "pubmedId": 18337718,
+          "journalName": "Nature",
+          "volume": "452",
+          "issue": "7187",
+          "page": "629-32",
+          "title": "Functional metagenomic profiling of nine biomes.",
+          "publicationDate": "2008-04-03",
+          "doi": "10.1038/nature06810"
+        }
+      ],
+      "otherPublications": [],
+      "sraExperimentIds": [],
+      "modDate": "2014-08-04",
+      "addDate": "2008-03-23",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0344956",
+      "projectName": "Metatranscriptome of forest soil fungal communities from Los Alamos, New Mexico, United States - Jemez Pines Pi 5A",
+      "legacyGoldId": null,
+      "studyGoldId": "Gs0014612",
+      "biosampleGoldId": "Gb0195976",
+      "organismGoldId": null,
+      "itsProposalId": 570,
+      "itsSpid": 1089230,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": "PRJNA502278",
+      "ncbiBioSampleAccession": "SAMN10350772",
+      "projectStatus": "Permanent Draft",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": "CSP",
+      "jgiFundingYear": 2012,
+      "jgiAwardDoi": "10.46936/10.25585/60000986",
+      "hmpId": null,
+      "seqMethod": [
+        "Illumina HiSeq 2500-1TB"
+      ],
+      "itsSequencingProductName": "Eukaryote Community Metatranscriptome",
+      "contacts": [
+        {
+          "name": "Francis M. Martin",
+          "email": "fmartin1954@me.com",
+          "jgiSsoId": "122",
+          "roles": [
+            "PI"
+          ]
+        },
+        {
+          "name": "Joseph Spatafora",
+          "email": "spatafoj@science.oregonstate.edu",
+          "jgiSsoId": "1799",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Igor Grigoriev",
+          "email": "ivgrigoriev@lbl.gov",
+          "jgiSsoId": "281",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Annegret Kohler",
+          "email": "annegret.kohler@inra.fr",
+          "jgiSsoId": "997",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Rytas Vilgalys",
+          "email": "fungi@duke.edu",
+          "jgiSsoId": "5119",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Bjorn D. Lindahl",
+          "email": "bjorn.lindahl@slu.se",
+          "jgiSsoId": "6323",
+          "roles": [
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Jan Stenlid",
+          "email": "jan.stenlid@mykopat.slu.se",
+          "jgiSsoId": "843",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "David S. Hibbett",
+          "email": "dhibbett@clarku.edu",
+          "jgiSsoId": "595",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Jan Stenlid",
+          "email": "jan.stenlid@slu.se",
+          "jgiSsoId": "null",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Scott E. Baker",
+          "email": "scott.baker@pnnl.gov",
+          "jgiSsoId": "10587",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Morie-Josee Morency",
+          "email": "marie-josee.morency@canada.ca",
+          "jgiSsoId": "46159",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Roger Finlay",
+          "email": "roger.finlay@slu.se",
+          "jgiSsoId": "6187",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Kerrie Barry",
+          "email": "kwbarry@lbl.gov",
+          "jgiSsoId": "124",
+          "roles": [
+            "PM"
+          ]
+        },
+        {
+          "name": "Ra\u00fal Castanera",
+          "email": "raul.castanera@unavarra.es",
+          "jgiSsoId": "6482",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Armand Seguin",
+          "email": "armand.seguin@canada.ca",
+          "jgiSsoId": "32302",
+          "roles": [
+            "collaborator"
+          ]
+        },
+        {
+          "name": "Roland Marmeisse",
+          "email": "roland.marmeisse@univ-lyon1.fr",
+          "jgiSsoId": "1371",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Jill Gaskell",
+          "email": "jgaskell@wisc.edu",
+          "jgiSsoId": "884",
+          "roles": [
+            "sample contact"
+          ]
+        },
+        {
+          "name": "Cheryl Kuske",
+          "email": "kuske@lanl.gov",
+          "jgiSsoId": "2182",
+          "roles": [
+            "sample contact",
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Daniel Cullen",
+          "email": "dcullen@wisc.edu",
+          "jgiSsoId": "153",
+          "roles": [
+            "co-PI"
+          ]
+        },
+        {
+          "name": "Ake Olson",
+          "email": "ake.olson@slu.se",
+          "jgiSsoId": "10567",
+          "roles": [
+            "co-PI"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [
+        "SRX5056985"
+      ],
+      "modDate": "2023-08-28",
+      "addDate": "2018-10-26",
+      "sequencingStrategy": "Metatranscriptome"
+    },
+    {
+      "projectGoldId": "Gp0051614",
+      "projectName": "Sample 10342",
+      "legacyGoldId": "Gs0000291",
+      "studyGoldId": "Gs0045077",
+      "biosampleGoldId": "Gb0051614",
+      "organismGoldId": null,
+      "itsProposalId": null,
+      "itsSpid": null,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": null,
+      "ncbiBioSampleAccession": null,
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [],
+      "jgiFundingProgram": null,
+      "jgiFundingYear": null,
+      "jgiAwardDoi": null,
+      "hmpId": null,
+      "seqMethod": [],
+      "itsSequencingProductName": null,
+      "contacts": [
+        {
+          "name": "Xiangzhen Li",
+          "email": "lixz@illinois.edu",
+          "jgiSsoId": "2566",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "genomePublications": [],
+      "otherPublications": [],
+      "sraExperimentIds": [],
+      "modDate": "2011-08-16",
+      "addDate": "2010-03-29",
+      "sequencingStrategy": "Metagenome"
+    },
+    {
+      "projectGoldId": "Gp0051352",
+      "projectName": "Tropical rainforest soil microbial communities from Luquillo Rain Forest, Puerto Rico - eDNA_4 Anaerobic",
+      "legacyGoldId": "Gs0000424",
+      "studyGoldId": "Gs0045248",
+      "biosampleGoldId": "Gb0051352",
+      "organismGoldId": null,
+      "itsProposalId": null,
+      "itsSpid": null,
+      "itsSampleId": null,
+      "pmoProjectId": null,
+      "ncbiBioProjectAccession": null,
+      "ncbiBioSampleAccession": null,
+      "projectStatus": "incomplete",
+      "sequencingStatus": "Complete",
+      "sequencingCenters": [
+        "DOE Joint Genome Institute (JGI)"
+      ],
+      "jgiFundingProgram": null,
+      "jgiFundingYear": null,
+      "jgiAwardDoi": null,
+      "hmpId": null,
+      "seqMethod": [],
+      "itsSequencingProductName": null,
+      "contacts": [
+        {
+          "name": "Phil Hugenholtz",
+          "email": "phugenholtz@lbl.gov",
+          "jgiSsoId": "248",
+          "roles": [
+            "other",
+            "PI"
+          ]
+        },
+        {
+          "name": "Martin Allgaier",
+          "email": "mallgaier@igb-berlin.de",
+          "jgiSsoId": "5934",
+          "roles": [
+            "submitter"
+          ]
+        }
+      ],
+      "genomePublications": [
+        {
+          "publicationId": 39793,
+          "pubmedId": 20098679,
+          "journalName": "PloS one",
+          "volume": "5",
+          "issue": "1",
+          "page": "e8812",
+          "title": "Targeted discovery of glycoside hydrolases from a switchgrass-adapted compost community.",
+          "publicationDate": null,
+          "doi": "10.1371/journal.pone.0008812"
+        }
+      ],
+      "otherPublications": [],
+      "sraExperimentIds": [],
+      "modDate": "2014-02-18",
+      "addDate": "2008-12-19",
+      "sequencingStrategy": "Metagenome"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "11": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Open Water'",
+    "id": "ENVO:01001316",
+    "label": "estuarine open water upper water column",
+    "source": "USGS NLCD",
+    "term": "Open Water"
+  },
+  "12": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Perennial Ice/Snow'",
+    "id": "ENVO:01000746",
+    "label": "area of perennial ice or snow",
+    "source": "USGS NLCD",
+    "term": "Perennial Ice/Snow"
+  },
+  "21": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Developed, Open Space'",
+    "id": "ENVO:01000883",
+    "label": "area of developed open space",
+    "source": "USGS NLCD",
+    "term": "Developed, Open Space"
+  },
+  "22": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Developed, Low Intensity'",
+    "id": "ENVO:01000884",
+    "label": "area of developed space with low usage intensity",
+    "source": "USGS NLCD",
+    "term": "Developed, Low Intensity"
+  },
+  "23": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Developed, Medium Intensity'",
+    "id": "ENVO:01000885",
+    "label": "area of developed space with medium usage intensity",
+    "source": "USGS NLCD",
+    "term": "Developed, Medium Intensity"
+  },
+  "24": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Developed, High Intensity'",
+    "id": "ENVO:01000886",
+    "label": "area of developed space with high usage intensity",
+    "source": "USGS NLCD",
+    "term": "Developed, High Intensity"
+  },
+  "31": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Barren Land'",
+    "id": "ENVO:00000127",
+    "label": "badland",
+    "source": "USGS NLCD",
+    "term": "Barren Land"
+  },
+  "41": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Deciduous Forest'",
+    "id": "ENVO:01000385",
+    "label": "temperate deciduous broadleaf forest",
+    "source": "USGS NLCD",
+    "term": "Deciduous Forest"
+  },
+  "42": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Evergreen Forest'",
+    "id": "ENVO:01000383",
+    "label": "temperate evergreen needleleaf forest",
+    "source": "USGS NLCD",
+    "term": "Evergreen Forest"
+  },
+  "43": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Mixed Forest'",
+    "id": "ENVO:01000431",
+    "label": "mixed forest",
+    "source": "USGS NLCD",
+    "term": "Mixed Forest"
+  },
+  "51": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Dwarf Scrub'",
+    "id": "ENVO:01000861",
+    "label": "area of dwarf scrub",
+    "source": "USGS NLCD",
+    "term": "Dwarf Scrub"
+  },
+  "52": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Shrub/Scrub'",
+    "id": "ENVO:01000336",
+    "label": "shrub layer",
+    "source": "USGS NLCD",
+    "term": "Shrub/Scrub"
+  },
+  "71": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Grassland/Herbaceous'",
+    "id": "ENVO:01001206",
+    "label": "grassland ecosystem",
+    "source": "USGS NLCD",
+    "term": "Grassland/Herbaceous"
+  },
+  "72": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Sedge/Herbaceous'",
+    "id": "ENVO:01000887",
+    "label": "area of sedge- and forb-dominated herbaceous vegetation",
+    "source": "USGS NLCD",
+    "term": "Sedge/Herbaceous"
+  },
+  "73": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Lichens'",
+    "id": "ENVO:01000889",
+    "label": "area of lichen-dominated vegetation",
+    "source": "USGS NLCD",
+    "term": "Lichens"
+  },
+  "74": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Moss'",
+    "id": "ENVO:01000890",
+    "label": "area of moss-dominated vegetation",
+    "source": "USGS NLCD",
+    "term": "Moss"
+  },
+  "81": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Pasture/Hay'",
+    "id": "ENVO:00000266",
+    "label": "pasture",
+    "source": "USGS NLCD",
+    "term": "Pasture/Hay"
+  },
+  "82": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Cultivated Crops'",
+    "id": "ENVO:01000311",
+    "label": "cultivated environment",
+    "source": "USGS NLCD",
+    "term": "Cultivated Crops"
+  },
+  "90": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Woody Wetlands'",
+    "id": "ENVO:01000893",
+    "label": "area of woody wetland",
+    "source": "USGS NLCD",
+    "term": "Woody Wetlands"
+  },
+  "95": {
+    "confidence": "ai_assisted",
+    "explanation": "Best match from OLS API search for 'Emergent Herbaceous Wetlands'",
+    "id": "ENVO:01000894",
+    "label": "area of emergent herbaceous wetland",
+    "source": "USGS NLCD",
+    "term": "Emergent Herbaceous Wetlands"
+  }
+}

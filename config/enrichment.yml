@@ -1,0 +1,135 @@
+# Comprehensive geospatial enrichment configuration
+# Dataset paths, provider settings, and processing parameters
+
+version: "1.0"
+created: "2025-09-08"
+description: "Configuration for crawl-first unified enrichment system"
+
+# Dataset file paths (local COG files and shapefiles)
+datasets:
+  elevation:
+    copernicus_dem: "/data/elevation/copernicus_dem_30m.tif"
+    usgs_point_service: true  # Enable USGS Elevation Point Query Service for US locations
+    
+  land_cover:
+    worldcover_2021: "/data/land_cover/esa_worldcover_2021_v200.tif"
+    nlcd_2019: "/data/land_cover/nlcd_2019_land_cover_l48_20210604.tif"
+    nlcd_2021: "/data/land_cover/nlcd_2021_land_cover_l48_20230630.tif"
+    
+  soils:
+    soilgrids_ph: "/data/soils/soilgrids/phh2o_0-5cm_mean.tif"
+    soilgrids_soc: "/data/soils/soilgrids/soc_0-5cm_mean.tif"
+    soilgrids_sand: "/data/soils/soilgrids/sand_0-5cm_mean.tif"
+    soilgrids_silt: "/data/soils/soilgrids/silt_0-5cm_mean.tif"
+    soilgrids_clay: "/data/soils/soilgrids/clay_0-5cm_mean.tif"
+    soilgrids_bdod: "/data/soils/soilgrids/bdod_0-5cm_mean.tif"
+    soilgrids_nitrogen: "/data/soils/soilgrids/nitrogen_0-5cm_mean.tif"
+    soilgrids_ocd: "/data/soils/soilgrids/ocd_0-5cm_mean.tif"
+    
+  coastlines: "/data/coastlines/gshhs/gshhs_c.shp"
+  inland_water: "/data/hydrolakes/HydroLAKES_polys_v10.shp"
+  ecoregions: "/data/ecoregions/wwf_terr_ecos/wwf_terr_ecos.shp"
+
+# Provider preferences and fallback chains
+providers:
+  weather:
+    primary: "open_meteo"
+    secondary: "meteostat" 
+    fallback: "prism_us"  # US-only fallback
+    rate_limit_s: 1.0
+    timeout_s: 30
+    
+  elevation:
+    primary: "local_dem"      # Local DEM files
+    fallback: "usgs_point"    # USGS Point Query Service
+    
+  land_cover:
+    primary: "local_cog"      # Local COG files
+    fallback: "wms_services"  # ESA WorldCover, NLCD WMS
+    
+  soils:
+    primary: "local_cog"      # Local SoilGrids COG files
+    fallback: "soilgrids_api" # SoilGrids REST API
+
+# OpenStreetMap settings
+osm:
+  default_radius_m: 1000
+  timeout_s: 180
+  max_features: 100
+  overpass_url: "https://overpass-api.de/api/interpreter"
+  retry_attempts: 2
+  retry_delay_s: 5
+
+# Site typing classification parameters
+site_typing:
+  D_open_km: 20      # Distance threshold for open ocean classification
+  D_inland_km: 0.2   # Distance threshold for inland water classification  
+  D_coast_km: 2      # Distance threshold for coastal terrestrial classification
+  osm_water_radius_m: 1000  # Radius for OSM water feature search
+
+# Crosswalk mappings and ontologies
+crosswalks:
+  envo_mapping: "/mappings/envo_crosswalk.json"
+  usda_texture: true  # Enable USDA soil texture triangle classification
+
+# Raster sampling strategies
+sampling:
+  elevation:
+    method: "bilinear"
+    window_px: 1
+    
+  land_cover:
+    method: "nearest" 
+    window_px: 1
+    
+  soils:
+    method: "buffered_median"
+    window_px: 3  # 3x3 median for soil properties
+    
+# Weather aggregation parameters
+weather:
+  coverage_threshold: 0.7  # Minimum data coverage for daily aggregation
+  quality_flags:
+    - "temperature_2m"
+    - "precipitation" 
+    - "wind_speed_10m"
+    - "relative_humidity_2m"
+  fallback_search_radius_km: 50  # Search radius for nearby stations
+
+# WMS/WCS service settings
+wms:
+  default_timeout_s: 30
+  capabilities_cache_hours: 24
+  supported_versions: ["1.3.0", "1.1.1"]
+  preferred_formats: ["application/json", "text/xml", "image/geotiff"]
+
+# Caching and performance
+caching:
+  enable_capabilities_cache: true
+  cache_duration_hours: 24
+  max_concurrent_requests: 10
+  
+# Output formatting
+output:
+  precision:
+    distances_km: 3      # Decimal places for distance measurements
+    coordinates: 6       # Decimal places for lat/lon
+    weather_values: 2    # Decimal places for weather parameters
+    soil_values: 2       # Decimal places for soil properties
+    
+  include_debug_info: false
+  include_raw_responses: false
+  
+# Error handling
+error_handling:
+  max_retries: 3
+  retry_delay_s: 2
+  timeout_multiplier: 1.5
+  fail_fast: false  # Continue enrichment even if some components fail
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  include_timestamps: true
+  include_coordinates: true
+  log_api_calls: true

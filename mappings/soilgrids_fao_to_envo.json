@@ -1,0 +1,205 @@
+{
+  "Acrisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002263",
+    "label": "acrisol",
+    "source": "FAO World Reference Base",
+    "term": "Acrisol"
+  },
+  "Albeluvisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002275",
+    "label": "albeluvisol",
+    "source": "FAO World Reference Base",
+    "term": "Albeluvisol"
+  },
+  "Alisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002264",
+    "label": "alisol",
+    "source": "FAO World Reference Base",
+    "term": "Alisol"
+  },
+  "Andosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002265",
+    "label": "andosol",
+    "source": "FAO World Reference Base",
+    "term": "Andosol"
+  },
+  "Arenosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002266",
+    "label": "arenosol",
+    "source": "FAO World Reference Base",
+    "term": "Arenosol"
+  },
+  "Calcisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002267",
+    "label": "calcisol",
+    "source": "FAO World Reference Base",
+    "term": "Calcisol"
+  },
+  "Cambisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002268",
+    "label": "cambisol",
+    "source": "FAO World Reference Base",
+    "term": "Cambisol"
+  },
+  "Chernozems": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002269",
+    "label": "chernozem",
+    "source": "FAO World Reference Base",
+    "term": "Chernozem"
+  },
+  "Cryosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002270",
+    "label": "cryosol",
+    "source": "FAO World Reference Base",
+    "term": "Cryosol"
+  },
+  "Durisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002271",
+    "label": "durisol",
+    "source": "FAO World Reference Base",
+    "term": "Durisol"
+  },
+  "Ferralsols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002272",
+    "label": "ferralsol",
+    "source": "FAO World Reference Base",
+    "term": "Ferralsol"
+  },
+  "Fluvisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002273",
+    "label": "fluvisol",
+    "source": "FAO World Reference Base",
+    "term": "Fluvisol"
+  },
+  "Gleysols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002274",
+    "label": "gleysol",
+    "source": "FAO World Reference Base",
+    "term": "Gleysol"
+  },
+  "Histosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002276",
+    "label": "histosol",
+    "source": "FAO World Reference Base",
+    "term": "Histosol"
+  },
+  "Kastanozems": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002277",
+    "label": "kastanozem",
+    "source": "FAO World Reference Base",
+    "term": "Kastanozem"
+  },
+  "Leptosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002278",
+    "label": "leptosol",
+    "source": "FAO World Reference Base",
+    "term": "Leptosol"
+  },
+  "Lixisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002279",
+    "label": "lixisol",
+    "source": "FAO World Reference Base",
+    "term": "Lixisol"
+  },
+  "Luvisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002280",
+    "label": "luvisol",
+    "source": "FAO World Reference Base",
+    "term": "Luvisol"
+  },
+  "Nitisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002281",
+    "label": "nitisol",
+    "source": "FAO World Reference Base",
+    "term": "Nitisol"
+  },
+  "Phaeozems": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002282",
+    "label": "phaeozem",
+    "source": "FAO World Reference Base",
+    "term": "Phaeozem"
+  },
+  "Planosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002283",
+    "label": "planosol",
+    "source": "FAO World Reference Base",
+    "term": "Planosol"
+  },
+  "Plinthosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002284",
+    "label": "plinthosol",
+    "source": "FAO World Reference Base",
+    "term": "Plinthosol"
+  },
+  "Podzols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002285",
+    "label": "podzol",
+    "source": "FAO World Reference Base",
+    "term": "Podzol"
+  },
+  "Regosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002286",
+    "label": "regosol",
+    "source": "FAO World Reference Base",
+    "term": "Regosol"
+  },
+  "Solonchaks": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002287",
+    "label": "solonchak",
+    "source": "FAO World Reference Base",
+    "term": "Solonchak"
+  },
+  "Solonetz": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002288",
+    "label": "solonetz",
+    "source": "FAO World Reference Base",
+    "term": "Solonetz"
+  },
+  "Stagnosols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002289",
+    "label": "stagnosol",
+    "source": "FAO World Reference Base",
+    "term": "Stagnosol"
+  },
+  "Umbrisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002290",
+    "label": "umbrisol",
+    "source": "FAO World Reference Base",
+    "term": "Umbrisol"
+  },
+  "Vertisols": {
+    "confidence": "deterministic",
+    "id": "ENVO:00002291",
+    "label": "vertisol",
+    "source": "FAO World Reference Base",
+    "term": "Vertisol"
+  }
+}
